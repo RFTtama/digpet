@@ -11,5 +11,10 @@ namespace digpet
         {
 
         }
+
+        private void CpuUsageTimer_Tick(object sender, EventArgs e)
+        {
+
+        }
     }
 }

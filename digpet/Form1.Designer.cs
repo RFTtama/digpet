@@ -28,19 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            CpuUsageTimer = new System.Windows.Forms.Timer(components);
             SuspendLayout();
+            // 
+            // CpuUsageTimer
+            // 
+            CpuUsageTimer.Interval = 1000;
+            CpuUsageTimer.Tick += CpuUsageTimer_Tick;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(509, 455);
             Name = "Form1";
-            Text = "Form1";
+            Text = "digpet";
             Load += Form1_Load;
             ResumeLayout(false);
         }
 
         #endregion
+
+        private System.Windows.Forms.Timer CpuUsageTimer;
     }
 }
