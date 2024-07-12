@@ -13,7 +13,7 @@ namespace digpet
     internal static class CpuWatcher
     {
         //cpu用のパフォーマンスカウンタ
-        private static PerformanceCounter cpuCounter = new PerformanceCounter(".", "Processor", "% Processor Time", "_Total");
+        private static PerformanceCounter cpuCounter = new (".", "Processor", "% Processor Time", "_Total");
 
         /// <summary>
         /// cpu利用率を取得する
