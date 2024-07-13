@@ -9,14 +9,22 @@ namespace digpet
     internal class TokenManager
     {
         //固定値関連の宣言
-        public const double TOKEN_CALC_WEIGHT = 0.0694;
+        public const double TOKEN_CALC_WEIGHT = 0.00694;
 
         //変数関連の宣言
         private double _dailyTokens;
 
+        /// <summary>
+        /// 今日の累計トークン
+        /// </summary>
+        public double DailyTokens
+        {
+            get { return _dailyTokens; }
+        }
+
         public TokenManager() 
         {
-            
+            Clear();
         }
 
         public void Clear()
@@ -24,9 +32,9 @@ namespace digpet
             _dailyTokens = 0.0;
         }
 
-        public double CalcMinTokens(double minToken)
+        public void AddTokens(double minToken)
         {
-            return minToken * TOKEN_CALC_WEIGHT;
+            _dailyTokens += minToken * TOKEN_CALC_WEIGHT;
         }
     }
 }

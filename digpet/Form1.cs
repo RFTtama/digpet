@@ -53,7 +53,8 @@ namespace digpet
         {
             cpuCnt = 0;
             cpuAvg = cpuAvgManager.GetCpuAvg();
-            TestLabel1.Text = tokenManager.CalcMinTokens(cpuAvg).ToString();
+            tokenManager.AddTokens(cpuAvg);
+            TestLabel1.Text = tokenManager.DailyTokens.ToString();
             cpuAvgManager.Clear();
         }
 
