@@ -51,7 +51,7 @@ namespace digpet
         public void AddTokens(double minToken)
         {
             TokenExist();
-            _dailyTokens += Math.Sqrt(minToken) * TOKEN_CALC_WEIGHT;
+            _dailyTokens += (Math.Sqrt(minToken) * 10.0) * TOKEN_CALC_WEIGHT;
             WriteTokens();
         }
 

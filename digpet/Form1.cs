@@ -61,7 +61,7 @@ namespace digpet
 
         private void Label1Out(double value)
         {
-            TestLabel1.Text = "今日獲得したトークン: " + value.ToString("R");
+            TestLabel1.Text = "今日の気分: " + value.ToString("R") + " / 1000.0";
         }
 
         /// <summary>
