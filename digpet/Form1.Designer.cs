@@ -32,6 +32,7 @@
             CpuUsageTimer = new System.Windows.Forms.Timer(components);
             TestLabel1 = new Label();
             TestLabel2 = new Label();
+            KibunLabel = new Label();
             SuspendLayout();
             // 
             // CpuUsageTimer
@@ -44,7 +45,7 @@
             TestLabel1.AutoSize = true;
             TestLabel1.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
             TestLabel1.ForeColor = Color.Orange;
-            TestLabel1.Location = new Point(12, 396);
+            TestLabel1.Location = new Point(12, 371);
             TestLabel1.Name = "TestLabel1";
             TestLabel1.Size = new Size(58, 25);
             TestLabel1.TabIndex = 0;
@@ -61,11 +62,23 @@
             TestLabel2.TabIndex = 1;
             TestLabel2.Text = "None";
             // 
+            // KibunLabel
+            // 
+            KibunLabel.AutoSize = true;
+            KibunLabel.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            KibunLabel.ForeColor = Color.Orange;
+            KibunLabel.Location = new Point(12, 396);
+            KibunLabel.Name = "KibunLabel";
+            KibunLabel.Size = new Size(58, 25);
+            KibunLabel.TabIndex = 2;
+            KibunLabel.Text = "None";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(509, 455);
+            Controls.Add(KibunLabel);
             Controls.Add(TestLabel2);
             Controls.Add(TestLabel1);
             Name = "Form1";
@@ -79,5 +92,6 @@
         private System.Windows.Forms.Timer CpuUsageTimer;
         private Label TestLabel1;
         private Label TestLabel2;
+        private Label KibunLabel;
     }
 }

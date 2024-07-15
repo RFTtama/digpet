@@ -62,6 +62,7 @@ namespace digpet
         private void Label1Out(double value)
         {
             TestLabel1.Text = "今日のトークン: " + value.ToString("R") + " / 1000.0";
+            KibunLabelOut(value);
         }
 
         /// <summary>
@@ -78,6 +79,11 @@ namespace digpet
         private void Label2Out(double value)
         {
             TestLabel2.Text = "現在のCPU利用率: " + value.ToString("n2") + "%";
+        }
+
+        private void KibunLabelOut(double value)
+        {
+            KibunLabel.Text = "トークン獲得量: " + (value / 1000.0 * 100.0).ToString("n2") + "%";
         }
     }
 }
