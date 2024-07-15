@@ -27,17 +27,27 @@ namespace digpet
             get { return _dailyTokens; }
         }
 
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
         public TokenManager() 
         {
             Clear();
         }
 
+        /// <summary>
+        /// トークン情報をクリア
+        /// </summary>
         public void Clear()
         {
             _dailyTokens = 0.0;
             ReadTokens();
         }
 
+        /// <summary>
+        /// トークンを追加
+        /// </summary>
+        /// <param name="minToken">時間毎のトークン(未計算)</param>
         public void AddTokens(double minToken)
         {
             TokenExist();
@@ -45,18 +55,27 @@ namespace digpet
             WriteTokens();
         }
 
+        /// <summary>
+        /// トークンを読み取る
+        /// </summary>
         private void ReadTokens()
         {
             djm.ReadJsonFile(TOKEN_PATH);
             TokenExist();
         }
 
+        /// <summary>
+        /// トークンを書き出す
+        /// </summary>
         private void WriteTokens()
         {
             djm.dict[DateTime.Today.ToString()] = _dailyTokens;
             djm.WriteJsonFile(TOKEN_PATH);
         }
 
+        /// <summary>
+        /// トークンリセットする,トークンファイルがない場合は作成する
+        /// </summary>
         private void TokenExist()
         {
             if (djm.dict.ContainsKey(DateTime.Today.ToString()))
