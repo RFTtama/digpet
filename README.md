@@ -1,2 +1,8 @@
-![OIG2](https://github.com/user-attachments/assets/14f163d7-79f4-47fb-92a6-3b418d5e2eb8)
-<br>digpet アイコン案(DALLE 3生成)
+# digpet(仮)
+## コンセプト
+PC上にペットを飼えるアプリケーション<br>
+## 機能
+- ペットは個人でカスタマイズ可能<br>
+- PCのCPU使用率が高く、長時間PCを使用しているほどペットがなつく<br>
+##
+現在 V1.00.00 開発中!!<br>
