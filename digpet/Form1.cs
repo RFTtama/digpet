@@ -18,6 +18,7 @@ namespace digpet
             cpuAvgManager = new CpuAvgManager();
             tokenManager = new TokenManager();
             CpuUsageTimer.Enabled = true;
+            Label1Out(tokenManager.DailyTokens);
         }
 
 
@@ -54,8 +55,13 @@ namespace digpet
             cpuCnt = 0;
             cpuAvg = cpuAvgManager.GetCpuAvg();
             tokenManager.AddTokens(cpuAvg);
-            TestLabel1.Text = tokenManager.DailyTokens.ToString();
+            Label1Out(tokenManager.DailyTokens);
             cpuAvgManager.Clear();
+        }
+
+        private void Label1Out(double value)
+        {
+            TestLabel1.Text = "今日獲得したトークン: " + value.ToString("R");
         }
 
         /// <summary>
@@ -65,8 +71,13 @@ namespace digpet
         {
             double cpuUsage = (double)CpuWatcher.GetCpuUsage();
             cpuAvgManager.SetCpuSum(cpuUsage);
-            TestLabel2.Text = cpuUsage.ToString();
+            Label2Out(cpuUsage);
             cpuCnt++;
+        }
+
+        private void Label2Out(double value)
+        {
+            TestLabel2.Text = "現在のCPU利用率: " + value.ToString("n2") + "%";
         }
     }
 }

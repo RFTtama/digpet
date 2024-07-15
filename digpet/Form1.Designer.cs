@@ -42,18 +42,22 @@
             // TestLabel1
             // 
             TestLabel1.AutoSize = true;
-            TestLabel1.Location = new Point(230, 241);
+            TestLabel1.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            TestLabel1.ForeColor = Color.Orange;
+            TestLabel1.Location = new Point(12, 396);
             TestLabel1.Name = "TestLabel1";
-            TestLabel1.Size = new Size(36, 15);
+            TestLabel1.Size = new Size(58, 25);
             TestLabel1.TabIndex = 0;
             TestLabel1.Text = "None";
             // 
             // TestLabel2
             // 
             TestLabel2.AutoSize = true;
-            TestLabel2.Location = new Point(230, 274);
+            TestLabel2.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            TestLabel2.ForeColor = Color.Orange;
+            TestLabel2.Location = new Point(12, 421);
             TestLabel2.Name = "TestLabel2";
-            TestLabel2.Size = new Size(36, 15);
+            TestLabel2.Size = new Size(58, 25);
             TestLabel2.TabIndex = 1;
             TestLabel2.Text = "None";
             // 
