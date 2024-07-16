@@ -10,6 +10,12 @@ namespace digpet
         private int cpuCnt;
         private double cpuAvg;
 
+        //定数の宣言
+        private readonly string[] FEELING_STRING =
+        {
+            "絶望", "悲嘆", "落胆", "苦しみ", "悲しみ", "不安", "怒り", "焦り", "イライラ", "退屈", "中立", "平静", "安心", "満足", "楽しい", "喜び", "幸福", "感謝", "興奮", "感動", "至福"
+        };
+
         public Form1()
         {
             InitializeComponent();
@@ -74,12 +80,25 @@ namespace digpet
         }
 
         /// <summary>
+        /// 今日の気分を文字に変換する
+        /// </summary>
+        /// <param name="feeling">今日の気分(double)</param>
+        /// <returns></returns>
+        private string GetFeeling(double feeling)
+        {
+            int feel = (int)feeling;
+            if(feel > 100)feel = 100;
+            if(feel < -100.0)feel = -100;
+            return FEELING_STRING[(int)((feel + 100) / 10)];
+        }
+
+        /// <summary>
         /// 今日のトークンを出力する(テスト)
         /// </summary>
         /// <param name="value">出力するトークン</param>
         private void Label1Out(double value)
         {
-            TestLabel1.Text = "今日のトークン: " + value.ToString("R") + " / 1000.0";
+            TestLabel1.Text = GetFeeling(tokenManager.Feeling);
             KibunLabelOut(value);
         }
 
@@ -89,7 +108,7 @@ namespace digpet
         /// <param name="value">出力するCPU使用率</param>
         private void Label2Out(double value)
         {
-            TestLabel2.Text = "現在のCPU利用率: " + value.ToString("n2") + "%";
+            TestLabel2.Text = "CPU: " + value.ToString("n2") + "%";
         }
 
         /// <summary>
@@ -98,7 +117,7 @@ namespace digpet
         /// <param name="value">出力するトークンの獲得量</param>
         private void KibunLabelOut(double value)
         {
-            KibunLabel.Text = "トークン獲得量: " + (value / 1000.0 * 100.0).ToString("n2") + "%";
+            KibunLabel.Text = "累計トークン: " + (tokenManager.TotalTokens).ToString("n2");
         }
     }
 }
