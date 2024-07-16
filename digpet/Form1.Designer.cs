@@ -47,9 +47,9 @@
             TestLabel1.ForeColor = Color.Orange;
             TestLabel1.Location = new Point(12, 371);
             TestLabel1.Name = "TestLabel1";
-            TestLabel1.Size = new Size(58, 25);
+            TestLabel1.Size = new Size(41, 25);
             TestLabel1.TabIndex = 0;
-            TestLabel1.Text = "None";
+            TestLabel1.Text = "なし";
             // 
             // TestLabel2
             // 
@@ -58,9 +58,9 @@
             TestLabel2.ForeColor = Color.Orange;
             TestLabel2.Location = new Point(12, 421);
             TestLabel2.Name = "TestLabel2";
-            TestLabel2.Size = new Size(58, 25);
+            TestLabel2.Size = new Size(107, 25);
             TestLabel2.TabIndex = 1;
-            TestLabel2.Text = "None";
+            TestLabel2.Text = "累計トークン:";
             // 
             // KibunLabel
             // 
@@ -69,9 +69,9 @@
             KibunLabel.ForeColor = Color.Orange;
             KibunLabel.Location = new Point(12, 396);
             KibunLabel.Name = "KibunLabel";
-            KibunLabel.Size = new Size(58, 25);
+            KibunLabel.Size = new Size(52, 25);
             KibunLabel.TabIndex = 2;
-            KibunLabel.Text = "None";
+            KibunLabel.Text = "CPU:";
             // 
             // Form1
             // 

@@ -43,7 +43,11 @@ namespace digpet
         /// <param name="path">ファイルパス</param>
         public void ReadJsonFile(string path)
         {
-            if (!File.Exists(path)) InitJsonFile(path);
+            if (!File.Exists(path))
+            {
+                InitJsonFile(path);
+                return;
+            }
 
             try
             {
@@ -52,12 +56,12 @@ namespace digpet
                     string planeText = Crypter.DecryptString(sr.ReadToEnd(), password);
                     dict = JsonSerializer.Deserialize<Dictionary<string, double>>(planeText) ?? new Dictionary<string, double>();
                 }
-            }
+        }
             catch (Exception ex)
             {
                 ErrorLog.ErrorOutput("Jsonファイル読み取りエラー", ex.Message, true);
             }
-        }
+}
 
         /// <summary>
         /// 辞書をJSONに書き込む
