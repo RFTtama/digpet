@@ -70,17 +70,29 @@ namespace digpet
             cpuCnt++;
         }
 
+        /// <summary>
+        /// 今日のトークンを出力する(テスト)
+        /// </summary>
+        /// <param name="value">出力するトークン</param>
         private void Label1Out(double value)
         {
             TestLabel1.Text = "今日のトークン: " + value.ToString("R") + " / 1000.0";
             KibunLabelOut(value);
         }
 
+        /// <summary>
+        /// 現在のCPU使用率を出力する(テスト)
+        /// </summary>
+        /// <param name="value">出力するCPU使用率</param>
         private void Label2Out(double value)
         {
             TestLabel2.Text = "現在のCPU利用率: " + value.ToString("n2") + "%";
         }
 
+        /// <summary>
+        /// トークンの獲得量を出力する(テスト)
+        /// </summary>
+        /// <param name="value">出力するトークンの獲得量</param>
         private void KibunLabelOut(double value)
         {
             KibunLabel.Text = "トークン獲得量: " + (value / 1000.0 * 100.0).ToString("n2") + "%";
