@@ -29,10 +29,12 @@ namespace digpet
         /// <param name="e"></param>
         private void CpuUsageTimer_Tick(object sender, EventArgs e)
         {
+            //60秒に1回処理を行う
             if ((cpuCnt > 0) && (cpuCnt % 60 == 0))
             {
                 try
                 {
+                    //CPU使用率の平均を取得し、トークンを計算する
                     GetCpuAvg();
                 }
                 catch (Exception ex)
@@ -43,6 +45,7 @@ namespace digpet
             }
             else
             {
+                //CPU使用率を加算
                 SumCpuAvg();
             }
         }
@@ -59,12 +62,6 @@ namespace digpet
             cpuAvgManager.Clear();
         }
 
-        private void Label1Out(double value)
-        {
-            TestLabel1.Text = "今日のトークン: " + value.ToString("R") + " / 1000.0";
-            KibunLabelOut(value);
-        }
-
         /// <summary>
         /// CPU使用率の平均を求められるように数値を足す
         /// </summary>
@@ -76,11 +73,29 @@ namespace digpet
             cpuCnt++;
         }
 
+        /// <summary>
+        /// 今日のトークンを出力する(テスト)
+        /// </summary>
+        /// <param name="value">出力するトークン</param>
+        private void Label1Out(double value)
+        {
+            TestLabel1.Text = "今日のトークン: " + value.ToString("R") + " / 1000.0";
+            KibunLabelOut(value);
+        }
+
+        /// <summary>
+        /// 現在のCPU使用率を出力する(テスト)
+        /// </summary>
+        /// <param name="value">出力するCPU使用率</param>
         private void Label2Out(double value)
         {
             TestLabel2.Text = "現在のCPU利用率: " + value.ToString("n2") + "%";
         }
 
+        /// <summary>
+        /// トークンの獲得量を出力する(テスト)
+        /// </summary>
+        /// <param name="value">出力するトークンの獲得量</param>
         private void KibunLabelOut(double value)
         {
             KibunLabel.Text = "トークン獲得量: " + (value / 1000.0 * 100.0).ToString("n2") + "%";
