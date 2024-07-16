@@ -12,7 +12,7 @@ namespace digpet
         private DoubleJsonManager djm = new DoubleJsonManager(TOKEN_PASS);
 
         //固定値関連の宣言
-        public const double TOKEN_CALC_WEIGHT = 100.0 / (60.0 * 24.0);
+        public const double TOKEN_CALC_WEIGHT = 1000.0 / (60.0 * 24.0 * 100.0);
 
         //変数関連の宣言
         private double _dailyTokens;
