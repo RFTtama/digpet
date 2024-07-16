@@ -34,6 +34,7 @@ namespace digpet
         private void Init()
         {
             dict = new Dictionary<string, double>();
+            password = string.Empty;
         }
 
         /// <summary>
