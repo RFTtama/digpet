@@ -29,10 +29,12 @@ namespace digpet
         /// <param name="e"></param>
         private void CpuUsageTimer_Tick(object sender, EventArgs e)
         {
+            //60秒に1回処理を行う
             if ((cpuCnt > 0) && (cpuCnt % 60 == 0))
             {
                 try
                 {
+                    //CPU使用率の平均を取得し、トークンを計算する
                     GetCpuAvg();
                 }
                 catch (Exception ex)
@@ -43,6 +45,7 @@ namespace digpet
             }
             else
             {
+                //CPU使用率を加算
                 SumCpuAvg();
             }
         }
