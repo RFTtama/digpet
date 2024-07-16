@@ -59,12 +59,6 @@ namespace digpet
             cpuAvgManager.Clear();
         }
 
-        private void Label1Out(double value)
-        {
-            TestLabel1.Text = "今日のトークン: " + value.ToString("R") + " / 1000.0";
-            KibunLabelOut(value);
-        }
-
         /// <summary>
         /// CPU使用率の平均を求められるように数値を足す
         /// </summary>
@@ -74,6 +68,12 @@ namespace digpet
             cpuAvgManager.SetCpuSum(cpuUsage);
             Label2Out(cpuUsage);
             cpuCnt++;
+        }
+
+        private void Label1Out(double value)
+        {
+            TestLabel1.Text = "今日のトークン: " + value.ToString("R") + " / 1000.0";
+            KibunLabelOut(value);
         }
 
         private void Label2Out(double value)
