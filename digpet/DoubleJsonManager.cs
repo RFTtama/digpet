@@ -33,7 +33,7 @@ namespace digpet
         /// </summary>
         private void Init()
         {
-            dict = new Dictionary<string, double>();
+            dict.Clear();
             password = string.Empty;
         }
 
