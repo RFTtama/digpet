@@ -13,7 +13,7 @@ namespace digpet
         //’è”‚ÌéŒ¾
         private readonly string[] FEELING_STRING =
         {
-            "â–]", "”ß’Q", "—Ž’_", "‹ê‚µ‚Ý", "”ß‚µ‚Ý", "•sˆÀ", "“{‚è", "Å‚è", "ƒCƒ‰ƒCƒ‰", "‘Þ‹ü", "’†—§", "•½Ã", "ˆÀS", "–ž‘«", "Šy‚µ‚¢", "Šì‚Ñ", "K•Ÿ", "Š´ŽÓ", "‹»•±", "Š´“®", "ŽŠ•Ÿ"
+            "ˆ«‚¢", "•’Ê", "—Ç‚¢"
         };
 
         public Form1()
@@ -89,7 +89,23 @@ namespace digpet
             int feel = (int)feeling;
             if(feel > 100)feel = 100;
             if(feel < -100.0)feel = -100;
-            return FEELING_STRING[(int)((feel + 100) / 10)];
+
+            string feelingText;
+            
+            if (feel < -49)
+            {
+                feelingText = FEELING_STRING[0];
+            }
+            else if(feel < 30)
+            {
+                feelingText= FEELING_STRING[1];
+            }
+            else
+            {
+                feelingText = FEELING_STRING[2];
+            }
+
+            return feelingText;
         }
 
         /// <summary>
