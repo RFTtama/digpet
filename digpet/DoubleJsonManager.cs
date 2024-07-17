@@ -33,7 +33,15 @@ namespace digpet
         /// </summary>
         private void Init()
         {
-            dict.Clear();
+            if (dict != null)
+            {
+                dict.Clear();
+            }
+            else
+            {
+                dict = new Dictionary<string, double>();
+            }
+
             password = string.Empty;
         }
 
@@ -41,11 +49,12 @@ namespace digpet
         /// JSONファイルから辞書を読み取る
         /// </summary>
         /// <param name="path">ファイルパス</param>
-        public void ReadJsonFile(string path)
+        /// <param name="initValue">初期値</param>
+        public void ReadJsonFile(string path, (string, double)initValue)
         {
             if (!File.Exists(path))
             {
-                InitJsonFile(path);
+                InitJsonFile(path, initValue);
                 return;
             }
 
@@ -53,7 +62,11 @@ namespace digpet
             {
                 using (StreamReader sr = new StreamReader(path))
                 {
+#if true
                     string planeText = Crypter.DecryptString(sr.ReadToEnd(), password);
+#else
+                    string planeText = sr.ReadToEnd();
+#endif
                     dict = JsonSerializer.Deserialize<Dictionary<string, double>>(planeText) ?? new Dictionary<string, double>();
                 }
         }
@@ -74,7 +87,11 @@ namespace digpet
                 using (StreamWriter sw = new StreamWriter(path, false))
                 {
                     string jsonText = JsonSerializer.Serialize(dict);
+#if true
                     sw.Write(Crypter.EncryptString(jsonText, password));
+#else
+                    sw.Write(jsonText);
+#endif
                 }
             }
             catch (Exception ex)
@@ -87,15 +104,20 @@ namespace digpet
         /// JSONファイルの中身と辞書を空にする
         /// </summary>
         /// <param name="path">ファイルパス</param>
-        private void InitJsonFile(string path)
+        private void InitJsonFile(string path, (string, double)initValue)
         {
-            Init();
+            dict.Add(initValue.Item1, initValue.Item2);
+
             try
             {
                 using (StreamWriter sw = new StreamWriter(path, false))
                 {
                     string jsonText = JsonSerializer.Serialize(dict);
+#if true
                     sw.Write(Crypter.EncryptString(jsonText, password));
+#else
+                    sw.Write(jsonText);
+#endif
                 }
             }
             catch (Exception ex)

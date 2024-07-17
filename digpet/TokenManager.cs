@@ -94,9 +94,14 @@ namespace digpet
         public void Clear()
         {
             _dailyTokens = 0.0;
+            ClearCalcTokens();
+            ReadTokens();
+        }
+
+        private void ClearCalcTokens()
+        {
             _emotionTokens.Clear();
             _totalTokens.Clear();
-            ReadTokens();
         }
 
         /// <summary>
@@ -115,8 +120,8 @@ namespace digpet
         /// </summary>
         private void ReadTokens()
         {
+            djm.ReadJsonFile(TOKEN_PATH, (DateTime.Today.ToString(), 0.0));
             TokenExist();
-            djm.ReadJsonFile(TOKEN_PATH);
             CalcAllToken();
         }
 
@@ -141,7 +146,8 @@ namespace digpet
             }
             else
             {
-                djm.dict.Add(DateTime.Today.ToString(), 0.0);
+                _dailyTokens = 0.0;
+                djm.dict.Add(DateTime.Today.ToString(), _dailyTokens);
                 djm.WriteJsonFile(TOKEN_PATH);
             }
         }
@@ -155,6 +161,7 @@ namespace digpet
 
             string[] keys = djm.dict.Keys.ToArray();
 
+            ClearCalcTokens();
             _emotionTokens.Add(djm.dict[keys[0]]);
             _totalTokens.Add(djm.dict[keys[0]]);
 

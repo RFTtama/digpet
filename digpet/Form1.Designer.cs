@@ -33,6 +33,11 @@
             TestLabel1 = new Label();
             TestLabel2 = new Label();
             KibunLabel = new Label();
+            DailyTokenLabel = new Label();
+            FeelingLabel = new Label();
+            AverageEmotionTokensLabel = new Label();
+            TotalTokensLabel = new Label();
+            EmoTokenLabel = new Label();
             SuspendLayout();
             // 
             // CpuUsageTimer
@@ -73,11 +78,71 @@
             KibunLabel.TabIndex = 2;
             KibunLabel.Text = "CPU:";
             // 
+            // DailyTokenLabel
+            // 
+            DailyTokenLabel.AutoSize = true;
+            DailyTokenLabel.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            DailyTokenLabel.ForeColor = Color.Orange;
+            DailyTokenLabel.Location = new Point(12, 9);
+            DailyTokenLabel.Name = "DailyTokenLabel";
+            DailyTokenLabel.Size = new Size(41, 25);
+            DailyTokenLabel.TabIndex = 3;
+            DailyTokenLabel.Text = "なし";
+            // 
+            // FeelingLabel
+            // 
+            FeelingLabel.AutoSize = true;
+            FeelingLabel.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            FeelingLabel.ForeColor = Color.Orange;
+            FeelingLabel.Location = new Point(12, 109);
+            FeelingLabel.Name = "FeelingLabel";
+            FeelingLabel.Size = new Size(41, 25);
+            FeelingLabel.TabIndex = 5;
+            FeelingLabel.Text = "なし";
+            // 
+            // AverageEmotionTokensLabel
+            // 
+            AverageEmotionTokensLabel.AutoSize = true;
+            AverageEmotionTokensLabel.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            AverageEmotionTokensLabel.ForeColor = Color.Orange;
+            AverageEmotionTokensLabel.Location = new Point(12, 84);
+            AverageEmotionTokensLabel.Name = "AverageEmotionTokensLabel";
+            AverageEmotionTokensLabel.Size = new Size(41, 25);
+            AverageEmotionTokensLabel.TabIndex = 6;
+            AverageEmotionTokensLabel.Text = "なし";
+            // 
+            // TotalTokensLabel
+            // 
+            TotalTokensLabel.AutoSize = true;
+            TotalTokensLabel.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            TotalTokensLabel.ForeColor = Color.Orange;
+            TotalTokensLabel.Location = new Point(12, 59);
+            TotalTokensLabel.Name = "TotalTokensLabel";
+            TotalTokensLabel.Size = new Size(41, 25);
+            TotalTokensLabel.TabIndex = 7;
+            TotalTokensLabel.Text = "なし";
+            // 
+            // EmoTokenLabel
+            // 
+            EmoTokenLabel.AutoSize = true;
+            EmoTokenLabel.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            EmoTokenLabel.ForeColor = Color.Orange;
+            EmoTokenLabel.Location = new Point(12, 34);
+            EmoTokenLabel.Name = "EmoTokenLabel";
+            EmoTokenLabel.Size = new Size(41, 25);
+            EmoTokenLabel.TabIndex = 8;
+            EmoTokenLabel.Text = "なし";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(509, 455);
+            Controls.Add(EmoTokenLabel);
+            Controls.Add(TotalTokensLabel);
+            Controls.Add(AverageEmotionTokensLabel);
+            Controls.Add(FeelingLabel);
+            Controls.Add(DailyTokenLabel);
             Controls.Add(KibunLabel);
             Controls.Add(TestLabel2);
             Controls.Add(TestLabel1);
@@ -93,5 +158,10 @@
         private Label TestLabel1;
         private Label TestLabel2;
         private Label KibunLabel;
+        private Label DailyTokenLabel;
+        private Label FeelingLabel;
+        private Label AverageEmotionTokensLabel;
+        private Label TotalTokensLabel;
+        private Label EmoTokenLabel;
     }
 }
