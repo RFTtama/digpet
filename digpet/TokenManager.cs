@@ -10,6 +10,7 @@ namespace digpet
     {
         //クラス関連の宣言
         private DoubleJsonManager djm = new DoubleJsonManager(TOKEN_PASS);
+        private FlopsManager flops = new FlopsManager(1000);
 
         //固定値関連の宣言
         private const double TOKEN_CALC_WEIGHT = 1000.0 / (60.0 * 24.0 * 100.0);
@@ -82,10 +83,12 @@ namespace digpet
 
         /// <summary>
         /// コンストラクタ
+        /// FLOPSの計算も行う
         /// </summary>
         public TokenManager() 
         {
             Clear();
+            flops.CalcFlops();
         }
 
         /// <summary>
@@ -98,10 +101,25 @@ namespace digpet
             ReadTokens();
         }
 
+        /// <summary>
+        /// 計算して求めるトークンをクリア
+        /// </summary>
         private void ClearCalcTokens()
         {
             _emotionTokens.Clear();
             _totalTokens.Clear();
+        }
+
+        /// <summary>
+        /// CPUの性能による重みを取得する
+        /// </summary>
+        /// <returns></returns>
+        private double GetCpuWeight()
+        {
+            double log = Math.Log10(flops.Flops);
+            double reci = 1.0 / log;
+            double rev = 1.0 - reci;
+            return (Math.Pow(rev, 3.0));
         }
 
         /// <summary>
@@ -111,7 +129,7 @@ namespace digpet
         public void AddTokens(double minToken)
         {
             TokenExist();
-            _dailyTokens += (Math.Sqrt(minToken) * 10.0) * TOKEN_CALC_WEIGHT;
+            _dailyTokens += (Math.Sqrt((minToken * GetCpuWeight())) * 10.0) * TOKEN_CALC_WEIGHT;
             WriteTokens();
         }
 
