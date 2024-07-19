@@ -115,11 +115,11 @@ namespace digpet
         private void Label1Out(double value)
         {
             TestLabel1.Text = GetFeeling(tokenManager.Feeling);
-            DailyTokenLabel.Text = tokenManager.DailyTokens.ToString("n2");
-            EmoTokenLabel.Text = tokenManager.EmotionTokens.ToString("n2");
-            TotalTokensLabel.Text = tokenManager.TotalTokens.ToString("n2");
-            AverageEmotionTokensLabel.Text = tokenManager.AverageEmotionTokens.ToString("n2");
-            FeelingLabel.Text = tokenManager.Feeling.ToString("n2");
+            DailyTokenLabel.Text = "今日の獲得トークン: " + tokenManager.DailyTokens.ToString("n2");
+            EmoTokenLabel.Text = "今日の感情トークン: " + tokenManager.EmotionTokens.ToString("n2");
+            TotalTokensLabel.Text = "累計トークン: " + tokenManager.TotalTokens.ToString("n2");
+            AverageEmotionTokensLabel.Text = "平均感情トークン: " + tokenManager.AverageEmotionTokens.ToString("n2");
+            FeelingLabel.Text = "今日の感情: " + tokenManager.Feeling.ToString("n2");
             KibunLabelOut(value);
         }
 

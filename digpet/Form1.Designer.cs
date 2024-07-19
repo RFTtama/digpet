@@ -148,6 +148,7 @@
             Controls.Add(TestLabel1);
             Name = "Form1";
             Text = "digpet";
+            TopMost = true;
             ResumeLayout(false);
             PerformLayout();
         }
