@@ -86,17 +86,17 @@ namespace digpet
         /// <returns></returns>
         private string GetFeeling(double feeling)
         {
-            int feel = (int)feeling;
-            if(feel > 100)feel = 100;
-            if(feel < -100.0)feel = -100;
+            double feel = feeling;
+            if(feel > 1.0)feel = 1.0;
+            if(feel < -1.0)feel = -1.0;
 
             string feelingText;
             
-            if (feel < -49)
+            if (feel < -0.49)
             {
                 feelingText = FEELING_STRING[0];
             }
-            else if(feel < 30)
+            else if(feel < 0.3)
             {
                 feelingText= FEELING_STRING[1];
             }
