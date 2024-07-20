@@ -13,7 +13,7 @@ namespace digpet
         //’è”‚ÌéŒ¾
         private readonly string[] FEELING_STRING =
         {
-            "ˆ«‚¢", "•’Ê", "—Ç‚¢"
+            "ˆ«‚¢", "•’Ê", "—Ç‚¢", "Å‚"
         };
 
         public Form1()
@@ -96,13 +96,17 @@ namespace digpet
             {
                 feelingText = FEELING_STRING[0];
             }
-            else if(feel < 0.3)
+            else if(feel < 0.0)
             {
                 feelingText= FEELING_STRING[1];
             }
-            else
+            else if(feel < 0.3)
             {
                 feelingText = FEELING_STRING[2];
+            }
+            else
+            {
+                feelingText = FEELING_STRING[3];
             }
 
             return feelingText;
