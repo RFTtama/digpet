@@ -148,7 +148,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(509, 455);
+            ClientSize = new Size(484, 461);
             Controls.Add(ToggleShowButton);
             Controls.Add(EmoTokenLabel);
             Controls.Add(TotalTokensLabel);
