@@ -46,7 +46,8 @@ namespace digpet
                 EmoTokenLabel,
                 TotalTokensLabel,
                 AverageEmotionTokensLabel,
-                FeelingLabel
+                FeelingLabel,
+                FlopsLabel
             ];
         }
 
@@ -147,6 +148,7 @@ namespace digpet
             TotalTokensLabel.Text = "累計トークン: " + tokenManager.TotalTokens.ToString("n2");
             AverageEmotionTokensLabel.Text = "平均感情トークン: " + tokenManager.AverageEmotionTokens.ToString("n2");
             FeelingLabel.Text = "今日の感情: " + tokenManager.Feeling.ToString("n2");
+            FlopsLabel.Text = "FLOPS: " + tokenManager.Flops.ToString();
             KibunLabelOut(value);
         }
 

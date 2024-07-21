@@ -40,6 +40,7 @@
             TotalTokensLabel = new Label();
             EmoTokenLabel = new Label();
             ToggleShowButton = new Button();
+            FlopsLabel = new Label();
             SuspendLayout();
             // 
             // CpuUsageTimer
@@ -145,11 +146,23 @@
             ToggleShowButton.UseVisualStyleBackColor = true;
             ToggleShowButton.Click += ToggleShowButton_Click;
             // 
+            // FlopsLabel
+            // 
+            FlopsLabel.AutoSize = true;
+            FlopsLabel.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            FlopsLabel.ForeColor = Color.Orange;
+            FlopsLabel.Location = new Point(12, 134);
+            FlopsLabel.Name = "FlopsLabel";
+            FlopsLabel.Size = new Size(41, 25);
+            FlopsLabel.TabIndex = 10;
+            FlopsLabel.Text = "なし";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(484, 461);
+            Controls.Add(FlopsLabel);
             Controls.Add(ToggleShowButton);
             Controls.Add(EmoTokenLabel);
             Controls.Add(TotalTokensLabel);
@@ -179,5 +192,6 @@
         private Label TotalTokensLabel;
         private Label EmoTokenLabel;
         private Button ToggleShowButton;
+        private Label FlopsLabel;
     }
 }

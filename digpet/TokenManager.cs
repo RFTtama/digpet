@@ -76,6 +76,17 @@
         }
 
         /// <summary>
+        /// 計算したFLOPS
+        /// </summary>
+        public long Flops
+        {
+            get
+            {
+                return flops.Flops;
+            }
+        }
+
+        /// <summary>
         /// コンストラクタ
         /// FLOPSの計算も行う
         /// </summary>
