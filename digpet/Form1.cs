@@ -59,6 +59,7 @@ namespace digpet
                 //CPUŽg—p—¦‚ð‰ÁŽZ
                 SumCpuAvg();
             }
+            cpuCnt++;
         }
 
         /// <summary>
@@ -81,7 +82,6 @@ namespace digpet
             double cpuUsage = (double)CpuWatcher.GetCpuUsage();
             cpuAvgManager.SetCpuSum(cpuUsage);
             Label2Out(cpuUsage);
-            cpuCnt++;
         }
 
         /// <summary>
