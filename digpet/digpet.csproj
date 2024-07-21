@@ -6,11 +6,11 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <ApplicationIcon>pig2b.ico</ApplicationIcon>
+    <ApplicationIcon>pig2br.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="pig2b.ico" />
+    <Content Include="pig2br.ico" />
   </ItemGroup>
 
   <ItemGroup>
