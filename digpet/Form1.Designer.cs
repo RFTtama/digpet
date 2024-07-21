@@ -43,6 +43,8 @@
             StatsLabel = new Label();
             StatsPanel = new Panel();
             helpProvider = new HelpProvider();
+            ImportButton = new Button();
+            IntimacyLabel = new Label();
             StatsPanel.SuspendLayout();
             SuspendLayout();
             // 
@@ -160,6 +162,7 @@
             StatsPanel.Controls.Add(StatsLabel);
             StatsPanel.Controls.Add(FlopsLabel);
             StatsPanel.Controls.Add(DailyTokenLabel);
+            StatsPanel.Controls.Add(TotalTokenLabel);
             StatsPanel.Controls.Add(EmoTokenLabel);
             StatsPanel.Controls.Add(FeelingLabel);
             StatsPanel.Controls.Add(AverageEmotionTokensLabel);
@@ -173,13 +176,34 @@
             // 
             resources.ApplyResources(helpProvider, "helpProvider");
             // 
+            // ImportButton
+            // 
+            resources.ApplyResources(ImportButton, "ImportButton");
+            helpProvider.SetHelpKeyword(ImportButton, resources.GetString("ImportButton.HelpKeyword"));
+            helpProvider.SetHelpNavigator(ImportButton, (HelpNavigator)resources.GetObject("ImportButton.HelpNavigator"));
+            helpProvider.SetHelpString(ImportButton, resources.GetString("ImportButton.HelpString"));
+            ImportButton.Name = "ImportButton";
+            helpProvider.SetShowHelp(ImportButton, (bool)resources.GetObject("ImportButton.ShowHelp"));
+            ImportButton.UseVisualStyleBackColor = true;
+            // 
+            // IntimacyLabel
+            // 
+            resources.ApplyResources(IntimacyLabel, "IntimacyLabel");
+            IntimacyLabel.ForeColor = Color.Orange;
+            helpProvider.SetHelpKeyword(IntimacyLabel, resources.GetString("IntimacyLabel.HelpKeyword"));
+            helpProvider.SetHelpNavigator(IntimacyLabel, (HelpNavigator)resources.GetObject("IntimacyLabel.HelpNavigator"));
+            helpProvider.SetHelpString(IntimacyLabel, resources.GetString("IntimacyLabel.HelpString"));
+            IntimacyLabel.Name = "IntimacyLabel";
+            helpProvider.SetShowHelp(IntimacyLabel, (bool)resources.GetObject("IntimacyLabel.ShowHelp"));
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(IntimacyLabel);
+            Controls.Add(ImportButton);
             Controls.Add(StatsPanel);
             Controls.Add(ToggleShowButton);
-            Controls.Add(TotalTokenLabel);
             Controls.Add(CpuUsageLabel);
             Controls.Add(EmoStringLabel);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -213,5 +237,7 @@
         private Label StatsLabel;
         private Panel StatsPanel;
         private HelpProvider helpProvider;
+        private Button ImportButton;
+        private Label IntimacyLabel;
     }
 }

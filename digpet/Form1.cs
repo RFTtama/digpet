@@ -5,23 +5,21 @@ namespace digpet
         //クラス関連の宣言
         private CpuAvgManager cpuAvgManager = new CpuAvgManager();
         private TokenManager tokenManager = new TokenManager();
+        private SettingManager settingManager = new SettingManager();
 
         //変数関連の宣言
         private int cpuCnt;
         private double cpuAvg;
 
-        //定数の宣言
-        private readonly string[] FEELING_STRING =
-        {
-            "悪い", "普通", "良い", "最高"
-        };
-
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
         public Form1()
         {
             InitializeComponent();
             Init();
             CpuUsageTimer.Enabled = true;
-            Label1Out(tokenManager.DailyTokens);
+            OutTokenLabel();
         }
 
         /// <summary>
@@ -70,7 +68,7 @@ namespace digpet
             cpuCnt = 0;
             cpuAvg = cpuAvgManager.GetCpuAvg();
             tokenManager.AddTokens(cpuAvg);
-            Label1Out(tokenManager.DailyTokens);
+            OutTokenLabel();
             cpuAvgManager.Clear();
         }
 
@@ -81,7 +79,7 @@ namespace digpet
         {
             double cpuUsage = (double)CpuWatcher.GetCpuUsage();
             cpuAvgManager.SetCpuSum(cpuUsage);
-            Label2Out(cpuUsage);
+            OutCpuLabel(cpuUsage);
         }
 
         /// <summary>
@@ -95,33 +93,27 @@ namespace digpet
             if (feel > 1.0) feel = 1.0;
             if (feel < -1.0) feel = -1.0;
 
-            string feelingText;
+            return settingManager.GetFeelingString(feel);
+        }
 
-            if (feel < -0.49)
-            {
-                feelingText = FEELING_STRING[0];
-            }
-            else if (feel < 0.0)
-            {
-                feelingText = FEELING_STRING[1];
-            }
-            else if (feel < 0.3)
-            {
-                feelingText = FEELING_STRING[2];
-            }
-            else
-            {
-                feelingText = FEELING_STRING[3];
-            }
+        /// <summary>
+        /// 現在の親密度を文字に変換する
+        /// </summary>
+        /// <param name="intimacy">親密度</param>
+        /// <returns></returns>
+        private string GetIntimacy(double intimacy)
+        {
+            double inti = intimacy;
+            if (inti < 0.0) inti = 0.0;
 
-            return feelingText;
+            return settingManager.GetIntimacyString(inti);
         }
 
         /// <summary>
         /// 今日のトークンを出力する(テスト)
         /// </summary>
         /// <param name="value">出力するトークン</param>
-        private void Label1Out(double value)
+        private void OutTokenLabel()
         {
             EmoStringLabel.Text = GetFeeling(tokenManager.Feeling);
             DailyTokenLabel.Text = "今日の獲得トークン: " + tokenManager.DailyTokens.ToString("n2");
@@ -129,25 +121,17 @@ namespace digpet
             AverageEmotionTokensLabel.Text = "平均感情トークン: " + tokenManager.AverageEmotionTokens.ToString("n2");
             FeelingLabel.Text = "今日の感情: " + tokenManager.Feeling.ToString("n2");
             FlopsLabel.Text = "FLOPS: " + tokenManager.Flops.ToString();
-            KibunLabelOut(value);
+            TotalTokenLabel.Text = "累計トークン: " + (tokenManager.TotalTokens).ToString("n2");
+            IntimacyLabel.Text = GetIntimacy(tokenManager.TotalTokens);
         }
 
         /// <summary>
         /// 現在のCPU使用率を出力する(テスト)
         /// </summary>
         /// <param name="value">出力するCPU使用率</param>
-        private void Label2Out(double value)
+        private void OutCpuLabel(double value)
         {
             CpuUsageLabel.Text = "CPU: " + value.ToString("n2") + "%";
-        }
-
-        /// <summary>
-        /// トークンの獲得量を出力する(テスト)
-        /// </summary>
-        /// <param name="value">出力するトークンの獲得量</param>
-        private void KibunLabelOut(double value)
-        {
-            TotalTokenLabel.Text = "累計トークン: " + (tokenManager.TotalTokens).ToString("n2");
         }
 
         /// <summary>
