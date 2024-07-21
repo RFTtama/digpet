@@ -29,16 +29,21 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             CpuUsageTimer = new System.Windows.Forms.Timer(components);
-            TestLabel1 = new Label();
-            TestLabel2 = new Label();
-            KibunLabel = new Label();
+            EmoStringLabel = new Label();
+            CpuUsageLabel = new Label();
+            TotalTokenLabel = new Label();
             DailyTokenLabel = new Label();
             FeelingLabel = new Label();
             AverageEmotionTokensLabel = new Label();
-            TotalTokensLabel = new Label();
             EmoTokenLabel = new Label();
             ToggleShowButton = new Button();
+            FlopsLabel = new Label();
+            StatsLabel = new Label();
+            StatsPanel = new Panel();
+            helpProvider = new HelpProvider();
+            StatsPanel.SuspendLayout();
             SuspendLayout();
             // 
             // CpuUsageTimer
@@ -46,121 +51,149 @@
             CpuUsageTimer.Interval = 1000;
             CpuUsageTimer.Tick += CpuUsageTimer_Tick;
             // 
-            // TestLabel1
+            // EmoStringLabel
             // 
-            TestLabel1.AutoSize = true;
-            TestLabel1.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            TestLabel1.ForeColor = Color.Orange;
-            TestLabel1.Location = new Point(12, 371);
-            TestLabel1.Name = "TestLabel1";
-            TestLabel1.Size = new Size(41, 25);
-            TestLabel1.TabIndex = 0;
-            TestLabel1.Text = "なし";
+            resources.ApplyResources(EmoStringLabel, "EmoStringLabel");
+            EmoStringLabel.ForeColor = Color.Orange;
+            helpProvider.SetHelpKeyword(EmoStringLabel, resources.GetString("EmoStringLabel.HelpKeyword"));
+            helpProvider.SetHelpNavigator(EmoStringLabel, (HelpNavigator)resources.GetObject("EmoStringLabel.HelpNavigator"));
+            helpProvider.SetHelpString(EmoStringLabel, resources.GetString("EmoStringLabel.HelpString"));
+            EmoStringLabel.Name = "EmoStringLabel";
+            helpProvider.SetShowHelp(EmoStringLabel, (bool)resources.GetObject("EmoStringLabel.ShowHelp"));
             // 
-            // TestLabel2
+            // CpuUsageLabel
             // 
-            TestLabel2.AutoSize = true;
-            TestLabel2.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            TestLabel2.ForeColor = Color.Orange;
-            TestLabel2.Location = new Point(12, 421);
-            TestLabel2.Name = "TestLabel2";
-            TestLabel2.Size = new Size(107, 25);
-            TestLabel2.TabIndex = 1;
-            TestLabel2.Text = "累計トークン:";
+            resources.ApplyResources(CpuUsageLabel, "CpuUsageLabel");
+            CpuUsageLabel.ForeColor = Color.Orange;
+            helpProvider.SetHelpKeyword(CpuUsageLabel, resources.GetString("CpuUsageLabel.HelpKeyword"));
+            helpProvider.SetHelpNavigator(CpuUsageLabel, (HelpNavigator)resources.GetObject("CpuUsageLabel.HelpNavigator"));
+            helpProvider.SetHelpString(CpuUsageLabel, resources.GetString("CpuUsageLabel.HelpString"));
+            CpuUsageLabel.Name = "CpuUsageLabel";
+            helpProvider.SetShowHelp(CpuUsageLabel, (bool)resources.GetObject("CpuUsageLabel.ShowHelp"));
             // 
-            // KibunLabel
+            // TotalTokenLabel
             // 
-            KibunLabel.AutoSize = true;
-            KibunLabel.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            KibunLabel.ForeColor = Color.Orange;
-            KibunLabel.Location = new Point(12, 396);
-            KibunLabel.Name = "KibunLabel";
-            KibunLabel.Size = new Size(52, 25);
-            KibunLabel.TabIndex = 2;
-            KibunLabel.Text = "CPU:";
+            resources.ApplyResources(TotalTokenLabel, "TotalTokenLabel");
+            TotalTokenLabel.ForeColor = Color.Orange;
+            helpProvider.SetHelpKeyword(TotalTokenLabel, resources.GetString("TotalTokenLabel.HelpKeyword"));
+            helpProvider.SetHelpNavigator(TotalTokenLabel, (HelpNavigator)resources.GetObject("TotalTokenLabel.HelpNavigator"));
+            helpProvider.SetHelpString(TotalTokenLabel, resources.GetString("TotalTokenLabel.HelpString"));
+            TotalTokenLabel.Name = "TotalTokenLabel";
+            helpProvider.SetShowHelp(TotalTokenLabel, (bool)resources.GetObject("TotalTokenLabel.ShowHelp"));
             // 
             // DailyTokenLabel
             // 
-            DailyTokenLabel.AutoSize = true;
-            DailyTokenLabel.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            resources.ApplyResources(DailyTokenLabel, "DailyTokenLabel");
             DailyTokenLabel.ForeColor = Color.Orange;
-            DailyTokenLabel.Location = new Point(12, 9);
+            helpProvider.SetHelpKeyword(DailyTokenLabel, resources.GetString("DailyTokenLabel.HelpKeyword"));
+            helpProvider.SetHelpNavigator(DailyTokenLabel, (HelpNavigator)resources.GetObject("DailyTokenLabel.HelpNavigator"));
+            helpProvider.SetHelpString(DailyTokenLabel, resources.GetString("DailyTokenLabel.HelpString"));
             DailyTokenLabel.Name = "DailyTokenLabel";
-            DailyTokenLabel.Size = new Size(41, 25);
-            DailyTokenLabel.TabIndex = 3;
-            DailyTokenLabel.Text = "なし";
+            helpProvider.SetShowHelp(DailyTokenLabel, (bool)resources.GetObject("DailyTokenLabel.ShowHelp"));
             // 
             // FeelingLabel
             // 
-            FeelingLabel.AutoSize = true;
-            FeelingLabel.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            resources.ApplyResources(FeelingLabel, "FeelingLabel");
             FeelingLabel.ForeColor = Color.Orange;
-            FeelingLabel.Location = new Point(12, 109);
+            helpProvider.SetHelpKeyword(FeelingLabel, resources.GetString("FeelingLabel.HelpKeyword"));
+            helpProvider.SetHelpNavigator(FeelingLabel, (HelpNavigator)resources.GetObject("FeelingLabel.HelpNavigator"));
+            helpProvider.SetHelpString(FeelingLabel, resources.GetString("FeelingLabel.HelpString"));
             FeelingLabel.Name = "FeelingLabel";
-            FeelingLabel.Size = new Size(41, 25);
-            FeelingLabel.TabIndex = 5;
-            FeelingLabel.Text = "なし";
+            helpProvider.SetShowHelp(FeelingLabel, (bool)resources.GetObject("FeelingLabel.ShowHelp"));
             // 
             // AverageEmotionTokensLabel
             // 
-            AverageEmotionTokensLabel.AutoSize = true;
-            AverageEmotionTokensLabel.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            resources.ApplyResources(AverageEmotionTokensLabel, "AverageEmotionTokensLabel");
             AverageEmotionTokensLabel.ForeColor = Color.Orange;
-            AverageEmotionTokensLabel.Location = new Point(12, 84);
+            helpProvider.SetHelpKeyword(AverageEmotionTokensLabel, resources.GetString("AverageEmotionTokensLabel.HelpKeyword"));
+            helpProvider.SetHelpNavigator(AverageEmotionTokensLabel, (HelpNavigator)resources.GetObject("AverageEmotionTokensLabel.HelpNavigator"));
+            helpProvider.SetHelpString(AverageEmotionTokensLabel, resources.GetString("AverageEmotionTokensLabel.HelpString"));
             AverageEmotionTokensLabel.Name = "AverageEmotionTokensLabel";
-            AverageEmotionTokensLabel.Size = new Size(41, 25);
-            AverageEmotionTokensLabel.TabIndex = 6;
-            AverageEmotionTokensLabel.Text = "なし";
-            // 
-            // TotalTokensLabel
-            // 
-            TotalTokensLabel.AutoSize = true;
-            TotalTokensLabel.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            TotalTokensLabel.ForeColor = Color.Orange;
-            TotalTokensLabel.Location = new Point(12, 59);
-            TotalTokensLabel.Name = "TotalTokensLabel";
-            TotalTokensLabel.Size = new Size(41, 25);
-            TotalTokensLabel.TabIndex = 7;
-            TotalTokensLabel.Text = "なし";
+            helpProvider.SetShowHelp(AverageEmotionTokensLabel, (bool)resources.GetObject("AverageEmotionTokensLabel.ShowHelp"));
             // 
             // EmoTokenLabel
             // 
-            EmoTokenLabel.AutoSize = true;
-            EmoTokenLabel.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            resources.ApplyResources(EmoTokenLabel, "EmoTokenLabel");
             EmoTokenLabel.ForeColor = Color.Orange;
-            EmoTokenLabel.Location = new Point(12, 34);
+            helpProvider.SetHelpKeyword(EmoTokenLabel, resources.GetString("EmoTokenLabel.HelpKeyword"));
+            helpProvider.SetHelpNavigator(EmoTokenLabel, (HelpNavigator)resources.GetObject("EmoTokenLabel.HelpNavigator"));
+            helpProvider.SetHelpString(EmoTokenLabel, resources.GetString("EmoTokenLabel.HelpString"));
             EmoTokenLabel.Name = "EmoTokenLabel";
-            EmoTokenLabel.Size = new Size(41, 25);
-            EmoTokenLabel.TabIndex = 8;
-            EmoTokenLabel.Text = "なし";
+            helpProvider.SetShowHelp(EmoTokenLabel, (bool)resources.GetObject("EmoTokenLabel.ShowHelp"));
             // 
             // ToggleShowButton
             // 
-            ToggleShowButton.Location = new Point(406, 421);
+            resources.ApplyResources(ToggleShowButton, "ToggleShowButton");
+            helpProvider.SetHelpKeyword(ToggleShowButton, resources.GetString("ToggleShowButton.HelpKeyword"));
+            helpProvider.SetHelpNavigator(ToggleShowButton, (HelpNavigator)resources.GetObject("ToggleShowButton.HelpNavigator"));
+            helpProvider.SetHelpString(ToggleShowButton, resources.GetString("ToggleShowButton.HelpString"));
             ToggleShowButton.Name = "ToggleShowButton";
-            ToggleShowButton.Size = new Size(91, 27);
-            ToggleShowButton.TabIndex = 9;
-            ToggleShowButton.Text = "詳細表示切替";
+            helpProvider.SetShowHelp(ToggleShowButton, (bool)resources.GetObject("ToggleShowButton.ShowHelp"));
             ToggleShowButton.UseVisualStyleBackColor = true;
             ToggleShowButton.Click += ToggleShowButton_Click;
             // 
+            // FlopsLabel
+            // 
+            resources.ApplyResources(FlopsLabel, "FlopsLabel");
+            FlopsLabel.ForeColor = Color.Orange;
+            helpProvider.SetHelpKeyword(FlopsLabel, resources.GetString("FlopsLabel.HelpKeyword"));
+            helpProvider.SetHelpNavigator(FlopsLabel, (HelpNavigator)resources.GetObject("FlopsLabel.HelpNavigator"));
+            helpProvider.SetHelpString(FlopsLabel, resources.GetString("FlopsLabel.HelpString"));
+            FlopsLabel.Name = "FlopsLabel";
+            helpProvider.SetShowHelp(FlopsLabel, (bool)resources.GetObject("FlopsLabel.ShowHelp"));
+            // 
+            // StatsLabel
+            // 
+            resources.ApplyResources(StatsLabel, "StatsLabel");
+            StatsLabel.ForeColor = Color.Orange;
+            helpProvider.SetHelpKeyword(StatsLabel, resources.GetString("StatsLabel.HelpKeyword"));
+            helpProvider.SetHelpNavigator(StatsLabel, (HelpNavigator)resources.GetObject("StatsLabel.HelpNavigator"));
+            helpProvider.SetHelpString(StatsLabel, resources.GetString("StatsLabel.HelpString"));
+            StatsLabel.Name = "StatsLabel";
+            helpProvider.SetShowHelp(StatsLabel, (bool)resources.GetObject("StatsLabel.ShowHelp"));
+            // 
+            // StatsPanel
+            // 
+            resources.ApplyResources(StatsPanel, "StatsPanel");
+            StatsPanel.BackColor = Color.AliceBlue;
+            StatsPanel.BorderStyle = BorderStyle.FixedSingle;
+            StatsPanel.Controls.Add(StatsLabel);
+            StatsPanel.Controls.Add(FlopsLabel);
+            StatsPanel.Controls.Add(DailyTokenLabel);
+            StatsPanel.Controls.Add(EmoTokenLabel);
+            StatsPanel.Controls.Add(FeelingLabel);
+            StatsPanel.Controls.Add(AverageEmotionTokensLabel);
+            helpProvider.SetHelpKeyword(StatsPanel, resources.GetString("StatsPanel.HelpKeyword"));
+            helpProvider.SetHelpNavigator(StatsPanel, (HelpNavigator)resources.GetObject("StatsPanel.HelpNavigator"));
+            helpProvider.SetHelpString(StatsPanel, resources.GetString("StatsPanel.HelpString"));
+            StatsPanel.Name = "StatsPanel";
+            helpProvider.SetShowHelp(StatsPanel, (bool)resources.GetObject("StatsPanel.ShowHelp"));
+            // 
+            // helpProvider
+            // 
+            resources.ApplyResources(helpProvider, "helpProvider");
+            // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(509, 455);
+            Controls.Add(StatsPanel);
             Controls.Add(ToggleShowButton);
-            Controls.Add(EmoTokenLabel);
-            Controls.Add(TotalTokensLabel);
-            Controls.Add(AverageEmotionTokensLabel);
-            Controls.Add(FeelingLabel);
-            Controls.Add(DailyTokenLabel);
-            Controls.Add(KibunLabel);
-            Controls.Add(TestLabel2);
-            Controls.Add(TestLabel1);
+            Controls.Add(TotalTokenLabel);
+            Controls.Add(CpuUsageLabel);
+            Controls.Add(EmoStringLabel);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            HelpButton = true;
+            helpProvider.SetHelpKeyword(this, resources.GetString("$this.HelpKeyword"));
+            helpProvider.SetHelpNavigator(this, (HelpNavigator)resources.GetObject("$this.HelpNavigator"));
+            helpProvider.SetHelpString(this, resources.GetString("$this.HelpString"));
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "Form1";
-            Text = "digpet";
+            helpProvider.SetShowHelp(this, (bool)resources.GetObject("$this.ShowHelp"));
             TopMost = true;
+            StatsPanel.ResumeLayout(false);
+            StatsPanel.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -168,14 +201,17 @@
         #endregion
 
         private System.Windows.Forms.Timer CpuUsageTimer;
-        private Label TestLabel1;
-        private Label TestLabel2;
-        private Label KibunLabel;
+        private Label EmoStringLabel;
+        private Label CpuUsageLabel;
+        private Label TotalTokenLabel;
         private Label DailyTokenLabel;
         private Label FeelingLabel;
         private Label AverageEmotionTokensLabel;
-        private Label TotalTokensLabel;
         private Label EmoTokenLabel;
         private Button ToggleShowButton;
+        private Label FlopsLabel;
+        private Label StatsLabel;
+        private Panel StatsPanel;
+        private HelpProvider helpProvider;
     }
 }
