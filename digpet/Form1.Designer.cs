@@ -38,6 +38,7 @@
             AverageEmotionTokensLabel = new Label();
             TotalTokensLabel = new Label();
             EmoTokenLabel = new Label();
+            ToggleShowButton = new Button();
             SuspendLayout();
             // 
             // CpuUsageTimer
@@ -133,11 +134,22 @@
             EmoTokenLabel.TabIndex = 8;
             EmoTokenLabel.Text = "なし";
             // 
+            // ToggleShowButton
+            // 
+            ToggleShowButton.Location = new Point(422, 425);
+            ToggleShowButton.Name = "ToggleShowButton";
+            ToggleShowButton.Size = new Size(75, 23);
+            ToggleShowButton.TabIndex = 9;
+            ToggleShowButton.Text = "詳細表示切替";
+            ToggleShowButton.UseVisualStyleBackColor = true;
+            ToggleShowButton.Click += ToggleShowButton_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(509, 455);
+            Controls.Add(ToggleShowButton);
             Controls.Add(EmoTokenLabel);
             Controls.Add(TotalTokensLabel);
             Controls.Add(AverageEmotionTokensLabel);
@@ -164,5 +176,6 @@
         private Label AverageEmotionTokensLabel;
         private Label TotalTokensLabel;
         private Label EmoTokenLabel;
+        private Button ToggleShowButton;
     }
 }
