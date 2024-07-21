@@ -37,10 +37,10 @@
             DailyTokenLabel = new Label();
             FeelingLabel = new Label();
             AverageEmotionTokensLabel = new Label();
-            TotalTokensLabel = new Label();
             EmoTokenLabel = new Label();
             ToggleShowButton = new Button();
             FlopsLabel = new Label();
+            StatsLabel = new Label();
             SuspendLayout();
             // 
             // CpuUsageTimer
@@ -86,7 +86,7 @@
             DailyTokenLabel.AutoSize = true;
             DailyTokenLabel.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
             DailyTokenLabel.ForeColor = Color.Orange;
-            DailyTokenLabel.Location = new Point(12, 9);
+            DailyTokenLabel.Location = new Point(12, 34);
             DailyTokenLabel.Name = "DailyTokenLabel";
             DailyTokenLabel.Size = new Size(41, 25);
             DailyTokenLabel.TabIndex = 3;
@@ -114,23 +114,12 @@
             AverageEmotionTokensLabel.TabIndex = 6;
             AverageEmotionTokensLabel.Text = "なし";
             // 
-            // TotalTokensLabel
-            // 
-            TotalTokensLabel.AutoSize = true;
-            TotalTokensLabel.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            TotalTokensLabel.ForeColor = Color.Orange;
-            TotalTokensLabel.Location = new Point(12, 59);
-            TotalTokensLabel.Name = "TotalTokensLabel";
-            TotalTokensLabel.Size = new Size(41, 25);
-            TotalTokensLabel.TabIndex = 7;
-            TotalTokensLabel.Text = "なし";
-            // 
             // EmoTokenLabel
             // 
             EmoTokenLabel.AutoSize = true;
             EmoTokenLabel.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
             EmoTokenLabel.ForeColor = Color.Orange;
-            EmoTokenLabel.Location = new Point(12, 34);
+            EmoTokenLabel.Location = new Point(12, 59);
             EmoTokenLabel.Name = "EmoTokenLabel";
             EmoTokenLabel.Size = new Size(41, 25);
             EmoTokenLabel.TabIndex = 8;
@@ -157,15 +146,26 @@
             FlopsLabel.TabIndex = 10;
             FlopsLabel.Text = "なし";
             // 
+            // StatsLabel
+            // 
+            StatsLabel.AutoSize = true;
+            StatsLabel.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            StatsLabel.ForeColor = Color.Orange;
+            StatsLabel.Location = new Point(12, 9);
+            StatsLabel.Name = "StatsLabel";
+            StatsLabel.Size = new Size(50, 25);
+            StatsLabel.TabIndex = 11;
+            StatsLabel.Text = "統計";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(484, 461);
+            Controls.Add(StatsLabel);
             Controls.Add(FlopsLabel);
             Controls.Add(ToggleShowButton);
             Controls.Add(EmoTokenLabel);
-            Controls.Add(TotalTokensLabel);
             Controls.Add(AverageEmotionTokensLabel);
             Controls.Add(FeelingLabel);
             Controls.Add(DailyTokenLabel);
@@ -189,9 +189,9 @@
         private Label DailyTokenLabel;
         private Label FeelingLabel;
         private Label AverageEmotionTokensLabel;
-        private Label TotalTokensLabel;
         private Label EmoTokenLabel;
         private Button ToggleShowButton;
         private Label FlopsLabel;
+        private Label StatsLabel;
     }
 }

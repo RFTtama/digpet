@@ -42,9 +42,9 @@ namespace digpet
         {
             labelArray =
             [
+                StatsLabel,
                 DailyTokenLabel,
                 EmoTokenLabel,
-                TotalTokensLabel,
                 AverageEmotionTokensLabel,
                 FeelingLabel,
                 FlopsLabel
@@ -145,7 +145,6 @@ namespace digpet
             TestLabel1.Text = GetFeeling(tokenManager.Feeling);
             DailyTokenLabel.Text = "今日の獲得トークン: " + tokenManager.DailyTokens.ToString("n2");
             EmoTokenLabel.Text = "今日の感情トークン: " + tokenManager.EmotionTokens.ToString("n2");
-            TotalTokensLabel.Text = "累計トークン: " + tokenManager.TotalTokens.ToString("n2");
             AverageEmotionTokensLabel.Text = "平均感情トークン: " + tokenManager.AverageEmotionTokens.ToString("n2");
             FeelingLabel.Text = "今日の感情: " + tokenManager.Feeling.ToString("n2");
             FlopsLabel.Text = "FLOPS: " + tokenManager.Flops.ToString();
