@@ -11,7 +11,7 @@ namespace digpet
     /// </summary>
     internal class FlopsManager
     {
-        private const int CALC_SECOND = 10;
+        private const uint CALC_SECOND = 10;
         private const ulong CALC_MILLISECONDS = CALC_SECOND * 1000;
         private ulong _flops;
 
