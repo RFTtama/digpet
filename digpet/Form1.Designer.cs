@@ -131,7 +131,7 @@
             ToggleShowButton.Name = "ToggleShowButton";
             ToggleShowButton.Size = new Size(91, 27);
             ToggleShowButton.TabIndex = 9;
-            ToggleShowButton.Text = "詳細表示切替";
+            ToggleShowButton.Text = "統計表示切替";
             ToggleShowButton.UseVisualStyleBackColor = true;
             ToggleShowButton.Click += ToggleShowButton_Click;
             // 

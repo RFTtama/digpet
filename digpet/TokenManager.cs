@@ -78,7 +78,7 @@
         /// <summary>
         /// 計算したFLOPS
         /// </summary>
-        public long Flops
+        public ulong Flops
         {
             get
             {

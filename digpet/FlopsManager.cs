@@ -12,13 +12,13 @@ namespace digpet
     internal class FlopsManager
     {
         private const int CALC_SECOND = 10;
-        private const long CALC_MILLISECONDS = CALC_SECOND * 1000;
-        private long _flops;
+        private const ulong CALC_MILLISECONDS = CALC_SECOND * 1000;
+        private ulong _flops;
 
         /// <summary>
         /// FLOPS数値
         /// </summary>
-        public long Flops
+        public ulong Flops
         {
             get { return _flops; }
         }
@@ -27,7 +27,7 @@ namespace digpet
         /// コンストラクタ
         /// </summary>
         /// <param name="initNum">FLOPSの初期値</param>
-        public FlopsManager(long initNum)
+        public FlopsManager(ulong initNum)
         {
             _flops = initNum;
         }
@@ -39,7 +39,7 @@ namespace digpet
         {
             Task.Run(() =>
             {
-                long processNum = 0;
+                ulong processNum = 0;
                 DateTime startTime = DateTime.Now;
 
                 while ((DateTime.Now - startTime).TotalMilliseconds < CALC_MILLISECONDS)
