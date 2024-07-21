@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             CpuUsageTimer = new System.Windows.Forms.Timer(components);
             TestLabel1 = new Label();
             TestLabel2 = new Label();
@@ -51,7 +52,7 @@
             TestLabel1.AutoSize = true;
             TestLabel1.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
             TestLabel1.ForeColor = Color.Orange;
-            TestLabel1.Location = new Point(12, 371);
+            TestLabel1.Location = new Point(12, 377);
             TestLabel1.Name = "TestLabel1";
             TestLabel1.Size = new Size(41, 25);
             TestLabel1.TabIndex = 0;
@@ -62,7 +63,7 @@
             TestLabel2.AutoSize = true;
             TestLabel2.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
             TestLabel2.ForeColor = Color.Orange;
-            TestLabel2.Location = new Point(12, 421);
+            TestLabel2.Location = new Point(12, 427);
             TestLabel2.Name = "TestLabel2";
             TestLabel2.Size = new Size(107, 25);
             TestLabel2.TabIndex = 1;
@@ -73,7 +74,7 @@
             KibunLabel.AutoSize = true;
             KibunLabel.Font = new Font("Yu Gothic UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
             KibunLabel.ForeColor = Color.Orange;
-            KibunLabel.Location = new Point(12, 396);
+            KibunLabel.Location = new Point(12, 402);
             KibunLabel.Name = "KibunLabel";
             KibunLabel.Size = new Size(52, 25);
             KibunLabel.TabIndex = 2;
@@ -136,7 +137,7 @@
             // 
             // ToggleShowButton
             // 
-            ToggleShowButton.Location = new Point(406, 421);
+            ToggleShowButton.Location = new Point(381, 423);
             ToggleShowButton.Name = "ToggleShowButton";
             ToggleShowButton.Size = new Size(91, 27);
             ToggleShowButton.TabIndex = 9;
@@ -158,6 +159,7 @@
             Controls.Add(KibunLabel);
             Controls.Add(TestLabel2);
             Controls.Add(TestLabel1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
             Text = "digpet";
             TopMost = true;
