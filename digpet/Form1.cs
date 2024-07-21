@@ -9,7 +9,6 @@ namespace digpet
         //変数関連の宣言
         private int cpuCnt;
         private double cpuAvg;
-        private Label[] labelArray = Array.Empty<Label>();
 
         //定数の宣言
         private readonly string[] FEELING_STRING =
@@ -30,27 +29,9 @@ namespace digpet
         /// </summary>
         private void Init()
         {
-            InitLabelArray();
             cpuCnt = 0;
             cpuAvg = 0.0;
         }
-
-        /// <summary>
-        /// ラベルアレイの要素を初期化する
-        /// </summary>
-        private void InitLabelArray()
-        {
-            labelArray =
-            [
-                StatsLabel,
-                DailyTokenLabel,
-                EmoTokenLabel,
-                AverageEmotionTokensLabel,
-                FeelingLabel,
-                FlopsLabel
-            ];
-        }
-
 
         /// <summary>
         /// 1分おきにCPU使用率の平均を求めて、変数に代入する
@@ -142,7 +123,7 @@ namespace digpet
         /// <param name="value">出力するトークン</param>
         private void Label1Out(double value)
         {
-            TestLabel1.Text = GetFeeling(tokenManager.Feeling);
+            EmoStringLabel.Text = GetFeeling(tokenManager.Feeling);
             DailyTokenLabel.Text = "今日の獲得トークン: " + tokenManager.DailyTokens.ToString("n2");
             EmoTokenLabel.Text = "今日の感情トークン: " + tokenManager.EmotionTokens.ToString("n2");
             AverageEmotionTokensLabel.Text = "平均感情トークン: " + tokenManager.AverageEmotionTokens.ToString("n2");
@@ -157,7 +138,7 @@ namespace digpet
         /// <param name="value">出力するCPU使用率</param>
         private void Label2Out(double value)
         {
-            TestLabel2.Text = "CPU: " + value.ToString("n2") + "%";
+            CpuUsageLabel.Text = "CPU: " + value.ToString("n2") + "%";
         }
 
         /// <summary>
@@ -166,15 +147,17 @@ namespace digpet
         /// <param name="value">出力するトークンの獲得量</param>
         private void KibunLabelOut(double value)
         {
-            KibunLabel.Text = "累計トークン: " + (tokenManager.TotalTokens).ToString("n2");
+            TotalTokenLabel.Text = "累計トークン: " + (tokenManager.TotalTokens).ToString("n2");
         }
 
+        /// <summary>
+        /// 統計情報の表示を切り替える
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ToggleShowButton_Click(object sender, EventArgs e)
         {
-            foreach (Label targetLabel in labelArray)
-            {
-                targetLabel.Visible = !targetLabel.Visible;
-            }
+            StatsPanel.Visible = !StatsPanel.Visible;
         }
     }
 }
