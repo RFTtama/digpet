@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace digpet
+﻿namespace digpet
 {
     internal class TokenManager
     {
@@ -38,10 +32,10 @@ namespace digpet
         /// </summary>
         public double EmotionTokens
         {
-            get 
+            get
             {
-                if(_emotionTokens.Count <= 0)return 0;
-                return _emotionTokens[_emotionTokens.Count - 1]; 
+                if (_emotionTokens.Count <= 0) return 0;
+                return _emotionTokens[_emotionTokens.Count - 1];
             }
         }
 
@@ -50,10 +44,10 @@ namespace digpet
         /// </summary>
         public double TotalTokens
         {
-            get 
+            get
             {
-                if(_totalTokens.Count <= 0) return 0;
-                return _totalTokens[_totalTokens.Count - 1]; 
+                if (_totalTokens.Count <= 0) return 0;
+                return _totalTokens[_totalTokens.Count - 1];
             }
         }
 
@@ -62,10 +56,10 @@ namespace digpet
         /// </summary>
         public double AverageEmotionTokens
         {
-            get 
+            get
             {
-                if(_emotionTokens.Count <= 0) return 0;
-                return _emotionTokens.ToArray().Sum() / _emotionTokens.Count; 
+                if (_emotionTokens.Count <= 0) return 0;
+                return _emotionTokens.ToArray().Sum() / _emotionTokens.Count;
             }
         }
 
@@ -74,10 +68,10 @@ namespace digpet
         /// </summary>
         public double Feeling
         {
-            get 
+            get
             {
-                if(AverageEmotionTokens <= 0 ) return 0;
-                return ((EmotionTokens - AverageEmotionTokens) / AverageEmotionTokens); 
+                if (AverageEmotionTokens <= 0) return 0;
+                return ((EmotionTokens - AverageEmotionTokens) / AverageEmotionTokens);
             }
         }
 
@@ -85,7 +79,7 @@ namespace digpet
         /// コンストラクタ
         /// FLOPSの計算も行う
         /// </summary>
-        public TokenManager() 
+        public TokenManager()
         {
             Clear();
             flops.CalcFlops();
@@ -183,14 +177,14 @@ namespace digpet
             _emotionTokens.Add(djm.dict[keys[0]]);
             _totalTokens.Add(djm.dict[keys[0]]);
 
-            for (int i = 1; i < keys.Length; i++) 
+            for (int i = 1; i < keys.Length; i++)
             {
                 DateTime newDay = DateTime.Parse(keys[i]);
                 DateTime befDay = DateTime.Parse(keys[i - 1]);
                 TimeSpan spanDay = newDay - befDay;
 
                 //日付が1日以上経過している場合
-                if(spanDay.Days > 1)
+                if (spanDay.Days > 1)
                 {
                     CrossDatesProcess(spanDay.Days);
                 }

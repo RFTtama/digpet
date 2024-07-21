@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 
 namespace digpet
 {
@@ -50,7 +45,7 @@ namespace digpet
         /// </summary>
         /// <param name="path">ファイルパス</param>
         /// <param name="initValue">初期値</param>
-        public void ReadJsonFile(string path, (string, double)initValue)
+        public void ReadJsonFile(string path, (string, double) initValue)
         {
             if (!File.Exists(path))
             {
@@ -69,12 +64,12 @@ namespace digpet
 #endif
                     dict = JsonSerializer.Deserialize<Dictionary<string, double>>(planeText) ?? new Dictionary<string, double>();
                 }
-        }
+            }
             catch (Exception ex)
             {
                 ErrorLog.ErrorOutput("Jsonファイル読み取りエラー", ex.Message, true);
             }
-}
+        }
 
         /// <summary>
         /// 辞書をJSONに書き込む
@@ -104,7 +99,7 @@ namespace digpet
         /// JSONファイルの中身と辞書を空にする
         /// </summary>
         /// <param name="path">ファイルパス</param>
-        private void InitJsonFile(string path, (string, double)initValue)
+        private void InitJsonFile(string path, (string, double) initValue)
         {
             dict.Add(initValue.Item1, initValue.Item2);
 

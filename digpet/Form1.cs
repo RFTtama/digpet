@@ -3,12 +3,13 @@ namespace digpet
     public partial class Form1 : Form
     {
         //クラス関連の宣言
-        private CpuAvgManager cpuAvgManager;
-        private TokenManager tokenManager;
+        private CpuAvgManager cpuAvgManager = new CpuAvgManager();
+        private TokenManager tokenManager = new TokenManager();
 
         //変数関連の宣言
         private int cpuCnt;
         private double cpuAvg;
+        private Label[] labelArray = Array.Empty<Label>();
 
         //定数の宣言
         private readonly string[] FEELING_STRING =
@@ -19,12 +20,34 @@ namespace digpet
         public Form1()
         {
             InitializeComponent();
-            cpuCnt = 0;
-            cpuAvg = 0.0;
-            cpuAvgManager = new CpuAvgManager();
-            tokenManager = new TokenManager();
+            Init();
             CpuUsageTimer.Enabled = true;
             Label1Out(tokenManager.DailyTokens);
+        }
+
+        /// <summary>
+        /// 初期化
+        /// </summary>
+        private void Init()
+        {
+            InitLabelArray();
+            cpuCnt = 0;
+            cpuAvg = 0.0;
+        }
+
+        /// <summary>
+        /// ラベルアレイの要素を初期化する
+        /// </summary>
+        private void InitLabelArray()
+        {
+            labelArray =
+            [
+                DailyTokenLabel,
+                EmoTokenLabel,
+                TotalTokensLabel,
+                AverageEmotionTokensLabel,
+                FeelingLabel
+            ];
         }
 
 
@@ -87,20 +110,20 @@ namespace digpet
         private string GetFeeling(double feeling)
         {
             double feel = feeling;
-            if(feel > 1.0)feel = 1.0;
-            if(feel < -1.0)feel = -1.0;
+            if (feel > 1.0) feel = 1.0;
+            if (feel < -1.0) feel = -1.0;
 
             string feelingText;
-            
+
             if (feel < -0.49)
             {
                 feelingText = FEELING_STRING[0];
             }
-            else if(feel < 0.0)
+            else if (feel < 0.0)
             {
-                feelingText= FEELING_STRING[1];
+                feelingText = FEELING_STRING[1];
             }
-            else if(feel < 0.3)
+            else if (feel < 0.3)
             {
                 feelingText = FEELING_STRING[2];
             }
@@ -143,6 +166,14 @@ namespace digpet
         private void KibunLabelOut(double value)
         {
             KibunLabel.Text = "累計トークン: " + (tokenManager.TotalTokens).ToString("n2");
+        }
+
+        private void ToggleShowButton_Click(object sender, EventArgs e)
+        {
+            foreach (Label targetLabel in labelArray)
+            {
+                targetLabel.Visible = !targetLabel.Visible;
+            }
         }
     }
 }
