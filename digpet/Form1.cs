@@ -142,6 +142,7 @@ namespace digpet
         private void ToggleShowButton_Click(object sender, EventArgs e)
         {
             StatsPanel.Visible = !StatsPanel.Visible;
+            ImportButton.Visible = !ImportButton.Visible;
         }
     }
 }
