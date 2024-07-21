@@ -136,9 +136,9 @@
             // 
             // ToggleShowButton
             // 
-            ToggleShowButton.Location = new Point(422, 425);
+            ToggleShowButton.Location = new Point(406, 421);
             ToggleShowButton.Name = "ToggleShowButton";
-            ToggleShowButton.Size = new Size(75, 23);
+            ToggleShowButton.Size = new Size(91, 27);
             ToggleShowButton.TabIndex = 9;
             ToggleShowButton.Text = "詳細表示切替";
             ToggleShowButton.UseVisualStyleBackColor = true;

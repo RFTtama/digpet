@@ -172,7 +172,7 @@ namespace digpet
         {
             foreach (Label targetLabel in labelArray)
             {
-
+                targetLabel.Visible = !targetLabel.Visible;
             }
         }
     }
