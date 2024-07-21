@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace digpet
+﻿namespace digpet
 {
     /// <summary>
     /// CPU使用率を管理するためのマネージャ
@@ -19,7 +12,7 @@ namespace digpet
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public CpuAvgManager() 
+        public CpuAvgManager()
         {
             Clear();
         }

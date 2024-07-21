@@ -170,7 +170,10 @@ namespace digpet
 
         private void ToggleShowButton_Click(object sender, EventArgs e)
         {
+            foreach (Label targetLabel in labelArray)
+            {
 
+            }
         }
     }
 }
