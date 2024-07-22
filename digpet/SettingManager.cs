@@ -2,27 +2,67 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace digpet
 {
     internal class SettingManager
     {
+        //クラス宣言
+        private Settings _settings;
+        private Settings.FeelingManager _FeelingManager;
+
+        //定数宣言
+        private const string JSON_PATH = "charSettingsTest.json";
+
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public SettingManager()
+        public SettingManager() 
         {
-            Init();
+            _settings = new Settings();
+            _FeelingManager = new Settings.FeelingManager();
+            ParseJsonFile();
         }
 
         /// <summary>
-        /// 初期化
+        /// JSONファイルの読み取り
         /// </summary>
-        private void Init()
+        public void ParseJsonFile()
         {
-            FeelingManager.Init();
-            IntimacyManager.Init();
+            string jsonText = string.Empty;
+
+            if (!File.Exists(JSON_PATH)) 
+            {
+                try
+                {
+                    jsonText = JsonSerializer.Serialize(_FeelingManager);
+                    using (StreamWriter sw = new StreamWriter(JSON_PATH, false))
+                    {
+                        sw.Write(jsonText);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ErrorLog.ErrorOutput("JSON書き込みエラー", ex.Message, true);
+                }
+            }
+            else
+            {
+                try
+                {
+                    using (StreamReader sr = new StreamReader(JSON_PATH))
+                    {
+                        jsonText = sr.ReadToEnd();
+                    }
+                    _settings = JsonSerializer.Deserialize<Settings>(jsonText) ?? new Settings();
+                }
+                catch (Exception ex)
+                {
+                    ErrorLog.ErrorOutput("JSON読み込みエラー", ex.Message, true);
+                }
+            }
         }
 
         /// <summary>
@@ -32,7 +72,7 @@ namespace digpet
         /// <returns></returns>
         public string GetFeelingString(double feeling)
         {
-            return FeelingManager.GetFeelingString(feeling);
+            return _settings.feelingSetting.GetFeelingString(feeling);
         }
 
         /// <summary>
@@ -42,119 +82,179 @@ namespace digpet
         /// <returns></returns>
         public string GetIntimacyString(double intimacy)
         {
-            return IntimacyManager.GetIntimacygString(intimacy);
+            return _settings.intimacySetting.GetIntimacygString(intimacy);
         }
 
         /// <summary>
-        /// 感情の管理クラス(テキストとか)
+        /// 大まかな設定管理クラス
         /// </summary>
-        private static class FeelingManager
+        public class Settings
         {
-            //変数関連
-            private static Dictionary<double, string> feelingDict = new Dictionary<double, string>();
+            //クラス宣言
+            public FeelingManager feelingSetting = new FeelingManager();
+            public IntimacyManager intimacySetting = new IntimacyManager();
+            public CharSettings charSettings = new CharSettings();
+
 
             /// <summary>
-            /// 初期化
+            /// 感情の管理クラス(テキストとか)
             /// </summary>
-            public static void Init()
+            public class FeelingManager
             {
-                //初期値(設定ファイルで変更可能にする)
-                feelingDict = new Dictionary<double, string>()
-                {
-                    [-1.00]                     = "エラー",
-                    [-0.49]                     = "悪い",
-                    [0.0]                       = "普通",
-                    [0.3]                       = "良い",
-                    [1.0]                       = "最高",
-                    [double.PositiveInfinity]   = "エラー"
-                };
-            }
+                //変数関連
+                public Dictionary<string, string> feelingDict { get; set; }
 
-            /// <summary>
-            /// 感情のテキストを取得する
-            /// </summary>
-            /// <param name="feeling">感情</param>
-            /// <returns></returns>
-            public static string GetFeelingString(double feeling)
-            {
-                double[] keys = feelingDict.Keys.ToArray();
-
-                if (keys.Length > 0)
+                /// <summary>
+                /// コンストラクタ
+                /// </summary>
+                public FeelingManager()
                 {
-                    foreach (double threshold in keys)
+                    feelingDict = new Dictionary<string, string>()
                     {
-                        if (threshold == keys[0])
+                        ["-1.00"] = "エラー",
+                        ["-0.49"] = "悪い",
+                        ["0.0"] = "普通",
+                        ["0.3"] = "良い",
+                        ["1.0"] = "最高",
+                        ["Infinity"] = "エラー"
+                    };
+                }
+
+                /// <summary>
+                /// 感情のテキストを取得する
+                /// </summary>
+                /// <param name="feeling">感情</param>
+                /// <returns></returns>
+                public string GetFeelingString(double feeling)
+                {
+                    string[] keys = feelingDict.Keys.ToArray();
+
+                    if (keys.Length > 0)
+                    {
+                        foreach (string threshold in keys)
                         {
-                            if (feeling < threshold)
+                            if (threshold == keys[0])
                             {
-                                return feelingDict[threshold];
+                                if (feeling < double.Parse(threshold, System.Globalization.CultureInfo.InvariantCulture))
+                                {
+                                    return feelingDict[threshold];
+                                }
                             }
-                        }
-                        else
-                        {
-                            if (feeling <= threshold)
+                            else
                             {
-                                return feelingDict[threshold];
+                                if (feeling <= double.Parse(threshold, System.Globalization.CultureInfo.InvariantCulture))
+                                {
+                                    return feelingDict[threshold];
+                                }
                             }
                         }
                     }
+
+                    return "エラー";
+                }
+            }
+
+            /// <summary>
+            /// 親密度の管理クラス(テキストとか)
+            /// </summary>
+            public class IntimacyManager
+            {
+                //変数関連
+                public Dictionary<string, string> intimacyDict {  get; set; }
+
+                /// <summary>
+                /// コンストラクタ
+                /// </summary>
+                public IntimacyManager()
+                {
+                    intimacyDict = new Dictionary<string, string>()
+                    {
+                        ["Infinity"] = "設定なし"
+                    };
                 }
 
-                return "エラー";
-            }
-        }
-
-        /// <summary>
-        /// 親密度の管理クラス(テキストとか)
-        /// </summary>
-        private static class IntimacyManager
-        {
-            //変数関連
-            private static Dictionary<double, string> intimacyDict = new Dictionary<double, string>();
-
-            /// <summary>
-            /// 初期化
-            /// </summary>
-            public static void Init()
-            {
-                //初期値(設定ファイルで変更可能にする)
-                intimacyDict = new Dictionary<double, string>()
+                /// <summary>
+                /// 親密度のテキストを取得する
+                /// </summary>
+                /// <param name="intimacy">親密度</param>
+                /// <returns></returns>
+                public string GetIntimacygString(double intimacy)
                 {
-                    [double.PositiveInfinity]   = "設定なし"
-                };
-            }
+                    string[] keys = intimacyDict.Keys.ToArray();
 
-            /// <summary>
-            /// 親密度のテキストを取得する
-            /// </summary>
-            /// <param name="intimacy">親密度</param>
-            /// <returns></returns>
-            public static string GetIntimacygString(double intimacy)
-            {
-                double[] keys = intimacyDict.Keys.ToArray();
-
-                if (keys.Length > 0)
-                {
-                    foreach (double threshold in keys)
+                    if (keys.Length > 0)
                     {
-                        if (threshold == keys[0])
+                        foreach (string threshold in keys)
                         {
-                            if (intimacy < threshold)
+                            if (threshold == keys[0])
                             {
-                                return intimacyDict[threshold];
+                                if (intimacy < double.Parse(threshold, System.Globalization.CultureInfo.InvariantCulture))
+                                {
+                                    return intimacyDict[threshold];
+                                }
                             }
-                        }
-                        else
-                        {
-                            if (intimacy <= threshold)
+                            else
                             {
-                                return intimacyDict[threshold];
+                                if (intimacy <= double.Parse(threshold, System.Globalization.CultureInfo.InvariantCulture))
+                                {
+                                    return intimacyDict[threshold];
+                                }
                             }
                         }
                     }
+
+                    return "エラー";
+                }
+            }
+
+            /// <summary>
+            /// キャラ設定関連
+            /// </summary>
+            public class CharSettings
+            {
+                public string name { get; set; }
+                public Intimacy[] intimacies { get; set; }
+
+                /// <summary>
+                /// コンストラクタ
+                /// </summary>
+                public CharSettings()
+                {
+                    name = string.Empty;
+                    intimacies = Array.Empty<Intimacy>();
                 }
 
-                return "エラー";
+                public class Intimacy
+                {
+                    public string name { get; set;}
+                    public Feeling[] feelings { get; set; }
+
+                    /// <summary>
+                    /// コンストラクタ
+                    /// </summary>
+                    public Intimacy()
+                    {
+                        name = string.Empty;
+                        feelings = Array.Empty<Feeling>();
+                    }
+
+                    public class Feeling
+                    {
+                        public string name { get; set;}
+                        public string filePath { get; set; }
+                        public float transition {  get; set; }
+
+                        /// <summary>
+                        /// コンストラクタ
+                        /// </summary>
+                        public Feeling()
+                        {
+                            name = string.Empty;
+                            filePath = string.Empty;
+                            transition = 0.0f;
+                        }
+                    }
+                }
             }
         }
     }
