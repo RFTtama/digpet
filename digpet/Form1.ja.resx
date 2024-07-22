@@ -153,26 +153,29 @@
   <data name="CpuUsageLabel.Text" xml:space="preserve">
     <value>CPU: 初期化中</value>
   </data>
-  <data name="TotalTokenLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
   <data name="TotalTokenLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="TotalTokenLabel.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 14.25pt</value>
   </data>
+  <data name="TotalTokenLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 100</value>
+  </data>
   <data name="TotalTokenLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>107, 25</value>
+    <value>41, 25</value>
   </data>
   <data name="TotalTokenLabel.Text" xml:space="preserve">
-    <value>累計トークン:</value>
+    <value>なし</value>
   </data>
   <data name="DailyTokenLabel.HelpString" xml:space="preserve">
     <value>今日獲得した感情トークンです。</value>
   </data>
   <data name="FeelingLabel.HelpString" xml:space="preserve">
     <value>今の感情を表す数値です。値は1.0～-1.0の範囲です。大きいほどプラスの感情を表します。</value>
+  </data>
+  <data name="FeelingLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 125</value>
   </data>
   <data name="AverageEmotionTokensLabel.HelpString" xml:space="preserve">
     <value>日平均の感情トークンです。</value>
@@ -183,8 +186,44 @@
   <data name="ToggleShowButton.HelpString" xml:space="preserve">
     <value>統計情報の表示・非表示を切り替えます。</value>
   </data>
+  <data name="ToggleShowButton.Text" xml:space="preserve">
+    <value>詳細表示切替</value>
+  </data>
   <data name="FlopsLabel.HelpString" xml:space="preserve">
     <value>コンピュータの計算能力を表す数値です。値が大きいほどよい計算能力を持ちます。この数値はアプリを実行する度に再計算されます。</value>
+  </data>
+  <data name="FlopsLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 150</value>
+  </data>
+  <data name="StatsPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>255, 188</value>
+  </data>
+  <data name="ImportButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>91, 23</value>
+  </data>
+  <data name="ImportButton.Text" xml:space="preserve">
+    <value>インポート</value>
+  </data>
+  <data name="ImportButton.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="IntimacyLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="IntimacyLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="IntimacyLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Yu Gothic UI, 14.25pt</value>
+  </data>
+  <data name="IntimacyLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="IntimacyLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>41, 25</value>
+  </data>
+  <data name="IntimacyLabel.Text" xml:space="preserve">
+    <value>なし</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
