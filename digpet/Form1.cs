@@ -158,7 +158,7 @@ namespace digpet
         private void ImportButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "ZIPファイル(*.zip)";
+            ofd.Filter = "ZIPファイル(*.zip)|*.zip;";
             ofd.Title = "インポートするキャラデータを選択してください";
 
             if (ofd.ShowDialog() == DialogResult.OK)
