@@ -37,8 +37,12 @@ namespace digpet
                 }
                 catch (Exception ex)
                 {
-                    ErrorLog.ErrorOutput("JSON読み込みエラー", ex.Message, true);
+                    ErrorLog.ErrorOutput("コンフィグ読み取りエラー", ex.Message, true);
                 }
+            }
+            else
+            {
+                ErrorLog.ErrorOutput("コンフィグ確認エラー", "指定されたキャラファイルにコンフィグファイルが存在しません", true);
             }
         }
 
