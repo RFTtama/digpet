@@ -45,6 +45,7 @@
             helpProvider = new HelpProvider();
             ImportButton = new Button();
             IntimacyLabel = new Label();
+            ClearButton = new Button();
             StatsPanel.SuspendLayout();
             SuspendLayout();
             // 
@@ -197,10 +198,22 @@
             IntimacyLabel.Name = "IntimacyLabel";
             helpProvider.SetShowHelp(IntimacyLabel, (bool)resources.GetObject("IntimacyLabel.ShowHelp"));
             // 
+            // ClearButton
+            // 
+            resources.ApplyResources(ClearButton, "ClearButton");
+            helpProvider.SetHelpKeyword(ClearButton, resources.GetString("ClearButton.HelpKeyword"));
+            helpProvider.SetHelpNavigator(ClearButton, (HelpNavigator)resources.GetObject("ClearButton.HelpNavigator"));
+            helpProvider.SetHelpString(ClearButton, resources.GetString("ClearButton.HelpString"));
+            ClearButton.Name = "ClearButton";
+            helpProvider.SetShowHelp(ClearButton, (bool)resources.GetObject("ClearButton.ShowHelp"));
+            ClearButton.UseVisualStyleBackColor = true;
+            ClearButton.Click += ClearButton_Click;
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(ClearButton);
             Controls.Add(IntimacyLabel);
             Controls.Add(ImportButton);
             Controls.Add(StatsPanel);
@@ -240,5 +253,6 @@
         private HelpProvider helpProvider;
         private Button ImportButton;
         private Label IntimacyLabel;
+        private Button ClearButton;
     }
 }

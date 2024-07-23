@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+
 namespace digpet
 {
     public partial class Form1 : Form
@@ -41,7 +43,8 @@ namespace digpet
         /// </summary>
         private void ReadCharConfig()
         {
-            if (!string.IsNullOrEmpty(settingManager.Settings.CharSettingPath)){
+            if (!string.IsNullOrEmpty(settingManager.Settings.CharSettingPath))
+            {
                 charZipFileManager.ReadCharSettings(settingManager.Settings.CharSettingPath);
             }
         }
@@ -166,7 +169,19 @@ namespace digpet
         private void ToggleShowButton_Click(object sender, EventArgs e)
         {
             StatsPanel.Visible = !StatsPanel.Visible;
+            ClearButton.Visible = !ClearButton.Visible;
             ImportButton.Visible = !ImportButton.Visible;
+        }
+
+        /// <summary>
+        /// キャラファイルのパスを書き込んでから再読み込みする
+        /// </summary>
+        /// <param name="path">キャラファイルパス</param>
+        private void ReWriteCharConfig(string path)
+        {
+            settingManager.Settings.CharSettingPath = path;
+            settingManager.WriteSettingFile(SETTING_PATH);
+            ReadCharConfig();
         }
 
         /// <summary>
@@ -182,14 +197,22 @@ namespace digpet
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                settingManager.Settings.CharSettingPath = ofd.FileName;
-                settingManager.WriteSettingFile(SETTING_PATH);
-                ReadCharConfig();
+                ReWriteCharConfig(ofd.FileName);
             }
             else
             {
                 MessageBox.Show("キャラデータのインポートに失敗しました", "インポートエラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        /// <summary>
+        /// キャラデータの参照をクリア
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ClearButton_Click(object sender, EventArgs e)
+        {
+            ReWriteCharConfig(string.Empty);
         }
     }
 }
