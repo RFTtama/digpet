@@ -1,69 +1,40 @@
-﻿using System.Text.Json;
+﻿using System.IO.Compression;
+using System.Text.Json;
 
 namespace digpet
 {
     internal class CharSettingManager
     {
         //クラス宣言
-        private Settings _settings;
-        private Settings.FeelingManager _FeelingManager;
+        public Settings settings;
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
         public CharSettingManager()
         {
-            _settings = new Settings();
-            _FeelingManager = new Settings.FeelingManager();
+            settings = new Settings();
         }
 
         /// <summary>
-        /// JSONファイルの読み取り
-        /// 多分これ自体変更する(zip読み取りようにする)
+        /// エントリから設定を読み取る
         /// </summary>
-        public void ParseJsonFile(string filePath)
+        public void ReadEntry(ZipArchiveEntry entry)
         {
             string jsonText = string.Empty;
 
-            if (File.Exists(filePath))
+            try
             {
-                try
+                using (StreamReader sr = new StreamReader(entry.Open()))
                 {
-                    using (StreamReader sr = new StreamReader(filePath))
-                    {
-                        jsonText = sr.ReadToEnd();
-                    }
-                    _settings = JsonSerializer.Deserialize<Settings>(jsonText) ?? new Settings();
+                    jsonText = sr.ReadToEnd();
                 }
-                catch (Exception ex)
-                {
-                    ErrorLog.ErrorOutput("コンフィグ読み取りエラー", ex.Message, true);
-                }
+                settings = JsonSerializer.Deserialize<Settings>(jsonText) ?? new Settings();
             }
-            else
+            catch (Exception ex)
             {
-                ErrorLog.ErrorOutput("コンフィグ確認エラー", "指定されたキャラファイルにコンフィグファイルが存在しません", true);
+                ErrorLog.ErrorOutput("コンフィグ読み取りエラー", ex.Message, true);
             }
-        }
-
-        /// <summary>
-        /// 感情のテキストを取得する
-        /// </summary>
-        /// <param name="feeling">感情</param>
-        /// <returns></returns>
-        public string GetFeelingString(double feeling)
-        {
-            return _settings.feelingSetting.GetFeelingString(feeling);
-        }
-
-        /// <summary>
-        /// 親密度のテキストを取得する
-        /// </summary>
-        /// <param name="intimacy">親密度</param>
-        /// <returns></returns>
-        public string GetIntimacyString(double intimacy)
-        {
-            return _settings.intimacySetting.GetIntimacygString(intimacy);
         }
 
         /// <summary>

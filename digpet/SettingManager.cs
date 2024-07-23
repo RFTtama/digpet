@@ -28,7 +28,7 @@ namespace digpet
         /// <param name="path">設定ファイルパス</param>
         public void ReadSettingFile(string path)
         {
-            if (!File.Exists(path))
+            if (File.Exists(path))
             {
                 ReadSettings(path);
             }

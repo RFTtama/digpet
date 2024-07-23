@@ -5,8 +5,8 @@ namespace digpet
         //クラス関連の宣言
         private CpuAvgManager cpuAvgManager = new CpuAvgManager();
         private TokenManager tokenManager = new TokenManager();
-        private CharSettingManager charSettingManager = new CharSettingManager();
         private SettingManager settingManager = new SettingManager();
+        private CharZipFileManager charZipFileManager = new CharZipFileManager();
 
         //変数関連の宣言
         private int cpuCnt;
@@ -22,7 +22,7 @@ namespace digpet
         {
             InitializeComponent();
             Init();
-            settingManager.ReadSettingFile(SETTING_PATH);
+            ReadSettings();
             CpuUsageTimer.Enabled = true;
             OutTokenLabel();
         }
@@ -34,6 +34,25 @@ namespace digpet
         {
             cpuCnt = 0;
             cpuAvg = 0.0;
+        }
+
+        /// <summary>
+        /// キャラクターのコンフィグデータを読み取る
+        /// </summary>
+        private void ReadCharConfig()
+        {
+            if (!string.IsNullOrEmpty(settingManager.Settings.CharSettingPath)){
+                charZipFileManager.ReadCharSettings(settingManager.Settings.CharSettingPath);
+            }
+        }
+
+        /// <summary>
+        /// 設定ファイル関連読み取り
+        /// </summary>
+        private void ReadSettings()
+        {
+            settingManager.ReadSettingFile(SETTING_PATH);
+            ReadCharConfig();
         }
 
         /// <summary>
@@ -98,7 +117,7 @@ namespace digpet
             if (feel > 1.0) feel = 1.0;
             if (feel < -1.0) feel = -1.0;
 
-            return charSettingManager.GetFeelingString(feel);
+            return charZipFileManager.GetFeelingString(feel);
         }
 
         /// <summary>
@@ -111,7 +130,7 @@ namespace digpet
             double inti = intimacy;
             if (inti < 0.0) inti = 0.0;
 
-            return charSettingManager.GetIntimacyString(inti);
+            return charZipFileManager.GetIntimacyString(inti);
         }
 
         /// <summary>
@@ -165,10 +184,11 @@ namespace digpet
             {
                 settingManager.Settings.CharSettingPath = ofd.FileName;
                 settingManager.WriteSettingFile(SETTING_PATH);
+                ReadCharConfig();
             }
             else
             {
-                MessageBox.Show("キャラクターのインポートに失敗しました", "インポートエラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("キャラデータのインポートに失敗しました", "インポートエラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
