@@ -5,7 +5,7 @@ namespace digpet
         //クラス関連の宣言
         private CpuAvgManager cpuAvgManager = new CpuAvgManager();
         private TokenManager tokenManager = new TokenManager();
-        private SettingManager settingManager = new SettingManager();
+        private CharSettingManager charSettingManager = new CharSettingManager();
 
         //変数関連の宣言
         private int cpuCnt;
@@ -93,7 +93,7 @@ namespace digpet
             if (feel > 1.0) feel = 1.0;
             if (feel < -1.0) feel = -1.0;
 
-            return settingManager.GetFeelingString(feel);
+            return charSettingManager.GetFeelingString(feel);
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace digpet
             double inti = intimacy;
             if (inti < 0.0) inti = 0.0;
 
-            return settingManager.GetIntimacyString(inti);
+            return charSettingManager.GetIntimacyString(inti);
         }
 
         /// <summary>

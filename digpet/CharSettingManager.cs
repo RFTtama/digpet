@@ -1,58 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 
 namespace digpet
 {
-    internal class SettingManager
+    internal class CharSettingManager
     {
         //クラス宣言
         private Settings _settings;
         private Settings.FeelingManager _FeelingManager;
 
-        //定数宣言
-        private const string JSON_PATH = "charSettingsTest.json";
-
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public SettingManager() 
+        public CharSettingManager()
         {
             _settings = new Settings();
             _FeelingManager = new Settings.FeelingManager();
-            ParseJsonFile();
         }
 
         /// <summary>
         /// JSONファイルの読み取り
         /// </summary>
-        public void ParseJsonFile()
+        public void ParseJsonFile(string filePath)
         {
             string jsonText = string.Empty;
 
-            if (!File.Exists(JSON_PATH)) 
+            if (File.Exists(filePath))
             {
                 try
                 {
-                    jsonText = JsonSerializer.Serialize(_FeelingManager);
-                    using (StreamWriter sw = new StreamWriter(JSON_PATH, false))
-                    {
-                        sw.Write(jsonText);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ErrorLog.ErrorOutput("JSON書き込みエラー", ex.Message, true);
-                }
-            }
-            else
-            {
-                try
-                {
-                    using (StreamReader sr = new StreamReader(JSON_PATH))
+                    using (StreamReader sr = new StreamReader(filePath))
                     {
                         jsonText = sr.ReadToEnd();
                     }
@@ -160,7 +136,7 @@ namespace digpet
             public class IntimacyManager
             {
                 //変数関連
-                public Dictionary<string, string> intimacyDict {  get; set; }
+                public Dictionary<string, string> intimacyDict { get; set; }
 
                 /// <summary>
                 /// コンストラクタ
@@ -226,7 +202,7 @@ namespace digpet
 
                 public class Intimacy
                 {
-                    public string name { get; set;}
+                    public string name { get; set; }
                     public Feeling[] feelings { get; set; }
 
                     /// <summary>
@@ -240,9 +216,9 @@ namespace digpet
 
                     public class Feeling
                     {
-                        public string name { get; set;}
+                        public string name { get; set; }
                         public string filePath { get; set; }
-                        public float transition {  get; set; }
+                        public float transition { get; set; }
 
                         /// <summary>
                         /// コンストラクタ
