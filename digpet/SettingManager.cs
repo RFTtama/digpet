@@ -2,159 +2,105 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace digpet
 {
+    /// <summary>
+    /// 設定ファイル管理クラス
+    /// </summary>
     internal class SettingManager
     {
+        public DigpetSettings Settings;
+
         /// <summary>
         /// コンストラクタ
         /// </summary>
         public SettingManager()
         {
-            Init();
+            Settings = new DigpetSettings();
         }
 
         /// <summary>
-        /// 初期化
+        /// 設定を読み取る
         /// </summary>
-        private void Init()
+        /// <param name="path">設定ファイルパス</param>
+        public void ReadSettingFile(string path)
         {
-            FeelingManager.Init();
-            IntimacyManager.Init();
-        }
-
-        /// <summary>
-        /// 感情のテキストを取得する
-        /// </summary>
-        /// <param name="feeling">感情</param>
-        /// <returns></returns>
-        public string GetFeelingString(double feeling)
-        {
-            return FeelingManager.GetFeelingString(feeling);
-        }
-
-        /// <summary>
-        /// 親密度のテキストを取得する
-        /// </summary>
-        /// <param name="intimacy">親密度</param>
-        /// <returns></returns>
-        public string GetIntimacyString(double intimacy)
-        {
-            return IntimacyManager.GetIntimacygString(intimacy);
-        }
-
-        /// <summary>
-        /// 感情の管理クラス(テキストとか)
-        /// </summary>
-        private static class FeelingManager
-        {
-            //変数関連
-            private static Dictionary<double, string> feelingDict = new Dictionary<double, string>();
-
-            /// <summary>
-            /// 初期化
-            /// </summary>
-            public static void Init()
+            if (File.Exists(path))
             {
-                //初期値(設定ファイルで変更可能にする)
-                feelingDict = new Dictionary<double, string>()
-                {
-                    [-1.00]                     = "エラー",
-                    [-0.49]                     = "悪い",
-                    [0.0]                       = "普通",
-                    [0.3]                       = "良い",
-                    [1.0]                       = "最高",
-                    [double.PositiveInfinity]   = "エラー"
-                };
+                ReadSettings(path);
             }
-
-            /// <summary>
-            /// 感情のテキストを取得する
-            /// </summary>
-            /// <param name="feeling">感情</param>
-            /// <returns></returns>
-            public static string GetFeelingString(double feeling)
+            else
             {
-                double[] keys = feelingDict.Keys.ToArray();
+                WriteSettings(path);
+            }
+        }
 
-                if (keys.Length > 0)
+        /// <summary>
+        /// 設定を書き込む
+        /// </summary>
+        /// <param name="path">設定ファイルパス</param>
+        public void WriteSettingFile(string path)
+        {
+            WriteSettings(path);
+        }
+
+        /// <summary>
+        /// 設定ファイルを書き込む
+        /// </summary>
+        /// <param name="path"></param>
+        private void WriteSettings(string path)
+        {
+            try
+            {
+                string settingString = JsonSerializer.Serialize(Settings);
+                using (StreamWriter sw = new StreamWriter(path, false))
                 {
-                    foreach (double threshold in keys)
-                    {
-                        if (threshold == keys[0])
-                        {
-                            if (feeling < threshold)
-                            {
-                                return feelingDict[threshold];
-                            }
-                        }
-                        else
-                        {
-                            if (feeling <= threshold)
-                            {
-                                return feelingDict[threshold];
-                            }
-                        }
-                    }
+                    sw.Write(settingString);
                 }
-
-                return "エラー";
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.ErrorOutput("設定ファイル初期化エラー", ex.Message, true);
             }
         }
 
         /// <summary>
-        /// 親密度の管理クラス(テキストとか)
+        /// 設定を読み取る
         /// </summary>
-        private static class IntimacyManager
+        /// <param name="path"></param>
+        private void ReadSettings(string path)
         {
-            //変数関連
-            private static Dictionary<double, string> intimacyDict = new Dictionary<double, string>();
-
-            /// <summary>
-            /// 初期化
-            /// </summary>
-            public static void Init()
+            try
             {
-                //初期値(設定ファイルで変更可能にする)
-                intimacyDict = new Dictionary<double, string>()
+                string settingString = string.Empty;
+                using (StreamReader sr = new StreamReader(path))
                 {
-                    [double.PositiveInfinity]   = "設定なし"
-                };
-            }
-
-            /// <summary>
-            /// 親密度のテキストを取得する
-            /// </summary>
-            /// <param name="intimacy">親密度</param>
-            /// <returns></returns>
-            public static string GetIntimacygString(double intimacy)
-            {
-                double[] keys = intimacyDict.Keys.ToArray();
-
-                if (keys.Length > 0)
-                {
-                    foreach (double threshold in keys)
-                    {
-                        if (threshold == keys[0])
-                        {
-                            if (intimacy < threshold)
-                            {
-                                return intimacyDict[threshold];
-                            }
-                        }
-                        else
-                        {
-                            if (intimacy <= threshold)
-                            {
-                                return intimacyDict[threshold];
-                            }
-                        }
-                    }
+                    settingString = sr.ReadToEnd();
                 }
+                Settings = JsonSerializer.Deserialize<DigpetSettings>(settingString) ?? new DigpetSettings();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.ErrorOutput("設定ファイル読み取りエラー", ex.Message, true);
+            }
+        }
 
-                return "エラー";
+        /// <summary>
+        /// 設定保持クラス
+        /// </summary>
+        public class DigpetSettings
+        {
+            public string CharSettingPath { get; set; }
+
+            /// <summary>
+            /// コンストラクタ
+            /// </summary>
+            public DigpetSettings()
+            {
+                CharSettingPath = string.Empty;
             }
         }
     }

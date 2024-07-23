@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+
 namespace digpet
 {
     public partial class Form1 : Form
@@ -6,10 +8,14 @@ namespace digpet
         private CpuAvgManager cpuAvgManager = new CpuAvgManager();
         private TokenManager tokenManager = new TokenManager();
         private SettingManager settingManager = new SettingManager();
+        private CharZipFileManager charZipFileManager = new CharZipFileManager();
 
         //変数関連の宣言
         private int cpuCnt;
         private double cpuAvg;
+
+        //定数関連の宣言
+        private const string SETTING_PATH = "settings.json";
 
         /// <summary>
         /// コンストラクタ
@@ -18,6 +24,7 @@ namespace digpet
         {
             InitializeComponent();
             Init();
+            ReadSettings();
             CpuUsageTimer.Enabled = true;
             OutTokenLabel();
         }
@@ -29,6 +36,26 @@ namespace digpet
         {
             cpuCnt = 0;
             cpuAvg = 0.0;
+        }
+
+        /// <summary>
+        /// キャラクターのコンフィグデータを読み取る
+        /// </summary>
+        private void ReadCharConfig()
+        {
+            if (!string.IsNullOrEmpty(settingManager.Settings.CharSettingPath))
+            {
+                charZipFileManager.ReadCharSettings(settingManager.Settings.CharSettingPath);
+            }
+        }
+
+        /// <summary>
+        /// 設定ファイル関連読み取り
+        /// </summary>
+        private void ReadSettings()
+        {
+            settingManager.ReadSettingFile(SETTING_PATH);
+            ReadCharConfig();
         }
 
         /// <summary>
@@ -93,7 +120,7 @@ namespace digpet
             if (feel > 1.0) feel = 1.0;
             if (feel < -1.0) feel = -1.0;
 
-            return settingManager.GetFeelingString(feel);
+            return charZipFileManager.GetFeelingString(feel);
         }
 
         /// <summary>
@@ -106,7 +133,7 @@ namespace digpet
             double inti = intimacy;
             if (inti < 0.0) inti = 0.0;
 
-            return settingManager.GetIntimacyString(inti);
+            return charZipFileManager.GetIntimacyString(inti);
         }
 
         /// <summary>
@@ -142,7 +169,50 @@ namespace digpet
         private void ToggleShowButton_Click(object sender, EventArgs e)
         {
             StatsPanel.Visible = !StatsPanel.Visible;
+            ClearButton.Visible = !ClearButton.Visible;
             ImportButton.Visible = !ImportButton.Visible;
+        }
+
+        /// <summary>
+        /// キャラファイルのパスを書き込んでから再読み込みする
+        /// </summary>
+        /// <param name="path">キャラファイルパス</param>
+        private void ReWriteCharConfig(string path)
+        {
+            settingManager.Settings.CharSettingPath = path;
+            settingManager.WriteSettingFile(SETTING_PATH);
+            ReadCharConfig();
+        }
+
+        /// <summary>
+        /// インポートボタンのクリック
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ImportButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "ZIPファイル(*.zip)|*.zip;";
+            ofd.Title = "インポートするキャラデータを選択してください";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                ReWriteCharConfig(ofd.FileName);
+            }
+            else
+            {
+                MessageBox.Show("キャラデータのインポートに失敗しました", "インポートエラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// キャラデータの参照をクリア
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ClearButton_Click(object sender, EventArgs e)
+        {
+            ReWriteCharConfig(string.Empty);
         }
     }
 }
