@@ -6,10 +6,14 @@ namespace digpet
         private CpuAvgManager cpuAvgManager = new CpuAvgManager();
         private TokenManager tokenManager = new TokenManager();
         private CharSettingManager charSettingManager = new CharSettingManager();
+        private SettingManager settingManager = new SettingManager();
 
         //変数関連の宣言
         private int cpuCnt;
         private double cpuAvg;
+
+        //定数関連の宣言
+        private const string SETTING_PATH = "settings.json";
 
         /// <summary>
         /// コンストラクタ
@@ -18,6 +22,7 @@ namespace digpet
         {
             InitializeComponent();
             Init();
+            settingManager.ReadSettingFile(SETTING_PATH);
             CpuUsageTimer.Enabled = true;
             OutTokenLabel();
         }
@@ -143,6 +148,28 @@ namespace digpet
         {
             StatsPanel.Visible = !StatsPanel.Visible;
             ImportButton.Visible = !ImportButton.Visible;
+        }
+
+        /// <summary>
+        /// インポートボタンのクリック
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ImportButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "ZIPファイル(*.zip)";
+            ofd.Title = "インポートするキャラデータを選択してください";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                settingManager.Settings.CharSettingPath = ofd.FileName;
+                settingManager.WriteSettingFile(SETTING_PATH);
+            }
+            else
+            {
+                MessageBox.Show("キャラクターのインポートに失敗しました", "インポートエラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

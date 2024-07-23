@@ -185,6 +185,7 @@
             ImportButton.Name = "ImportButton";
             helpProvider.SetShowHelp(ImportButton, (bool)resources.GetObject("ImportButton.ShowHelp"));
             ImportButton.UseVisualStyleBackColor = true;
+            ImportButton.Click += ImportButton_Click;
             // 
             // IntimacyLabel
             // 

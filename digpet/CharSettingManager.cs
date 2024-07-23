@@ -19,6 +19,7 @@ namespace digpet
 
         /// <summary>
         /// JSONファイルの読み取り
+        /// 多分これ自体変更する(zip読み取りようにする)
         /// </summary>
         public void ParseJsonFile(string filePath)
         {
