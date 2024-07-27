@@ -198,6 +198,9 @@
   <data name="StatsPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>255, 188</value>
   </data>
+  <data name="ImportButton.HelpString" xml:space="preserve">
+    <value>キャラデータをインポートします</value>
+  </data>
   <data name="ImportButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>381, 371</value>
   </data>
@@ -228,29 +231,14 @@
   <data name="IntimacyLabel.Text" xml:space="preserve">
     <value>なし</value>
   </data>
-  <data name="ClearButton.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="ClearButton.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
-    <value>AssociateIndex</value>
-  </data>
-  <data name="ClearButton.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ClearButton.HelpString" xml:space="preserve">
+    <value>インポートしたキャラデータをクリアします</value>
   </data>
   <data name="ClearButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="ClearButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>381, 400</value>
-  </data>
-  <data name="ClearButton.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="ClearButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>91, 23</value>
-  </data>
-  <data name="ClearButton.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
   </data>
   <data name="ClearButton.Text" xml:space="preserve">
     <value>クリア</value>
