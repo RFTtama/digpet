@@ -9,6 +9,7 @@
         //固定値関連の宣言
         private const double TOKEN_CALC_WEIGHT = 1000.0 / (60.0 * 24.0 * 100.0);
         private const double HANDOVER_PERCENT = 0.5;
+        private const double HANDOVER_PENALTY = 0.95;
 
         //変数関連の宣言
         private double _dailyTokens;
@@ -219,7 +220,7 @@
             for (int j = 1; j < days - 1; j++)
             {
                 double emoMem = (_emotionTokens[_emotionTokens.Count - 1] * HANDOVER_PERCENT);
-                double totalMem = _totalTokens[_totalTokens.Count - 1] + emoMem;
+                double totalMem = (_totalTokens[_totalTokens.Count - 1] + emoMem) * HANDOVER_PENALTY;
 
                 _emotionTokens.Add(emoMem);
                 _totalTokens.Add(totalMem);
