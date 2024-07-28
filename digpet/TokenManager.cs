@@ -9,6 +9,7 @@
         //固定値関連の宣言
         private const double TOKEN_CALC_WEIGHT = 1000.0 / (60.0 * 24.0 * 100.0);
         private const double HANDOVER_PERCENT = 0.5;
+        private const double HANDOVER_PENALTY = 0.95;
 
         //変数関連の宣言
         private double _dailyTokens;
@@ -197,7 +198,7 @@
                 //日付が1日以上経過している場合
                 if (spanDay.Days > 1)
                 {
-                    CrossDatesProcess(spanDay.Days);
+                    CrossDatesProcess(spanDay.Days, newDay);
                 }
                 else//日付が経過していない
                 {
@@ -214,12 +215,22 @@
         /// 日付を複数日跨いだ際の処理
         /// </summary>
         /// <param name="days">跨いだ日付(1以下は機能しない)</param>
-        private void CrossDatesProcess(int days)
+        private void CrossDatesProcess(int days, DateTime lastDate)
         {
             for (int j = 1; j < days - 1; j++)
             {
-                double emoMem = (_emotionTokens[_emotionTokens.Count - 1] * HANDOVER_PERCENT);
-                double totalMem = _totalTokens[_totalTokens.Count - 1] + emoMem;
+                double emoMem = 0.0;
+
+                if (j == days - 2)
+                {
+                    emoMem = (_emotionTokens[_emotionTokens.Count - 1] * HANDOVER_PERCENT) + djm.dict[lastDate.ToString()];
+                }
+                else
+                {
+                    emoMem = (_emotionTokens[_emotionTokens.Count - 1] * HANDOVER_PERCENT);
+                }
+
+                double totalMem = (_totalTokens[_totalTokens.Count - 1] + emoMem) * HANDOVER_PENALTY;
 
                 _emotionTokens.Add(emoMem);
                 _totalTokens.Add(totalMem);
