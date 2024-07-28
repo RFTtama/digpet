@@ -6,7 +6,7 @@ namespace digpet
     internal class CharSettingManager
     {
         //クラス宣言
-        public Settings settings;
+        public Settings settings;       //設定クラス(ややこしいが設定用クラスとは別物)
 
         /// <summary>
         /// コンストラクタ
