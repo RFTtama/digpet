@@ -3,22 +3,22 @@
     internal class TokenManager
     {
         //クラス関連の宣言
-        private DoubleJsonManager djm = new DoubleJsonManager(TOKEN_PASS);
-        private FlopsManager flops = new FlopsManager(1000);
+        private DoubleJsonManager djm = new DoubleJsonManager(TOKEN_PASS);                  //(string, double)のJSONファイルの管理クラス
+        private FlopsManager flops = new FlopsManager(1000);                                //FLOPS計算クラス
 
         //固定値関連の宣言
-        private const double TOKEN_CALC_WEIGHT = 1000.0 / (60.0 * 24.0 * 100.0);
-        private const double HANDOVER_PERCENT = 0.5;
-        private const double HANDOVER_PENALTY = 0.95;
+        private const double TOKEN_CALC_WEIGHT = 1000.0 / (60.0 * 24.0 * 100.0);            //トークンのウェイト
+        private const double HANDOVER_PERCENT = 0.5;                                        //感情トークンの引継ぎ割合
+        private const double HANDOVER_PENALTY = 0.95;                                       //複数日跨いだ際の累計トークンペナルティ割合
 
         //変数関連の宣言
         private double _dailyTokens;
-        private const string TOKEN_PATH = "TOKENS.dig";
-        private const string TOKEN_PASS = "qK6Nvgjfn8aa6oy2tDtYw17Lz0zePJMnXdiAnfXO";
+        private const string TOKEN_PATH = "TOKENS.dig";                                     //トークンのファイル名
+        private const string TOKEN_PASS = "qK6Nvgjfn8aa6oy2tDtYw17Lz0zePJMnXdiAnfXO";       //トークンの暗号化キー(このキーでテキストが複合できるのはないしょ)
 
         //リスト関連の宣言
-        private List<double> _emotionTokens = new List<double>();
-        private List<double> _totalTokens = new List<double>();
+        private List<double> _emotionTokens = new List<double>();                           //日別感情トークンの獲得量リスト
+        private List<double> _totalTokens = new List<double>();                             //日別累計トークンの獲得量リスト
 
         /// <summary>
         /// 今日の累計トークン
@@ -212,15 +212,17 @@
         }
 
         /// <summary>
-        /// 日付を複数日跨いだ際の処理
+        /// 複数び跨いだ時の処理
         /// </summary>
-        /// <param name="days">跨いだ日付(1以下は機能しない)</param>
+        /// <param name="days">跨いだ日数(1以下は機能しない)</param>
+        /// <param name="lastDate">最後の日付</param>
         private void CrossDatesProcess(int days, DateTime lastDate)
         {
             for (int j = 1; j < days - 1; j++)
             {
                 double emoMem = 0.0;
 
+                //最後の日付のデータはあるので、その日のトークンを足さないといけない
                 if (j == days - 2)
                 {
                     emoMem = (_emotionTokens[_emotionTokens.Count - 1] * HANDOVER_PERCENT) + djm.dict[lastDate.ToString()];

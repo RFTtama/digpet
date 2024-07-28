@@ -1,7 +1,16 @@
 ﻿namespace digpet
 {
+    /// <summary>
+    /// エラー出力クラス
+    /// </summary>
     static class ErrorLog
     {
+        /// <summary>
+        /// エラーを出力する
+        /// </summary>
+        /// <param name="name">エラー名</param>
+        /// <param name="msg">エラーメッセージ</param>
+        /// <param name="show">表示するか</param>
         public static void ErrorOutput(string name, string msg, bool show)
         {
             try

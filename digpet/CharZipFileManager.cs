@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO.Compression;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO.Compression;
 
 namespace digpet
 {
     internal class CharZipFileManager
     {
         //クラス宣言
-        private CharSettingManager _charSettingManager;
+        private CharSettingManager _charSettingManager;         //キャラクターファイルの設定クラス
 
         //定数宣言
-        private const string CONFIG_PATH = "config.json";
+        private const string CONFIG_PATH = "config.json";       //設定ファイルのパス
 
         /// <summary>
         /// コンストラクタ

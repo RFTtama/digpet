@@ -7,12 +7,11 @@ namespace digpet
     /// </summary>
     internal class DoubleJsonManager
     {
-        /// <summary>
-        /// 辞書
-        /// </summary>
-        public Dictionary<string, double> dict = new Dictionary<string, double>();
+        //辞書関連の宣言
+        public Dictionary<string, double> dict = new Dictionary<string, double>();      //辞書
 
-        private string password = string.Empty;
+        //変数関連の宣言
+        private string password = string.Empty;                                         //パスワード
 
         /// <summary>
         /// コンストラクタ
@@ -57,6 +56,7 @@ namespace digpet
             {
                 using (StreamReader sr = new StreamReader(path))
                 {
+                    //#ifを切り替えると、暗号化ありか無しかがかわる
 #if true
                     string planeText = Crypter.DecryptString(sr.ReadToEnd(), password);
 #else

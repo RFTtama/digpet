@@ -6,8 +6,8 @@
     internal class CpuAvgManager
     {
         //変数関連の宣言
-        private double _cpuSum;
-        private uint _cpuCount;
+        private double _cpuSum;                 //現在のCPU使用率の合計
+        private uint _cpuCount;                 //合計を足した回数
 
         /// <summary>
         /// コンストラクタ
