@@ -222,6 +222,9 @@
   <data name="IntimacyLabel.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 14.25pt</value>
   </data>
+  <data name="IntimacyLabel.HelpString" xml:space="preserve">
+    <value>現在の友好度です。</value>
+  </data>
   <data name="IntimacyLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
