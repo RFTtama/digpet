@@ -10,11 +10,12 @@
         private const double TOKEN_CALC_WEIGHT = 1000.0 / (60.0 * 24.0 * 100.0);            //トークンのウェイト
         private const double HANDOVER_PERCENT = 0.5;                                        //感情トークンの引継ぎ割合
         private const double HANDOVER_PENALTY = 0.95;                                       //複数日跨いだ際の累計トークンペナルティ割合
-
-        //変数関連の宣言
-        private double _dailyTokens;
         private const string TOKEN_PATH = "TOKENS.dig";                                     //トークンのファイル名
         private const string TOKEN_PASS = "qK6Nvgjfn8aa6oy2tDtYw17Lz0zePJMnXdiAnfXO";       //トークンの暗号化キー(このキーでテキストが複合できるのはないしょ)
+
+        //変数関連の宣言
+        private double _dailyTokens;                                                        //その日のトークン
+        private int _resetHour;                                                             //トークンをリセットする時刻
 
         //リスト関連の宣言
         private List<double> _emotionTokens = new List<double>();                           //日別感情トークンの獲得量リスト
@@ -25,7 +26,10 @@
         /// </summary>
         public double DailyTokens
         {
-            get { return _dailyTokens; }
+            get 
+            { 
+                return _dailyTokens; 
+            }
         }
 
         /// <summary>
@@ -88,6 +92,22 @@
         }
 
         /// <summary>
+        /// トークンリセット時刻
+        /// </summary>
+        public int ResetHour
+        {
+            set
+            {
+                _resetHour = value;
+            }
+
+            get
+            {
+                return _resetHour;
+            }
+        }
+
+        /// <summary>
         /// コンストラクタ
         /// FLOPSの計算も行う
         /// </summary>
@@ -103,6 +123,7 @@
         public void Clear()
         {
             _dailyTokens = 0.0;
+            _resetHour = -1;
             ClearCalcTokens();
             ReadTokens();
         }
@@ -154,9 +175,30 @@
         /// </summary>
         private void WriteTokens()
         {
-            djm.dict[DateTime.Today.ToString()] = _dailyTokens;
-            djm.WriteJsonFile(TOKEN_PATH);
-            CalcAllToken();
+            if (_resetHour < 0) 
+            {
+                ErrorLog.ErrorOutput("トークンリセット時刻設定エラー", "トークンのリセット時刻が設定されていません", true);
+            }
+            else
+            {
+                DateTime tokenDate;
+                DateTime resetTime = DateTime.Today;
+                resetTime.AddHours(ResetHour);
+                if ((DateTime.Today - resetTime).TotalHours >= 0)
+                {
+                    //today
+                    tokenDate = DateTime.Today;
+                }
+                else
+                {
+                    //yesterday
+                    tokenDate = DateTime.Today.AddDays(-1);
+                }
+
+                djm.dict[tokenDate.ToString()] = _dailyTokens;
+                djm.WriteJsonFile(TOKEN_PATH);
+                CalcAllToken();
+            }
         }
 
         /// <summary>

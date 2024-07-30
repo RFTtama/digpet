@@ -89,6 +89,7 @@ namespace digpet
         public class DigpetSettings
         {
             public string CharSettingPath { get; set; }
+            public int ResetHour { get; set; }
 
             /// <summary>
             /// コンストラクタ
@@ -96,6 +97,7 @@ namespace digpet
             public DigpetSettings()
             {
                 CharSettingPath = string.Empty;
+                ResetHour = -1;
             }
         }
     }
