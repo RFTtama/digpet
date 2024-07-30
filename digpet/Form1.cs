@@ -39,6 +39,46 @@ namespace digpet
         }
 
         /// <summary>
+        /// トークンをリセットする時刻が設定されているか確認する
+        /// </summary>
+        private void CheckResetTime()
+        {
+            int resetHour = settingManager.Settings.ResetHour;
+
+            if (resetHour < 0)
+            {
+                resetHour = SetResetTime();
+                settingManager.WriteSettingFile(SETTING_PATH);
+            }
+
+            tokenManager.ResetHour = resetHour;
+        }
+
+        /// <summary>
+        /// リセット時刻を新しく設定する
+        /// </summary>
+        /// <returns>リセット時刻</returns>
+        private int SetResetTime()
+        {
+            while (true)
+            {
+                string input = Microsoft.VisualBasic.Interaction.InputBox("トークンをリセットする時刻を0～23で設定してください",
+                    "リセット時刻設", "0");
+
+                int hour = -1;
+
+                if (int.TryParse(input, out hour) == true)
+                {
+                    if (hour >= 0 && hour < 24)
+                    {
+                        settingManager.Settings.ResetHour = hour;
+                        return hour;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// キャラクターのコンフィグデータを読み取る
         /// </summary>
         private void ReadCharConfig()
@@ -55,6 +95,7 @@ namespace digpet
         private void ReadSettings()
         {
             settingManager.ReadSettingFile(SETTING_PATH);
+            CheckResetTime();
             ReadCharConfig();
         }
 
