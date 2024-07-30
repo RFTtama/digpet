@@ -7,7 +7,14 @@ namespace digpet
     /// </summary>
     internal class SettingManager
     {
+        //内包クラス
         public DigpetSettings Settings;
+
+        //JSONの設定
+        private readonly JsonSerializerOptions JSON_OPTIONS = new JsonSerializerOptions 
+        {
+            WriteIndented = true
+        };
 
         /// <summary>
         /// コンストラクタ
@@ -50,7 +57,7 @@ namespace digpet
         {
             try
             {
-                string settingString = JsonSerializer.Serialize(Settings);
+                string settingString = JsonSerializer.Serialize(Settings, JSON_OPTIONS);
                 using (StreamWriter sw = new StreamWriter(path, false))
                 {
                     sw.Write(settingString);
