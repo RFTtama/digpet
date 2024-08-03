@@ -96,14 +96,14 @@
         /// </summary>
         public int ResetHour
         {
-            set
-            {
-                _resetHour = value;
-            }
-
             get
             {
                 return _resetHour;
+            }
+
+            set
+            {
+                _resetHour = value;
             }
         }
 
@@ -175,13 +175,54 @@
         /// </summary>
         private void WriteTokens()
         {
-            if (_resetHour < 0) 
+            //リセット時間が設定されていなかったら処理をしない
+            if (ResetHour >= 0)
             {
-                ErrorLog.ErrorOutput("トークンリセット時刻設定エラー", "トークンのリセット時刻が設定されていません", true);
+                DateTime resetTime = CalcTokenResetTime();
+
+                djm.dict[resetTime.ToString()] = _dailyTokens;
+                djm.WriteJsonFile(TOKEN_PATH);
+                CalcAllToken();
+            }
+        }
+
+        /// <summary>
+        /// トークンリセットする,トークンファイルがない場合は作成する
+        /// </summary>
+        private void TokenExist()
+        {
+            //リセット時間が設定されていなかったら処理をしない
+            if (ResetHour >= 0)
+            {
+                DateTime resetTime = CalcTokenResetTime();
+
+                if (djm.dict.ContainsKey(resetTime.ToString()))
+                {
+                    _dailyTokens = djm.dict[resetTime.ToString()];
+                }
+                else
+                {
+                    _dailyTokens = 0.0;
+                    djm.dict.Add(resetTime.ToString(), _dailyTokens);
+                    djm.WriteJsonFile(TOKEN_PATH);
+                }
+            }
+        }
+
+        /// <summary>
+        /// トークンのリセット時間を計算して返却する
+        /// </summary>
+        /// <returns>トークンリセット時間</returns>
+        private DateTime CalcTokenResetTime()
+        {
+            DateTime tokenDate = DateTime.Today;
+
+            if (ResetHour < 0)
+            {
+                ErrorLog.ErrorOutput("トークンリセット時刻読み取りエラー", "トークンのリセット時刻が設定されていません", true);
             }
             else
             {
-                DateTime tokenDate;
                 DateTime resetTime = DateTime.Today;
                 resetTime.AddHours(ResetHour);
                 if ((DateTime.Today - resetTime).TotalHours >= 0)
@@ -194,28 +235,9 @@
                     //yesterday
                     tokenDate = DateTime.Today.AddDays(-1);
                 }
+            }
 
-                djm.dict[tokenDate.ToString()] = _dailyTokens;
-                djm.WriteJsonFile(TOKEN_PATH);
-                CalcAllToken();
-            }
-        }
-
-        /// <summary>
-        /// トークンリセットする,トークンファイルがない場合は作成する
-        /// </summary>
-        private void TokenExist()
-        {
-            if (djm.dict.ContainsKey(DateTime.Today.ToString()))
-            {
-                _dailyTokens = djm.dict[DateTime.Today.ToString()];
-            }
-            else
-            {
-                _dailyTokens = 0.0;
-                djm.dict.Add(DateTime.Today.ToString(), _dailyTokens);
-                djm.WriteJsonFile(TOKEN_PATH);
-            }
+            return tokenDate;
         }
 
         /// <summary>
