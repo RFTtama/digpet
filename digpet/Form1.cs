@@ -333,7 +333,7 @@ namespace digpet
                 {
                     Control befCont = controls[panelInd - 1];
 
-                    nowCont.Location = new Point(nowCont.Location.X, nowCont.Location.Y + (panelInd * (enlarge + FONT_MARGIN_SIZE)));
+                    nowCont.Location = new Point(nowCont.Location.X, befCont.Location.Y + nowCont.Height + FONT_MARGIN_SIZE);
                 }
             }
         }
@@ -361,7 +361,11 @@ namespace digpet
                 {
                     Control befCont = controls[panelInd - 1];
 
-                    nowCont.Location = new Point(nowCont.Location.X, nowCont.Location.Y - (panelInd * (enlarge + FONT_MARGIN_SIZE)));
+                    nowCont.Location = new Point(nowCont.Location.X, befCont.Location.Y - nowCont.Height - FONT_MARGIN_SIZE);
+                }
+                else
+                {
+                    nowCont.Top -= enlarge;
                 }
             }
         }
@@ -396,7 +400,11 @@ namespace digpet
                 {
                     Control befCont = controls[panelInd - 1];
 
-                    nowCont.Location = new Point(nowCont.Location.X, nowCont.Location.Y - (panelInd * (enlarge + FONT_MARGIN_SIZE)));
+                    nowCont.Location = new Point(nowCont.Location.X, befCont.Location.Y - nowCont.Height - FONT_MARGIN_SIZE);
+                }
+                else
+                {
+                    nowCont.Top -= enlarge;
                 }
             }
 
