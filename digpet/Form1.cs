@@ -17,6 +17,7 @@ namespace digpet
 
         //定数関連の宣言
         private const string SETTING_PATH = "settings.json";
+        private const int FONT_MARGIN_SIZE = 5;
 
         /// <summary>
         /// コンストラクタ
@@ -332,7 +333,7 @@ namespace digpet
                 {
                     Control befCont = controls[panelInd - 1];
 
-                    nowCont.Location = new Point(nowCont.Location.X, nowCont.Location.Y + (panelInd * enlarge));
+                    nowCont.Location = new Point(nowCont.Location.X, nowCont.Location.Y + (panelInd * (enlarge + FONT_MARGIN_SIZE)));
                 }
             }
         }
@@ -360,7 +361,7 @@ namespace digpet
                 {
                     Control befCont = controls[panelInd - 1];
 
-                    nowCont.Location = new Point(nowCont.Location.X, nowCont.Location.Y - (panelInd * enlarge));
+                    nowCont.Location = new Point(nowCont.Location.X, nowCont.Location.Y - (panelInd * (enlarge + FONT_MARGIN_SIZE)));
                 }
             }
         }
@@ -395,7 +396,7 @@ namespace digpet
                 {
                     Control befCont = controls[panelInd - 1];
 
-                    nowCont.Location = new Point(nowCont.Location.X, nowCont.Location.Y - (panelInd * enlarge));
+                    nowCont.Location = new Point(nowCont.Location.X, nowCont.Location.Y - (panelInd * (enlarge + FONT_MARGIN_SIZE)));
                 }
             }
 
