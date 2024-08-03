@@ -162,6 +162,7 @@
             HelpButton = true;
             Name = "Form1";
             TopMost = true;
+            FormClosing += Form1_FormClosing;
             StatsPanel.ResumeLayout(false);
             StatsPanel.PerformLayout();
             ResumeLayout(false);
