@@ -25,6 +25,7 @@ namespace digpet
             InitializeComponent();
             Init();
             ReadSettings();
+            SetNowWindowState();
             CpuUsageTimer.Enabled = true;
             OutTokenLabel();
         }
@@ -254,6 +255,98 @@ namespace digpet
         private void ClearButton_Click(object sender, EventArgs e)
         {
             ReWriteCharConfig(string.Empty);
+        }
+
+        /// <summary>
+        /// フォーム終了時の動作
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveNowWindowState();
+            settingManager.WriteSettingFile(SETTING_PATH);
+        }
+
+        /// <summary>
+        /// 現在のウィンドウの状態を設定ファイルにまとめる
+        /// </summary>
+        private void SaveNowWindowState()
+        {
+            settingManager.Settings.WindowLocation = Location;
+            settingManager.Settings.WindowSize = Size;
+            settingManager.Settings.WindowState = GetWindowStateId();
+        }
+
+        /// <summary>
+        /// 現在のウィンドウの状態を設定する
+        /// </summary>
+        private void SetNowWindowState()
+        {
+            Location = settingManager.Settings.WindowLocation;
+            Size = settingManager.Settings.WindowSize;
+            WindowState = GetWindowState();
+        }
+
+        /// <summary>
+        /// ウィンドウの状態IDを返却する
+        /// </summary>
+        /// <returns>0: 通常, 1: 最大化, 2: 最小化</returns>
+        private int GetWindowStateId()
+        {
+            int wstate = 0;
+
+            switch (WindowState)
+            {
+                case FormWindowState.Normal:
+                    wstate = 0;
+                    break;
+
+                case FormWindowState.Maximized:
+                    wstate = 1;
+                    break;
+
+                case FormWindowState.Minimized:
+                    wstate = 2;
+                    break;
+
+                default:
+                    wstate = 0;
+                    break;
+            }
+
+            return wstate;
+        }
+
+        /// <summary>
+        /// ウィンドウの状態を返却する
+        /// </summary>
+        /// <returns>通常、最大化、最小化</returns>
+        private FormWindowState GetWindowState()
+        {
+            FormWindowState loadState = FormWindowState.Normal;
+
+            switch (settingManager.Settings.WindowState)
+            {
+                case 0:
+                    loadState = FormWindowState.Normal;
+                    break;
+
+                case 1:
+                    loadState = FormWindowState.Maximized;
+                    break;
+
+
+                case 2:
+                    loadState = FormWindowState.Minimized;
+                    break;
+
+                default:
+                    loadState = FormWindowState.Normal;
+                    break;
+            }
+
+            return loadState;
         }
     }
 }

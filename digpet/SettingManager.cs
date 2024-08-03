@@ -92,11 +92,24 @@ namespace digpet
 
         /// <summary>
         /// 設定保持クラス
+        /// 設定の項目が追加されたら増やすこと!!
         /// </summary>
         public class DigpetSettings
         {
+            //キャラ設定ファイルのパス
             public string CharSettingPath { get; set; }
+
+            //リセット時間
             public int ResetHour { get; set; }
+
+            //ウィンドウの状態 0: 通常, 1: 最大化, 2: 最小化
+            public int WindowState { get; set; }
+
+            //ウィンドウサイズ
+            public Size WindowSize {  get; set; }
+
+            //ウィンドウロケーション
+            public Point WindowLocation {  get; set; }
 
             /// <summary>
             /// コンストラクタ
@@ -105,6 +118,9 @@ namespace digpet
             {
                 CharSettingPath = string.Empty;
                 ResetHour = -1;
+                WindowState = 0;
+                WindowSize = new Size(500, 500);
+                WindowLocation = new Point(0, 0);
             }
         }
     }
