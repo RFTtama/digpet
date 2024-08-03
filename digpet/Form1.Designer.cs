@@ -152,10 +152,10 @@
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(StatsPanel);
             Controls.Add(ClearButton);
             Controls.Add(IntimacyLabel);
             Controls.Add(ImportButton);
-            Controls.Add(StatsPanel);
             Controls.Add(ToggleShowButton);
             Controls.Add(CpuUsageLabel);
             Controls.Add(EmoStringLabel);
