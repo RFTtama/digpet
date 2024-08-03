@@ -144,9 +144,6 @@
   <data name="CpuUsageLabel.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 14.25pt</value>
   </data>
-  <data name="CpuUsageLabel.HelpString" xml:space="preserve">
-    <value>CPU使用率です。CPUによっては値が100%を超えることがあります。</value>
-  </data>
   <data name="CpuUsageLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>133, 25</value>
   </data>
@@ -168,29 +165,11 @@
   <data name="TotalTokenLabel.Text" xml:space="preserve">
     <value>なし</value>
   </data>
-  <data name="DailyTokenLabel.HelpString" xml:space="preserve">
-    <value>今日獲得した感情トークンです。</value>
-  </data>
-  <data name="FeelingLabel.HelpString" xml:space="preserve">
-    <value>今の感情を表す数値です。値は1.0～-1.0の範囲です。大きいほどプラスの感情を表します。</value>
-  </data>
   <data name="FeelingLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 125</value>
   </data>
-  <data name="AverageEmotionTokensLabel.HelpString" xml:space="preserve">
-    <value>日平均の感情トークンです。</value>
-  </data>
-  <data name="EmoTokenLabel.HelpString" xml:space="preserve">
-    <value>今日獲得した感情トークンに、ボーナスなどの数値を足したものです。</value>
-  </data>
-  <data name="ToggleShowButton.HelpString" xml:space="preserve">
-    <value>統計情報の表示・非表示を切り替えます。</value>
-  </data>
   <data name="ToggleShowButton.Text" xml:space="preserve">
     <value>詳細表示切替</value>
-  </data>
-  <data name="FlopsLabel.HelpString" xml:space="preserve">
-    <value>コンピュータの計算能力を表す数値です。値が大きいほどよい計算能力を持ちます。この数値はアプリを実行する度に再計算されます。</value>
   </data>
   <data name="FlopsLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 150</value>
@@ -198,8 +177,8 @@
   <data name="StatsPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>255, 188</value>
   </data>
-  <data name="ImportButton.HelpString" xml:space="preserve">
-    <value>キャラデータをインポートします</value>
+  <data name="ImportButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
   </data>
   <data name="ImportButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>381, 371</value>
@@ -222,9 +201,6 @@
   <data name="IntimacyLabel.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 14.25pt</value>
   </data>
-  <data name="IntimacyLabel.HelpString" xml:space="preserve">
-    <value>現在の友好度です。</value>
-  </data>
   <data name="IntimacyLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -234,8 +210,8 @@
   <data name="IntimacyLabel.Text" xml:space="preserve">
     <value>なし</value>
   </data>
-  <data name="ClearButton.HelpString" xml:space="preserve">
-    <value>インポートしたキャラデータをクリアします</value>
+  <data name="ClearButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
   </data>
   <data name="ClearButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
