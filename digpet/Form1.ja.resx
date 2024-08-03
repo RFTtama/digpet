@@ -190,7 +190,7 @@
     <value>True</value>
   </data>
   <data name="ImportButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>381, 369</value>
+    <value>381, 368</value>
   </data>
   <data name="ImportButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>91, 25</value>

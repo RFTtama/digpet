@@ -286,6 +286,23 @@ namespace digpet
             Location = settingManager.Settings.WindowLocation;
             Size = settingManager.Settings.WindowSize;
             WindowState = GetWindowState();
+            SetControlFontSize();
+        }
+
+        /// <summary>
+        /// フォントのサイズを設定に応じて拡大する
+        /// </summary>
+        private void SetControlFontSize()
+        {
+            int enlarge = settingManager.Settings.FontEnlargeSize;
+
+            if (enlarge > 0)
+            {
+                foreach (Control control in this.Controls)
+                {
+                    control.Font = new Font(control.Font.Name, control.Font.Size + enlarge);
+                }
+            }
         }
 
         /// <summary>

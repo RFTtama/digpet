@@ -111,6 +111,9 @@ namespace digpet
             //ウィンドウロケーション
             public Point WindowLocation {  get; set; }
 
+            //フォントの拡大サイズ
+            public int FontEnlargeSize { get; set; }
+
             /// <summary>
             /// コンストラクタ
             /// </summary>
@@ -121,6 +124,7 @@ namespace digpet
                 WindowState = 0;
                 WindowSize = new Size(500, 500);
                 WindowLocation = new Point(0, 0);
+                FontEnlargeSize = 0;
             }
         }
     }
