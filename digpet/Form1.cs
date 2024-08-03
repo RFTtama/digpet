@@ -1,4 +1,5 @@
 using System.Security.Cryptography;
+using System.Windows.Forms;
 
 namespace digpet
 {
@@ -298,9 +299,112 @@ namespace digpet
 
             if (enlarge > 0)
             {
-                foreach (Control control in this.Controls)
+                SetSatsPanelControlSize(enlarge);
+                SetGeneralLabelControlSize(enlarge);
+                SetButtonControlSize(enlarge);
+            }
+        }
+
+        /// <summary>
+        /// StatsPanelのコントロールに対するフォントサイズ設定
+        /// </summary>
+        /// <param name="enlarge">拡大サイズ</param>
+        private void SetSatsPanelControlSize(int enlarge)
+        {
+            Control[] controls =
                 {
-                    control.Font = new Font(control.Font.Name, control.Font.Size + enlarge);
+                    StatsLabel,
+                    DailyTokenLabel,
+                    EmoTokenLabel,
+                    AverageEmotionTokensLabel,
+                    TotalTokenLabel,
+                    FeelingLabel,
+                    FlopsLabel
+                };
+
+            for (int panelInd = 0; panelInd < controls.Length; panelInd++)
+            {
+                Control nowCont = controls[panelInd];
+
+                nowCont.Font = new Font(nowCont.Font.Name, nowCont.Font.Size + enlarge);
+
+                if (panelInd > 0)
+                {
+                    Control befCont = controls[panelInd - 1];
+
+                    nowCont.Location = new Point(nowCont.Location.X, nowCont.Location.Y + (panelInd * enlarge));
+                }
+            }
+        }
+
+        /// <summary>
+        /// ラベルのコントロールに対するフォントサイズ設定
+        /// </summary>
+        /// <param name="enlarge">拡大サイズ</param>
+        private void SetGeneralLabelControlSize(int enlarge)
+        {
+            Control[] controls =
+            {
+                CpuUsageLabel,
+                IntimacyLabel,
+                EmoStringLabel
+            };
+
+            for (int panelInd = 0; panelInd < controls.Length; panelInd++)
+            {
+                Control nowCont = controls[panelInd];
+
+                nowCont.Font = new Font(nowCont.Font.Name, nowCont.Font.Size + enlarge);
+
+                if (panelInd > 0)
+                {
+                    Control befCont = controls[panelInd - 1];
+
+                    nowCont.Location = new Point(nowCont.Location.X, nowCont.Location.Y - (panelInd * enlarge));
+                }
+            }
+        }
+
+        /// <summary>
+        /// ボタンのコントロールに対するフォントサイズ設定
+        /// </summary>
+        /// <param name="enlarge">拡大サイズ</param>
+        private void SetButtonControlSize(int enlarge)
+        {
+            Control[] controls =
+            {
+                ToggleShowButton,
+                ClearButton,
+                ImportButton,
+            };
+
+            int maxWidth = 0;
+
+            for (int panelInd = 0; panelInd < controls.Length; panelInd++)
+            {
+                Control nowCont = controls[panelInd];
+
+                nowCont.Font = new Font(nowCont.Font.Name, nowCont.Font.Size + enlarge);
+
+                if (nowCont.Width > maxWidth)
+                {
+                    maxWidth = nowCont.Width;
+                }
+
+                if (panelInd > 0)
+                {
+                    Control befCont = controls[panelInd - 1];
+
+                    nowCont.Location = new Point(nowCont.Location.X, nowCont.Location.Y - (panelInd * enlarge));
+                }
+            }
+
+            if (maxWidth > 0)
+            {
+                foreach (Control control in controls)
+                {
+                    control.Width = maxWidth;
+                    control.Left = Size.Width - maxWidth - 28;
                 }
             }
         }
