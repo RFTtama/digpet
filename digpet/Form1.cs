@@ -29,7 +29,6 @@ namespace digpet
             ReadSettings();
             SetNowWindowState();
             CpuUsageTimer.Enabled = true;
-            OutTokenLabel();
         }
 
         /// <summary>
