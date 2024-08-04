@@ -25,7 +25,7 @@ namespace digpet
         /// <returns></returns>
         public string GetFeelingString(double feeling)
         {
-            return _charSettingManager.settings.feelingSetting.GetFeelingString(feeling);
+            return _charSettingManager.CharSettings.feelingSetting.GetFeelingString(feeling);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace digpet
         /// <returns></returns>
         public string GetIntimacyString(double intimacy)
         {
-            return _charSettingManager.settings.intimacySetting.GetIntimacygString(intimacy);
+            return _charSettingManager.CharSettings.intimacySetting.GetIntimacygString(intimacy);
         }
 
         /// <summary>
