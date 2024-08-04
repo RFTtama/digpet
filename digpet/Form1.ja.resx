@@ -133,7 +133,7 @@
     <value>69, 25</value>
   </data>
   <data name="EmoStringLabel.Text" xml:space="preserve">
-    <value>計算中</value>
+    <value>取得中</value>
   </data>
   <data name="CpuUsageLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -163,13 +163,13 @@
     <value>69, 25</value>
   </data>
   <data name="TotalTokenLabel.Text" xml:space="preserve">
-    <value>計算中</value>
+    <value>取得中</value>
   </data>
   <data name="DailyTokenLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 25</value>
   </data>
   <data name="DailyTokenLabel.Text" xml:space="preserve">
-    <value>計算中</value>
+    <value>取得中</value>
   </data>
   <data name="FeelingLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 125</value>
@@ -178,19 +178,19 @@
     <value>69, 25</value>
   </data>
   <data name="FeelingLabel.Text" xml:space="preserve">
-    <value>計算中</value>
+    <value>取得中</value>
   </data>
   <data name="AverageEmotionTokensLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 25</value>
   </data>
   <data name="AverageEmotionTokensLabel.Text" xml:space="preserve">
-    <value>計算中</value>
+    <value>取得中</value>
   </data>
   <data name="EmoTokenLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 25</value>
   </data>
   <data name="EmoTokenLabel.Text" xml:space="preserve">
-    <value>計算中</value>
+    <value>取得中</value>
   </data>
   <data name="ToggleShowButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -205,7 +205,7 @@
     <value>69, 25</value>
   </data>
   <data name="FlopsLabel.Text" xml:space="preserve">
-    <value>計算中</value>
+    <value>取得中</value>
   </data>
   <data name="StatsPanel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -250,7 +250,7 @@
     <value>69, 25</value>
   </data>
   <data name="IntimacyLabel.Text" xml:space="preserve">
-    <value>計算中</value>
+    <value>取得中</value>
   </data>
   <data name="ClearButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
