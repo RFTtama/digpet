@@ -1,4 +1,5 @@
-﻿using System.IO.Compression;
+﻿using System.Diagnostics;
+using System.IO.Compression;
 using System.Text.Json;
 
 namespace digpet
@@ -54,14 +55,14 @@ namespace digpet
             public class FeelingManager
             {
                 //変数関連
-                public Dictionary<string, string> feelingDict { get; set; }
+                public Dictionary<string, string> feelingList { get; set; }
 
                 /// <summary>
                 /// コンストラクタ
                 /// </summary>
                 public FeelingManager()
                 {
-                    feelingDict = new Dictionary<string, string>()
+                    feelingList = new Dictionary<string, string>()
                     {
                         ["-1.00"] = "エラー",
                         ["-0.49"] = "悪い",
@@ -79,30 +80,28 @@ namespace digpet
                 /// <returns></returns>
                 public string GetFeelingString(double feeling)
                 {
-                    string[] keys = feelingDict.Keys.ToArray();
+                    string[] keys = feelingList.Keys.ToArray();
 
-                    if (keys.Length > 0)
+                    if (keys.Length <= 0)
                     {
-                        foreach (string threshold in keys)
+                        return "キーの要素が0以下です";
+                    }
+
+                    //0要素目なら未満で比較
+                    if (feeling < double.Parse(keys[0], System.Globalization.CultureInfo.InvariantCulture))
+                    {
+                        return feelingList[keys[0]];
+                    }
+
+                    for (int ind = 1; ind < keys.Length; ind++)
+                    {
+                        if (feeling <= double.Parse(keys[ind], System.Globalization.CultureInfo.InvariantCulture))
                         {
-                            if (threshold == keys[0])
-                            {
-                                if (feeling < double.Parse(threshold, System.Globalization.CultureInfo.InvariantCulture))
-                                {
-                                    return feelingDict[threshold];
-                                }
-                            }
-                            else
-                            {
-                                if (feeling <= double.Parse(threshold, System.Globalization.CultureInfo.InvariantCulture))
-                                {
-                                    return feelingDict[threshold];
-                                }
-                            }
+                            return feelingList[keys[ind]];
                         }
                     }
 
-                    return "エラー";
+                    return "取得に失敗しました";
                 }
             }
 
@@ -112,14 +111,14 @@ namespace digpet
             public class IntimacyManager
             {
                 //変数関連
-                public Dictionary<string, string> intimacyDict { get; set; }
+                public Dictionary<string, string> intimacyList { get; set; }
 
                 /// <summary>
                 /// コンストラクタ
                 /// </summary>
                 public IntimacyManager()
                 {
-                    intimacyDict = new Dictionary<string, string>()
+                    intimacyList = new Dictionary<string, string>()
                     {
                         ["Infinity"] = "設定なし"
                     };
@@ -132,30 +131,28 @@ namespace digpet
                 /// <returns></returns>
                 public string GetIntimacygString(double intimacy)
                 {
-                    string[] keys = intimacyDict.Keys.ToArray();
+                    string[] keys = intimacyList.Keys.ToArray();
 
-                    if (keys.Length > 0)
+                    if (keys.Length <= 0)
                     {
-                        foreach (string threshold in keys)
+                        return "キーの要素が0以下です";
+                    }
+
+                    //最初の要素なら未満で比較
+                    if (intimacy < double.Parse(keys[0], System.Globalization.CultureInfo.InvariantCulture))
+                    {
+                        return intimacyList[keys[0]];
+                    }
+
+                    for (int ind = 1; ind < keys.Length; ind++)
+                    {
+                        if (intimacy <= double.Parse(keys[ind], System.Globalization.CultureInfo.InvariantCulture))
                         {
-                            if (threshold == keys[0])
-                            {
-                                if (intimacy < double.Parse(threshold, System.Globalization.CultureInfo.InvariantCulture))
-                                {
-                                    return intimacyDict[threshold];
-                                }
-                            }
-                            else
-                            {
-                                if (intimacy <= double.Parse(threshold, System.Globalization.CultureInfo.InvariantCulture))
-                                {
-                                    return intimacyDict[threshold];
-                                }
-                            }
+                            return intimacyList[keys[ind]];
                         }
                     }
 
-                    return "エラー";
+                    return "取得に失敗しました";
                 }
             }
 
@@ -194,7 +191,7 @@ namespace digpet
                     {
                         public string name { get; set; }
                         public string filePath { get; set; }
-                        public float transition { get; set; }
+                        public int transition { get; set; }
 
                         /// <summary>
                         /// コンストラクタ
@@ -203,7 +200,7 @@ namespace digpet
                         {
                             name = string.Empty;
                             filePath = string.Empty;
-                            transition = 0.0f;
+                            transition = 0;
                         }
                     }
                 }
