@@ -63,10 +63,12 @@ namespace digpet
                     string planeText = sr.ReadToEnd();
 #endif
                     dict = JsonSerializer.Deserialize<Dictionary<string, double>>(planeText) ?? new Dictionary<string, double>();
+                    LogManager.LogOutput("DJファイルの読み取りに成功しました");
                 }
             }
             catch (Exception ex)
             {
+                LogManager.LogOutput("DJファイルの読み取りに失敗しました");
                 ErrorLog.ErrorOutput("Jsonファイル読み取りエラー", ex.Message, true);
             }
         }
@@ -87,10 +89,12 @@ namespace digpet
 #else
                     sw.Write(jsonText);
 #endif
+                    LogManager.LogOutput("DJファイルの書き込みに成功しました");
                 }
             }
             catch (Exception ex)
             {
+                LogManager.LogOutput("DJファイルの書き込みに失敗しました");
                 ErrorLog.ErrorOutput("Jsonファイル書き込みエラー", ex.Message, true);
             }
         }

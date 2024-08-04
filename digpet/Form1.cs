@@ -29,6 +29,7 @@ namespace digpet
             ReadSettings();
             SetNowWindowState();
             CpuUsageTimer.Enabled = true;
+            LogManager.LogOutput("初期化が完了しました");
         }
 
         /// <summary>
@@ -74,6 +75,7 @@ namespace digpet
                     if (hour >= 0 && hour < 24)
                     {
                         settingManager.Settings.ResetHour = hour;
+                        LogManager.LogOutput("リセット時刻を" + hour.ToString() + "に設定しました");
                         return hour;
                     }
                 }
@@ -140,6 +142,7 @@ namespace digpet
             tokenManager.AddTokens(cpuAvg);
             OutTokenLabel();
             cpuAvgManager.Clear();
+            LogManager.LogOutput("分毎トークンの算出完了");
         }
 
         /// <summary>
@@ -193,6 +196,7 @@ namespace digpet
             FlopsLabel.Text = "FLOPS: " + tokenManager.Flops.ToString();
             TotalTokenLabel.Text = "累計トークン: " + (tokenManager.TotalTokens).ToString("n2");
             IntimacyLabel.Text = GetIntimacy(tokenManager.TotalTokens);
+            LogManager.LogOutput("表示されているトークン情報の更新完了");
         }
 
         /// <summary>
@@ -234,6 +238,7 @@ namespace digpet
         /// <param name="e"></param>
         private void ImportButton_Click(object sender, EventArgs e)
         {
+            LogManager.LogOutput("インポートボタンがクリックされました");
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "ZIPファイル(*.zip)|*.zip;";
             ofd.Title = "インポートするキャラデータを選択してください";
@@ -244,6 +249,7 @@ namespace digpet
             }
             else
             {
+                LogManager.LogOutput("キャラデータのインポート失敗");
                 MessageBox.Show("キャラデータのインポートに失敗しました", "インポートエラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -255,6 +261,7 @@ namespace digpet
         /// <param name="e"></param>
         private void ClearButton_Click(object sender, EventArgs e)
         {
+            LogManager.LogOutput("クリアボタンがクリックされました");
             ReWriteCharConfig(string.Empty);
         }
 
@@ -267,6 +274,7 @@ namespace digpet
         {
             SaveNowWindowState();
             settingManager.WriteSettingFile(SETTING_PATH);
+            LogManager.LogOutput("アプリの終了処理終了");
         }
 
         /// <summary>
@@ -288,6 +296,7 @@ namespace digpet
             Size = settingManager.Settings.WindowSize;
             WindowState = GetWindowState();
             SetControlFontSize();
+            LogManager.LogOutput("設定を復元しました");
         }
 
         /// <summary>
@@ -302,6 +311,7 @@ namespace digpet
                 SetSatsPanelControlSize(enlarge);
                 SetGeneralLabelControlSize(enlarge);
                 SetButtonControlSize(enlarge);
+                LogManager.LogOutput("フォントの大きさ再設定終了");
             }
         }
 
