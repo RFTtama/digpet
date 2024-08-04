@@ -75,7 +75,7 @@
         {
             get
             {
-                if (AverageEmotionTokens <= 0) return 0;
+                if ((AverageEmotionTokens <= 0) || (EmotionTokens <= 0)) return 0; 
                 return ((EmotionTokens - AverageEmotionTokens) / AverageEmotionTokens);
             }
         }
@@ -180,9 +180,16 @@
             {
                 DateTime resetTime = CalcTokenResetTime();
 
-                djm.dict[resetTime.ToString()] = _dailyTokens;
-                djm.WriteJsonFile(TOKEN_PATH);
-                CalcAllToken();
+                if (djm.dict.ContainsKey(resetTime.ToString()))
+                {
+                    djm.dict[resetTime.ToString()] = _dailyTokens;
+                    djm.WriteJsonFile(TOKEN_PATH);
+                    CalcAllToken();
+                }
+                else
+                {
+                    ErrorLog.ErrorOutput("トークン書き込みエラー", "指定された時間のデータが辞書に存在しません", true);
+                }
             }
         }
 
@@ -282,24 +289,32 @@
         /// <param name="lastDate">最後の日付</param>
         private void CrossDatesProcess(int days, DateTime lastDate)
         {
-            for (int j = 1; j < days - 1; j++)
+            if (djm.dict.ContainsKey(lastDate.ToString()))
             {
-                double emoMem = 0.0;
 
-                //最後の日付のデータはあるので、その日のトークンを足さないといけない
-                if (j == days - 2)
+                for (int j = 1; j < days - 1; j++)
                 {
-                    emoMem = (_emotionTokens[_emotionTokens.Count - 1] * HANDOVER_PERCENT) + djm.dict[lastDate.ToString()];
-                }
-                else
-                {
-                    emoMem = (_emotionTokens[_emotionTokens.Count - 1] * HANDOVER_PERCENT);
-                }
+                    double emoMem = 0.0;
 
-                double totalMem = (_totalTokens[_totalTokens.Count - 1] + emoMem) * HANDOVER_PENALTY;
+                    //最後の日付のデータはあるので、その日のトークンを足さないといけない
+                    if (j == days - 2)
+                    {
+                        emoMem = (_emotionTokens[_emotionTokens.Count - 1] * HANDOVER_PERCENT) + djm.dict[lastDate.ToString()];
+                    }
+                    else
+                    {
+                        emoMem = (_emotionTokens[_emotionTokens.Count - 1] * HANDOVER_PERCENT);
+                    }
 
-                _emotionTokens.Add(emoMem);
-                _totalTokens.Add(totalMem);
+                    double totalMem = (_totalTokens[_totalTokens.Count - 1] + emoMem) * HANDOVER_PENALTY;
+
+                    _emotionTokens.Add(emoMem);
+                    _totalTokens.Add(totalMem);
+                }
+            }
+            else
+            {
+                ErrorLog.ErrorOutput("トークン計算エラー", "指定された日付が辞書に登録されていません", true);
             }
         }
     }
