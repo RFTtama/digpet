@@ -16,14 +16,14 @@ namespace digpet
         {
             try
             {
-                using (StreamWriter sw = new StreamWriter("Log.txt", true))
+                using (StreamWriter sw = new StreamWriter(APP_SETTINGS.LOG_PATH, true))
                 {
                     sw.WriteLine(DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss ") + msg + "\r\n");
                 }
             }
             catch (Exception ex)
             {
-                ErrorLog.ErrorOutput("ログ書き込みエラー", ex.Message, true);
+                ErrorLog.ErrorOutput("ログ書き込みエラー", ex.Message);
             }
         }
     }

@@ -15,7 +15,7 @@
         {
             try
             {
-                using (StreamWriter sw = new StreamWriter("errorLog.txt", true))
+                using (StreamWriter sw = new StreamWriter(APP_SETTINGS.ERRORLOG_PATH, true))
                 {
                     sw.WriteLine(DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss [") + name + "]" + msg + "\r\n");
                 }
@@ -25,6 +25,16 @@
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        /// <summary>
+        /// エラーを出力する
+        /// </summary>
+        /// <param name="name">エラー名</param>
+        /// <param name="msg">エラーメッセージ</param>
+        public static void ErrorOutput(string name, string msg)
+        {
+            ErrorOutput(name, msg, true);
         }
     }
 }

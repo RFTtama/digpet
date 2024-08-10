@@ -25,6 +25,7 @@ namespace digpet
         public Form1()
         {
             InitializeComponent();
+            Text += "   Ver." + APP_SETTINGS.APPLICATION_VERSION;
             Init();
             ReadSettings();
             SetNowWindowState();
@@ -90,6 +91,11 @@ namespace digpet
             if (!string.IsNullOrEmpty(settingManager.Settings.CharSettingPath))
             {
                 charZipFileManager.ReadCharSettings(settingManager.Settings.CharSettingPath);
+                SetControlColor(charZipFileManager.GetControlColor());
+            }
+            else
+            {
+                ErrorLog.ErrorOutput("キャラファイル読み取りエラー", "設定されているキャラファイルのパスがnullか空です");
             }
         }
 
@@ -120,7 +126,7 @@ namespace digpet
                 }
                 catch (Exception ex)
                 {
-                    ErrorLog.ErrorOutput("CPU使用率平均計算エラー", ex.Message, true);
+                    ErrorLog.ErrorOutput("CPU使用率平均計算エラー", ex.Message);
                     CpuUsageTimer.Enabled = false;
                 }
             }
@@ -494,6 +500,16 @@ namespace digpet
             }
 
             return loadState;
+        }
+
+        /// <summary>
+        /// コントロールの色を設定する
+        /// </summary>
+        /// <param name="color">色</param>
+        private void SetControlColor(Color color)
+        {
+            LogManager.LogOutput("コントロールの色を" + color.ToString() + "に設定しました");
+            BackColor = color;
         }
     }
 }

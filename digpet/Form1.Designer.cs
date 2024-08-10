@@ -46,8 +46,10 @@
             IntimacyLabel = new Label();
             ClearButton = new Button();
             DefaultPanel = new Panel();
+            CharPictureBox = new PictureBox();
             StatsPanel.SuspendLayout();
             DefaultPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)CharPictureBox).BeginInit();
             SuspendLayout();
             // 
             // CpuUsageTimer
@@ -170,15 +172,24 @@
             DefaultPanel.Controls.Add(CpuUsageLabel);
             DefaultPanel.Name = "DefaultPanel";
             // 
+            // CharPictureBox
+            // 
+            resources.ApplyResources(CharPictureBox, "CharPictureBox");
+            CharPictureBox.BackColor = Color.Transparent;
+            CharPictureBox.Name = "CharPictureBox";
+            CharPictureBox.TabStop = false;
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(DefaultPanel);
+            BackColor = SystemColors.Control;
             Controls.Add(StatsPanel);
+            Controls.Add(DefaultPanel);
             Controls.Add(ClearButton);
             Controls.Add(ImportButton);
             Controls.Add(ToggleShowButton);
+            Controls.Add(CharPictureBox);
             HelpButton = true;
             Name = "Form1";
             TopMost = true;
@@ -187,6 +198,7 @@
             StatsPanel.PerformLayout();
             DefaultPanel.ResumeLayout(false);
             DefaultPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)CharPictureBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -209,5 +221,6 @@
         private Label IntimacyLabel;
         private Button ClearButton;
         private Panel DefaultPanel;
+        private PictureBox CharPictureBox;
     }
 }
