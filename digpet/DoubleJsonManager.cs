@@ -69,7 +69,7 @@ namespace digpet
             catch (Exception ex)
             {
                 LogManager.LogOutput("DJファイルの読み取りに失敗しました");
-                ErrorLog.ErrorOutput("Jsonファイル読み取りエラー", ex.Message, true);
+                ErrorLog.ErrorOutput("Jsonファイル読み取りエラー", ex.Message);
             }
         }
 
@@ -95,7 +95,7 @@ namespace digpet
             catch (Exception ex)
             {
                 LogManager.LogOutput("DJファイルの書き込みに失敗しました");
-                ErrorLog.ErrorOutput("Jsonファイル書き込みエラー", ex.Message, true);
+                ErrorLog.ErrorOutput("Jsonファイル書き込みエラー", ex.Message);
             }
         }
 
@@ -121,7 +121,7 @@ namespace digpet
             }
             catch (Exception ex)
             {
-                ErrorLog.ErrorOutput("Jsonファイル初期化エラー", ex.Message, true);
+                ErrorLog.ErrorOutput("Jsonファイル初期化エラー", ex.Message);
             }
         }
     }

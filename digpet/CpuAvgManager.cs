@@ -34,7 +34,7 @@
         {
             if (((_cpuSum + cpuUsage) > double.PositiveInfinity) || (_cpuCount + 1 > int.MaxValue))
             {
-                ErrorLog.ErrorOutput("CPU値のオーバーフローエラー", "CPU値がオーバーフローしています", true);
+                ErrorLog.ErrorOutput("CPU値のオーバーフローエラー", "CPU値がオーバーフローしています");
                 return;
             }
 

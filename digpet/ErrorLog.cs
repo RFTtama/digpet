@@ -26,5 +26,15 @@
                 MessageBox.Show(ex.Message);
             }
         }
+
+        /// <summary>
+        /// エラーを出力する
+        /// </summary>
+        /// <param name="name">エラー名</param>
+        /// <param name="msg">エラーメッセージ</param>
+        public static void ErrorOutput(string name, string msg)
+        {
+            ErrorOutput(name, msg, true);
+        }
     }
 }

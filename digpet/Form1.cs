@@ -95,7 +95,7 @@ namespace digpet
             }
             else
             {
-                ErrorLog.ErrorOutput("キャラファイル読み取りエラー", "設定されているキャラファイルのパスがnullか空です", true);
+                ErrorLog.ErrorOutput("キャラファイル読み取りエラー", "設定されているキャラファイルのパスがnullか空です");
             }
         }
 
@@ -126,7 +126,7 @@ namespace digpet
                 }
                 catch (Exception ex)
                 {
-                    ErrorLog.ErrorOutput("CPU使用率平均計算エラー", ex.Message, true);
+                    ErrorLog.ErrorOutput("CPU使用率平均計算エラー", ex.Message);
                     CpuUsageTimer.Enabled = false;
                 }
             }

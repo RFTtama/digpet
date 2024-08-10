@@ -69,18 +69,18 @@ namespace digpet
                         }
                         else
                         {
-                            ErrorLog.ErrorOutput("コンフィグファイル読み取りエラー", "キャラデータにコンフィグファイルが含まれていません", true);
+                            ErrorLog.ErrorOutput("コンフィグファイル読み取りエラー", "キャラデータにコンフィグファイルが含まれていません");
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    ErrorLog.ErrorOutput("コンフィグファイル読み取りエラー", ex.Message, true);
+                    ErrorLog.ErrorOutput("コンフィグファイル読み取りエラー", ex.Message);
                 }
             }
             else
             {
-                ErrorLog.ErrorOutput("コンフィグファイル確認エラー", "キャラデータが見つかりません", true);
+                ErrorLog.ErrorOutput("コンフィグファイル確認エラー", "キャラデータが見つかりません");
             }
         }
 
@@ -130,12 +130,12 @@ namespace digpet
                     if (settings_tmp == null)
                     {
                         LogManager.LogOutput("キャラファイルのコンフィグデータ読み込みに失敗しました");
-                        ErrorLog.ErrorOutput("コンフィグ読み取りエラー", "コンフィグデータがNULLです", true);
+                        ErrorLog.ErrorOutput("コンフィグ読み取りエラー", "コンフィグデータがNULLです");
                     }
                     else if (string.IsNullOrEmpty(settings_tmp.charSettings.name))
                     {
                         LogManager.LogOutput("設定ファイルが正しく読み取られませんでした");
-                        ErrorLog.ErrorOutput("コンフィグ読み取りエラー", "キャラファイルのコンフィグデータが正しく設定されていない可能性があります", true);
+                        ErrorLog.ErrorOutput("コンフィグ読み取りエラー", "キャラファイルのコンフィグデータが正しく設定されていない可能性があります");
                     }
                     else
                     {
@@ -146,7 +146,7 @@ namespace digpet
                 catch (Exception ex)
                 {
                     LogManager.LogOutput("キャラファイルのコンフィグデータ読み込みに失敗しました");
-                    ErrorLog.ErrorOutput("コンフィグ読み取りエラー", ex.Message, true);
+                    ErrorLog.ErrorOutput("コンフィグ読み取りエラー", ex.Message);
                 }
             }
 

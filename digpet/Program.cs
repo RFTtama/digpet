@@ -42,7 +42,7 @@ namespace digpet
             }
             catch (Exception ex)
             {
-                ErrorLog.ErrorOutput("未定義のエラー", ex.Message, true);
+                ErrorLog.ErrorOutput("未定義のエラー", ex.Message);
 
                 if (hasHandle)                                                  //Mutexの解放
                 {

@@ -67,7 +67,7 @@ namespace digpet
             catch (Exception ex)
             {
                 LogManager.LogOutput("設定ファイルの書き込み失敗");
-                ErrorLog.ErrorOutput("設定ファイル初期化エラー", ex.Message, true);
+                ErrorLog.ErrorOutput("設定ファイル初期化エラー", ex.Message);
             }
         }
 
@@ -90,7 +90,7 @@ namespace digpet
             catch (Exception ex)
             {
                 LogManager.LogOutput("設定ファイルの読み込みに失敗しました");
-                ErrorLog.ErrorOutput("設定ファイル読み取りエラー", ex.Message, true);
+                ErrorLog.ErrorOutput("設定ファイル読み取りエラー", ex.Message);
             }
         }
 

@@ -187,7 +187,7 @@
                 }
                 else
                 {
-                    ErrorLog.ErrorOutput("トークン書き込みエラー", "指定された時間のデータが辞書に存在しません", true);
+                    ErrorLog.ErrorOutput("トークン書き込みエラー", "指定された時間のデータが辞書に存在しません");
                 }
             }
         }
@@ -225,7 +225,7 @@
 
             if (ResetHour < 0)
             {
-                ErrorLog.ErrorOutput("トークンリセット時刻読み取りエラー", "トークンのリセット時刻が設定されていません", true);
+                ErrorLog.ErrorOutput("トークンリセット時刻読み取りエラー", "トークンのリセット時刻が設定されていません");
             }
             else
             {
@@ -313,7 +313,7 @@
             }
             else
             {
-                ErrorLog.ErrorOutput("トークン計算エラー", "指定された日付が辞書に登録されていません", true);
+                ErrorLog.ErrorOutput("トークン計算エラー", "指定された日付が辞書に登録されていません");
             }
         }
     }

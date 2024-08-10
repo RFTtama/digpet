@@ -23,7 +23,7 @@ namespace digpet
             }
             catch (Exception ex)
             {
-                ErrorLog.ErrorOutput("ログ書き込みエラー", ex.Message, true);
+                ErrorLog.ErrorOutput("ログ書き込みエラー", ex.Message);
             }
         }
     }
