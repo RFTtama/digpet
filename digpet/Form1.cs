@@ -91,6 +91,11 @@ namespace digpet
             if (!string.IsNullOrEmpty(settingManager.Settings.CharSettingPath))
             {
                 charZipFileManager.ReadCharSettings(settingManager.Settings.CharSettingPath);
+                SetControlColor(charZipFileManager.GetControlColor());
+            }
+            else
+            {
+                ErrorLog.ErrorOutput("キャラファイル読み取りエラー", "設定されているキャラファイルのパスがnullか空です", true);
             }
         }
 
@@ -495,6 +500,16 @@ namespace digpet
             }
 
             return loadState;
+        }
+
+        /// <summary>
+        /// コントロールの色を設定する
+        /// </summary>
+        /// <param name="color">色</param>
+        private void SetControlColor(Color color)
+        {
+            LogManager.LogOutput("コントロールの色を" + color.ToString() + "に設定しました");
+            BackColor = color;
         }
     }
 }

@@ -10,7 +10,6 @@
         private const double TOKEN_CALC_WEIGHT = 1000.0 / (60.0 * 24.0 * 100.0);            //トークンのウェイト
         private const double HANDOVER_PERCENT = 0.5;                                        //感情トークンの引継ぎ割合
         private const double HANDOVER_PENALTY = 0.95;                                       //複数日跨いだ際の累計トークンペナルティ割合
-        private const string TOKEN_PATH = "TOKENS.dig";                                     //トークンのファイル名
         private const string TOKEN_PASS = "qK6Nvgjfn8aa6oy2tDtYw17Lz0zePJMnXdiAnfXO";       //トークンの暗号化キー(このキーでテキストが複合できるのはないしょ)
 
         //変数関連の宣言
@@ -165,7 +164,7 @@
         /// </summary>
         private void ReadTokens()
         {
-            djm.ReadJsonFile(TOKEN_PATH, (DateTime.Today.ToString(), 0.0));
+            djm.ReadJsonFile(APP_SETTINGS.TOKEN_PATH, (DateTime.Today.ToString(), 0.0));
             TokenExist();
             CalcAllToken();
         }
@@ -183,7 +182,7 @@
                 if (djm.dict.ContainsKey(resetTime.ToString()))
                 {
                     djm.dict[resetTime.ToString()] = _dailyTokens;
-                    djm.WriteJsonFile(TOKEN_PATH);
+                    djm.WriteJsonFile(APP_SETTINGS.TOKEN_PATH);
                     CalcAllToken();
                 }
                 else
@@ -211,7 +210,7 @@
                 {
                     _dailyTokens = 0.0;
                     djm.dict.Add(resetTime.ToString(), _dailyTokens);
-                    djm.WriteJsonFile(TOKEN_PATH);
+                    djm.WriteJsonFile(APP_SETTINGS.TOKEN_PATH);
                 }
             }
         }

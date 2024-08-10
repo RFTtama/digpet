@@ -15,7 +15,7 @@
         {
             try
             {
-                using (StreamWriter sw = new StreamWriter("errorLog.txt", true))
+                using (StreamWriter sw = new StreamWriter(APP_SETTINGS.ERRORLOG_PATH, true))
                 {
                     sw.WriteLine(DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss [") + name + "]" + msg + "\r\n");
                 }
