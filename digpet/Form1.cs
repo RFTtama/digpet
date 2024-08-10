@@ -25,6 +25,7 @@ namespace digpet
         public Form1()
         {
             InitializeComponent();
+            Text += "   Ver." + APP_SETTINGS.APPLICATION_VERSION;
             Init();
             ReadSettings();
             SetNowWindowState();

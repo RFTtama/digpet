@@ -1,4 +1,5 @@
 ﻿using System.IO.Compression;
+using System.Numerics;
 using System.Text.Json;
 
 namespace digpet
@@ -76,6 +77,7 @@ namespace digpet
         {
             //変数宣言
             public string version { get; set; }
+            public DigColor backgroundColor { get; set; }
 
             //クラス宣言
             public FeelingManager feelingSetting { get; set; }
@@ -91,6 +93,109 @@ namespace digpet
                 intimacySetting = new IntimacyManager();
                 charSettings = new CharSettings();
                 version = string.Empty;
+                backgroundColor = new DigColor(SystemColors.Control);
+            }
+
+            /// <summary>
+            /// 色管理用クラス
+            /// </summary>
+            public class DigColor
+            {
+                public ushort red 
+                {
+                    get
+                    {
+                        return red;
+                    }
+                    set
+                    {
+                        _red = CheckValue(value);
+                    }
+                }
+                public ushort green 
+                {
+                    get
+                    {
+                        return _green;
+                    }
+                    set
+                    {
+                        _green = CheckValue(value);
+                    }
+                }
+                public ushort blue 
+                {
+                    get
+                    {
+                        return _blue;
+                    }
+                    set
+                    {
+                        _blue = CheckValue(value);
+                    }
+                }
+
+                private ushort _red;
+                private ushort _green;
+                private ushort _blue;
+
+                /// <summary>
+                /// コンストラクタ
+                /// </summary>
+                /// <param name="color"></param>
+                public DigColor(Color color)
+                {
+                    Init();
+                    ConvertColor(color);
+                }
+
+                /// <summary>
+                /// コンストラクタ
+                /// </summary>
+                public DigColor()
+                {
+                    Init();
+                }
+
+                /// <summary>
+                /// 初期化
+                /// </summary>
+                private void Init()
+                {
+                    red = 0xff;
+                    green = 0xff;
+                    blue = 0xff;
+                }
+
+                /// <summary>
+                /// 値が許容範囲内かチェックし、許容範囲の値を返却する
+                /// </summary>
+                /// <param name="val"></param>
+                /// <returns></returns>
+                private ushort CheckValue(int val)
+                {
+                    ushort ret = 0;
+                    if (val < 0) 
+                    {
+                        ret = 0;
+                    }
+                    else if (val > 0xff)
+                    {
+                        ret = 0xff;
+                    }
+                    return ret;
+                }
+
+                /// <summary>
+                /// 色を変換して適用する
+                /// </summary>
+                /// <param name="color"></param>
+                public void ConvertColor(Color color)
+                {
+                    red = color.R;
+                    green = color.G;
+                    blue = color.B;
+                }
             }
 
 
