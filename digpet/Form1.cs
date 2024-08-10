@@ -342,7 +342,13 @@ namespace digpet
                 {
                     Control befCont = controls[panelInd - 1];
 
-                    nowCont.Location = new Point(nowCont.Location.X, befCont.Location.Y + nowCont.Height + FONT_MARGIN_SIZE);
+                    nowCont.Location = new Point(befCont.Location.X, befCont.Location.Y + nowCont.Height + FONT_MARGIN_SIZE);
+                }
+                else
+                {
+                    //位置を端に合わせる
+                    nowCont.Top = 0;
+                    nowCont.Left = 0;
                 }
             }
         }
@@ -370,11 +376,13 @@ namespace digpet
                 {
                     Control befCont = controls[panelInd - 1];
 
-                    nowCont.Location = new Point(nowCont.Location.X, befCont.Location.Y - nowCont.Height - FONT_MARGIN_SIZE);
+                    nowCont.Location = new Point(befCont.Location.X, befCont.Location.Y + nowCont.Height + FONT_MARGIN_SIZE);
                 }
                 else
                 {
-                    nowCont.Top -= enlarge;
+                    //位置を端に合わせる
+                    nowCont.Top = 0;
+                    nowCont.Left = 0;
                 }
             }
         }

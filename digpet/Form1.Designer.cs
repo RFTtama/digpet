@@ -45,7 +45,9 @@
             ImportButton = new Button();
             IntimacyLabel = new Label();
             ClearButton = new Button();
+            DefaultPanel = new Panel();
             StatsPanel.SuspendLayout();
+            DefaultPanel.SuspendLayout();
             SuspendLayout();
             // 
             // CpuUsageTimer
@@ -56,42 +58,49 @@
             // EmoStringLabel
             // 
             resources.ApplyResources(EmoStringLabel, "EmoStringLabel");
+            EmoStringLabel.BackColor = Color.Transparent;
             EmoStringLabel.ForeColor = Color.Orange;
             EmoStringLabel.Name = "EmoStringLabel";
             // 
             // CpuUsageLabel
             // 
             resources.ApplyResources(CpuUsageLabel, "CpuUsageLabel");
+            CpuUsageLabel.BackColor = Color.Transparent;
             CpuUsageLabel.ForeColor = Color.Orange;
             CpuUsageLabel.Name = "CpuUsageLabel";
             // 
             // TotalTokenLabel
             // 
             resources.ApplyResources(TotalTokenLabel, "TotalTokenLabel");
+            TotalTokenLabel.BackColor = Color.Transparent;
             TotalTokenLabel.ForeColor = Color.Orange;
             TotalTokenLabel.Name = "TotalTokenLabel";
             // 
             // DailyTokenLabel
             // 
             resources.ApplyResources(DailyTokenLabel, "DailyTokenLabel");
+            DailyTokenLabel.BackColor = Color.Transparent;
             DailyTokenLabel.ForeColor = Color.Orange;
             DailyTokenLabel.Name = "DailyTokenLabel";
             // 
             // FeelingLabel
             // 
             resources.ApplyResources(FeelingLabel, "FeelingLabel");
+            FeelingLabel.BackColor = Color.Transparent;
             FeelingLabel.ForeColor = Color.Orange;
             FeelingLabel.Name = "FeelingLabel";
             // 
             // AverageEmotionTokensLabel
             // 
             resources.ApplyResources(AverageEmotionTokensLabel, "AverageEmotionTokensLabel");
+            AverageEmotionTokensLabel.BackColor = Color.Transparent;
             AverageEmotionTokensLabel.ForeColor = Color.Orange;
             AverageEmotionTokensLabel.Name = "AverageEmotionTokensLabel";
             // 
             // EmoTokenLabel
             // 
             resources.ApplyResources(EmoTokenLabel, "EmoTokenLabel");
+            EmoTokenLabel.BackColor = Color.Transparent;
             EmoTokenLabel.ForeColor = Color.Orange;
             EmoTokenLabel.Name = "EmoTokenLabel";
             // 
@@ -105,12 +114,14 @@
             // FlopsLabel
             // 
             resources.ApplyResources(FlopsLabel, "FlopsLabel");
+            FlopsLabel.BackColor = Color.Transparent;
             FlopsLabel.ForeColor = Color.Orange;
             FlopsLabel.Name = "FlopsLabel";
             // 
             // StatsLabel
             // 
             resources.ApplyResources(StatsLabel, "StatsLabel");
+            StatsLabel.BackColor = Color.Transparent;
             StatsLabel.ForeColor = Color.Orange;
             StatsLabel.Name = "StatsLabel";
             // 
@@ -138,6 +149,7 @@
             // IntimacyLabel
             // 
             resources.ApplyResources(IntimacyLabel, "IntimacyLabel");
+            IntimacyLabel.BackColor = Color.Transparent;
             IntimacyLabel.ForeColor = Color.Orange;
             IntimacyLabel.Name = "IntimacyLabel";
             // 
@@ -148,23 +160,33 @@
             ClearButton.UseVisualStyleBackColor = true;
             ClearButton.Click += ClearButton_Click;
             // 
+            // DefaultPanel
+            // 
+            resources.ApplyResources(DefaultPanel, "DefaultPanel");
+            DefaultPanel.BackColor = Color.AliceBlue;
+            DefaultPanel.BorderStyle = BorderStyle.FixedSingle;
+            DefaultPanel.Controls.Add(EmoStringLabel);
+            DefaultPanel.Controls.Add(IntimacyLabel);
+            DefaultPanel.Controls.Add(CpuUsageLabel);
+            DefaultPanel.Name = "DefaultPanel";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(DefaultPanel);
             Controls.Add(StatsPanel);
             Controls.Add(ClearButton);
-            Controls.Add(IntimacyLabel);
             Controls.Add(ImportButton);
             Controls.Add(ToggleShowButton);
-            Controls.Add(CpuUsageLabel);
-            Controls.Add(EmoStringLabel);
             HelpButton = true;
             Name = "Form1";
             TopMost = true;
             FormClosing += Form1_FormClosing;
             StatsPanel.ResumeLayout(false);
             StatsPanel.PerformLayout();
+            DefaultPanel.ResumeLayout(false);
+            DefaultPanel.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -186,5 +208,6 @@
         private Button ImportButton;
         private Label IntimacyLabel;
         private Button ClearButton;
+        private Panel DefaultPanel;
     }
 }
