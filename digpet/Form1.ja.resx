@@ -117,10 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="EmoStringLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="EmoStringLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -129,20 +125,23 @@
   <data name="EmoStringLabel.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 14.25pt</value>
   </data>
+  <data name="EmoStringLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
   <data name="EmoStringLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 25</value>
   </data>
   <data name="EmoStringLabel.Text" xml:space="preserve">
     <value>取得中</value>
   </data>
-  <data name="CpuUsageLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
   <data name="CpuUsageLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="CpuUsageLabel.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 14.25pt</value>
+  </data>
+  <data name="CpuUsageLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 50</value>
   </data>
   <data name="CpuUsageLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>133, 25</value>
@@ -157,13 +156,16 @@
     <value>Yu Gothic UI, 14.25pt</value>
   </data>
   <data name="TotalTokenLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 100</value>
+    <value>0, 100</value>
   </data>
   <data name="TotalTokenLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 25</value>
   </data>
   <data name="TotalTokenLabel.Text" xml:space="preserve">
     <value>取得中</value>
+  </data>
+  <data name="DailyTokenLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 25</value>
   </data>
   <data name="DailyTokenLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 25</value>
@@ -172,7 +174,7 @@
     <value>取得中</value>
   </data>
   <data name="FeelingLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 125</value>
+    <value>0, 125</value>
   </data>
   <data name="FeelingLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 25</value>
@@ -180,11 +182,17 @@
   <data name="FeelingLabel.Text" xml:space="preserve">
     <value>取得中</value>
   </data>
+  <data name="AverageEmotionTokensLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 75</value>
+  </data>
   <data name="AverageEmotionTokensLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 25</value>
   </data>
   <data name="AverageEmotionTokensLabel.Text" xml:space="preserve">
     <value>取得中</value>
+  </data>
+  <data name="EmoTokenLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 50</value>
   </data>
   <data name="EmoTokenLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 25</value>
@@ -199,7 +207,7 @@
     <value>詳細表示切替</value>
   </data>
   <data name="FlopsLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 150</value>
+    <value>0, 150</value>
   </data>
   <data name="FlopsLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 25</value>
@@ -207,14 +215,18 @@
   <data name="FlopsLabel.Text" xml:space="preserve">
     <value>取得中</value>
   </data>
+  <data name="StatsLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
   <data name="StatsPanel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="StatsPanel.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
   <data name="StatsPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 177</value>
+    <value>74, 177</value>
   </data>
   <data name="ImportButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -234,9 +246,6 @@
   <data name="ImportButton.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="IntimacyLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
   <data name="IntimacyLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -245,6 +254,9 @@
   </data>
   <data name="IntimacyLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
+  </data>
+  <data name="IntimacyLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 25</value>
   </data>
   <data name="IntimacyLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 25</value>
@@ -272,6 +284,21 @@
   </data>
   <data name="ClearButton.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
+  </data>
+  <data name="DefaultPanel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="DefaultPanel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="DefaultPanel.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="DefaultPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 379</value>
+  </data>
+  <data name="DefaultPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>138, 77</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
