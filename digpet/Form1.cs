@@ -30,6 +30,7 @@ namespace digpet
             ReadSettings();
             SetNowWindowState();
             CpuUsageTimer.Enabled = true;
+            ImageChangeTimer.Enabled = true;
             LogManager.LogOutput("初期化が完了しました");
         }
 
@@ -159,7 +160,6 @@ namespace digpet
             double cpuUsage = (double)CpuWatcher.GetCpuUsage();
             cpuAvgManager.SetCpuSum(cpuUsage);
             OutCpuLabel(cpuUsage);
-            ChangeImage();
         }
 
         /// <summary>
@@ -532,6 +532,16 @@ namespace digpet
         {
             LogManager.LogOutput("コントロールの色を" + color.ToString() + "に設定しました");
             BackColor = color;
+        }
+
+        /// <summary>
+        /// 画像の更新タイマ処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ImageChangeTimer_Tick(object sender, EventArgs e)
+        {
+            ChangeImage();
         }
     }
 }
