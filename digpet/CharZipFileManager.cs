@@ -1,5 +1,6 @@
 ﻿using System.Collections.Immutable;
 using System.IO.Compression;
+using System.Text;
 using System.Text.Json;
 
 namespace digpet
@@ -33,6 +34,136 @@ namespace digpet
         {
             _charSettingManager = new CharSettingManager();
             imageList = new Dictionary<string, Image>();
+        }
+
+        public Image? GetCharImage(string intimacy, string feeling)
+        {
+            CharSettingManager.Settings.CharSettings.Intimacy? target = null;
+
+            //ワイルドカード<ALL>を走査する
+            target = SearchWildcardIntimacy();
+
+            //ワイルドカードなし
+            if (target == null)
+            {
+                target = SearchIntimacy(intimacy);
+            }
+
+            //対象intimacyなし
+            if (target == null)
+            {
+                return null;
+            }
+
+            string imageName = GetImageNameFromFeeling(target, feeling);
+            return GetImageFromImageName(imageName);
+        }
+
+        /// <summary>
+        /// ワイルドカードのintimacyを走査する
+        /// </summary>
+        /// <returns>intimacy なかった場合はnull</returns>
+        private CharSettingManager.Settings.CharSettings.Intimacy? SearchWildcardIntimacy()
+        {
+            CharSettingManager.Settings.CharSettings.Intimacy? ret = null;
+
+            foreach (CharSettingManager.Settings.CharSettings.Intimacy _intimacy in _charSettingManager.CharSettings.charSettings.intimacies)
+            {
+                if (_intimacy.name == "<ALL>")
+                {
+                    ret = _intimacy;
+                    break;
+                }
+            }
+
+            return ret;
+        }
+
+        /// <summary>
+        /// 引数と同名のintimacyを返却する
+        /// </summary>
+        /// <param name="intimacyString">検索するintimacy</param>
+        /// <returns>あった場合同名のintimacy なかった場合null</returns>
+        private CharSettingManager.Settings.CharSettings.Intimacy? SearchIntimacy(string intimacyString)
+        {
+            CharSettingManager.Settings.CharSettings.Intimacy? ret = null;
+
+            foreach (CharSettingManager.Settings.CharSettings.Intimacy _intimacy in _charSettingManager.CharSettings.charSettings.intimacies)
+            {
+                if (_intimacy.name == intimacyString)
+                {
+                    ret = _intimacy;
+                    break;
+                }
+            }
+
+            return ret;
+        }
+
+        /// <summary>
+        /// feelingとintimacyから対象の画像名を取り出す
+        /// transitionの割合で計算される
+        /// </summary>
+        /// <param name="target">ターゲットのintimacy</param>
+        /// <param name="feelingString">feelingのstring</param>
+        /// <returns>画像名</returns>
+        private string GetImageNameFromFeeling(CharSettingManager.Settings.CharSettings.Intimacy target, string feelingString)
+        {
+            string ret = string.Empty;
+            int tranSum = 0;
+            Dictionary<string, int> transDict = new Dictionary<string, int>();
+
+            foreach(CharSettingManager.Settings.CharSettings.Intimacy.Feeling feeling in target.feelings)
+            {
+                if ((feeling.name == feelingString) && (!transDict.ContainsKey(feelingString)))
+                {
+                    transDict.Add(feeling.filePath, feeling.transition);
+                    tranSum += feeling.transition;
+                }
+            }
+
+            Random random = new Random();
+            int selected = random.Next() % tranSum;
+
+            int selectSum = 0;
+
+            foreach(string key in transDict.Keys)
+            {
+                selectSum += transDict[key];
+
+                if (selected < selectSum)
+                {
+                    ret = key;
+                    break;
+                }
+            }
+
+            return ret;
+        }
+
+        /// <summary>
+        /// 画像名から対象の画像を取得する
+        /// </summary>
+        /// <param name="imageName">取得する画像名</param>
+        /// <returns>画像 対象が存在しない場合はnull</returns>
+        private Image? GetImageFromImageName(string imageName) 
+        {
+            if (string.IsNullOrEmpty(imageName))
+            {
+                return null;
+            }
+
+            Image? ret = null;
+
+            foreach (string key in imageList.Keys)
+            {
+                if (key == imageName)
+                {
+                    ret = imageList[key];
+                }
+            }
+
+            return ret;
         }
 
         /// <summary>
@@ -154,7 +285,7 @@ namespace digpet
             return ret;
         }
 
-        //画像ファイルパスと画像を怪奇的に取得し、辞書に登録する
+        //画像ファイルパスと画像を回帰的に取得し、辞書に登録する
         private void SetImageList(ZipArchive zip)
         {
             try
@@ -168,7 +299,7 @@ namespace digpet
                         {
                             Image image = Image.FromStream(imageStream);
 
-                            string fileName = Path.GetFileName(entry.Name);
+                            string fileName = entry.FullName;
 
                             if (!imageList.ContainsKey(fileName))
                             {
@@ -224,7 +355,7 @@ namespace digpet
 
                 try
                 {
-                    using (StreamReader sr = new StreamReader(entry.Open()))
+                    using (StreamReader sr = new StreamReader(entry.Open(), Encoding.UTF8))
                     {
                         jsonText = sr.ReadToEnd();
                     }

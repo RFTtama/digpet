@@ -159,6 +159,7 @@ namespace digpet
             double cpuUsage = (double)CpuWatcher.GetCpuUsage();
             cpuAvgManager.SetCpuSum(cpuUsage);
             OutCpuLabel(cpuUsage);
+            ChangeImage();
         }
 
         /// <summary>
@@ -203,6 +204,27 @@ namespace digpet
             TotalTokenLabel.Text = "累計トークン: " + (tokenManager.TotalTokens).ToString("n2");
             IntimacyLabel.Text = GetIntimacy(tokenManager.TotalTokens);
             LogManager.LogOutput("表示されているトークン情報の更新完了");
+        }
+
+        /// <summary>
+        /// 現在の状態に応じて画像を切り替える
+        /// </summary>
+        private void ChangeImage()
+        {
+            string intimacy = GetIntimacy(tokenManager.TotalTokens);
+            string feeling = GetFeeling(tokenManager.Feeling);
+
+            Image? image = charZipFileManager.GetCharImage(intimacy, feeling);
+
+            if (image == null)
+            {
+                LogManager.LogOutput("画像が設定されませんでした");
+                return;
+            }
+
+            LogManager.LogOutput("画像が" + image.ToString() + "に設定されました");
+
+            CharPictureBox.Image = image;
         }
 
         /// <summary>
