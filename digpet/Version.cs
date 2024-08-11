@@ -141,7 +141,7 @@ namespace digpet
         /// バージョン情報を比較する
         /// </summary>
         /// <param name="compareVersion"></param>
-        /// <returns></returns>
+        /// <returns>1: 元の方が大きい, 0: 同じ: -1: 対象の方が大きい</returns>
         private int Compare(Version compareVersion)
         {
             int ret = 0;
