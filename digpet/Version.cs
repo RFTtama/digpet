@@ -125,11 +125,11 @@ namespace digpet
             {
                 if (minNum > versionArray[i])
                 {
-                    minNum = i;
+                    minNum = versionArray[i];
                 }
             }
 
-            if ((index >= 0) && (index < versionArray.Length) && (minNum > 0))
+            if ((index >= 0) && (index < versionArray.Length) && (minNum >= 0))
             {
                 ret = versionArray[index];
             }

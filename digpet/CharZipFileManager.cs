@@ -65,7 +65,7 @@ namespace digpet
 
                         if (entry != null)
                         {
-                            _charSettingManager.ReadEntry(entry);
+                            ReadConfig(entry);
                         }
                         else
                         {
@@ -81,6 +81,49 @@ namespace digpet
             else
             {
                 ErrorLog.ErrorOutput("コンフィグファイル確認エラー", "キャラデータが見つかりません");
+            }
+        }
+
+        /// <summary>
+        /// バージョンが対応しているか
+        /// </summary>
+        /// <returns>true: 対応, false: 非対応</returns>
+        private bool IsHandleVersion()
+        {
+            bool ret = false;
+            Version charVersion = new Version(_charSettingManager.CharSettings.version);
+            Version availableVersion = new Version(APP_SETTINGS.CHAR_FORMAT_VERSION);
+
+            if ((charVersion.major != -1) && (availableVersion.major != -1))
+            {
+                if (charVersion.Compare(availableVersion) <= 0)
+                {
+                    ret = true;
+                }
+                else
+                {
+                    ErrorLog.ErrorOutput("キャラファイルバージョンエラー", "キャラファイルのバージョンがサポートされている最大のバージョン(" 
+                        + APP_SETTINGS.CHAR_FORMAT_VERSION + ")より大きいです");
+                }
+            }
+            else
+            {
+                ErrorLog.ErrorOutput("キャラファイルバージョンエラー", "バージョン情報が正常に設定されませんでした");
+            }
+
+            return ret;
+        }
+
+        /// <summary>
+        /// コンフィグを読む
+        /// </summary>
+        /// <param name="entry">エントリ</param>
+        private void ReadConfig(ZipArchiveEntry entry)
+        {
+            int readStatus = _charSettingManager.ReadEntry(entry);
+            if ((readStatus != 0) || (!IsHandleVersion()))
+            {
+                _charSettingManager = new CharSettingManager();
             }
         }
 
@@ -116,8 +159,11 @@ namespace digpet
             /// <summary>
             /// エントリから設定を読み取る
             /// </summary>
-            public void ReadEntry(ZipArchiveEntry entry)
+            /// <param name="entry">0: 正常, else: 異常</param>
+            /// <returns></returns>
+            public int ReadEntry(ZipArchiveEntry entry)
             {
+                int ret = -1;
                 string jsonText = string.Empty;
 
                 try
@@ -141,6 +187,7 @@ namespace digpet
                     {
                         LogManager.LogOutput("キャラファイルのコンフィグデータが正常に読み込まれました");
                         _settings = settings_tmp;
+                        ret = 0;
                     }
                 }
                 catch (Exception ex)
@@ -148,6 +195,8 @@ namespace digpet
                     LogManager.LogOutput("キャラファイルのコンフィグデータ読み込みに失敗しました");
                     ErrorLog.ErrorOutput("コンフィグ読み取りエラー", ex.Message);
                 }
+
+                return ret;
             }
 
             /// <summary>
