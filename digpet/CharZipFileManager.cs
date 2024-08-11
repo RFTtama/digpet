@@ -1,4 +1,6 @@
-﻿using System.IO.Compression;
+﻿using System.Collections.Immutable;
+using System.IO.Compression;
+using System.Text;
 using System.Text.Json;
 
 namespace digpet
@@ -6,14 +8,162 @@ namespace digpet
     internal class CharZipFileManager
     {
         //クラス宣言
-        private CharSettingManager _charSettingManager;         //キャラクターファイルの設定クラス
+        private CharSettingManager _charSettingManager = new CharSettingManager();          //キャラクターファイルの設定クラス
+
+        //変数宣言
+        private Dictionary<string, Image> imageList = new Dictionary<string, Image>();      //画像リスト
+
+        //固定値宣言
+        private readonly string[] IMAGE_EXTENSION =
+        {
+            ".jpg", ".jpeg", ".png", ".bmp", ".gif", ".tiff", ".tif"
+        };
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
         public CharZipFileManager()
         {
+            Init();            
+        }
+
+        /// <summary>
+        /// 初期化/クリアする
+        /// </summary>
+        private void Init()
+        {
             _charSettingManager = new CharSettingManager();
+            imageList = new Dictionary<string, Image>();
+        }
+
+        public Image? GetCharImage(string intimacy, string feeling)
+        {
+            CharSettingManager.Settings.CharSettings.Intimacy? target = null;
+
+            //ワイルドカード<ALL>を走査する
+            target = SearchWildcardIntimacy();
+
+            //ワイルドカードなし
+            if (target == null)
+            {
+                target = SearchIntimacy(intimacy);
+            }
+
+            //対象intimacyなし
+            if (target == null)
+            {
+                return null;
+            }
+
+            string imageName = GetImageNameFromFeeling(target, feeling);
+            return GetImageFromImageName(imageName);
+        }
+
+        /// <summary>
+        /// ワイルドカードのintimacyを走査する
+        /// </summary>
+        /// <returns>intimacy なかった場合はnull</returns>
+        private CharSettingManager.Settings.CharSettings.Intimacy? SearchWildcardIntimacy()
+        {
+            CharSettingManager.Settings.CharSettings.Intimacy? ret = null;
+
+            foreach (CharSettingManager.Settings.CharSettings.Intimacy _intimacy in _charSettingManager.CharSettings.charSettings.intimacies)
+            {
+                if (_intimacy.name == "<ALL>")
+                {
+                    ret = _intimacy;
+                    break;
+                }
+            }
+
+            return ret;
+        }
+
+        /// <summary>
+        /// 引数と同名のintimacyを返却する
+        /// </summary>
+        /// <param name="intimacyString">検索するintimacy</param>
+        /// <returns>あった場合同名のintimacy なかった場合null</returns>
+        private CharSettingManager.Settings.CharSettings.Intimacy? SearchIntimacy(string intimacyString)
+        {
+            CharSettingManager.Settings.CharSettings.Intimacy? ret = null;
+
+            foreach (CharSettingManager.Settings.CharSettings.Intimacy _intimacy in _charSettingManager.CharSettings.charSettings.intimacies)
+            {
+                if (_intimacy.name == intimacyString)
+                {
+                    ret = _intimacy;
+                    break;
+                }
+            }
+
+            return ret;
+        }
+
+        /// <summary>
+        /// feelingとintimacyから対象の画像名を取り出す
+        /// transitionの割合で計算される
+        /// </summary>
+        /// <param name="target">ターゲットのintimacy</param>
+        /// <param name="feelingString">feelingのstring</param>
+        /// <returns>画像名</returns>
+        private string GetImageNameFromFeeling(CharSettingManager.Settings.CharSettings.Intimacy target, string feelingString)
+        {
+            string ret = string.Empty;
+            int tranSum = 0;
+            Dictionary<string, int> transDict = new Dictionary<string, int>();
+
+            foreach(CharSettingManager.Settings.CharSettings.Intimacy.Feeling feeling in target.feelings)
+            {
+                if ((feeling.name == feelingString) && (!transDict.ContainsKey(feelingString)))
+                {
+                    transDict.Add(feeling.filePath, feeling.transition);
+                    tranSum += feeling.transition;
+                }
+            }
+
+            Random random = new Random();
+            int selected = random.Next() % tranSum;
+
+            int selectSum = 0;
+
+            foreach(string key in transDict.Keys)
+            {
+                selectSum += transDict[key];
+
+                if (selected < selectSum)
+                {
+                    ret = key;
+                    break;
+                }
+            }
+
+            return ret;
+        }
+
+        /// <summary>
+        /// 画像名から対象の画像を取得する
+        /// </summary>
+        /// <param name="imageName">取得する画像名</param>
+        /// <returns>画像 対象が存在しない場合はnull</returns>
+        private Image? GetImageFromImageName(string imageName) 
+        {
+            if (string.IsNullOrEmpty(imageName))
+            {
+                return null;
+            }
+
+            Image? ret = null;
+
+            foreach (string key in imageList.Keys)
+            {
+                if (key == imageName)
+                {
+                    ret = imageList[key];
+                }
+            }
+
+            return ret;
         }
 
         /// <summary>
@@ -52,35 +202,38 @@ namespace digpet
         /// <summary>
         /// キャラクターのコンフィグファイルを読み取る
         /// </summary>
-        /// <param name="path"></param>
+        /// <param name="path">Zipファイルパス</param>
         public void ReadCharSettings(string path)
         {
-            if (File.Exists(path))
-            {
-                try
-                {
-                    using (ZipArchive zip = ZipFile.OpenRead(path))
-                    {
-                        ZipArchiveEntry? entry = zip.GetEntry(APP_SETTINGS.CONFIG_FILE_PATH);
-
-                        if (entry != null)
-                        {
-                            ReadConfig(entry);
-                        }
-                        else
-                        {
-                            ErrorLog.ErrorOutput("コンフィグファイル読み取りエラー", "キャラデータにコンフィグファイルが含まれていません");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ErrorLog.ErrorOutput("コンフィグファイル読み取りエラー", ex.Message);
-                }
-            }
-            else
+            if (!File.Exists(path))
             {
                 ErrorLog.ErrorOutput("コンフィグファイル確認エラー", "キャラデータが見つかりません");
+                return;
+            }
+
+            Init();
+
+            try
+            {
+                using (ZipArchive zip = ZipFile.OpenRead(path))
+                {
+                    ZipArchiveEntry? entry = zip.GetEntry(APP_SETTINGS.CONFIG_FILE_PATH);
+
+                    if (entry == null)
+                    {
+                        ErrorLog.ErrorOutput("コンフィグファイル読み取りエラー", "キャラデータにコンフィグファイルが含まれていません");
+                        return;
+                    }
+
+                    if (ReadConfig(entry) == 0)
+                    {
+                        SetImageList(zip);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.ErrorOutput("コンフィグファイル読み取りエラー", ex.Message);
             }
         }
 
@@ -118,12 +271,46 @@ namespace digpet
         /// コンフィグを読む
         /// </summary>
         /// <param name="entry">エントリ</param>
-        private void ReadConfig(ZipArchiveEntry entry)
+        /// <return>0: 正常, else: 異常</return>
+        private int ReadConfig(ZipArchiveEntry entry)
         {
+            int ret = 0;
             int readStatus = _charSettingManager.ReadEntry(entry);
             if ((readStatus != 0) || (!IsHandleVersion()))
             {
                 _charSettingManager = new CharSettingManager();
+                ret = -1;
+            }
+
+            return ret;
+        }
+
+        //画像ファイルパスと画像を回帰的に取得し、辞書に登録する
+        private void SetImageList(ZipArchive zip)
+        {
+            try
+            {
+                foreach (ZipArchiveEntry entry in zip.Entries)
+                {
+                    string entryExtension = Path.GetExtension(entry.Name);
+                    if (IMAGE_EXTENSION.Contains(entryExtension))
+                    {
+                        using (Stream imageStream = entry.Open())
+                        {
+                            Image image = Image.FromStream(imageStream);
+
+                            string fileName = entry.FullName;
+
+                            if (!imageList.ContainsKey(fileName))
+                            {
+                                imageList.Add(fileName, image);
+                            }
+                        }
+                    }
+                }
+            } catch(Exception ex)
+            {
+                ErrorLog.ErrorOutput("イメージ読み取りエラー", ex.Message);
             }
         }
 
@@ -168,7 +355,7 @@ namespace digpet
 
                 try
                 {
-                    using (StreamReader sr = new StreamReader(entry.Open()))
+                    using (StreamReader sr = new StreamReader(entry.Open(), Encoding.UTF8))
                     {
                         jsonText = sr.ReadToEnd();
                     }
