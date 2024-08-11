@@ -205,6 +205,7 @@
                 if (djm.dict.ContainsKey(resetTime.ToString()))
                 {
                     _dailyTokens = djm.dict[resetTime.ToString()];
+                    DeleteInvalidTokens(resetTime);
                 }
                 else
                 {
@@ -212,6 +213,33 @@
                     djm.dict.Add(resetTime.ToString(), _dailyTokens);
                     djm.WriteJsonFile(APP_SETTINGS.TOKEN_PATH);
                 }
+            }
+        }
+
+        /// <summary>
+        /// 無効な日付のトークンを削除する
+        /// </summary>
+        private void DeleteInvalidTokens(DateTime validDay) 
+        {
+            int validIndex;
+            for (validIndex = 0; validIndex < djm.dict.Keys.Count; validIndex++)
+            {
+                if (validDay.ToString() == djm.dict.Keys.ToArray()[validIndex])
+                {
+                    break;
+                }
+            }
+
+            if (validIndex >= djm.dict.Keys.Count)
+            {
+                return;
+            }
+
+            string[] deleteArray = djm.dict.Keys.ToArray();
+
+            for (int i = validIndex + 1; i < djm.dict.Count; i++)
+            {
+                djm.dict.Remove(deleteArray[i]);
             }
         }
 
@@ -230,7 +258,7 @@
             else
             {
                 DateTime resetTime = DateTime.Today;
-                resetTime.AddHours(ResetHour);
+                resetTime = resetTime.AddHours(ResetHour);
                 if ((DateTime.Today - resetTime).TotalHours >= 0)
                 {
                     //today
