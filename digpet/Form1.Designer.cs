@@ -47,6 +47,7 @@
             ClearButton = new Button();
             DefaultPanel = new Panel();
             CharPictureBox = new PictureBox();
+            ImageChangeTimer = new System.Windows.Forms.Timer(components);
             StatsPanel.SuspendLayout();
             DefaultPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)CharPictureBox).BeginInit();
@@ -179,6 +180,11 @@
             CharPictureBox.Name = "CharPictureBox";
             CharPictureBox.TabStop = false;
             // 
+            // ImageChangeTimer
+            // 
+            ImageChangeTimer.Interval = 200;
+            ImageChangeTimer.Tick += ImageChangeTimer_Tick;
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -222,5 +228,6 @@
         private Button ClearButton;
         private Panel DefaultPanel;
         private PictureBox CharPictureBox;
+        private System.Windows.Forms.Timer ImageChangeTimer;
     }
 }
