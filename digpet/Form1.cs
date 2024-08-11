@@ -89,14 +89,18 @@ namespace digpet
         /// </summary>
         private void ReadCharConfig()
         {
-            if (!string.IsNullOrEmpty(settingManager.Settings.CharSettingPath))
+            if (settingManager.Settings.CharSettingPath == null)
             {
-                charZipFileManager.ReadCharSettings(settingManager.Settings.CharSettingPath);
-                SetControlColor(charZipFileManager.GetControlColor());
+                ErrorLog.ErrorOutput("キャラファイル読み取りエラー", "設定されているキャラファイルのパスがnullか空です");
+            }
+            else if (settingManager.Settings.CharSettingPath == string.Empty)
+            {
+                return;
             }
             else
             {
-                ErrorLog.ErrorOutput("キャラファイル読み取りエラー", "設定されているキャラファイルのパスがnullか空です");
+                charZipFileManager.ReadCharSettings(settingManager.Settings.CharSettingPath);
+                SetControlColor(charZipFileManager.GetControlColor());
             }
         }
 
@@ -542,6 +546,26 @@ namespace digpet
         private void ImageChangeTimer_Tick(object sender, EventArgs e)
         {
             ChangeImage();
+        }
+
+        /// <summary>
+        /// ウィンドウのサイズ変更時
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Form1_SizeChanged(object sender, EventArgs e)
+        {
+            UpdateImageSize();
+        }
+
+        /// <summary>
+        /// 画像のサイズと位置を更新する
+        /// </summary>
+        private void UpdateImageSize()
+        {
+            CharPictureBox.Size = settingManager.Settings.ImageSize;
+            CharPictureBox.Left = (Width / 2) - (CharPictureBox.Width / 2) - 10;
+            CharPictureBox.Top = (Height / 2) - (CharPictureBox.Height / 2) - 10;
         }
     }
 }
