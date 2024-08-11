@@ -230,7 +230,7 @@
             else
             {
                 DateTime resetTime = DateTime.Today;
-                resetTime.AddHours(ResetHour);
+                resetTime = resetTime.AddHours(ResetHour);
                 if ((DateTime.Today - resetTime).TotalHours >= 0)
                 {
                     //today
