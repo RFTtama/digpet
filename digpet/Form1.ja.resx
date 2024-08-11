@@ -300,11 +300,14 @@
   <data name="DefaultPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>138, 77</value>
   </data>
-  <data name="CharPictureBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="CharPictureBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="CharPictureBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>45, 30</value>
   </data>
   <data name="CharPictureBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>484, 461</value>
+    <value>400, 400</value>
   </data>
   <data name="CharPictureBox.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
     <value>Zoom</value>

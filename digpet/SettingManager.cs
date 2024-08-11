@@ -118,6 +118,8 @@ namespace digpet
             //フォントの拡大サイズ
             public int FontEnlargeSize { get; set; }
 
+            public Size ImageSize { get; set; }
+
             /// <summary>
             /// コンストラクタ
             /// </summary>
@@ -129,6 +131,7 @@ namespace digpet
                 WindowSize = new Size(500, 500);
                 WindowLocation = new Point(0, 0);
                 FontEnlargeSize = 0;
+                ImageSize = new Size(400, 400);
             }
         }
     }

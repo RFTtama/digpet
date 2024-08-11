@@ -200,6 +200,7 @@
             Name = "Form1";
             TopMost = true;
             FormClosing += Form1_FormClosing;
+            SizeChanged += Form1_SizeChanged;
             StatsPanel.ResumeLayout(false);
             StatsPanel.PerformLayout();
             DefaultPanel.ResumeLayout(false);
