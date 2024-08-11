@@ -125,13 +125,38 @@ namespace digpet
             {
                 if (minNum > versionArray[i])
                 {
-                    minNum = i;
+                    minNum = versionArray[i];
                 }
             }
 
-            if ((index >= 0) && (index < versionArray.Length) && (minNum > 0))
+            if ((index >= 0) && (index < versionArray.Length) && (minNum >= 0))
             {
                 ret = versionArray[index];
+            }
+
+            return ret;
+        }
+
+        /// <summary>
+        /// バージョン情報を比較する
+        /// </summary>
+        /// <param name="compareVersion">比較先のバージョン</param>
+        /// <returns>1: 元の方が大きい, 0: 同じ: -1: 対象の方が大きい</returns>
+        public int Compare(Version compareVersion)
+        {
+            int ret = 0;
+            for (int i = 0; i < versionArray.Length; i++)
+            {
+                if (versionArray[i] > compareVersion.versionArray[i])
+                {
+                    ret = 1;
+                    break;
+                }
+                else if (versionArray[i] < compareVersion.versionArray[i])
+                {
+                    ret = -1;
+                    break;
+                }
             }
 
             return ret;
