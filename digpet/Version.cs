@@ -140,9 +140,9 @@ namespace digpet
         /// <summary>
         /// バージョン情報を比較する
         /// </summary>
-        /// <param name="compareVersion"></param>
+        /// <param name="compareVersion">比較先のバージョン</param>
         /// <returns>1: 元の方が大きい, 0: 同じ: -1: 対象の方が大きい</returns>
-        private int Compare(Version compareVersion)
+        public int Compare(Version compareVersion)
         {
             int ret = 0;
             for (int i = 0; i < versionArray.Length; i++)
