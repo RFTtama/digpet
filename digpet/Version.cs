@@ -136,5 +136,30 @@ namespace digpet
 
             return ret;
         }
+
+        /// <summary>
+        /// バージョン情報を比較する
+        /// </summary>
+        /// <param name="compareVersion"></param>
+        /// <returns></returns>
+        private int Compare(Version compareVersion)
+        {
+            int ret = 0;
+            for (int i = 0; i < versionArray.Length; i++)
+            {
+                if (versionArray[i] > compareVersion.versionArray[i])
+                {
+                    ret = 1;
+                    break;
+                }
+                else if (versionArray[i] < compareVersion.versionArray[i])
+                {
+                    ret = -1;
+                    break;
+                }
+            }
+
+            return ret;
+        }
     }
 }
