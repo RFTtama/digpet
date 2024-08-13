@@ -27,7 +27,10 @@ namespace digpet
             InitializeComponent();
             Text += "   Ver." + APP_SETTINGS.APPLICATION_VERSION;
             Init();
-            ReadSettings();
+            settingManager.ReadSettingFile(SETTING_PATH);
+            CheckResetTime();
+            tokenManager.ReadTokens();
+            ReadCharConfig();
             SetNowWindowState();
             CpuUsageTimer.Enabled = true;
             ImageChangeTimer.Enabled = true;
@@ -102,16 +105,6 @@ namespace digpet
                 charZipFileManager.ReadCharSettings(settingManager.Settings.CharSettingPath);
                 SetControlColor(charZipFileManager.GetControlColor());
             }
-        }
-
-        /// <summary>
-        /// 設定ファイル関連読み取り
-        /// </summary>
-        private void ReadSettings()
-        {
-            settingManager.ReadSettingFile(SETTING_PATH);
-            CheckResetTime();
-            ReadCharConfig();
         }
 
         /// <summary>
