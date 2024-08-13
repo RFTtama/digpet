@@ -124,7 +124,14 @@
             _dailyTokens = 0.0;
             _resetHour = -1;
             ClearCalcTokens();
-            ReadTokens();
+        }
+
+        /// <summary>
+        /// トークンを読み取る
+        /// </summary>
+        public void ReadTokens()
+        {
+            ReadTokensFromFile();
         }
 
         /// <summary>
@@ -162,9 +169,9 @@
         /// <summary>
         /// トークンを読み取る
         /// </summary>
-        private void ReadTokens()
+        private void ReadTokensFromFile()
         {
-            djm.ReadJsonFile(APP_SETTINGS.TOKEN_PATH, (DateTime.Today.ToString(), 0.0));
+            djm.ReadJsonFile(APP_SETTINGS.TOKEN_PATH, (CalcTokenResetTime().ToString(), 0.0));
             TokenExist();
             CalcAllToken();
         }
@@ -259,7 +266,7 @@
             {
                 DateTime resetTime = DateTime.Today;
                 resetTime = resetTime.AddHours(ResetHour);
-                if ((DateTime.Today - resetTime).TotalHours >= 0)
+                if ((DateTime.Now - resetTime).TotalHours >= 0)
                 {
                     //today
                     tokenDate = DateTime.Today;
