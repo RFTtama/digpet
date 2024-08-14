@@ -36,6 +36,22 @@ namespace digpet
             imageList = new Dictionary<string, Image>();
         }
 
+        /// <summary>
+        /// 画像切替周期を取得する
+        /// </summary>
+        /// <returns>切替周期(ms)</returns>
+        public int GetPictureTurnOverPeriod()
+        {
+            int ret = 200;
+
+            if (_charSettingManager.CharSettings.pictureTurnOverPeriod > 0)
+            {
+                ret = _charSettingManager.CharSettings.pictureTurnOverPeriod;
+            }
+
+            return ret;
+        }
+
         public Image? GetCharImage(string intimacy, string feeling)
         {
             CharSettingManager.Settings.CharSettings.Intimacy? target = null;
@@ -431,6 +447,8 @@ namespace digpet
                 public string version { get; set; }
                 public DigColor backgroundColor { get; set; }
 
+                public int pictureTurnOverPeriod { get; set; }
+
                 //クラス宣言
                 public FeelingManager feelingSetting { get; set; }
                 public IntimacyManager intimacySetting { get; set; }
@@ -446,6 +464,7 @@ namespace digpet
                     charSettings = new CharSettings();
                     version = string.Empty;
                     backgroundColor = new DigColor(SystemColors.Control);
+                    pictureTurnOverPeriod = 200;
                 }
 
                 /// <summary>

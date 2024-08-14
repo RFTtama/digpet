@@ -136,6 +136,7 @@ namespace digpet
             else
             {
                 charZipFileManager.ReadCharSettings(settingManager.Settings.CharSettingPath);
+                ImageChangeTimer.Interval = charZipFileManager.GetPictureTurnOverPeriod();
                 SetControlColor(charZipFileManager.GetControlColor());
             }
         }
