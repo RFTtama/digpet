@@ -192,14 +192,14 @@ namespace digpet
         /// <param name="value">出力するトークン</param>
         private void OutTokenLabel()
         {
-            EmoStringLabel.Text = GetFeeling(tokenManager.Feeling);
+            EmoStringLabel.Text = charZipFileManager.GetFeelingTag() + GetFeeling(tokenManager.Feeling);
             DailyTokenLabel.Text = "今日の獲得トークン: " + tokenManager.DailyTokens.ToString("n2");
             EmoTokenLabel.Text = "今日の感情トークン: " + tokenManager.EmotionTokens.ToString("n2");
             AverageEmotionTokensLabel.Text = "平均感情トークン: " + tokenManager.AverageEmotionTokens.ToString("n2");
             FeelingLabel.Text = "今日の感情: " + tokenManager.Feeling.ToString("n2");
             FlopsLabel.Text = "FLOPS: " + tokenManager.Flops.ToString();
             TotalTokenLabel.Text = "累計トークン: " + (tokenManager.TotalTokens).ToString("n2");
-            IntimacyLabel.Text = GetIntimacy(tokenManager.TotalTokens);
+            IntimacyLabel.Text = charZipFileManager.GetIntimacyTag() + GetIntimacy(tokenManager.TotalTokens);
             LogManager.LogOutput("表示されているトークン情報の更新完了");
         }
 
