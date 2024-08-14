@@ -6,11 +6,11 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <ApplicationIcon>e691071c-7cff-4f91-ba9d-6a4aee376d36.ico</ApplicationIcon>
+    <ApplicationIcon>dig.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="e691071c-7cff-4f91-ba9d-6a4aee376d36.ico" />
+    <Content Include="dig.ico" />
   </ItemGroup>
 
   <ItemGroup>

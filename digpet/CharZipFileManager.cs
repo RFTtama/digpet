@@ -142,6 +142,42 @@ namespace digpet
         }
 
         /// <summary>
+        /// Intimacyのタグを取得する
+        /// </summary>
+        /// <returns>Intimacyのタグ(string)</returns>
+        public string GetIntimacyTag()
+        {
+            string? ret = string.Empty;
+
+            ret = _charSettingManager.CharSettings.charSettings.intimacyTag;
+
+            if (string.IsNullOrWhiteSpace(ret))
+            {
+                ret = string.Empty;
+            }
+
+            return ret;
+        }
+
+        /// <summary>
+        /// Feelingのタグを取得する
+        /// </summary>
+        /// <returns>Feelingのタグ</returns>
+        public string GetFeelingTag()
+        {
+            string? ret = string.Empty;
+
+            ret = _charSettingManager.CharSettings.charSettings.feelingTag;
+
+            if (string.IsNullOrWhiteSpace(ret))
+            {
+                ret = string.Empty;
+            }
+
+            return ret;
+        }
+
+        /// <summary>
         /// 画像名から対象の画像を取得する
         /// </summary>
         /// <param name="imageName">取得する画像名</param>
@@ -632,6 +668,8 @@ namespace digpet
                 public class CharSettings
                 {
                     public string name { get; set; }
+                    public string intimacyTag { get; set; }
+                    public string feelingTag { get; set; }
                     public Intimacy[] intimacies { get; set; }
 
                     /// <summary>
@@ -640,6 +678,8 @@ namespace digpet
                     public CharSettings()
                     {
                         name = string.Empty;
+                        intimacyTag = string.Empty;
+                        feelingTag = string.Empty;
 #if false
                     intimacies = [new Intimacy()
                     {
