@@ -274,9 +274,23 @@ namespace digpet
         /// <param name="e"></param>
         private void ToggleShowButton_Click(object sender, EventArgs e)
         {
-            StatsPanel.Visible = !StatsPanel.Visible;
-            ClearButton.Visible = !ClearButton.Visible;
-            ImportButton.Visible = !ImportButton.Visible;
+            if ((StatsPanel.Visible == true) && (DefaultPanel.Visible == true))
+            {
+                StatsPanel.Visible = !StatsPanel.Visible;
+                ClearButton.Visible = !ClearButton.Visible;
+                ImportButton.Visible = !ImportButton.Visible;
+            }
+            else if ((StatsPanel.Visible == false) && (DefaultPanel.Visible == true))
+            {
+                DefaultPanel.Visible = !DefaultPanel.Visible;
+            }
+            else
+            {
+                StatsPanel.Visible = !StatsPanel.Visible;
+                ClearButton.Visible = !ClearButton.Visible;
+                ImportButton.Visible = !ImportButton.Visible;
+                DefaultPanel.Visible = !DefaultPanel.Visible;
+            }
         }
 
         /// <summary>
