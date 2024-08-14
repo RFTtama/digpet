@@ -26,6 +26,7 @@ namespace digpet
         {
             InitializeComponent();
             Text += "   Ver." + APP_SETTINGS.APPLICATION_VERSION;
+            MouseWheel += new MouseEventHandler(MouseWheelEvent);
             Init();
             settingManager.ReadSettingFile(SETTING_PATH);
             CheckResetTime();
@@ -44,6 +45,38 @@ namespace digpet
         {
             cpuCnt = 0;
             cpuAvg = 0.0;
+        }
+
+        /// <summary>
+        /// マウスホイールをくるくるした時のイベント
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MouseWheelEvent(object? sender, MouseEventArgs e)
+        {
+            if (CharPictureBox.Image == null)
+            {
+                return;
+            }
+            Size picSize = new Size(CharPictureBox.Width, CharPictureBox.Height);
+            const float MINUS_MAGN = 0.9f;
+            const float PLUS_MAGN = 1.1f;
+
+            if (e.Delta > 0)
+            {
+                picSize.Width = (int)(picSize.Width * PLUS_MAGN);
+                picSize.Height = (int)(picSize.Height * PLUS_MAGN);
+            }
+            else if (e.Delta < 0)
+            {
+                picSize.Width = (int)(picSize.Width * MINUS_MAGN);
+                picSize.Height = (int)(picSize.Height * MINUS_MAGN);
+            }
+
+            settingManager.Settings.ImageSize = picSize;
+            settingManager.WriteSettingFile(SETTING_PATH);
+
+            UpdateImageSize();
         }
 
         /// <summary>
@@ -286,6 +319,14 @@ namespace digpet
         /// <param name="e"></param>
         private void ClearButton_Click(object sender, EventArgs e)
         {
+            DialogResult result =
+                MessageBox.Show("キャラ設定をクリアします\nクリア後アプリを終了しますがよろしいですか?", "キャラ設定をクリアしますか?",
+                MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+
+            if (result != DialogResult.Yes)
+            {
+                return;
+            }
             LogManager.LogOutput("クリアボタンがクリックされました");
             ReWriteCharConfig(string.Empty);
         }
