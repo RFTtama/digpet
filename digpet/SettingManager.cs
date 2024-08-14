@@ -118,6 +118,7 @@ namespace digpet
             //フォントの拡大サイズ
             public int FontEnlargeSize { get; set; }
 
+            //キャラ画像サイズ
             public Size ImageSize { get; set; }
 
             /// <summary>
