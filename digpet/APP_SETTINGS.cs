@@ -13,7 +13,7 @@
 #if DEBUG
         public const string DEBUG_APPENDANCE    = "-debug";                             //デバッグ判別用
 #else
-        public const string DEBUG_APPENDANCE    = string.empty;                         //デバッグ判別用
+        public const string DEBUG_APPENDANCE    = "";                         //デバッグ判別用
 #endif
     }
 }
