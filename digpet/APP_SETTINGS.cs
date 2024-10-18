@@ -2,7 +2,7 @@
 {
     internal static class APP_SETTINGS
     {
-        public const string APPLICATION_VERSION = "1.00.00" + DEBUG_APPENDANCE;         //アプリバージョン
+        public const string APPLICATION_VERSION = "1.00.01" + DEBUG_APPENDANCE;         //アプリバージョン
         public const string CHAR_FORMAT_VERSION = "1.00.00";                            //キャラフォーマットのバージョン
 
         public const string CONFIG_FILE_PATH    = "config.json";                        //コンフィグファイルのパス
