@@ -154,6 +154,7 @@ namespace digpet
                 try
                 {
                     //CPU使用率の平均を取得し、トークンを計算する
+                    cpuCnt = 0;
                     GetCpuAvg();
                 }
                 catch (Exception ex)
@@ -175,7 +176,6 @@ namespace digpet
         /// </summary>
         private void GetCpuAvg()
         {
-            cpuCnt = 0;
             cpuAvg = cpuAvgManager.GetCpuAvg();
             tokenManager.AddTokens(cpuAvg);
             OutTokenLabel();
