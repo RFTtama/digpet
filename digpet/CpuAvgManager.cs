@@ -32,14 +32,23 @@
         /// <param name="cpuUsage">CPU使用率</param>
         public void SetCpuSum(double cpuUsage)
         {
-            if (((_cpuSum + cpuUsage) > double.PositiveInfinity) || (_cpuCount + 1 > int.MaxValue))
+            if (_cpuCount >= uint.MaxValue)
             {
-                ErrorLog.ErrorOutput("CPU値のオーバーフローエラー", "CPU値がオーバーフローしています");
-                return;
+                _cpuCount = uint.MaxValue;
+            }
+            else
+            {
+                _cpuCount++;
             }
 
-            _cpuSum += cpuUsage;
-            _cpuCount++;
+            if (_cpuSum >= double.MaxValue)
+            {
+                _cpuSum = double.MaxValue;
+            }
+            else
+            {
+                _cpuSum += cpuUsage;
+            }
         }
 
         /// <summary>
