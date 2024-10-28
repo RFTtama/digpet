@@ -14,6 +14,7 @@ namespace digpet
         //変数関連の宣言
         private int cpuCnt;
         private double cpuAvg;
+        private bool gotNormalImage;                                    //正常に画像を切り替えることができたか
 
         //定数関連の宣言
         private const string SETTING_PATH = "settings.json";
@@ -45,6 +46,7 @@ namespace digpet
         {
             cpuCnt = 0;
             cpuAvg = 0.0;
+            gotNormalImage = true;
         }
 
         /// <summary>
@@ -247,13 +249,21 @@ namespace digpet
 
             Image? image = charZipFileManager.GetCharImage(intimacy, feeling);
 
-            if (image == null)
+            if ((image == null) && (gotNormalImage == true))
             {
                 LogManager.LogOutput("画像が設定されませんでした");
                 return;
             }
 
-            LogManager.LogOutput("画像が" + image.ToString() + "に設定されました");
+            //nullの場合は正常な画像ではないので、フラグをオフに
+            if (image == null)
+            {
+                gotNormalImage = false;
+            }
+            else
+            {
+                gotNormalImage = true;
+            }
 
             CharPictureBox.Image = image;
         }
