@@ -253,8 +253,6 @@ namespace digpet
                 return;
             }
 
-            LogManager.LogOutput("‰æ‘œ‚ª" + image.ToString() + "‚Éİ’è‚³‚ê‚Ü‚µ‚½");
-
             CharPictureBox.Image = image;
         }
 
