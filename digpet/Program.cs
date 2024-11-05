@@ -38,7 +38,7 @@ namespace digpet
                 }
 
                 ApplicationConfiguration.Initialize();
-                Application.Run(new Form1());
+                Application.Run(new Digpet());
             }
             catch (Exception ex)
             {
