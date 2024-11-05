@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
+using digpet.Modules;
 
-namespace digpet
+namespace digpet.Managers
 {
     /// <summary>
     /// 設定ファイル管理クラス
@@ -11,7 +12,7 @@ namespace digpet
         public DigpetSettings Settings;
 
         //JSONの設定
-        private readonly JsonSerializerOptions JSON_OPTIONS = new JsonSerializerOptions 
+        private readonly JsonSerializerOptions JSON_OPTIONS = new JsonSerializerOptions
         {
             WriteIndented = true
         };
@@ -110,10 +111,10 @@ namespace digpet
             public int WindowState { get; set; }
 
             //ウィンドウサイズ
-            public Size WindowSize {  get; set; }
+            public Size WindowSize { get; set; }
 
             //ウィンドウロケーション
-            public Point WindowLocation {  get; set; }
+            public Point WindowLocation { get; set; }
 
             //フォントの拡大サイズ
             public int FontEnlargeSize { get; set; }

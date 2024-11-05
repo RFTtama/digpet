@@ -1,4 +1,4 @@
-﻿namespace digpet
+﻿namespace digpet.Managers
 {
     /// <summary>
     /// FLOPSの管理クラス

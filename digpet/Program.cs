@@ -1,3 +1,5 @@
+using digpet.Modules;
+
 namespace digpet
 {
     internal static class Program

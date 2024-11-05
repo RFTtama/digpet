@@ -1,5 +1,8 @@
 using System.Security.Cryptography;
 using System.Windows.Forms;
+using digpet.AppConfigs;
+using digpet.Managers;
+using digpet.Modules;
 
 namespace digpet
 {

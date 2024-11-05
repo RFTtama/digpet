@@ -1,4 +1,4 @@
-﻿namespace digpet
+﻿namespace digpet.Managers
 {
     /// <summary>
     /// CPU使用率を管理するためのマネージャ
@@ -58,7 +58,7 @@
         public double GetCpuAvg()
         {
             if (_cpuCount == 0) return 0.0;
-            return (_cpuSum / _cpuCount);
+            return _cpuSum / _cpuCount;
         }
     }
 }
