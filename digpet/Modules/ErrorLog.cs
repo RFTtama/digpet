@@ -1,4 +1,6 @@
-﻿namespace digpet
+﻿using digpet.AppConfigs;
+
+namespace digpet.Modules
 {
     /// <summary>
     /// エラー出力クラス

@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace digpet
+namespace digpet.Modules
 {
     /// <summary>
     /// CPU使用率を取得するためのstaticクラス

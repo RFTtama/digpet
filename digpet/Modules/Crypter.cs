@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace digpet
+namespace digpet.Modules
 {
     internal static class Crypter
     {

@@ -1,4 +1,7 @@
-﻿namespace digpet
+﻿using digpet.AppConfigs;
+using digpet.Modules;
+
+namespace digpet.Managers
 {
     internal class TokenManager
     {
@@ -25,9 +28,9 @@
         /// </summary>
         public double DailyTokens
         {
-            get 
-            { 
-                return _dailyTokens; 
+            get
+            {
+                return _dailyTokens;
             }
         }
 
@@ -74,8 +77,8 @@
         {
             get
             {
-                if ((AverageEmotionTokens <= 0) || (EmotionTokens <= 0)) return 0; 
-                return ((EmotionTokens - AverageEmotionTokens) / AverageEmotionTokens);
+                if (AverageEmotionTokens <= 0 || EmotionTokens <= 0) return 0;
+                return (EmotionTokens - AverageEmotionTokens) / AverageEmotionTokens;
             }
         }
 
@@ -152,7 +155,7 @@
             double log = Math.Log10(flops.Flops);
             double reci = 1.0 / log;
             double rev = 1.0 - reci;
-            return (Math.Pow(rev, 3.0));
+            return Math.Pow(rev, 3.0);
         }
 
         /// <summary>
@@ -162,7 +165,7 @@
         public void AddTokens(double minToken)
         {
             TokenExist();
-            _dailyTokens += (Math.Sqrt((minToken * GetCpuWeight())) * 10.0) * TOKEN_CALC_WEIGHT;
+            _dailyTokens += Math.Sqrt(minToken * GetCpuWeight()) * 10.0 * TOKEN_CALC_WEIGHT;
             WriteTokens();
         }
 
@@ -226,7 +229,7 @@
         /// <summary>
         /// 無効な日付のトークンを削除する
         /// </summary>
-        private void DeleteInvalidTokens(DateTime validDay) 
+        private void DeleteInvalidTokens(DateTime validDay)
         {
             int validIndex;
             for (validIndex = 0; validIndex < djm.dict.Keys.Count; validIndex++)
@@ -307,7 +310,7 @@
                 }
                 else//日付が経過していない
                 {
-                    double emoMem = (djm.dict[keys[i - 1]] * HANDOVER_PERCENT) + djm.dict[keys[i]];
+                    double emoMem = djm.dict[keys[i - 1]] * HANDOVER_PERCENT + djm.dict[keys[i]];
                     double totalMem = _totalTokens[i - 1] + emoMem;
 
                     _emotionTokens.Add(emoMem);
@@ -333,11 +336,11 @@
                     //最後の日付のデータはあるので、その日のトークンを足さないといけない
                     if (j == days - 2)
                     {
-                        emoMem = (_emotionTokens[_emotionTokens.Count - 1] * HANDOVER_PERCENT) + djm.dict[lastDate.ToString()];
+                        emoMem = _emotionTokens[_emotionTokens.Count - 1] * HANDOVER_PERCENT + djm.dict[lastDate.ToString()];
                     }
                     else
                     {
-                        emoMem = (_emotionTokens[_emotionTokens.Count - 1] * HANDOVER_PERCENT);
+                        emoMem = _emotionTokens[_emotionTokens.Count - 1] * HANDOVER_PERCENT;
                     }
 
                     double totalMem = (_totalTokens[_totalTokens.Count - 1] + emoMem) * HANDOVER_PENALTY;

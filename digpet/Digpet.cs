@@ -1,9 +1,12 @@
 using System.Security.Cryptography;
 using System.Windows.Forms;
+using digpet.AppConfigs;
+using digpet.Managers;
+using digpet.Modules;
 
 namespace digpet
 {
-    public partial class Form1 : Form
+    public partial class Digpet : Form
     {
         //クラス関連の宣言
         private CpuAvgManager cpuAvgManager = new CpuAvgManager();
@@ -23,7 +26,7 @@ namespace digpet
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public Form1()
+        public Digpet()
         {
             InitializeComponent();
             Text += "   Ver." + APP_SETTINGS.APPLICATION_VERSION;

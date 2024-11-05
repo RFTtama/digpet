@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
+using digpet.Modules;
 
-namespace digpet
+namespace digpet.Managers
 {
     /// <summary>
     /// キーがdouble型の辞書管理用クラス
