@@ -475,7 +475,7 @@ namespace digpet.Managers
                 /// </summary>
                 public class DigColor
                 {
-                    public ushort red
+                    public byte red
                     {
                         get
                         {
@@ -483,10 +483,10 @@ namespace digpet.Managers
                         }
                         set
                         {
-                            _red = CheckValue(value);
+                            _red = value;
                         }
                     }
-                    public ushort green
+                    public byte green
                     {
                         get
                         {
@@ -494,10 +494,10 @@ namespace digpet.Managers
                         }
                         set
                         {
-                            _green = CheckValue(value);
+                            _green = value;
                         }
                     }
-                    public ushort blue
+                    public byte blue
                     {
                         get
                         {
@@ -505,13 +505,13 @@ namespace digpet.Managers
                         }
                         set
                         {
-                            _blue = CheckValue(value);
+                            _blue = value;
                         }
                     }
 
-                    private ushort _red;
-                    private ushort _green;
-                    private ushort _blue;
+                    private byte _red;
+                    private byte _green;
+                    private byte _blue;
 
                     /// <summary>
                     /// コンストラクタ
@@ -536,32 +536,9 @@ namespace digpet.Managers
                     /// </summary>
                     private void Init()
                     {
-                        red = 0xff;
-                        green = 0xff;
-                        blue = 0xff;
-                    }
-
-                    /// <summary>
-                    /// 値が許容範囲内かチェックし、許容範囲の値を返却する
-                    /// </summary>
-                    /// <param name="val"></param>
-                    /// <returns></returns>
-                    private ushort CheckValue(int val)
-                    {
-                        ushort ret = 0;
-                        if (val < 0)
-                        {
-                            ret = 0;
-                        }
-                        else if (val > 0xff)
-                        {
-                            ret = 0xff;
-                        }
-                        else
-                        {
-                            ret = (ushort)val;
-                        }
-                        return ret;
+                        red = (byte)0xff;
+                        green = (byte)0xff;
+                        blue = (byte)0xff;
                     }
 
                     /// <summary>
