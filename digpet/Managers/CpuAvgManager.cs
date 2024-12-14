@@ -1,4 +1,4 @@
-﻿namespace digpet
+﻿namespace digpet.Managers
 {
     /// <summary>
     /// CPU使用率を管理するためのマネージャ
@@ -32,14 +32,23 @@
         /// <param name="cpuUsage">CPU使用率</param>
         public void SetCpuSum(double cpuUsage)
         {
-            if (((_cpuSum + cpuUsage) > double.PositiveInfinity) || (_cpuCount + 1 > int.MaxValue))
+            if (_cpuCount >= uint.MaxValue)
             {
-                ErrorLog.ErrorOutput("CPU値のオーバーフローエラー", "CPU値がオーバーフローしています");
-                return;
+                _cpuCount = uint.MaxValue;
+            }
+            else
+            {
+                _cpuCount++;
             }
 
-            _cpuSum += cpuUsage;
-            _cpuCount++;
+            if (_cpuSum >= double.MaxValue)
+            {
+                _cpuSum = double.MaxValue;
+            }
+            else
+            {
+                _cpuSum += cpuUsage;
+            }
         }
 
         /// <summary>
@@ -49,7 +58,7 @@
         public double GetCpuAvg()
         {
             if (_cpuCount == 0) return 0.0;
-            return (_cpuSum / _cpuCount);
+            return _cpuSum / _cpuCount;
         }
     }
 }

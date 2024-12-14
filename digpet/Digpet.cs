@@ -1,19 +1,24 @@
 using System.Security.Cryptography;
 using System.Windows.Forms;
+using digpet.AppConfigs;
+using digpet.Managers;
+using digpet.Modules;
 
 namespace digpet
 {
-    public partial class Form1 : Form
+    public partial class Digpet : Form
     {
         //クラス関連の宣言
         private CpuAvgManager cpuAvgManager = new CpuAvgManager();
         private TokenManager tokenManager = new TokenManager();
         private SettingManager settingManager = new SettingManager();
         private CharZipFileManager charZipFileManager = new CharZipFileManager();
+        private CpuWatcher cpuWatcher = new CpuWatcher();
 
         //変数関連の宣言
         private int cpuCnt;
         private double cpuAvg;
+        private bool gotNormalImage;                                    //正常に画像を切り替えることができたか
 
         //定数関連の宣言
         private const string SETTING_PATH = "settings.json";
@@ -22,7 +27,7 @@ namespace digpet
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public Form1()
+        public Digpet()
         {
             InitializeComponent();
             Text += "   Ver." + APP_SETTINGS.APPLICATION_VERSION;
@@ -45,6 +50,7 @@ namespace digpet
         {
             cpuCnt = 0;
             cpuAvg = 0.0;
+            gotNormalImage = true;
         }
 
         /// <summary>
@@ -154,6 +160,7 @@ namespace digpet
                 try
                 {
                     //CPU使用率の平均を取得し、トークンを計算する
+                    cpuCnt = 0;
                     GetCpuAvg();
                 }
                 catch (Exception ex)
@@ -175,7 +182,6 @@ namespace digpet
         /// </summary>
         private void GetCpuAvg()
         {
-            cpuCnt = 0;
             cpuAvg = cpuAvgManager.GetCpuAvg();
             tokenManager.AddTokens(cpuAvg);
             OutTokenLabel();
@@ -188,7 +194,7 @@ namespace digpet
         /// </summary>
         private void SumCpuAvg()
         {
-            double cpuUsage = (double)CpuWatcher.GetCpuUsage();
+            double cpuUsage = (double)cpuWatcher.GetCpuUsage();
             cpuAvgManager.SetCpuSum(cpuUsage);
             OutCpuLabel(cpuUsage);
         }
@@ -247,13 +253,21 @@ namespace digpet
 
             Image? image = charZipFileManager.GetCharImage(intimacy, feeling);
 
-            if (image == null)
+            if ((image == null) && (gotNormalImage == true))
             {
                 LogManager.LogOutput("画像が設定されませんでした");
                 return;
             }
 
-            LogManager.LogOutput("画像が" + image.ToString() + "に設定されました");
+            //nullの場合は正常な画像ではないので、フラグをオフに
+            if (image == null)
+            {
+                gotNormalImage = false;
+            }
+            else
+            {
+                gotNormalImage = true;
+            }
 
             CharPictureBox.Image = image;
         }

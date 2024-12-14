@@ -1,6 +1,6 @@
 ﻿namespace digpet
 {
-    partial class Form1
+    partial class Digpet
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Digpet));
             CpuUsageTimer = new System.Windows.Forms.Timer(components);
             EmoStringLabel = new Label();
             CpuUsageLabel = new Label();

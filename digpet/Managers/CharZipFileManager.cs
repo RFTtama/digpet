@@ -2,8 +2,10 @@
 using System.IO.Compression;
 using System.Text;
 using System.Text.Json;
+using digpet.AppConfigs;
+using digpet.Modules;
 
-namespace digpet
+namespace digpet.Managers
 {
     internal class CharZipFileManager
     {
@@ -24,7 +26,7 @@ namespace digpet
         /// </summary>
         public CharZipFileManager()
         {
-            Init();            
+            Init();
         }
 
         /// <summary>
@@ -129,9 +131,9 @@ namespace digpet
             int tranSum = 0;
             Dictionary<string, int> transDict = new Dictionary<string, int>();
 
-            foreach(CharSettingManager.Settings.CharSettings.Intimacy.Feeling feeling in target.feelings)
+            foreach (CharSettingManager.Settings.CharSettings.Intimacy.Feeling feeling in target.feelings)
             {
-                if ((feeling.name == feelingString) && (!transDict.ContainsKey(feelingString)))
+                if (feeling.name == feelingString && !transDict.ContainsKey(feelingString))
                 {
                     transDict.Add(feeling.filePath, feeling.transition);
                     tranSum += feeling.transition;
@@ -143,7 +145,7 @@ namespace digpet
 
             int selectSum = 0;
 
-            foreach(string key in transDict.Keys)
+            foreach (string key in transDict.Keys)
             {
                 selectSum += transDict[key];
 
@@ -198,7 +200,7 @@ namespace digpet
         /// </summary>
         /// <param name="imageName">取得する画像名</param>
         /// <returns>画像 対象が存在しない場合はnull</returns>
-        private Image? GetImageFromImageName(string imageName) 
+        private Image? GetImageFromImageName(string imageName)
         {
             if (string.IsNullOrEmpty(imageName))
             {
@@ -296,10 +298,10 @@ namespace digpet
         private bool IsHandleVersion()
         {
             bool ret = false;
-            Version charVersion = new Version(_charSettingManager.CharSettings.version);
-            Version availableVersion = new Version(APP_SETTINGS.CHAR_FORMAT_VERSION);
+            VersionManager charVersion = new VersionManager(_charSettingManager.CharSettings.version);
+            VersionManager availableVersion = new VersionManager(APP_SETTINGS.CHAR_FORMAT_VERSION);
 
-            if ((charVersion.major != -1) && (availableVersion.major != -1))
+            if (charVersion.major != -1 && availableVersion.major != -1)
             {
                 if (charVersion.Compare(availableVersion) <= 0)
                 {
@@ -307,7 +309,7 @@ namespace digpet
                 }
                 else
                 {
-                    ErrorLog.ErrorOutput("キャラファイルバージョンエラー", "キャラファイルのバージョンがサポートされている最大のバージョン(" 
+                    ErrorLog.ErrorOutput("キャラファイルバージョンエラー", "キャラファイルのバージョンがサポートされている最大のバージョン("
                         + APP_SETTINGS.CHAR_FORMAT_VERSION + ")より大きいです");
                 }
             }
@@ -328,7 +330,7 @@ namespace digpet
         {
             int ret = 0;
             int readStatus = _charSettingManager.ReadEntry(entry);
-            if ((readStatus != 0) || (!IsHandleVersion()))
+            if (readStatus != 0 || !IsHandleVersion())
             {
                 _charSettingManager = new CharSettingManager();
                 ret = -1;
@@ -360,7 +362,8 @@ namespace digpet
                         }
                     }
                 }
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 ErrorLog.ErrorOutput("イメージ読み取りエラー", ex.Message);
             }
@@ -472,7 +475,7 @@ namespace digpet
                 /// </summary>
                 public class DigColor
                 {
-                    public ushort red
+                    public byte red
                     {
                         get
                         {
@@ -480,10 +483,10 @@ namespace digpet
                         }
                         set
                         {
-                            _red = CheckValue(value);
+                            _red = value;
                         }
                     }
-                    public ushort green
+                    public byte green
                     {
                         get
                         {
@@ -491,10 +494,10 @@ namespace digpet
                         }
                         set
                         {
-                            _green = CheckValue(value);
+                            _green = value;
                         }
                     }
-                    public ushort blue
+                    public byte blue
                     {
                         get
                         {
@@ -502,13 +505,13 @@ namespace digpet
                         }
                         set
                         {
-                            _blue = CheckValue(value);
+                            _blue = value;
                         }
                     }
 
-                    private ushort _red;
-                    private ushort _green;
-                    private ushort _blue;
+                    private byte _red;
+                    private byte _green;
+                    private byte _blue;
 
                     /// <summary>
                     /// コンストラクタ
@@ -533,32 +536,9 @@ namespace digpet
                     /// </summary>
                     private void Init()
                     {
-                        red = 0xff;
-                        green = 0xff;
-                        blue = 0xff;
-                    }
-
-                    /// <summary>
-                    /// 値が許容範囲内かチェックし、許容範囲の値を返却する
-                    /// </summary>
-                    /// <param name="val"></param>
-                    /// <returns></returns>
-                    private ushort CheckValue(int val)
-                    {
-                        ushort ret = 0;
-                        if (val < 0)
-                        {
-                            ret = 0;
-                        }
-                        else if (val > 0xff)
-                        {
-                            ret = 0xff;
-                        }
-                        else
-                        {
-                            ret = (ushort)val;
-                        }
-                        return ret;
+                        red = (byte)0xff;
+                        green = (byte)0xff;
+                        blue = (byte)0xff;
                     }
 
                     /// <summary>

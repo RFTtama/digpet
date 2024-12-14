@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using digpet.Modules;
 
-namespace digpet
+namespace digpet.Managers
 {
-    internal class Version
+    internal class VersionManager
     {
         /// <summary>
         /// メジャーバージョン
         /// </summary>
-        public int major 
+        public int major
         {
             get
             {
@@ -26,7 +27,7 @@ namespace digpet
         /// <summary>
         /// マイナーバージョン
         /// </summary>
-        public int minor 
+        public int minor
         {
             get
             {
@@ -41,7 +42,7 @@ namespace digpet
         /// <summary>
         /// パッチバージョン
         /// </summary>
-        public int patch 
+        public int patch
         {
             get
             {
@@ -62,7 +63,7 @@ namespace digpet
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public Version()
+        public VersionManager()
         {
             Init();
         }
@@ -71,7 +72,7 @@ namespace digpet
         /// コンストラクタ
         /// </summary>
         /// <param name="versionStr">バージョン文字列</param>
-        public Version(string versionStr)
+        public VersionManager(string versionStr)
         {
             Init();
             Parse(versionStr);
@@ -129,7 +130,7 @@ namespace digpet
                 }
             }
 
-            if ((index >= 0) && (index < versionArray.Length) && (minNum >= 0))
+            if (index >= 0 && index < versionArray.Length && minNum >= 0)
             {
                 ret = versionArray[index];
             }
@@ -142,7 +143,7 @@ namespace digpet
         /// </summary>
         /// <param name="compareVersion">比較先のバージョン</param>
         /// <returns>1: 元の方が大きい, 0: 同じ: -1: 対象の方が大きい</returns>
-        public int Compare(Version compareVersion)
+        public int Compare(VersionManager compareVersion)
         {
             int ret = 0;
             for (int i = 0; i < versionArray.Length; i++)
