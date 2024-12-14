@@ -13,6 +13,7 @@ namespace digpet
         private TokenManager tokenManager = new TokenManager();
         private SettingManager settingManager = new SettingManager();
         private CharZipFileManager charZipFileManager = new CharZipFileManager();
+        private CpuWatcher cpuWatcher = new CpuWatcher();
 
         //•Ï”ŠÖ˜A‚ÌéŒ¾
         private int cpuCnt;
@@ -193,7 +194,7 @@ namespace digpet
         /// </summary>
         private void SumCpuAvg()
         {
-            double cpuUsage = (double)CpuWatcher.GetCpuUsage();
+            double cpuUsage = (double)cpuWatcher.GetCpuUsage();
             cpuAvgManager.SetCpuSum(cpuUsage);
             OutCpuLabel(cpuUsage);
         }
