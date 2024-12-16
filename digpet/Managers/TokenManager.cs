@@ -297,15 +297,15 @@ namespace digpet.Managers
             _emotionTokens.Add(djm.dict[keys[0]]);
             _totalTokens.Add(djm.dict[keys[0]]);
 
+#if DEBUG
+            LogManager.LogOutput("トークン計算過程出力");
+#endif
+
             for (int i = 1; i < keys.Length; i++)
             {
                 DateTime newDay = DateTime.Parse(keys[i]);
                 DateTime befDay = DateTime.Parse(keys[i - 1]);
                 TimeSpan spanDay = newDay - befDay;
-
-#if DEBUG
-                LogManager.LogOutput("TokenData Day: " + i.ToString());
-#endif
 
                 //日付が1日以上経過している場合
                 if (spanDay.Days > 1)
@@ -327,6 +327,11 @@ namespace digpet.Managers
 
                 }
             }
+
+#if DEBUG
+            LogManager.LogOutput("トークン計算過程出力終了");
+#endif
+
         }
 
         /// <summary>
