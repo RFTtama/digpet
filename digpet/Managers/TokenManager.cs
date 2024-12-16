@@ -297,6 +297,10 @@ namespace digpet.Managers
             _emotionTokens.Add(djm.dict[keys[0]]);
             _totalTokens.Add(djm.dict[keys[0]]);
 
+#if DEBUG
+            LogManager.LogOutput("トークン計算過程出力");
+#endif
+
             for (int i = 1; i < keys.Length; i++)
             {
                 DateTime newDay = DateTime.Parse(keys[i]);
@@ -315,8 +319,19 @@ namespace digpet.Managers
 
                     _emotionTokens.Add(emoMem);
                     _totalTokens.Add(totalMem);
+
+#if DEBUG
+                    LogManager.LogOutput("emoMem: " + emoMem.ToString());
+                    LogManager.LogOutput("totalMem: " + totalMem.ToString());
+#endif
+
                 }
             }
+
+#if DEBUG
+            LogManager.LogOutput("トークン計算過程出力終了");
+#endif
+
         }
 
         /// <summary>
@@ -347,6 +362,12 @@ namespace digpet.Managers
 
                     _emotionTokens.Add(emoMem);
                     _totalTokens.Add(totalMem);
+
+#if DEBUG
+                    LogManager.LogOutput("emoMem: " + emoMem.ToString());
+                    LogManager.LogOutput("totalMem: " + totalMem.ToString());
+#endif
+
                 }
             }
             else
