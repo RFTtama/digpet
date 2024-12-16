@@ -6,7 +6,7 @@
 - ペットは個人でカスタマイズ可能(高度なカスタマイズは不可能)<br>
 ## 対応OS
 - [x] Windows(11のみ動作確認済み)
-- [x] Linux(Ubuntu, Raspberry Pi OS) ← 対応済みであるが、コンパイルおよびテストは未実施
+- [x] Linux(Ubuntu, Raspberry Pi OS)
 - [ ] Mac OSの対応なし(テストを行う実機が用意できないため)
 
 # 仕様
