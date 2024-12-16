@@ -303,6 +303,10 @@ namespace digpet.Managers
                 DateTime befDay = DateTime.Parse(keys[i - 1]);
                 TimeSpan spanDay = newDay - befDay;
 
+#if DEBUG
+                LogManager.LogOutput("TokenData Day: " + i.ToString());
+#endif
+
                 //日付が1日以上経過している場合
                 if (spanDay.Days > 1)
                 {
@@ -315,6 +319,12 @@ namespace digpet.Managers
 
                     _emotionTokens.Add(emoMem);
                     _totalTokens.Add(totalMem);
+
+#if DEBUG
+                    LogManager.LogOutput("emoMem: " + emoMem.ToString());
+                    LogManager.LogOutput("totalMem: " + totalMem.ToString());
+#endif
+
                 }
             }
         }
@@ -347,6 +357,12 @@ namespace digpet.Managers
 
                     _emotionTokens.Add(emoMem);
                     _totalTokens.Add(totalMem);
+
+#if DEBUG
+                    LogManager.LogOutput("emoMem: " + emoMem.ToString());
+                    LogManager.LogOutput("totalMem: " + totalMem.ToString());
+#endif
+
                 }
             }
             else
