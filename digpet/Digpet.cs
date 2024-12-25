@@ -1,6 +1,7 @@
 using System.Security.Cryptography;
 using System.Windows.Forms;
 using digpet.AppConfigs;
+using digpet.Interface;
 using digpet.Managers;
 using digpet.Modules;
 
@@ -23,6 +24,11 @@ namespace digpet
         //定数関連の宣言
         private const string SETTING_PATH = "settings.json";
         private const int FONT_MARGIN_SIZE = 5;
+
+        //テーブル宣言
+        private readonly TaskClassInterface[] TaskRun1sTable =
+        {
+        };
 
         /// <summary>
         /// コンストラクタ
@@ -629,6 +635,42 @@ namespace digpet
             CharPictureBox.Size = settingManager.Settings.ImageSize;
             CharPictureBox.Left = (Width / 2) - (CharPictureBox.Width / 2) - 10;
             CharPictureBox.Top = (Height / 2) - (CharPictureBox.Height / 2) - 10;
+        }
+
+        /// <summary>
+        /// 1s周期のタスクを実行する
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TaskRunTimer1s_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                //タスクテーブルに設定されているタスククラスの関数を順番に実行する
+                for (int i = 0; i < TaskRun1sTable.Length; i++)
+                {
+                    if (TaskRun1sTable[i] == null) continue;
+
+                    switch (TaskRun1sTable[i].ClassTask.Status)
+                    {
+                        case TaskStatus.Running:
+                            TaskRun1sTable[i].TaskCheckRet(new TaskClassRet(TaskReturn.TASK_BLOCKED, "Task Blocked"));
+                            continue;
+
+                        default:
+                            break;
+                    }
+
+                    TaskRun1sTable[i].ClassTask = Task.Run(() =>
+                    {
+                        TaskRun1sTable[i].TaskCheckRet(TaskRun1sTable[i].TaskFunc());
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.ErrorOutput("タスク実行エラー", ex.Message);
+            }
         }
     }
 }
