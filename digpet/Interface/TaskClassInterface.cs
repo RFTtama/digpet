@@ -12,7 +12,7 @@ namespace digpet.Interface
     public abstract class TaskClassInterface
     {
         //タスク保持用変数
-        public required Task ClassTask;
+        public Task ClassTask = Task.Run(() => { });
 
         //タスクとして送信する関数
         public abstract TaskClassRet TaskFunc();

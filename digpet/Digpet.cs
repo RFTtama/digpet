@@ -26,9 +26,7 @@ namespace digpet
         private const int FONT_MARGIN_SIZE = 5;
 
         //テーブル宣言
-        private readonly TaskClassInterface[] TaskRun1sTable =
-        {
-        };
+        private TaskClassInterface[]? TaskRun1sTable;
 
         /// <summary>
         /// コンストラクタ
@@ -44,8 +42,7 @@ namespace digpet
             tokenManager.ReadTokens();
             ReadCharConfig();
             SetNowWindowState();
-            CpuUsageTimer.Enabled = true;
-            ImageChangeTimer.Enabled = true;
+            TimerStart();
             LogManager.LogOutput("初期化が完了しました");
         }
 
@@ -57,6 +54,18 @@ namespace digpet
             cpuCnt = 0;
             cpuAvg = 0.0;
             gotNormalImage = true;
+
+            TaskRun1sTable = [];
+        }
+
+        /// <summary>
+        /// タイマ開始処理
+        /// </summary>
+        private void TimerStart()
+        {
+            CpuUsageTimer.Enabled = true;
+            ImageChangeTimer.Enabled = true;
+            TaskRunTimer1s.Enabled = true;
         }
 
         /// <summary>
@@ -646,6 +655,8 @@ namespace digpet
         {
             try
             {
+                if (TaskRun1sTable == null) return;
+
                 //タスクテーブルに設定されているタスククラスの関数を順番に実行する
                 for (int i = 0; i < TaskRun1sTable.Length; i++)
                 {
@@ -661,9 +672,11 @@ namespace digpet
                             break;
                     }
 
+                    TaskClassInterface sendTask = TaskRun1sTable[i];
+
                     TaskRun1sTable[i].ClassTask = Task.Run(() =>
                     {
-                        TaskRun1sTable[i].TaskCheckRet(TaskRun1sTable[i].TaskFunc());
+                        sendTask.TaskCheckRet(sendTask.TaskFunc());
                     });
                 }
             }
