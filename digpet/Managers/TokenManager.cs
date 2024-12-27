@@ -58,6 +58,8 @@ namespace digpet.Managers
             }
         }
 
+        private double _averageEmotionTokens = 0.0;
+
         /// <summary>
         /// 平均獲得感情トークン
         /// </summary>
@@ -65,10 +67,25 @@ namespace digpet.Managers
         {
             get
             {
-                if (_emotionTokens.Count <= 0) return 0;
-                return _emotionTokens.ToArray().Sum() / _emotionTokens.Count;
+                return _averageEmotionTokens;
             }
         }
+
+        private double _averageEmotionTokensV2 = 0.0;
+
+        /// <summary>
+        /// 平均獲得感情トークンV2
+        /// トークン獲得値のピークだけを計算対象としている
+        /// </summary>
+        public double AverageEmotionTokensV2
+        {
+            get
+            {
+                return _averageEmotionTokensV2;
+            }
+        }
+
+        private double _feeling = 0.0;
 
         /// <summary>
         /// 今日の気分
@@ -77,8 +94,7 @@ namespace digpet.Managers
         {
             get
             {
-                if (AverageEmotionTokens <= 0 || EmotionTokens <= 0) return 0;
-                return (EmotionTokens - AverageEmotionTokens) / AverageEmotionTokens;
+                return _feeling;
             }
         }
 
@@ -332,6 +348,78 @@ namespace digpet.Managers
             LogManager.LogOutput("トークン計算過程出力終了");
 #endif
 
+            _averageEmotionTokens =  CalcAverageEmotionTokens();
+            _averageEmotionTokensV2 = CalcAverageEmotionTokensV2();
+            _feeling = CalcFeeling();
+        }
+
+        /// <summary>
+        /// 平均感情トークン(旧)を算出し、返却する
+        /// </summary>
+        /// <returns>平均感情トークン</returns>
+        private double CalcAverageEmotionTokens()
+        {
+            if (_emotionTokens.Count <= 0) return 0;
+            return _emotionTokens.ToArray().Sum() / _emotionTokens.Count;
+        }
+
+        /// <summary>
+        /// 平均感情トークン(新)を算出し、返却する
+        /// </summary>
+        /// <returns>平均感情トークン</returns>
+        private double CalcAverageEmotionTokensV2()
+        {
+            if (_emotionTokens.Count <= 0) return 0.0;
+            // トークン数が1なら、そのトークンを返却する
+            if (_emotionTokens.Count == 1) return _emotionTokens[0];
+
+            double[] tokenPeaks = CalcTokenPeaksForAverageEmotionTokensV2();
+
+            return tokenPeaks.Sum() / tokenPeaks.Length;
+        }
+
+        private double[] CalcTokenPeaksForAverageEmotionTokensV2()
+        {
+            bool upFlg = true;
+            List<double> tokenPeaks = new List<double>();
+
+            //ピークの計算
+            double tokenBef = _emotionTokens[0];
+            for (int i = 1; i < _emotionTokens.Count; i++)
+            {
+                double tokenNow = _emotionTokens[i];
+
+                if ((upFlg == true) && (tokenBef > tokenNow))
+                {
+                    tokenPeaks.Add(tokenBef);
+
+                    upFlg = false;
+                }
+
+                if (tokenBef < tokenNow) upFlg = true;
+
+                tokenBef = tokenNow;
+            }
+
+            //最後のトークンがまだ上昇中だった場合は、それもピークとして加算する
+            if (upFlg == true)
+            {
+                tokenPeaks.Add(_emotionTokens[_emotionTokens.Count - 1]);
+            }
+
+            return tokenPeaks.ToArray();
+        }
+
+        /// <summary>
+        /// 感情を計算し、返却する
+        /// </summary>
+        /// <returns>感情</returns>
+        private double CalcFeeling()
+        {
+            double avgToken = AverageEmotionTokensV2;
+
+            if (avgToken <= 0 || EmotionTokens <= 0) return 0.0;
+            return (EmotionTokens - avgToken) / avgToken;
         }
 
         /// <summary>
