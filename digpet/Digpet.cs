@@ -1,5 +1,3 @@
-using System.Security.Cryptography;
-using System.Windows.Forms;
 using digpet.AppConfigs;
 using digpet.Interface;
 using digpet.Managers;
@@ -55,7 +53,7 @@ namespace digpet
 
             //1sタスク関数テーブルを設定する
             //generalClassは一番最後になること
-            TaskRun1sTable = 
+            TaskRun1sTable =
                 [
                     cpuAvgCalcTimer
                 ];

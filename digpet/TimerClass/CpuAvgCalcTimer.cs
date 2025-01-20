@@ -1,6 +1,5 @@
 ﻿using digpet.Interface;
 using digpet.Modules;
-using System.Configuration;
 
 namespace digpet.TimerClass
 {
