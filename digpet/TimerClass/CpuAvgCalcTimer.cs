@@ -1,5 +1,6 @@
 ﻿using digpet.Interface;
 using digpet.Modules;
+using System.Configuration;
 
 namespace digpet.TimerClass
 {
@@ -11,18 +12,36 @@ namespace digpet.TimerClass
     {
         //変数宣言
         private uint cpuCnt = 0;
-        private double cpuAvg = 0.0;
+        private double _cpuAvg = 0.0;
+        private bool _avgCalcFlg = false;
+        private double _cpuUsage = 0.0;
 
         //クラス宣言
         private CpuAvgManager cpuAvgManager = new CpuAvgManager();
         private CpuWatcher cpuWatcher = new CpuWatcher();
 
+        //ゲッター
+        public bool AvgCalcFlg
+        {
+            get { return _avgCalcFlg; }
+        }
+        public double CpuAvg
+        {
+            get { return _cpuAvg; }
+        }
+        public double CpuUsage
+        {
+            get { return _cpuUsage; }
+        }
+
         /// <summary>
-        /// タスククラス
+        /// タスク処理
         /// </summary>
-        /// <returns></returns>
+        /// <returns>ステータス</returns>
         public override TaskClassRet TaskFunc()
         {
+            double cpuUsage = (double)cpuWatcher.GetCpuUsage();
+
             //60秒に1回処理を行う
             if (cpuCnt > 0 && cpuCnt % 60 == 0)
             {
@@ -41,10 +60,36 @@ namespace digpet.TimerClass
             else
             {
                 //CPU使用率を加算
-                SumCpuAvg();
+                cpuAvgManager.SetCpuSum(cpuUsage);
             }
+
+            _cpuUsage = cpuUsage;
+
             cpuCnt++;
             return new TaskClassRet(TaskReturn.TASK_SUCCESS, string.Empty);
+        }
+
+        /// <summary>
+        /// CPU使用率の平均をクリア
+        /// </summary>
+        public void ClearCpuAvg()
+        {
+            _cpuAvg = 0.0;
+            _avgCalcFlg = false;
+
+        }
+
+        /// <summary>
+        /// 戻り値処理
+        /// </summary>
+        /// <param name="ret">戻り値</param>
+        public override void TaskCheckRet(TaskClassRet ret)
+        {
+            switch (ret.taskReturn)
+            {
+                default:
+                    break;
+            }
         }
 
         /// <summary>
@@ -52,23 +97,12 @@ namespace digpet.TimerClass
         /// </summary>
         private void GetCpuAvg()
         {
-            cpuAvg = cpuAvgManager.GetCpuAvg();
-            tokenManager.AddTokens(cpuAvg);
-            OutTokenLabel();
+            _cpuAvg = cpuAvgManager.GetCpuAvg();
+
+            _avgCalcFlg = true;
             cpuAvgManager.Clear();
             LogManager.LogOutput("分毎トークンの算出完了");
         }
-
-        /// <summary>
-        /// CPU使用率の平均を求められるように数値を足す
-        /// </summary>
-        private void SumCpuAvg()
-        {
-            double cpuUsage = (double)cpuWatcher.GetCpuUsage();
-            cpuAvgManager.SetCpuSum(cpuUsage);
-            OutCpuLabel(cpuUsage);
-        }
-
 
         /// <summary>
         /// CPUの使用率の平均算出用クラス

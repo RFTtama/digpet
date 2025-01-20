@@ -4,6 +4,7 @@ using digpet.AppConfigs;
 using digpet.Interface;
 using digpet.Managers;
 using digpet.Modules;
+using digpet.TimerClass;
 
 namespace digpet
 {
@@ -23,6 +24,9 @@ namespace digpet
 
         //テーブル宣言
         private TaskClassInterface[]? TaskRun1sTable;
+
+        //タスククラス宣言
+        private CpuAvgCalcTimer cpuAvgCalcTimer = new CpuAvgCalcTimer();
 
         /// <summary>
         /// コンストラクタ
@@ -49,7 +53,12 @@ namespace digpet
         {
             gotNormalImage = true;
 
-            TaskRun1sTable = [];
+            //1sタスク関数テーブルを設定する
+            //generalClassは一番最後になること
+            TaskRun1sTable = 
+                [
+                    cpuAvgCalcTimer
+                ];
         }
 
         /// <summary>
@@ -620,11 +629,27 @@ namespace digpet
                         sendTask.TaskCheckRet(sendTask.TaskFunc());
                     });
                 }
+
+                General1sTimerFunc();
             }
             catch (Exception ex)
             {
                 ErrorLog.ErrorOutput("タスク実行エラー", ex.Message);
             }
+        }
+
+        /// <summary>
+        /// 全体の1s毎処理
+        /// </summary>
+        private void General1sTimerFunc()
+        {
+            if (cpuAvgCalcTimer.AvgCalcFlg)
+            {
+                tokenManager.AddTokens(cpuAvgCalcTimer.CpuAvg);
+                OutTokenLabel();
+                cpuAvgCalcTimer.ClearCpuAvg();
+            }
+            OutCpuLabel(cpuAvgCalcTimer.CpuUsage);
         }
     }
 }
