@@ -1,24 +1,19 @@
-using System.Security.Cryptography;
-using System.Windows.Forms;
 using digpet.AppConfigs;
 using digpet.Interface;
 using digpet.Managers;
 using digpet.Modules;
+using digpet.TimerClass;
 
 namespace digpet
 {
     public partial class Digpet : Form
     {
         //クラス関連の宣言
-        private CpuAvgManager cpuAvgManager = new CpuAvgManager();
         private TokenManager tokenManager = new TokenManager();
         private SettingManager settingManager = new SettingManager();
         private CharZipFileManager charZipFileManager = new CharZipFileManager();
-        private CpuWatcher cpuWatcher = new CpuWatcher();
 
         //変数関連の宣言
-        private int cpuCnt;
-        private double cpuAvg;
         private bool gotNormalImage;                                    //正常に画像を切り替えることができたか
 
         //定数関連の宣言
@@ -27,6 +22,9 @@ namespace digpet
 
         //テーブル宣言
         private TaskClassInterface[]? TaskRun1sTable;
+
+        //タスククラス宣言
+        private CpuAvgCalcTimer cpuAvgCalcTimer = new CpuAvgCalcTimer();
 
         /// <summary>
         /// コンストラクタ
@@ -51,11 +49,14 @@ namespace digpet
         /// </summary>
         private void Init()
         {
-            cpuCnt = 0;
-            cpuAvg = 0.0;
             gotNormalImage = true;
 
-            TaskRun1sTable = [];
+            //1sタスク関数テーブルを設定する
+            //generalClassは一番最後になること
+            TaskRun1sTable =
+                [
+                    cpuAvgCalcTimer
+                ];
         }
 
         /// <summary>
@@ -63,7 +64,6 @@ namespace digpet
         /// </summary>
         private void TimerStart()
         {
-            CpuUsageTimer.Enabled = true;
             ImageChangeTimer.Enabled = true;
             TaskRunTimer1s.Enabled = true;
         }
@@ -160,58 +160,6 @@ namespace digpet
                 ImageChangeTimer.Interval = charZipFileManager.GetPictureTurnOverPeriod();
                 SetControlColor(charZipFileManager.GetControlColor());
             }
-        }
-
-        /// <summary>
-        /// 1分おきにCPU使用率の平均を求めて、変数に代入する
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void CpuUsageTimer_Tick(object sender, EventArgs e)
-        {
-            //60秒に1回処理を行う
-            if ((cpuCnt > 0) && (cpuCnt % 60 == 0))
-            {
-                try
-                {
-                    //CPU使用率の平均を取得し、トークンを計算する
-                    cpuCnt = 0;
-                    GetCpuAvg();
-                }
-                catch (Exception ex)
-                {
-                    ErrorLog.ErrorOutput("CPU使用率平均計算エラー", ex.Message);
-                    CpuUsageTimer.Enabled = false;
-                }
-            }
-            else
-            {
-                //CPU使用率を加算
-                SumCpuAvg();
-            }
-            cpuCnt++;
-        }
-
-        /// <summary>
-        /// CPU使用率の平均を求めcpuAvgに代入する
-        /// </summary>
-        private void GetCpuAvg()
-        {
-            cpuAvg = cpuAvgManager.GetCpuAvg();
-            tokenManager.AddTokens(cpuAvg);
-            OutTokenLabel();
-            cpuAvgManager.Clear();
-            LogManager.LogOutput("分毎トークンの算出完了");
-        }
-
-        /// <summary>
-        /// CPU使用率の平均を求められるように数値を足す
-        /// </summary>
-        private void SumCpuAvg()
-        {
-            double cpuUsage = (double)cpuWatcher.GetCpuUsage();
-            cpuAvgManager.SetCpuSum(cpuUsage);
-            OutCpuLabel(cpuUsage);
         }
 
         /// <summary>
@@ -679,11 +627,27 @@ namespace digpet
                         sendTask.TaskCheckRet(sendTask.TaskFunc());
                     });
                 }
+
+                General1sTimerFunc();
             }
             catch (Exception ex)
             {
                 ErrorLog.ErrorOutput("タスク実行エラー", ex.Message);
             }
+        }
+
+        /// <summary>
+        /// 全体の1s毎処理
+        /// </summary>
+        private void General1sTimerFunc()
+        {
+            if (cpuAvgCalcTimer.AvgCalcFlg)
+            {
+                tokenManager.AddTokens(cpuAvgCalcTimer.CpuAvg);
+                OutTokenLabel();
+                cpuAvgCalcTimer.ClearCpuAvg();
+            }
+            OutCpuLabel(cpuAvgCalcTimer.CpuUsage);
         }
     }
 }

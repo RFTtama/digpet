@@ -30,7 +30,6 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Digpet));
-            CpuUsageTimer = new System.Windows.Forms.Timer(components);
             EmoStringLabel = new Label();
             CpuUsageLabel = new Label();
             TotalTokenLabel = new Label();
@@ -53,11 +52,6 @@
             DefaultPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)CharPictureBox).BeginInit();
             SuspendLayout();
-            // 
-            // CpuUsageTimer
-            // 
-            CpuUsageTimer.Interval = 1000;
-            CpuUsageTimer.Tick += CpuUsageTimer_Tick;
             // 
             // EmoStringLabel
             // 
@@ -217,8 +211,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Timer CpuUsageTimer;
         private Label EmoStringLabel;
         private Label CpuUsageLabel;
         private Label TotalTokenLabel;

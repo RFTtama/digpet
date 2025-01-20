@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace digpet.Interface
+﻿namespace digpet.Interface
 {
     /// <summary>
     /// タスク処理用基底クラス
