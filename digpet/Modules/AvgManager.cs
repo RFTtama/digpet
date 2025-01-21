@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace digpet.Modules
 {
+    /// <summary>
+    /// 平均値算出用モジュール
+    /// </summary>
     internal class AvgManager
     {
         //変数関連の宣言
