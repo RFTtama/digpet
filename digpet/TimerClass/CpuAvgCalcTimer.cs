@@ -73,8 +73,10 @@ namespace digpet.TimerClass
         /// </summary>
         public void ClearCpuAvg()
         {
+            cpuCnt = 0;
             _cpuAvg = 0.0;
             _avgCalcFlg = false;
+            _cpuUsage = 0.0;
 
         }
 
