@@ -605,6 +605,8 @@ namespace digpet
             {
                 if (TaskRun1sTable == null) return;
 
+                General1sTimerFunc();
+
                 //タスクテーブルに設定されているタスククラスの関数を順番に実行する
                 for (int i = 0; i < TaskRun1sTable.Length; i++)
                 {
@@ -627,8 +629,6 @@ namespace digpet
                         sendTask.TaskCheckRet(sendTask.TaskFunc());
                     });
                 }
-
-                General1sTimerFunc();
             }
             catch (Exception ex)
             {
