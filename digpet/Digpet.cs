@@ -313,7 +313,7 @@ namespace digpet
         {
             DialogResult result =
                 MessageBox.Show("キャラ設定をクリアします\nクリア後アプリを終了しますがよろしいですか?", "キャラ設定をクリアしますか?",
-                MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (result != DialogResult.Yes)
             {
@@ -321,6 +321,7 @@ namespace digpet
             }
             LogManager.LogOutput("クリアボタンがクリックされました");
             ReWriteCharConfig(string.Empty);
+            this.Close();
         }
 
         /// <summary>
