@@ -21,11 +21,11 @@ namespace digpet.Modules
                 {
                     sw.WriteLine(DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss [") + name + "]" + msg + "\r\n");
                 }
-                if (show) MessageBox.Show(msg, name, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (show) TaskMessager.OutputMessage(msg, name, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                TaskMessager.OutputMessage(ex.Message, "エラー出力エラー");
             }
         }
 
