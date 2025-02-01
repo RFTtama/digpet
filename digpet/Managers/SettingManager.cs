@@ -1,35 +1,47 @@
-﻿using System.Text.Json;
+﻿using System.Security.Cryptography.X509Certificates;
+using System.Text.Json;
 using digpet.Modules;
 
 namespace digpet.Managers
 {
     /// <summary>
     /// 設定ファイル管理クラス
+    /// Digpetの別ソースファイルでも使用できるようにstaticにしてある
     /// </summary>
-    internal class SettingManager
+    public static class SettingManager
     {
-        //内包クラス
-        public DigpetSettings Settings;
+        //外部で変更可能な設定
+        public static DigpetSettings PublicSettings = new DigpetSettings();
+
+        //外部で変更可能でない設定
+        public static class PrivateSettings
+        {
+            public const string APPLICATION_VERSION = "1.01.00" + DEBUG_APPENDANCE;         //アプリバージョン
+            public const string CHAR_FORMAT_VERSION = "1.00.00";                            //キャラフォーマットのバージョン
+
+            public const string CONFIG_FILE_PATH = "config.json";                           //コンフィグファイルのパス
+            public const string ERRORLOG_PATH = "errorLog.txt";                             //エラーログのパス
+            public const string LOG_PATH = "Log.txt";                                       //ログファイルのパス
+            public const string TOKEN_PATH = "TOKENS.dig";                                  //トークンファイルのパス
+
+#if DEBUG
+            public const string DEBUG_APPENDANCE = "-debug";                                //デバッグ判別用
+#else
+        public const string DEBUG_APPENDANCE    = "";                                   //デバッグ判別用
+#endif
+        }
 
         //JSONの設定
-        private readonly JsonSerializerOptions JSON_OPTIONS = new JsonSerializerOptions
+        private static readonly JsonSerializerOptions JSON_OPTIONS = new JsonSerializerOptions
         {
             WriteIndented = true
         };
 
         /// <summary>
-        /// コンストラクタ
-        /// </summary>
-        public SettingManager()
-        {
-            Settings = new DigpetSettings();
-        }
-
-        /// <summary>
         /// 設定を読み取る
         /// </summary>
         /// <param name="path">設定ファイルパス</param>
-        public void ReadSettingFile(string path)
+        public static void ReadSettingFile(string path)
         {
             if (File.Exists(path))
             {
@@ -45,7 +57,7 @@ namespace digpet.Managers
         /// 設定を書き込む
         /// </summary>
         /// <param name="path">設定ファイルパス</param>
-        public void WriteSettingFile(string path)
+        public static void WriteSettingFile(string path)
         {
             WriteSettings(path);
         }
@@ -54,11 +66,11 @@ namespace digpet.Managers
         /// 設定ファイルを書き込む
         /// </summary>
         /// <param name="path"></param>
-        private void WriteSettings(string path)
+        private static void WriteSettings(string path)
         {
             try
             {
-                string settingString = JsonSerializer.Serialize(Settings, JSON_OPTIONS);
+                string settingString = JsonSerializer.Serialize(PublicSettings, JSON_OPTIONS);
                 using (StreamWriter sw = new StreamWriter(path, false))
                 {
                     sw.Write(settingString);
@@ -76,7 +88,7 @@ namespace digpet.Managers
         /// 設定を読み取る
         /// </summary>
         /// <param name="path"></param>
-        private void ReadSettings(string path)
+        private static void ReadSettings(string path)
         {
             try
             {
@@ -85,7 +97,7 @@ namespace digpet.Managers
                 {
                     settingString = sr.ReadToEnd();
                 }
-                Settings = JsonSerializer.Deserialize<DigpetSettings>(settingString) ?? new DigpetSettings();
+                PublicSettings = JsonSerializer.Deserialize<DigpetSettings>(settingString) ?? new DigpetSettings();
                 LogManager.LogOutput("設定ファイルが読み込まれました");
             }
             catch (Exception ex)
@@ -122,8 +134,18 @@ namespace digpet.Managers
             //キャラ画像サイズ
             public Size ImageSize { get; set; }
 
+            //カメラモードのオンオフ
+            public bool EnableCameraMode { get; set; }
+
+            //使用するカメラのID
+            public uint CameraId { get; set; }
+
+            //10回中何回タスクの実行遅延したら機能を無効にするか
+            public uint CameraDisableThreshold { get; set; }
+
             /// <summary>
             /// コンストラクタ
+            /// 初期値に初期化する
             /// </summary>
             public DigpetSettings()
             {
@@ -134,6 +156,9 @@ namespace digpet.Managers
                 WindowLocation = new Point(0, 0);
                 FontEnlargeSize = 0;
                 ImageSize = new Size(400, 400);
+                EnableCameraMode = false;
+                CameraId = 0;
+                CameraDisableThreshold = 1;
             }
         }
     }

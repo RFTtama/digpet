@@ -27,7 +27,7 @@ namespace digpet.Modules
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        /// <param name="size"></param>
+        /// <param name="size">リングバッファのサイズ</param>
         public RingFlagMemClass(int size)
         {
             ind = 0;

@@ -37,7 +37,7 @@ namespace digpet.TimerClass
         /// タスク処理
         /// </summary>
         /// <returns>ステータス</returns>
-        public override TaskClassRet TaskFunc()
+        public override TaskReturn TaskFunc()
         {
             double cpuUsage = (double)cpuWatcher.GetCpuUsage();
 
@@ -53,7 +53,7 @@ namespace digpet.TimerClass
                 catch (Exception ex)
                 {
                     ErrorLog.ErrorOutput("CPU使用率平均計算エラー", ex.Message);
-                    return new TaskClassRet(TaskReturn.TASK_FAILURE, string.Empty);
+                    return TaskReturn.TASK_FAILURE;
                 }
             }
             else
@@ -65,7 +65,7 @@ namespace digpet.TimerClass
             _cpuUsage = cpuUsage;
 
             cpuCnt++;
-            return new TaskClassRet(TaskReturn.TASK_SUCCESS, string.Empty);
+            return TaskReturn.TASK_SUCCESS;
         }
 
         /// <summary>
@@ -84,9 +84,9 @@ namespace digpet.TimerClass
         /// 戻り値処理
         /// </summary>
         /// <param name="ret">戻り値</param>
-        public override void TaskCheckRet(TaskClassRet ret)
+        public override void TaskCheckRet(TaskReturn ret)
         {
-            switch (ret.taskReturn)
+            switch (ret)
             {
                 default:
                     break;

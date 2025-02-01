@@ -1,4 +1,4 @@
-﻿using digpet.AppConfigs;
+﻿using digpet.Managers;
 
 namespace digpet.Modules
 {
@@ -17,7 +17,7 @@ namespace digpet.Modules
         {
             try
             {
-                using (StreamWriter sw = new StreamWriter(APP_SETTINGS.ERRORLOG_PATH, true))
+                using (StreamWriter sw = new StreamWriter(SettingManager.PrivateSettings.ERRORLOG_PATH, true))
                 {
                     sw.WriteLine(DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss [") + name + "]" + msg + "\r\n");
                 }
