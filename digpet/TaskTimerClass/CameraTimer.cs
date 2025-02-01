@@ -49,6 +49,7 @@ namespace digpet.TimerClass
             if (ringMem.GetTotalOfTrue() >= SettingManager.PublicSettings.CameraDisableThreshold)
             {
                 cameraDisable = true;
+                LogManager.LogOutput("カメラタスクの実行に複数回失敗したため、機能を無効にしました");
                 return false;
             }
 
