@@ -52,7 +52,6 @@ namespace digpet
             gotNormalImage = true;
 
             //1sタスク関数テーブルを設定する
-            //generalClassは一番最後になること
             TaskRun1sTable =
                 [
                     cpuAvgCalcTimer
