@@ -138,7 +138,7 @@ namespace digpet.Managers
             public bool EnableCameraMode { get; set; }
 
             //使用するカメラのID
-            public uint CameraId { get; set; }
+            public int CameraId { get; set; }
 
             //10回中何回タスクの実行遅延したら機能を無効にするか
             public uint CameraDisableThreshold { get; set; }

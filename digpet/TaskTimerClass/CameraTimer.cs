@@ -25,6 +25,14 @@ namespace digpet.TimerClass
         {
             if (!CheckCameraModeEnable()) return TaskReturn.TASK_SUCCESS;
 
+            Mat? flame = TakePhoto();
+
+            if (flame == null)
+            {
+                LogManager.LogOutput("写真の撮影に失敗しました");
+                return TaskReturn.TASK_FAILURE;
+            }
+
             //処理をここに書く
 
             return TaskReturn.TASK_SUCCESS;
@@ -54,6 +62,41 @@ namespace digpet.TimerClass
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// カメラから画像を取得し、返却する
+        /// </summary>
+        /// <returns>画像配列(Mat)</returns>
+        private Mat? TakePhoto()
+        {
+            using (VideoCapture capture = new VideoCapture())
+            {
+                capture.Open(SettingManager.PublicSettings.CameraId);
+                if (!capture.IsOpened())
+                {
+                    return null;
+                }
+
+                Mat flame = new Mat();
+
+                try
+                {
+                    capture.Read(flame);
+                }
+                catch (Exception ex)
+                {
+                    ErrorLog.ErrorOutput("写真撮影エラー", ex.Message);
+                    return null;
+                }
+
+                if (flame.Empty())
+                {
+                    return null;
+                }
+
+                return flame;
+            }
         }
 
         /// <summary>
