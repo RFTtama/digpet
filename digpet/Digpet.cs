@@ -30,17 +30,7 @@ namespace digpet
         public Digpet()
         {
             InitializeComponent();
-            Text += "   Ver." + SettingManager.PrivateSettings.APPLICATION_VERSION;
-            MouseWheel += new MouseEventHandler(MouseWheelEvent);
             Init();
-            SettingManager.ReadSettingFile(SETTING_PATH);
-            CheckResetTime();
-            tokenManager.ReadTokens();
-            ReadCharConfig();
-            SetNowWindowState();
-
-            //タイマは設定ファイルの読み取りが終わるまで開始しない
-            TimerStart();
             LogManager.LogOutput("初期化が完了しました");
         }
 
@@ -49,6 +39,8 @@ namespace digpet
         /// </summary>
         private void Init()
         {
+            Text += "   Ver." + SettingManager.PrivateSettings.APPLICATION_VERSION;
+            MouseWheel += new MouseEventHandler(MouseWheelEvent);
             gotNormalImage = true;
 
             //1sタスク関数テーブルを設定する
@@ -56,6 +48,15 @@ namespace digpet
                 [
                     cpuAvgCalcTimer
                 ];
+
+            SettingManager.ReadSettingFile(SETTING_PATH);
+            CheckResetTime();
+            tokenManager.ReadTokens();
+            ReadCharConfig();
+            SetNowWindowState();
+
+            //タイマは設定ファイルの読み取りが終わるまで開始しない
+            TimerStart();
         }
 
         /// <summary>
