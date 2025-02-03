@@ -1,7 +1,9 @@
 ﻿using digpet.Interface;
 using digpet.Managers;
 using digpet.Modules;
+using digpet.Properties;
 using OpenCvSharp;
+using System.Reflection;
 
 namespace digpet.TimerClass
 {
@@ -13,18 +15,59 @@ namespace digpet.TimerClass
     {
         //変数宣言
         private bool cameraDisable = false;
-        private bool _faceDetected = false;
+        private int _faceDetected = -1;
+        private int cameraCnt = 0;
+        private double _detectAvg = 0.0;
+        private bool _avgCalcFlg = false;
 
         //クラス宣言
         private readonly RingFlagMemClass ringMem = new RingFlagMemClass(10);
+        private CascadeClassifier classifier = new CascadeClassifier();
+        private AvgManager detectAvgManager = new AvgManager();
 
         //ゲッターなど
-        public bool FaceDetected
+        public int FaceDetected
         {
-            get
+            get { return _faceDetected; }
+        }
+        public bool AvgCalcFlg
+        {
+            get { return _avgCalcFlg; }
+        }
+        public double DetectAvg
+        { 
+            get { return _detectAvg; }
+        }
+
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        public CameraTimer()
+        {
+            InitClassifier();
+        }
+
+        /// <summary>
+        /// クラス分類器を初期化
+        /// </summary>
+        private void InitClassifier()
+        {
+            if (File.Exists(SettingManager.PrivateSettings.CASCADE_PATH))
             {
-                return _faceDetected;
+                classifier.Load(SettingManager.PrivateSettings.CASCADE_PATH);
             }
+            else
+            {
+                cameraDisable = true;
+            }
+        }
+
+        /// <summary>
+        /// デストラクタ
+        /// </summary>
+        ~CameraTimer()
+        {
+            classifier.Dispose();
         }
 
         /// <summary>
@@ -33,19 +76,46 @@ namespace digpet.TimerClass
         /// <returns></returns>
         public override TaskReturn TaskFunc()
         {
-            if (!CheckCameraModeEnable()) return TaskReturn.TASK_SUCCESS;
-
-            Mat? flame = TakePhoto();
-
-            if (flame == null)
+            if (!CheckCameraModeEnable())
             {
-                LogManager.LogOutput("写真の撮影に失敗しました");
-                return TaskReturn.TASK_FAILURE;
+                _faceDetected = -1;
+                return TaskReturn.TASK_SUCCESS;
             }
 
-            bool _faceDetected = DetectFace(flame);
+            using (Mat? flame = TakePhoto())
+            {
+                if (flame == null)
+                {
+                    LogManager.LogOutput("写真の撮影に失敗しました");
+                    _faceDetected = -1;
+                    return TaskReturn.TASK_FAILURE;
+                }
 
-            //処理をここに書く
+                _faceDetected = DetectFace(flame);
+            }
+
+            if (FaceDetected < 0) return TaskReturn.TASK_FAILURE;
+
+            if ((cameraCnt > 0) && ((cameraCnt % 60) == 0))
+            {
+                try
+                {
+                    //CPU使用率の平均を取得し、トークンを計算する
+                    cameraCnt = 0;
+                    GetCpuAvg();
+                }
+                catch (Exception ex)
+                {
+                    ErrorLog.ErrorOutput("CPU使用率平均計算エラー", ex.Message);
+                    return TaskReturn.TASK_FAILURE;
+                }
+            }
+            else
+            {
+                detectAvgManager.SetCpuSum(100.0);
+            }
+
+            cameraCnt++;
 
             return TaskReturn.TASK_SUCCESS;
         }
@@ -90,24 +160,25 @@ namespace digpet.TimerClass
                     return null;
                 }
 
-                Mat flame = new Mat();
-
-                try
+                using (Mat flame = new Mat())
                 {
-                    capture.Read(flame);
-                }
-                catch (Exception ex)
-                {
-                    ErrorLog.ErrorOutput("写真撮影エラー", ex.Message);
-                    return null;
-                }
+                    try
+                    {
+                        capture.Read(flame);
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorLog.ErrorOutput("写真撮影エラー", ex.Message);
+                        return null;
+                    }
 
-                if (flame.Empty())
-                {
-                    return null;
-                }
+                    if (flame.Empty())
+                    {
+                        return null;
+                    }
 
-                return flame;
+                    return flame.Clone();
+                }
             }
         }
 
@@ -139,9 +210,52 @@ namespace digpet.TimerClass
         /// </summary>
         /// <param name="mat"></param>
         /// <returns></returns>
-        private bool DetectFace(Mat mat)
+        private int DetectFace(Mat mat)
         {
+            //matがnullならfalseを返却
+            if (mat == null)
+            {
+                ErrorLog.ErrorOutput("顔検出エラー", "渡された画像がnullです");
+                return -1;
+            }
 
+            using (Mat gray = new Mat())
+            {
+                Cv2.CvtColor(src: mat.Clone(), dst: gray, code: ColorConversionCodes.BGR2GRAY);
+
+                //画像のサイズを統一する必要があるかも
+                Rect[] faces = classifier.DetectMultiScale(image: gray, scaleFactor: 1.1, minNeighbors: 3, minSize: new OpenCvSharp.Size(100, 100));
+
+                if (faces == null)
+                {
+                    ErrorLog.ErrorOutput("顔検出エラー", "顔の検出がしっぱいしました");
+                    return -1;
+                }
+
+                return faces.Length;
+            }
+        }
+
+        /// <summary>
+        /// 平均を求めcpuAvgに代入する
+        /// </summary>
+        private void GetCpuAvg()
+        {
+            _detectAvg = detectAvgManager.GetCpuAvg();
+
+            _avgCalcFlg = true;
+            detectAvgManager.Clear();
+            LogManager.LogOutput("分毎トークンの算出完了");
+        }
+
+        /// <summary>
+        /// トークンクリア
+        /// </summary>
+        public void ClearDetectAvg()
+        {
+            cameraCnt = 0;
+            _detectAvg = 0.0;
+            _avgCalcFlg = false;
         }
     }
 }

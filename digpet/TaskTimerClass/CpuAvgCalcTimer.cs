@@ -42,7 +42,7 @@ namespace digpet.TimerClass
             double cpuUsage = (double)cpuWatcher.GetCpuUsage();
 
             //60秒に1回処理を行う
-            if (cpuCnt > 0 && cpuCnt % 60 == 0)
+            if ((cpuCnt > 0) && ((cpuCnt % 60) == 0))
             {
                 try
                 {
@@ -77,7 +77,6 @@ namespace digpet.TimerClass
             _cpuAvg = 0.0;
             _avgCalcFlg = false;
             _cpuUsage = 0.0;
-
         }
 
         /// <summary>

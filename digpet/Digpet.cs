@@ -23,6 +23,7 @@ namespace digpet
 
         //タスククラス宣言
         private CpuAvgCalcTimer cpuAvgCalcTimer = new CpuAvgCalcTimer();
+        private CameraTimer cameraTimer = new CameraTimer();
 
         /// <summary>
         /// コンストラクタ
@@ -46,7 +47,8 @@ namespace digpet
             //1sタスク関数テーブルを設定する
             TaskRun1sTable =
                 [
-                    cpuAvgCalcTimer
+                    cpuAvgCalcTimer,
+                    cameraTimer
                 ];
 
             SettingManager.ReadSettingFile(SETTING_PATH);
@@ -242,6 +244,29 @@ namespace digpet
         private void OutCpuLabel(double value)
         {
             CpuUsageLabel.Text = "CPU: " + value.ToString("n2") + "%";
+        }
+
+        /// <summary>
+        /// 検出状態を設定
+        /// </summary>
+        /// <param name="detectNum"></param>
+        private void OutDetectLabel(int detectNum)
+        {
+            string txt;
+            if (detectNum < 0)
+            {
+                txt = "検出: エラー";
+            }
+            else if (detectNum == 0)
+            {
+                txt = "検出: なし";
+            }
+            else
+            {
+                txt = "検出: あり";
+            }
+
+            CpuUsageLabel.Text = txt;
         }
 
         /// <summary>
@@ -641,6 +666,37 @@ namespace digpet
         /// 全体の1s毎処理
         /// </summary>
         private void General1sTimerFunc()
+        {
+            if (cameraTimer.FaceDetected >= 0)
+            {
+                CameraProcess();
+            }
+            else
+            {
+                CpuProcess();
+            }
+
+
+        }
+
+        /// <summary>
+        /// カメラ用のトークン算出処理など
+        /// </summary>
+        private void CameraProcess()
+        {
+            if (cameraTimer.AvgCalcFlg)
+            {
+                tokenManager.AddTokens(cameraTimer.DetectAvg);
+                OutTokenLabel();
+                cameraTimer.ClearDetectAvg();
+            }
+            OutDetectLabel(cameraTimer.FaceDetected);
+        }
+
+        /// <summary>
+        /// CPUのトークン算出処理など
+        /// </summary>
+        private void CpuProcess()
         {
             if (cpuAvgCalcTimer.AvgCalcFlg)
             {
