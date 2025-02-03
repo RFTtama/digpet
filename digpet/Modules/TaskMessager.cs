@@ -10,10 +10,7 @@ namespace digpet.Modules
     {
         public static void OutputMessage(string message, string name)
         {
-            Task.Run(() =>
-            {
-                OutputMessage(message, name, MessageBoxButtons.OK, MessageBoxIcon.None);
-            });
+            OutputMessage(message, name, MessageBoxButtons.OK, MessageBoxIcon.None);
         }
 
         public static void OutputMessage(string message, string name, MessageBoxButtons button, MessageBoxIcon icon)
