@@ -24,6 +24,6 @@
 **digpet**は配布されている(もしくは作成した)キャラファイルを読み込むことで、任意のキャラクターをペットにすることができます。
 
 # 依存関係
-This project uses OpenCV, which is licensed under the Apache License 2.0.
-The OpenCV package was built by [schimatk].
-See [OpenCvSharp4](https://github.com/shimat/opencvsharp) and [OpenCV GitHub repository](https://github.com/opencv/opencv) for details.
+This project uses OpenCV, which is licensed under the Apache License 2.0.<br>
+The OpenCV package was built by schimatk.<br>
+See [OpenCvSharp4](https://github.com/shimat/opencvsharp) and [OpenCV GitHub repository](https://github.com/opencv/opencv) for details.<br>
