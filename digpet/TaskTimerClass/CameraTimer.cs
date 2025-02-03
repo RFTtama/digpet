@@ -13,9 +13,19 @@ namespace digpet.TimerClass
     {
         //変数宣言
         private bool cameraDisable = false;
+        private bool _faceDetected = false;
 
         //クラス宣言
         private readonly RingFlagMemClass ringMem = new RingFlagMemClass(10);
+
+        //ゲッターなど
+        public bool FaceDetected
+        {
+            get
+            {
+                return _faceDetected;
+            }
+        }
 
         /// <summary>
         /// 1s毎に実行される関数
@@ -32,6 +42,8 @@ namespace digpet.TimerClass
                 LogManager.LogOutput("写真の撮影に失敗しました");
                 return TaskReturn.TASK_FAILURE;
             }
+
+            bool _faceDetected = DetectFace(flame);
 
             //処理をここに書く
 
@@ -120,6 +132,16 @@ namespace digpet.TimerClass
                     ringMem.Add(false);
                     break;
             }
+        }
+
+        /// <summary>
+        /// 画像から顔を検出する
+        /// </summary>
+        /// <param name="mat"></param>
+        /// <returns></returns>
+        private bool DetectFace(Mat mat)
+        {
+
         }
     }
 }
