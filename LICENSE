@@ -22,5 +22,8 @@ SOFTWARE.
 
 ---
 
-This project uses OpenCV, which is licensed under the Apache License 2.0.
-See the OpenCV LICENSE file: https://github.com/opencv/opencv/blob/master/LICENSE
+It also uses OpenCV, which is licensed under the Apache License 2.0.
+The OpenCV package used in this project was built by schimatk.
+For the full OpenCV license, see:
+- OpenCV GitHub: https://github.com/opencv/opencv/blob/master/LICENSE
+- OpenCV License File: https://github.com/shimat/opencvsharp/blob/main/LICENSE
