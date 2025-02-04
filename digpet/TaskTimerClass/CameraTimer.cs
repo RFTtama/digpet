@@ -3,6 +3,7 @@ using digpet.Managers;
 using digpet.Modules;
 using digpet.Properties;
 using OpenCvSharp;
+using OpenCvSharp.ML;
 using System.Reflection;
 
 namespace digpet.TimerClass
@@ -14,7 +15,7 @@ namespace digpet.TimerClass
     internal class CameraTimer : TaskClassInterface
     {
         //変数宣言
-        private bool cameraDisable = false;
+        private bool _cameraDisable = false;
         private int _faceDetected = -1;
         private int cameraCnt = 0;
         private double _detectAvg = 0.0;
@@ -38,6 +39,10 @@ namespace digpet.TimerClass
         { 
             get { return _detectAvg; }
         }
+        public bool CameraDisable
+        {
+            get { return _cameraDisable; }
+        }
 
         /// <summary>
         /// コンストラクタ
@@ -58,7 +63,7 @@ namespace digpet.TimerClass
             }
             else
             {
-                cameraDisable = true;
+                _cameraDisable = true;
             }
         }
 
@@ -131,14 +136,14 @@ namespace digpet.TimerClass
                 return false;
             }
 
-            if (cameraDisable)
+            if (_cameraDisable)
             {
                 return false;
             }
 
             if (ringMem.GetTotalOfTrue() >= SettingManager.PublicSettings.CameraDisableThreshold)
             {
-                cameraDisable = true;
+                _cameraDisable = true;
                 LogManager.LogOutput("カメラタスクの実行に複数回失敗したため、機能を無効にしました");
                 return false;
             }

@@ -667,7 +667,7 @@ namespace digpet
         /// </summary>
         private void General1sTimerFunc()
         {
-            if (cameraTimer.FaceDetected >= 0)
+            if (!cameraTimer.CameraDisable)
             {
                 CameraProcess();
             }
