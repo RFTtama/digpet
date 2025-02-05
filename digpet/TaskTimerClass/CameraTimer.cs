@@ -63,6 +63,7 @@ namespace digpet.TimerClass
             }
             else
             {
+                LogManager.LogOutput("カスケードファイルの読み取りに失敗しました");
                 _cameraDisable = true;
             }
         }
@@ -105,19 +106,19 @@ namespace digpet.TimerClass
             {
                 try
                 {
-                    //CPU使用率の平均を取得し、トークンを計算する
+                    //検出の平均を取得し、トークンを計算する
                     cameraCnt = 0;
-                    GetCpuAvg();
+                    GetDetectAvg();
                 }
                 catch (Exception ex)
                 {
-                    ErrorLog.ErrorOutput("CPU使用率平均計算エラー", ex.Message);
+                    ErrorLog.ErrorOutput("検出平均計算エラー", ex.Message);
                     return TaskReturn.TASK_FAILURE;
                 }
             }
             else
             {
-                detectAvgManager.SetCpuSum(100.0);
+                detectAvgManager.Sum(100.0);
             }
 
             cameraCnt++;
@@ -136,7 +137,7 @@ namespace digpet.TimerClass
                 return false;
             }
 
-            if (_cameraDisable)
+            if (CameraDisable)
             {
                 return false;
             }
@@ -162,6 +163,7 @@ namespace digpet.TimerClass
                 capture.Open(SettingManager.PublicSettings.CameraId);
                 if (!capture.IsOpened())
                 {
+                    LogManager.LogOutput("カメラのオープンに失敗しました");
                     return null;
                 }
 
@@ -242,11 +244,11 @@ namespace digpet.TimerClass
         }
 
         /// <summary>
-        /// 平均を求めcpuAvgに代入する
+        /// 検出平均を求めcpuAvgに代入する
         /// </summary>
-        private void GetCpuAvg()
+        private void GetDetectAvg()
         {
-            _detectAvg = detectAvgManager.GetCpuAvg();
+            _detectAvg = detectAvgManager.GetAvg();
 
             _avgCalcFlg = true;
             detectAvgManager.Clear();

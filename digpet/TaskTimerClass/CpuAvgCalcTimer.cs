@@ -59,7 +59,7 @@ namespace digpet.TimerClass
             else
             {
                 //CPU使用率を加算
-                cpuAvgManager.SetCpuSum(cpuUsage);
+                cpuAvgManager.Sum(cpuUsage);
             }
 
             _cpuUsage = cpuUsage;
@@ -97,7 +97,7 @@ namespace digpet.TimerClass
         /// </summary>
         private void GetCpuAvg()
         {
-            _cpuAvg = cpuAvgManager.GetCpuAvg();
+            _cpuAvg = cpuAvgManager.GetAvg();
 
             _avgCalcFlg = true;
             cpuAvgManager.Clear();

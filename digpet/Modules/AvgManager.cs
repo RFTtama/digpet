@@ -36,7 +36,7 @@ namespace digpet.Modules
         /// CPU使用率を加算する
         /// </summary>
         /// <param name="cpuUsage">CPU使用率</param>
-        public void SetCpuSum(double cpuUsage)
+        public void Sum(double cpuUsage)
         {
             if (_cpuCount >= uint.MaxValue)
             {
@@ -61,7 +61,7 @@ namespace digpet.Modules
         /// CPU使用率の平均を取得
         /// </summary>
         /// <returns>CPU使用率の平均(double)</returns>
-        public double GetCpuAvg()
+        public double GetAvg()
         {
             if (_cpuCount == 0) return 0.0;
             return _cpuSum / _cpuCount;
