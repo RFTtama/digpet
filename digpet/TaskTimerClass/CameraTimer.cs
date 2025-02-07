@@ -185,7 +185,6 @@ namespace digpet.TimerClass
             {
                 if (flame == null)
                 {
-                    LogManager.LogOutput("写真の撮影に失敗しました");
                     _faceDetected = -1;
                     return -1;
                 }
@@ -220,6 +219,7 @@ namespace digpet.TimerClass
 
                 if (flame.Empty())
                 {
+                    ErrorLog.ErrorOutput("写真撮影エラー", "写真が空です");
                     return null;
                 }
 
