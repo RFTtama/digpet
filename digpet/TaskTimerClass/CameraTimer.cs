@@ -4,6 +4,7 @@ using digpet.Modules;
 using digpet.Properties;
 using OpenCvSharp;
 using OpenCvSharp.ML;
+using System.Diagnostics;
 using System.Reflection;
 
 namespace digpet.TimerClass
@@ -20,11 +21,13 @@ namespace digpet.TimerClass
         private int cameraCnt = 0;
         private double _detectAvg = 0.0;
         private bool _avgCalcFlg = false;
+        private bool init = false;
 
         //クラス宣言
         private readonly RingFlagMemClass ringMem = new RingFlagMemClass(10);
         private CascadeClassifier classifier = new CascadeClassifier();
         private AvgManager detectAvgManager = new AvgManager();
+        private VideoCapture capture = new VideoCapture();
 
         //ゲッターなど
         public int FaceDetected
@@ -45,11 +48,28 @@ namespace digpet.TimerClass
         }
 
         /// <summary>
-        /// コンストラクタ
+        /// カメラ関連の初期化
         /// </summary>
-        public CameraTimer()
+        public void Init()
         {
-            InitClassifier();
+            Task.Run(() =>
+            {
+                InitClassifier();
+
+                if (CheckCameraModeEnable())
+                {
+                    capture.Open(SettingManager.PublicSettings.CameraId);
+                    if (!capture.IsOpened())
+                    {
+                        _cameraDisable = true;
+                    }
+                }
+                else
+                {
+                    _cameraDisable = true;
+                }
+                init = true;
+            });
         }
 
         /// <summary>
@@ -74,6 +94,7 @@ namespace digpet.TimerClass
         ~CameraTimer()
         {
             classifier.Dispose();
+            capture.Dispose();
         }
 
         /// <summary>
@@ -82,23 +103,20 @@ namespace digpet.TimerClass
         /// <returns></returns>
         public override TaskReturn TaskFunc()
         {
+#if DEBUG
+            Stopwatch stopwatch = Stopwatch.StartNew();
+#endif
+            if (!init) return TaskReturn.TASK_SUCCESS;
+
             if (!CheckCameraModeEnable())
             {
                 _faceDetected = -1;
                 return TaskReturn.TASK_SUCCESS;
             }
 
-            using (Mat? flame = TakePhoto())
-            {
-                if (flame == null)
-                {
-                    LogManager.LogOutput("写真の撮影に失敗しました");
-                    _faceDetected = -1;
-                    return TaskReturn.TASK_FAILURE;
-                }
+            _faceDetected = TakePhotoAndDetectFace();
 
-                _faceDetected = DetectFace(flame);
-            }
+            Debug.Print(FaceDetected.ToString());
 
             if (FaceDetected < 0) return TaskReturn.TASK_FAILURE;
 
@@ -123,6 +141,9 @@ namespace digpet.TimerClass
 
             cameraCnt++;
 
+#if DEBUG
+            Debug.Print("camera fin: " + stopwatch.ToString());
+#endif
             return TaskReturn.TASK_SUCCESS;
         }
 
@@ -153,39 +174,56 @@ namespace digpet.TimerClass
         }
 
         /// <summary>
+        /// 写真を撮って顔検出
+        /// </summary>
+        /// <returns>1: 顔を検出, 0: 顔検出失敗, else: エラー</returns>
+        private int TakePhotoAndDetectFace()
+        {
+            int detect = 0;
+
+            using (Mat? flame = TakePhoto())
+            {
+                if (flame == null)
+                {
+                    LogManager.LogOutput("写真の撮影に失敗しました");
+                    _faceDetected = -1;
+                    return -1;
+                }
+
+#if false
+                Cv2.ImWrite("Sapmle.png", flame);
+#endif
+
+                detect = DetectFace(flame);
+            }
+
+            return detect;
+        }
+
+        /// <summary>
         /// カメラから画像を取得し、返却する
         /// </summary>
         /// <returns>画像配列(Mat)</returns>
         private Mat? TakePhoto()
         {
-            using (VideoCapture capture = new VideoCapture())
+            using (Mat flame = new Mat())
             {
-                capture.Open(SettingManager.PublicSettings.CameraId);
-                if (!capture.IsOpened())
+                try
                 {
-                    LogManager.LogOutput("カメラのオープンに失敗しました");
+                    capture.Read(flame);
+                }
+                catch (Exception ex)
+                {
+                    ErrorLog.ErrorOutput("写真撮影エラー", ex.Message);
                     return null;
                 }
 
-                using (Mat flame = new Mat())
+                if (flame.Empty())
                 {
-                    try
-                    {
-                        capture.Read(flame);
-                    }
-                    catch (Exception ex)
-                    {
-                        ErrorLog.ErrorOutput("写真撮影エラー", ex.Message);
-                        return null;
-                    }
-
-                    if (flame.Empty())
-                    {
-                        return null;
-                    }
-
-                    return flame.Clone();
+                    return null;
                 }
+
+                return flame.Clone();
             }
         }
 
@@ -198,16 +236,16 @@ namespace digpet.TimerClass
             switch (ret)
             {
                 case TaskReturn.TASK_SUCCESS:
-                    ringMem.Add(true);
+                    ringMem.Add(false);
                     break;
 
                 case TaskReturn.TASK_BLOCKED:
                 case TaskReturn.TASK_FAILURE:
-                    ringMem.Add(false);
+                    ringMem.Add(true);
                     break;
 
                 default:
-                    ringMem.Add(false);
+                    ringMem.Add(true);
                     break;
             }
         }

@@ -56,6 +56,7 @@ namespace digpet
             tokenManager.ReadTokens();
             ReadCharConfig();
             SetNowWindowState();
+            cameraTimer.Init();
 
             //タイマは設定ファイルの読み取りが終わるまで開始しない
             TimerStart();
