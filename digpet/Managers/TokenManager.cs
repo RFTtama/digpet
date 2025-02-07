@@ -1,5 +1,4 @@
-﻿using digpet.AppConfigs;
-using digpet.Modules;
+﻿using digpet.Modules;
 
 namespace digpet.Managers
 {
@@ -190,7 +189,7 @@ namespace digpet.Managers
         /// </summary>
         private void ReadTokensFromFile()
         {
-            djm.ReadJsonFile(APP_SETTINGS.TOKEN_PATH, (CalcTokenResetTime().ToString(), 0.0));
+            djm.ReadJsonFile(SettingManager.PrivateSettings.TOKEN_PATH, (CalcTokenResetTime().ToString(), 0.0));
             TokenExist();
             CalcAllToken();
         }
@@ -208,7 +207,7 @@ namespace digpet.Managers
                 if (djm.dict.ContainsKey(resetTime.ToString()))
                 {
                     djm.dict[resetTime.ToString()] = _dailyTokens;
-                    djm.WriteJsonFile(APP_SETTINGS.TOKEN_PATH);
+                    djm.WriteJsonFile(SettingManager.PrivateSettings.TOKEN_PATH);
                     CalcAllToken();
                 }
                 else
@@ -237,7 +236,7 @@ namespace digpet.Managers
                 {
                     _dailyTokens = 0.0;
                     djm.dict.Add(resetTime.ToString(), _dailyTokens);
-                    djm.WriteJsonFile(APP_SETTINGS.TOKEN_PATH);
+                    djm.WriteJsonFile(SettingManager.PrivateSettings.TOKEN_PATH);
                 }
             }
         }
@@ -348,7 +347,7 @@ namespace digpet.Managers
             LogManager.LogOutput("トークン計算過程出力終了");
 #endif
 
-            _averageEmotionTokens =  CalcAverageEmotionTokens();
+            _averageEmotionTokens = CalcAverageEmotionTokens();
             _averageEmotionTokensV2 = CalcAverageEmotionTokensV2();
             _feeling = CalcFeeling();
         }

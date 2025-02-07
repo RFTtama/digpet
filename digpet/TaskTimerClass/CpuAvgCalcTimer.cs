@@ -16,7 +16,7 @@ namespace digpet.TimerClass
         private double _cpuUsage = 0.0;
 
         //クラス宣言
-        private CpuAvgManager cpuAvgManager = new CpuAvgManager();
+        private AvgManager cpuAvgManager = new AvgManager();
         private CpuWatcher cpuWatcher = new CpuWatcher();
 
         //ゲッター
@@ -37,12 +37,12 @@ namespace digpet.TimerClass
         /// タスク処理
         /// </summary>
         /// <returns>ステータス</returns>
-        public override TaskClassRet TaskFunc()
+        public override TaskReturn TaskFunc()
         {
             double cpuUsage = (double)cpuWatcher.GetCpuUsage();
 
             //60秒に1回処理を行う
-            if (cpuCnt > 0 && cpuCnt % 60 == 0)
+            if ((cpuCnt > 0) && ((cpuCnt % 60) == 0))
             {
                 try
                 {
@@ -53,19 +53,19 @@ namespace digpet.TimerClass
                 catch (Exception ex)
                 {
                     ErrorLog.ErrorOutput("CPU使用率平均計算エラー", ex.Message);
-                    return new TaskClassRet(TaskReturn.TASK_FAILURE, string.Empty);
+                    return TaskReturn.TASK_FAILURE;
                 }
             }
             else
             {
                 //CPU使用率を加算
-                cpuAvgManager.SetCpuSum(cpuUsage);
+                cpuAvgManager.Sum(cpuUsage);
             }
 
             _cpuUsage = cpuUsage;
 
             cpuCnt++;
-            return new TaskClassRet(TaskReturn.TASK_SUCCESS, string.Empty);
+            return TaskReturn.TASK_SUCCESS;
         }
 
         /// <summary>
@@ -77,16 +77,15 @@ namespace digpet.TimerClass
             _cpuAvg = 0.0;
             _avgCalcFlg = false;
             _cpuUsage = 0.0;
-
         }
 
         /// <summary>
         /// 戻り値処理
         /// </summary>
         /// <param name="ret">戻り値</param>
-        public override void TaskCheckRet(TaskClassRet ret)
+        public override void TaskCheckRet(TaskReturn ret)
         {
-            switch (ret.taskReturn)
+            switch (ret)
             {
                 default:
                     break;
@@ -98,73 +97,11 @@ namespace digpet.TimerClass
         /// </summary>
         private void GetCpuAvg()
         {
-            _cpuAvg = cpuAvgManager.GetCpuAvg();
+            _cpuAvg = cpuAvgManager.GetAvg();
 
             _avgCalcFlg = true;
             cpuAvgManager.Clear();
             LogManager.LogOutput("分毎トークンの算出完了");
-        }
-
-        /// <summary>
-        /// CPUの使用率の平均算出用クラス
-        /// </summary>
-        private class CpuAvgManager
-        {
-            //変数関連の宣言
-            private double _cpuSum;                 //現在のCPU使用率の合計
-            private uint _cpuCount;                 //合計を足した回数
-
-            /// <summary>
-            /// コンストラクタ
-            /// </summary>
-            public CpuAvgManager()
-            {
-                Clear();
-            }
-
-            /// <summary>
-            /// 変数の中身などを初期化する
-            /// </summary>
-            public void Clear()
-            {
-                _cpuSum = 0;
-                _cpuCount = 0;
-            }
-
-            /// <summary>
-            /// CPU使用率を加算する
-            /// </summary>
-            /// <param name="cpuUsage">CPU使用率</param>
-            public void SetCpuSum(double cpuUsage)
-            {
-                if (_cpuCount >= uint.MaxValue)
-                {
-                    _cpuCount = uint.MaxValue;
-                }
-                else
-                {
-                    _cpuCount++;
-                }
-
-                if (_cpuSum >= double.MaxValue)
-                {
-                    _cpuSum = double.MaxValue;
-                }
-                else
-                {
-                    _cpuSum += cpuUsage;
-                }
-            }
-
-            /// <summary>
-            /// CPU使用率の平均を取得
-            /// </summary>
-            /// <returns>CPU使用率の平均(double)</returns>
-            public double GetCpuAvg()
-            {
-                if (_cpuCount == 0) return 0.0;
-                return _cpuSum / _cpuCount;
-            }
         }
     }
 }
