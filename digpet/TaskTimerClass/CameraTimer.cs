@@ -273,7 +273,7 @@ namespace digpet.TimerClass
 
                 if (faces == null)
                 {
-                    ErrorLog.ErrorOutput("顔検出エラー", "顔の検出がしっぱいしました");
+                    ErrorLog.ErrorOutput("顔検出エラー", "顔の検出が失敗しました");
                     return -1;
                 }
 
