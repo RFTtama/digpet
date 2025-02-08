@@ -60,27 +60,14 @@ namespace digpet.Managers
         private double _averageEmotionTokens = 0.0;
 
         /// <summary>
-        /// 平均獲得感情トークン
+        /// 平均獲得感情トークンV2
+        /// トークン獲得値のピークだけを計算対象としている
         /// </summary>
         public double AverageEmotionTokens
         {
             get
             {
                 return _averageEmotionTokens;
-            }
-        }
-
-        private double _averageEmotionTokensV2 = 0.0;
-
-        /// <summary>
-        /// 平均獲得感情トークンV2
-        /// トークン獲得値のピークだけを計算対象としている
-        /// </summary>
-        public double AverageEmotionTokensV2
-        {
-            get
-            {
-                return _averageEmotionTokensV2;
             }
         }
 
@@ -312,7 +299,7 @@ namespace digpet.Managers
             _emotionTokens.Add(djm.dict[keys[0]]);
             _totalTokens.Add(djm.dict[keys[0]]);
 
-#if DEBUG
+#if false
             LogManager.LogOutput("トークン計算過程出力");
 #endif
 
@@ -335,7 +322,7 @@ namespace digpet.Managers
                     _emotionTokens.Add(emoMem);
                     _totalTokens.Add(totalMem);
 
-#if DEBUG
+#if false
                     LogManager.LogOutput("emoMem: " + emoMem.ToString());
                     LogManager.LogOutput("totalMem: " + totalMem.ToString());
 #endif
@@ -343,12 +330,11 @@ namespace digpet.Managers
                 }
             }
 
-#if DEBUG
+#if false
             LogManager.LogOutput("トークン計算過程出力終了");
 #endif
 
-            _averageEmotionTokens = CalcAverageEmotionTokens();
-            _averageEmotionTokensV2 = CalcAverageEmotionTokensV2();
+            _averageEmotionTokens = CalcAverageEmotionTokensV2();
             _feeling = CalcFeeling();
         }
 
@@ -358,7 +344,7 @@ namespace digpet.Managers
         /// <returns>平均感情トークン</returns>
         private double CalcAverageEmotionTokens()
         {
-            if (_emotionTokens.Count <= 0) return 0;
+            if (_emotionTokens.Count <= 0) return 0.0;
             return _emotionTokens.ToArray().Sum() / _emotionTokens.Count;
         }
 
@@ -374,7 +360,15 @@ namespace digpet.Managers
 
             double[] tokenPeaks = CalcTokenPeaksForAverageEmotionTokensV2();
 
-            return tokenPeaks.Sum() / tokenPeaks.Length;
+            if (tokenPeaks.Length == 1)
+            {
+                //トークンのピークが1個しかないなら、通常の平均算出ロジックを使う
+                return CalcAverageEmotionTokens();
+            }
+            else
+            {
+                return tokenPeaks.Sum() / tokenPeaks.Length;
+            }
         }
 
         private double[] CalcTokenPeaksForAverageEmotionTokensV2()
@@ -415,7 +409,7 @@ namespace digpet.Managers
         /// <returns>感情</returns>
         private double CalcFeeling()
         {
-            double avgToken = AverageEmotionTokensV2;
+            double avgToken = AverageEmotionTokens;
 
             if (avgToken <= 0 || EmotionTokens <= 0) return 0.0;
             return (EmotionTokens - avgToken) / avgToken;
