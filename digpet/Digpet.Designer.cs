@@ -198,7 +198,6 @@
             Controls.Add(CharPictureBox);
             HelpButton = true;
             Name = "Digpet";
-            TopMost = true;
             FormClosing += Form1_FormClosing;
             SizeChanged += Form1_SizeChanged;
             StatsPanel.ResumeLayout(false);
