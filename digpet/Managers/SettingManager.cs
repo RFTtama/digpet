@@ -123,6 +123,9 @@ namespace digpet.Managers
             //ウィンドウの状態 0: 通常, 1: 最大化, 2: 最小化
             public int WindowState { get; set; }
 
+            //ウィンドウを常に前面に配置するか
+            public bool TopMost { get; set; }
+
             //ウィンドウサイズ
             public Size WindowSize { get; set; }
 
@@ -153,6 +156,7 @@ namespace digpet.Managers
                 CharSettingPath = string.Empty;
                 ResetHour = -1;
                 WindowState = 0;
+                TopMost = false;
                 WindowSize = new Size(500, 500);
                 WindowLocation = new Point(0, 0);
                 FontEnlargeSize = 0;

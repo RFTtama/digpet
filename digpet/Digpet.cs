@@ -380,6 +380,7 @@ namespace digpet
             Location = SettingManager.PublicSettings.WindowLocation;
             Size = SettingManager.PublicSettings.WindowSize;
             WindowState = GetWindowState();
+            this.TopMost = SettingManager.PublicSettings.TopMost;
             SetControlFontSize();
             LogManager.LogOutput("ê›íËÇïúå≥ÇµÇ‹ÇµÇΩ");
         }
