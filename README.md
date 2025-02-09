@@ -29,7 +29,8 @@
 2. "インポート"ボタンが表示されるまで"詳細表示切替"ボタンをクリックします。
 3. ファイル選択ダイアログが表示されるので、対象のexeファイルを選択します。
 
-サンプルキャラファイル: [Moni V1.00.01.zip](https://github.com/user-attachments/files/18724049/Moni.V1.00.01.zip)
+サンプルキャラファイル: [Moni V1.00.01.zip](https://github.com/user-attachments/files/18724090/Moni.V1.00.01.zip)
+
 
 ## Licenses
 This project uses OpenCV, which is licensed under the Apache License 2.0.<br>
