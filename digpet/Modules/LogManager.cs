@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using digpet.AppConfigs;
+﻿using digpet.Managers;
 
 namespace digpet.Modules
 {
@@ -17,7 +12,7 @@ namespace digpet.Modules
         {
             try
             {
-                using (StreamWriter sw = new StreamWriter(APP_SETTINGS.LOG_PATH, true))
+                using (StreamWriter sw = new StreamWriter(SettingManager.PrivateSettings.LOG_PATH, true))
                 {
                     sw.WriteLine(DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss ") + msg + "\r\n");
                 }

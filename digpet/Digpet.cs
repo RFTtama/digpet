@@ -1,28 +1,29 @@
-using System.Security.Cryptography;
-using System.Windows.Forms;
-using digpet.AppConfigs;
+using digpet.Interface;
 using digpet.Managers;
 using digpet.Modules;
+using digpet.TimerClass;
 
 namespace digpet
 {
     public partial class Digpet : Form
     {
         //クラス関連の宣言
-        private CpuAvgManager cpuAvgManager = new CpuAvgManager();
         private TokenManager tokenManager = new TokenManager();
-        private SettingManager settingManager = new SettingManager();
         private CharZipFileManager charZipFileManager = new CharZipFileManager();
-        private CpuWatcher cpuWatcher = new CpuWatcher();
 
         //変数関連の宣言
-        private int cpuCnt;
-        private double cpuAvg;
         private bool gotNormalImage;                                    //正常に画像を切り替えることができたか
 
         //定数関連の宣言
         private const string SETTING_PATH = "settings.json";
         private const int FONT_MARGIN_SIZE = 5;
+
+        //テーブル宣言
+        private TaskClassInterface[]? TaskRun1sTable;
+
+        //タスククラス宣言
+        private CpuAvgCalcTimer cpuAvgCalcTimer = new CpuAvgCalcTimer();
+        private CameraTimer cameraTimer = new CameraTimer();
 
         /// <summary>
         /// コンストラクタ
@@ -30,16 +31,7 @@ namespace digpet
         public Digpet()
         {
             InitializeComponent();
-            Text += "   Ver." + APP_SETTINGS.APPLICATION_VERSION;
-            MouseWheel += new MouseEventHandler(MouseWheelEvent);
             Init();
-            settingManager.ReadSettingFile(SETTING_PATH);
-            CheckResetTime();
-            tokenManager.ReadTokens();
-            ReadCharConfig();
-            SetNowWindowState();
-            CpuUsageTimer.Enabled = true;
-            ImageChangeTimer.Enabled = true;
             LogManager.LogOutput("初期化が完了しました");
         }
 
@@ -48,9 +40,35 @@ namespace digpet
         /// </summary>
         private void Init()
         {
-            cpuCnt = 0;
-            cpuAvg = 0.0;
+            Text += "   Ver." + SettingManager.PrivateSettings.APPLICATION_VERSION;
+            MouseWheel += new MouseEventHandler(MouseWheelEvent);
             gotNormalImage = true;
+
+            //1sタスク関数テーブルを設定する
+            TaskRun1sTable =
+                [
+                    cpuAvgCalcTimer,
+                    cameraTimer
+                ];
+
+            SettingManager.ReadSettingFile(SETTING_PATH);
+            CheckResetTime();
+            tokenManager.ReadTokens();
+            ReadCharConfig();
+            SetNowWindowState();
+            cameraTimer.Init();
+
+            //タイマは設定ファイルの読み取りが終わるまで開始しない
+            TimerStart();
+        }
+
+        /// <summary>
+        /// タイマ開始処理
+        /// </summary>
+        private void TimerStart()
+        {
+            ImageChangeTimer.Enabled = true;
+            TaskRunTimer1s.Enabled = true;
         }
 
         /// <summary>
@@ -79,8 +97,8 @@ namespace digpet
                 picSize.Height = (int)(picSize.Height * MINUS_MAGN);
             }
 
-            settingManager.Settings.ImageSize = picSize;
-            settingManager.WriteSettingFile(SETTING_PATH);
+            SettingManager.PublicSettings.ImageSize = picSize;
+            SettingManager.WriteSettingFile(SETTING_PATH);
 
             UpdateImageSize();
         }
@@ -90,12 +108,12 @@ namespace digpet
         /// </summary>
         private void CheckResetTime()
         {
-            int resetHour = settingManager.Settings.ResetHour;
+            int resetHour = SettingManager.PublicSettings.ResetHour;
 
             if (resetHour < 0)
             {
                 resetHour = SetResetTime();
-                settingManager.WriteSettingFile(SETTING_PATH);
+                SettingManager.WriteSettingFile(SETTING_PATH);
             }
 
             tokenManager.ResetHour = resetHour;
@@ -118,7 +136,7 @@ namespace digpet
                 {
                     if (hour >= 0 && hour < 24)
                     {
-                        settingManager.Settings.ResetHour = hour;
+                        SettingManager.PublicSettings.ResetHour = hour;
                         LogManager.LogOutput("リセット時刻を" + hour.ToString() + "に設定しました");
                         return hour;
                     }
@@ -131,72 +149,20 @@ namespace digpet
         /// </summary>
         private void ReadCharConfig()
         {
-            if (settingManager.Settings.CharSettingPath == null)
+            if (SettingManager.PublicSettings.CharSettingPath == null)
             {
                 ErrorLog.ErrorOutput("キャラファイル読み取りエラー", "設定されているキャラファイルのパスがnullか空です");
             }
-            else if (settingManager.Settings.CharSettingPath == string.Empty)
+            else if (SettingManager.PublicSettings.CharSettingPath == string.Empty)
             {
                 return;
             }
             else
             {
-                charZipFileManager.ReadCharSettings(settingManager.Settings.CharSettingPath);
+                charZipFileManager.ReadCharSettings(SettingManager.PublicSettings.CharSettingPath);
                 ImageChangeTimer.Interval = charZipFileManager.GetPictureTurnOverPeriod();
                 SetControlColor(charZipFileManager.GetControlColor());
             }
-        }
-
-        /// <summary>
-        /// 1分おきにCPU使用率の平均を求めて、変数に代入する
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void CpuUsageTimer_Tick(object sender, EventArgs e)
-        {
-            //60秒に1回処理を行う
-            if ((cpuCnt > 0) && (cpuCnt % 60 == 0))
-            {
-                try
-                {
-                    //CPU使用率の平均を取得し、トークンを計算する
-                    cpuCnt = 0;
-                    GetCpuAvg();
-                }
-                catch (Exception ex)
-                {
-                    ErrorLog.ErrorOutput("CPU使用率平均計算エラー", ex.Message);
-                    CpuUsageTimer.Enabled = false;
-                }
-            }
-            else
-            {
-                //CPU使用率を加算
-                SumCpuAvg();
-            }
-            cpuCnt++;
-        }
-
-        /// <summary>
-        /// CPU使用率の平均を求めcpuAvgに代入する
-        /// </summary>
-        private void GetCpuAvg()
-        {
-            cpuAvg = cpuAvgManager.GetCpuAvg();
-            tokenManager.AddTokens(cpuAvg);
-            OutTokenLabel();
-            cpuAvgManager.Clear();
-            LogManager.LogOutput("分毎トークンの算出完了");
-        }
-
-        /// <summary>
-        /// CPU使用率の平均を求められるように数値を足す
-        /// </summary>
-        private void SumCpuAvg()
-        {
-            double cpuUsage = (double)cpuWatcher.GetCpuUsage();
-            cpuAvgManager.SetCpuSum(cpuUsage);
-            OutCpuLabel(cpuUsage);
         }
 
         /// <summary>
@@ -282,6 +248,29 @@ namespace digpet
         }
 
         /// <summary>
+        /// 検出状態を設定
+        /// </summary>
+        /// <param name="detectNum"></param>
+        private void OutDetectLabel(int detectNum)
+        {
+            string txt;
+            if (detectNum < 0)
+            {
+                txt = "検出: エラー";
+            }
+            else if (detectNum == 0)
+            {
+                txt = "検出: なし";
+            }
+            else
+            {
+                txt = "検出: あり";
+            }
+
+            CpuUsageLabel.Text = txt;
+        }
+
+        /// <summary>
         /// 統計情報の表示を切り替える
         /// </summary>
         /// <param name="sender"></param>
@@ -313,8 +302,8 @@ namespace digpet
         /// <param name="path">キャラファイルパス</param>
         private void ReWriteCharConfig(string path)
         {
-            settingManager.Settings.CharSettingPath = path;
-            settingManager.WriteSettingFile(SETTING_PATH);
+            SettingManager.PublicSettings.CharSettingPath = path;
+            SettingManager.WriteSettingFile(SETTING_PATH);
             ReadCharConfig();
         }
 
@@ -350,7 +339,7 @@ namespace digpet
         {
             DialogResult result =
                 MessageBox.Show("キャラ設定をクリアします\nクリア後アプリを終了しますがよろしいですか?", "キャラ設定をクリアしますか?",
-                MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (result != DialogResult.Yes)
             {
@@ -358,6 +347,7 @@ namespace digpet
             }
             LogManager.LogOutput("クリアボタンがクリックされました");
             ReWriteCharConfig(string.Empty);
+            this.Close();
         }
 
         /// <summary>
@@ -368,7 +358,7 @@ namespace digpet
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveNowWindowState();
-            settingManager.WriteSettingFile(SETTING_PATH);
+            SettingManager.WriteSettingFile(SETTING_PATH);
             LogManager.LogOutput("アプリの終了処理終了");
         }
 
@@ -377,9 +367,9 @@ namespace digpet
         /// </summary>
         private void SaveNowWindowState()
         {
-            settingManager.Settings.WindowLocation = Location;
-            settingManager.Settings.WindowSize = Size;
-            settingManager.Settings.WindowState = GetWindowStateId();
+            SettingManager.PublicSettings.WindowLocation = Location;
+            SettingManager.PublicSettings.WindowSize = Size;
+            SettingManager.PublicSettings.WindowState = GetWindowStateId();
         }
 
         /// <summary>
@@ -387,9 +377,10 @@ namespace digpet
         /// </summary>
         private void SetNowWindowState()
         {
-            Location = settingManager.Settings.WindowLocation;
-            Size = settingManager.Settings.WindowSize;
+            Location = SettingManager.PublicSettings.WindowLocation;
+            Size = SettingManager.PublicSettings.WindowSize;
             WindowState = GetWindowState();
+            this.TopMost = SettingManager.PublicSettings.TopMost;
             SetControlFontSize();
             LogManager.LogOutput("設定を復元しました");
         }
@@ -399,7 +390,7 @@ namespace digpet
         /// </summary>
         private void SetControlFontSize()
         {
-            int enlarge = settingManager.Settings.FontEnlargeSize;
+            int enlarge = SettingManager.PublicSettings.FontEnlargeSize;
 
             if (enlarge > 0)
             {
@@ -568,7 +559,7 @@ namespace digpet
         {
             FormWindowState loadState = FormWindowState.Normal;
 
-            switch (settingManager.Settings.WindowState)
+            switch (SettingManager.PublicSettings.WindowState)
             {
                 case 0:
                     loadState = FormWindowState.Normal;
@@ -626,9 +617,96 @@ namespace digpet
         /// </summary>
         private void UpdateImageSize()
         {
-            CharPictureBox.Size = settingManager.Settings.ImageSize;
+            CharPictureBox.Size = SettingManager.PublicSettings.ImageSize;
             CharPictureBox.Left = (Width / 2) - (CharPictureBox.Width / 2) - 10;
             CharPictureBox.Top = (Height / 2) - (CharPictureBox.Height / 2) - 10;
+        }
+
+        /// <summary>
+        /// 1s周期のタスクを実行する
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TaskRunTimer1s_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (TaskRun1sTable == null) return;
+
+                General1sTimerFunc();
+
+                //タスクテーブルに設定されているタスククラスの関数を順番に実行する
+                for (int i = 0; i < TaskRun1sTable.Length; i++)
+                {
+                    if (TaskRun1sTable[i] == null) continue;
+
+                    switch (TaskRun1sTable[i].ClassTask.Status)
+                    {
+                        case TaskStatus.Running:
+                            TaskRun1sTable[i].TaskCheckRet(TaskReturn.TASK_BLOCKED);
+                            continue;
+
+                        default:
+                            break;
+                    }
+
+                    TaskClassInterface sendTask = TaskRun1sTable[i];
+
+                    TaskRun1sTable[i].ClassTask = Task.Run(() =>
+                    {
+                        sendTask.TaskCheckRet(sendTask.TaskFunc());
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.ErrorOutput("タスク実行エラー", ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 全体の1s毎処理
+        /// </summary>
+        private void General1sTimerFunc()
+        {
+            if (!cameraTimer.CameraDisable)
+            {
+                CameraProcess();
+            }
+            else
+            {
+                CpuProcess();
+            }
+
+
+        }
+
+        /// <summary>
+        /// カメラ用のトークン算出処理など
+        /// </summary>
+        private void CameraProcess()
+        {
+            if (cameraTimer.AvgCalcFlg)
+            {
+                tokenManager.AddTokens(cameraTimer.DetectAvg);
+                OutTokenLabel();
+                cameraTimer.ClearDetectAvg();
+            }
+            OutDetectLabel(cameraTimer.FaceDetected);
+        }
+
+        /// <summary>
+        /// CPUのトークン算出処理など
+        /// </summary>
+        private void CpuProcess()
+        {
+            if (cpuAvgCalcTimer.AvgCalcFlg)
+            {
+                tokenManager.AddTokens(cpuAvgCalcTimer.CpuAvg);
+                OutTokenLabel();
+                cpuAvgCalcTimer.ClearCpuAvg();
+            }
+            OutCpuLabel(cpuAvgCalcTimer.CpuUsage);
         }
     }
 }

@@ -2,7 +2,6 @@
 using System.IO.Compression;
 using System.Text;
 using System.Text.Json;
-using digpet.AppConfigs;
 using digpet.Modules;
 
 namespace digpet.Managers
@@ -271,7 +270,7 @@ namespace digpet.Managers
             {
                 using (ZipArchive zip = ZipFile.OpenRead(path))
                 {
-                    ZipArchiveEntry? entry = zip.GetEntry(APP_SETTINGS.CONFIG_FILE_PATH);
+                    ZipArchiveEntry? entry = zip.GetEntry(SettingManager.PrivateSettings.CONFIG_FILE_PATH);
 
                     if (entry == null)
                     {
@@ -299,7 +298,7 @@ namespace digpet.Managers
         {
             bool ret = false;
             VersionManager charVersion = new VersionManager(_charSettingManager.CharSettings.version);
-            VersionManager availableVersion = new VersionManager(APP_SETTINGS.CHAR_FORMAT_VERSION);
+            VersionManager availableVersion = new VersionManager(SettingManager.PrivateSettings.CHAR_FORMAT_VERSION);
 
             if (charVersion.major != -1 && availableVersion.major != -1)
             {
@@ -310,7 +309,7 @@ namespace digpet.Managers
                 else
                 {
                     ErrorLog.ErrorOutput("キャラファイルバージョンエラー", "キャラファイルのバージョンがサポートされている最大のバージョン("
-                        + APP_SETTINGS.CHAR_FORMAT_VERSION + ")より大きいです");
+                        + SettingManager.PrivateSettings.CHAR_FORMAT_VERSION + ")より大きいです");
                 }
             }
             else

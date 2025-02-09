@@ -30,7 +30,6 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Digpet));
-            CpuUsageTimer = new System.Windows.Forms.Timer(components);
             EmoStringLabel = new Label();
             CpuUsageLabel = new Label();
             TotalTokenLabel = new Label();
@@ -48,15 +47,11 @@
             DefaultPanel = new Panel();
             CharPictureBox = new PictureBox();
             ImageChangeTimer = new System.Windows.Forms.Timer(components);
+            TaskRunTimer1s = new System.Windows.Forms.Timer(components);
             StatsPanel.SuspendLayout();
             DefaultPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)CharPictureBox).BeginInit();
             SuspendLayout();
-            // 
-            // CpuUsageTimer
-            // 
-            CpuUsageTimer.Interval = 1000;
-            CpuUsageTimer.Tick += CpuUsageTimer_Tick;
             // 
             // EmoStringLabel
             // 
@@ -185,7 +180,12 @@
             ImageChangeTimer.Interval = 200;
             ImageChangeTimer.Tick += ImageChangeTimer_Tick;
             // 
-            // Form1
+            // TaskRunTimer1s
+            // 
+            TaskRunTimer1s.Interval = 1000;
+            TaskRunTimer1s.Tick += TaskRunTimer1s_Tick;
+            // 
+            // Digpet
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
@@ -197,8 +197,7 @@
             Controls.Add(ToggleShowButton);
             Controls.Add(CharPictureBox);
             HelpButton = true;
-            Name = "Form1";
-            TopMost = true;
+            Name = "Digpet";
             FormClosing += Form1_FormClosing;
             SizeChanged += Form1_SizeChanged;
             StatsPanel.ResumeLayout(false);
@@ -211,8 +210,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Timer CpuUsageTimer;
         private Label EmoStringLabel;
         private Label CpuUsageLabel;
         private Label TotalTokenLabel;
@@ -230,5 +227,6 @@
         private Panel DefaultPanel;
         private PictureBox CharPictureBox;
         private System.Windows.Forms.Timer ImageChangeTimer;
+        private System.Windows.Forms.Timer TaskRunTimer1s;
     }
 }
