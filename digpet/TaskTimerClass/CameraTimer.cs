@@ -58,6 +58,7 @@ namespace digpet.TimerClass
 
                 if (CheckCameraModeEnable())
                 {
+                    SetCaptureSettings();
                     capture.Open(SettingManager.PublicSettings.CameraId);
                     if (!capture.IsOpened())
                     {
@@ -70,6 +71,14 @@ namespace digpet.TimerClass
                 }
                 init = true;
             });
+        }
+
+        /// <summary>
+        /// キャプチャの設定を行う
+        /// </summary>
+        private void SetCaptureSettings()
+        {
+            capture.AutoFocus = true;
         }
 
         /// <summary>
