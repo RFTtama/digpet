@@ -61,15 +61,27 @@ namespace digpet.TimerClass
                     capture.Open(SettingManager.PublicSettings.CameraId);
                     if (!capture.IsOpened())
                     {
-                        _cameraDisable = true;
+                        DisposeCapture();
                     }
                 }
                 else
                 {
-                    _cameraDisable = true;
+                    DisposeCapture();
                 }
                 init = true;
             });
+        }
+
+        /// <summary>
+        /// キャプチャを破棄する
+        /// </summary>
+        private void DisposeCapture()
+        {
+            if (!capture.IsDisposed)
+            {
+                capture.Dispose();
+                _cameraDisable = true;
+            }
         }
 
         /// <summary>
@@ -84,7 +96,7 @@ namespace digpet.TimerClass
             else
             {
                 LogManager.LogOutput("カスケードファイルの読み取りに失敗しました");
-                _cameraDisable = true;
+                DisposeCapture();
             }
         }
 
@@ -94,7 +106,7 @@ namespace digpet.TimerClass
         ~CameraTimer()
         {
             classifier.Dispose();
-            capture.Dispose();
+            DisposeCapture();
         }
 
         /// <summary>
@@ -165,7 +177,7 @@ namespace digpet.TimerClass
 
             if (ringMem.GetTotalOfTrue() >= SettingManager.PublicSettings.CameraDisableThreshold)
             {
-                _cameraDisable = true;
+                DisposeCapture();
                 LogManager.LogOutput("カメラタスクの実行に複数回失敗したため、機能を無効にしました");
                 return false;
             }
@@ -207,13 +219,9 @@ namespace digpet.TimerClass
         {
             using (Mat flame = new Mat())
             {
-                try
+                if(!capture.Read(flame))
                 {
-                    capture.Read(flame);
-                }
-                catch (Exception ex)
-                {
-                    ErrorLog.ErrorOutput("写真撮影エラー", ex.Message);
+                    ErrorLog.ErrorOutput("写真撮影エラー", "写真の撮影に失敗しました");
                     return null;
                 }
 
