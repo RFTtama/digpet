@@ -691,7 +691,7 @@ namespace digpet
         {
             if (cameraTimer.AvgCalcFlg)
             {
-                tokenManager.AddTokens(cameraTimer.DetectAvg);
+                tokenManager.AddTokens(cameraTimer.DetectAvg, true);
                 OutTokenLabel();
                 cameraTimer.ClearDetectAvg();
             }
@@ -705,7 +705,7 @@ namespace digpet
         {
             if (cpuAvgCalcTimer.AvgCalcFlg)
             {
-                tokenManager.AddTokens(cpuAvgCalcTimer.CpuAvg);
+                tokenManager.AddTokens(cpuAvgCalcTimer.CpuAvg, false);
                 OutTokenLabel();
                 cpuAvgCalcTimer.ClearCpuAvg();
             }
