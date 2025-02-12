@@ -39,30 +39,18 @@ namespace digpet.TimerClass
         /// <returns>ステータス</returns>
         public override TaskReturn TaskFunc()
         {
-            double cpuUsage = (double)cpuWatcher.GetCpuUsage();
+            _cpuUsage = (double)cpuWatcher.GetCpuUsage();
 
             //60秒に1回処理を行う
             if ((cpuCnt > 0) && ((cpuCnt % 60) == 0))
             {
-                try
-                {
-                    //CPU使用率の平均を取得し、トークンを計算する
-                    cpuCnt = 0;
-                    GetCpuAvg();
-                }
-                catch (Exception ex)
-                {
-                    ErrorLog.ErrorOutput("CPU使用率平均計算エラー", ex.Message);
-                    return TaskReturn.TASK_FAILURE;
-                }
-            }
-            else
-            {
-                //CPU使用率を加算
-                cpuAvgManager.Sum(cpuUsage);
+                //CPU使用率の平均を取得し、トークンを計算する
+                cpuCnt = 0;
+                CalcCpuAvg();
             }
 
-            _cpuUsage = cpuUsage;
+            //CPU使用率を加算
+            cpuAvgManager.Sum(CpuUsage);
 
             cpuCnt++;
             return TaskReturn.TASK_SUCCESS;
@@ -95,7 +83,7 @@ namespace digpet.TimerClass
         /// <summary>
         /// CPU使用率の平均を求めcpuAvgに代入する
         /// </summary>
-        private void GetCpuAvg()
+        private void CalcCpuAvg()
         {
             _cpuAvg = cpuAvgManager.GetAvg();
 
