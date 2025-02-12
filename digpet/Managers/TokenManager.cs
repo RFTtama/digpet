@@ -155,9 +155,10 @@ namespace digpet.Managers
         private double GetCpuWeight(bool isCameraMode)
         {
             double rev;
+
             if (isCameraMode)
             {
-                rev = 0.0;
+                rev = 1.0;
             }
             else
             {
@@ -166,7 +167,9 @@ namespace digpet.Managers
                 rev = 1.0 - reci;
             }
 
-            return Math.Pow(rev, 3.0);
+            double ret = Math.Pow(rev, 3.0);
+
+            return ret;
         }
 
         /// <summary>
