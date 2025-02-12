@@ -152,11 +152,20 @@ namespace digpet.Managers
         /// CPUの性能による重みを取得する
         /// </summary>
         /// <returns></returns>
-        private double GetCpuWeight()
+        private double GetCpuWeight(bool isCameraMode)
         {
-            double log = Math.Log10(flops.Flops);
-            double reci = 1.0 / log;
-            double rev = 1.0 - reci;
+            double rev;
+            if (isCameraMode)
+            {
+                rev = 0.0;
+            }
+            else
+            {
+                double log = Math.Log10(flops.Flops);
+                double reci = 1.0 / log;
+                rev = 1.0 - reci;
+            }
+
             return Math.Pow(rev, 3.0);
         }
 
@@ -164,10 +173,10 @@ namespace digpet.Managers
         /// トークンを追加
         /// </summary>
         /// <param name="minToken">時間毎のトークン(未計算)</param>
-        public void AddTokens(double minToken)
+        public void AddTokens(double minToken, bool isCameraMode)
         {
             TokenExist();
-            _dailyTokens += Math.Sqrt(minToken * GetCpuWeight()) * 10.0 * TOKEN_CALC_WEIGHT;
+            _dailyTokens += Math.Sqrt(minToken * GetCpuWeight(isCameraMode)) * 10.0 * TOKEN_CALC_WEIGHT;
             WriteTokens();
         }
 
