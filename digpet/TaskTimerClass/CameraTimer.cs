@@ -124,9 +124,6 @@ namespace digpet.TimerClass
         /// <returns></returns>
         public override TaskReturn TaskFunc()
         {
-#if DEBUG
-            Stopwatch stopwatch = Stopwatch.StartNew();
-#endif
             if (!init) return TaskReturn.TASK_SUCCESS;
 
             if (!CheckCameraModeEnable())
@@ -137,35 +134,35 @@ namespace digpet.TimerClass
 
             _faceDetected = TakePhotoAndDetectFace();
 
-            Debug.Print(FaceDetected.ToString());
-
             if (FaceDetected < 0) return TaskReturn.TASK_FAILURE;
 
+            CalcProcess();
+
+            return TaskReturn.TASK_SUCCESS;
+        }
+
+        /// <summary>
+        /// 平均値の算出処理
+        /// </summary>
+        private void CalcProcess()
+        {
+            Debug.Print(cameraCnt.ToString());
             if ((cameraCnt > 0) && ((cameraCnt % 60) == 0))
             {
-                try
-                {
-                    //検出の平均を取得し、トークンを計算する
-                    cameraCnt = 0;
-                    GetDetectAvg();
-                }
-                catch (Exception ex)
-                {
-                    ErrorLog.ErrorOutput("検出平均計算エラー", ex.Message);
-                    return TaskReturn.TASK_FAILURE;
-                }
+                //検出の平均を取得し、トークンを計算する
+                cameraCnt = 0;
+                CalcDetectAvg();
             }
-            else
+            double sumValue = 0.0;
+
+            if (FaceDetected > 0)
             {
-                detectAvgManager.Sum(100.0);
+                sumValue = 100.0;
             }
+
+            detectAvgManager.Sum(sumValue);
 
             cameraCnt++;
-
-#if DEBUG
-            Debug.Print("camera fin: " + stopwatch.ToString());
-#endif
-            return TaskReturn.TASK_SUCCESS;
         }
 
         /// <summary>
@@ -301,7 +298,7 @@ namespace digpet.TimerClass
         /// <summary>
         /// 検出平均を求めcpuAvgに代入する
         /// </summary>
-        private void GetDetectAvg()
+        private void CalcDetectAvg()
         {
             _detectAvg = detectAvgManager.GetAvg();
 
