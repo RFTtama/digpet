@@ -1,6 +1,7 @@
 using digpet.Interface;
 using digpet.Managers;
 using digpet.Modules;
+using digpet.TaskTimerClass;
 using digpet.TimerClass;
 
 namespace digpet
@@ -24,6 +25,7 @@ namespace digpet
         //タスククラス宣言
         private CpuAvgCalcTimer cpuAvgCalcTimer = new CpuAvgCalcTimer();
         private CameraTimer cameraTimer = new CameraTimer();
+        private GCTimer gcTimer = new GCTimer();
 
         /// <summary>
         /// コンストラクタ
@@ -47,8 +49,9 @@ namespace digpet
             //1sタスク関数テーブルを設定する
             TaskRun1sTable =
                 [
+                    gcTimer,
                     cpuAvgCalcTimer,
-                    cameraTimer
+                    cameraTimer,
                 ];
 
             SettingManager.ReadSettingFile(SETTING_PATH);
