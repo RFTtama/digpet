@@ -16,7 +16,7 @@ namespace digpet.Managers
         //外部で変更可能でない設定
         public static class PrivateSettings
         {
-            public const string APPLICATION_VERSION = "1.01.02" + DEBUG_APPENDANCE;         //アプリバージョン
+            public const string APPLICATION_VERSION = "1.01.03" + DEBUG_APPENDANCE;         //アプリバージョン
             public const string CHAR_FORMAT_VERSION = "1.00.00";                            //キャラフォーマットのバージョン
 
             public const string CONFIG_FILE_PATH = "config.json";                           //コンフィグファイルのパス
@@ -26,7 +26,7 @@ namespace digpet.Managers
             public const string CASCADE_PATH = "haarcascade_frontalface_default.xml";       //カスケードファイルのパス
 
 #if DEBUG
-            public const string DEBUG_APPENDANCE = "-debug";                                //デバッグ判別用
+            public const string DEBUG_APPENDANCE = "-preview";                                //デバッグ判別用
 #else
         public const string DEBUG_APPENDANCE    = "";                                   //デバッグ判別用
 #endif
