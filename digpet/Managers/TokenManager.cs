@@ -179,7 +179,9 @@ namespace digpet.Managers
         public void AddTokens(double minToken, bool isCameraMode)
         {
             TokenExist();
-            _dailyTokens += Math.Sqrt(minToken * GetCpuWeight(isCameraMode)) * 10.0 * TOKEN_CALC_WEIGHT;
+            double appendToken = Math.Sqrt(minToken * GetCpuWeight(isCameraMode)) * 10.0 * TOKEN_CALC_WEIGHT;
+            LogManager.LogOutput("DailyTokenに" + appendToken.ToString() + "が足されました。");
+            _dailyTokens += appendToken;
             WriteTokens();
         }
 
