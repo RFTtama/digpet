@@ -5,6 +5,7 @@ using digpet.Properties;
 using OpenCvSharp;
 using OpenCvSharp.ML;
 using System.Diagnostics;
+using System.Net.Http.Headers;
 using System.Reflection;
 
 namespace digpet.TimerClass
@@ -263,10 +264,11 @@ namespace digpet.TimerClass
 
             using (Mat gray = new Mat())
             {
-                Cv2.CvtColor(src: mat.Clone(), dst: gray, code: ColorConversionCodes.BGR2GRAY);
+                Cv2.CvtColor(src: mat, dst: gray, code: ColorConversionCodes.BGR2GRAY);
+                Cv2.EqualizeHist(gray, gray);
 
                 //画像のサイズを統一する必要があるかも
-                Rect[] faces = classifier.DetectMultiScale(image: gray, scaleFactor: 1.1, minNeighbors: 3, minSize: new OpenCvSharp.Size(100, 100));
+                Rect[] faces = classifier.DetectMultiScale(image: gray, scaleFactor: 1.1, minNeighbors: 10, minSize: new OpenCvSharp.Size());
 
                 if (faces == null)
                 {
