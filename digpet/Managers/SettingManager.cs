@@ -26,7 +26,7 @@ namespace digpet.Managers
             public const string CASCADE_PATH = "haarcascade_frontalface_default.xml";       //カスケードファイルのパス
 
 #if DEBUG
-            public const string DEBUG_APPENDANCE = "-debug";                                //デバッグ判別用
+            public const string DEBUG_APPENDANCE = "-preview";                                //デバッグ判別用
 #else
         public const string DEBUG_APPENDANCE    = "";                                   //デバッグ判別用
 #endif
