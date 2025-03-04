@@ -1,3 +1,4 @@
+using digpet.Abstract;
 using digpet.Interface;
 using digpet.Managers;
 using digpet.Modules;
@@ -20,7 +21,7 @@ namespace digpet
         private const int FONT_MARGIN_SIZE = 5;
 
         //テーブル宣言
-        private TaskClassInterface[]? TaskRun1sTable;
+        private TaskClassAbstract[]? TaskRun1sTable;
 
         //タスククラス宣言
         private CpuAvgCalcTimer cpuAvgCalcTimer = new CpuAvgCalcTimer();
@@ -34,7 +35,7 @@ namespace digpet
         {
             InitializeComponent();
             Init();
-            LogManager.LogOutput("初期化が完了しました");
+            LogModule.LogOutput("初期化が完了しました");
         }
 
         /// <summary>
@@ -58,11 +59,26 @@ namespace digpet
             CheckResetTime();
             tokenManager.ReadTokens();
             ReadCharConfig();
-            SetNowWindowState();
+            SetWindowsState(WindowModule.GetSavedWindowState());
+
             cameraTimer.Init();
 
             //タイマは設定ファイルの読み取りが終わるまで開始しない
             TimerStart();
+        }
+
+        /// <summary>
+        /// ウィンドウの状態関連を設定する
+        /// </summary>
+        /// <param name="state"></param>
+        private void SetWindowsState(WindowStateClass state)
+        {
+            Location = state.Location;
+            Size = state.Size;
+            WindowState = state.State;
+            TopMost = SettingManager.PublicSettings.TopMost;
+            SetControlFontSize();
+            LogModule.LogOutput("設定を復元しました");
         }
 
         /// <summary>
@@ -140,7 +156,7 @@ namespace digpet
                     if (hour >= 0 && hour < 24)
                     {
                         SettingManager.PublicSettings.ResetHour = hour;
-                        LogManager.LogOutput("リセット時刻を" + hour.ToString() + "に設定しました");
+                        LogModule.LogOutput("リセット時刻を" + hour.ToString() + "に設定しました");
                         return hour;
                     }
                 }
@@ -154,7 +170,7 @@ namespace digpet
         {
             if (SettingManager.PublicSettings.CharSettingPath == null)
             {
-                ErrorLog.ErrorOutput("キャラファイル読み取りエラー", "設定されているキャラファイルのパスがnullか空です");
+                ErrorLogModule.ErrorOutput("キャラファイル読み取りエラー", "設定されているキャラファイルのパスがnullか空です");
             }
             else if (SettingManager.PublicSettings.CharSettingPath == string.Empty)
             {
@@ -209,7 +225,7 @@ namespace digpet
             FlopsLabel.Text = "FLOPS: " + tokenManager.Flops.ToString();
             TotalTokenLabel.Text = "累計トークン: " + (tokenManager.TotalTokens).ToString("n2");
             IntimacyLabel.Text = charZipFileManager.GetIntimacyTag() + GetIntimacy(tokenManager.TotalTokens);
-            LogManager.LogOutput("表示されているトークン情報の更新完了");
+            LogModule.LogOutput("表示されているトークン情報の更新完了");
         }
 
         /// <summary>
@@ -224,7 +240,7 @@ namespace digpet
 
             if ((image == null) && (gotNormalImage == true))
             {
-                LogManager.LogOutput("画像が設定されませんでした");
+                LogModule.LogOutput("画像が設定されませんでした");
                 return;
             }
 
@@ -317,7 +333,7 @@ namespace digpet
         /// <param name="e"></param>
         private void ImportButton_Click(object sender, EventArgs e)
         {
-            LogManager.LogOutput("インポートボタンがクリックされました");
+            LogModule.LogOutput("インポートボタンがクリックされました");
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "ZIPファイル(*.zip)|*.zip;";
             ofd.Title = "インポートするキャラデータを選択してください";
@@ -328,7 +344,7 @@ namespace digpet
             }
             else
             {
-                LogManager.LogOutput("キャラデータのインポート失敗");
+                LogModule.LogOutput("キャラデータのインポート失敗");
                 MessageBox.Show("キャラデータのインポートに失敗しました", "インポートエラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -348,7 +364,7 @@ namespace digpet
             {
                 return;
             }
-            LogManager.LogOutput("クリアボタンがクリックされました");
+            LogModule.LogOutput("クリアボタンがクリックされました");
             ReWriteCharConfig(string.Empty);
             this.Close();
         }
@@ -360,32 +376,13 @@ namespace digpet
         /// <param name="e"></param>
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            SaveNowWindowState();
+            WindowStateClass state = new WindowStateClass();
+            state.Location = Location;
+            state.Size = Size;
+            state.State = WindowState;
+            WindowModule.SaveNowWindowState(state);
             SettingManager.WriteSettingFile(SETTING_PATH);
-            LogManager.LogOutput("アプリの終了処理終了");
-        }
-
-        /// <summary>
-        /// 現在のウィンドウの状態を設定ファイルにまとめる
-        /// </summary>
-        private void SaveNowWindowState()
-        {
-            SettingManager.PublicSettings.WindowLocation = Location;
-            SettingManager.PublicSettings.WindowSize = Size;
-            SettingManager.PublicSettings.WindowState = GetWindowStateId();
-        }
-
-        /// <summary>
-        /// 現在のウィンドウの状態を設定する
-        /// </summary>
-        private void SetNowWindowState()
-        {
-            Location = SettingManager.PublicSettings.WindowLocation;
-            Size = SettingManager.PublicSettings.WindowSize;
-            WindowState = GetWindowState();
-            this.TopMost = SettingManager.PublicSettings.TopMost;
-            SetControlFontSize();
-            LogManager.LogOutput("設定を復元しました");
+            LogModule.LogOutput("アプリの終了処理終了");
         }
 
         /// <summary>
@@ -400,7 +397,7 @@ namespace digpet
                 SetSatsPanelControlSize(enlarge);
                 SetGeneralLabelControlSize(enlarge);
                 SetButtonControlSize(enlarge);
-                LogManager.LogOutput("フォントの大きさ再設定終了");
+                LogModule.LogOutput("フォントの大きさ再設定終了");
             }
         }
 
@@ -525,73 +522,12 @@ namespace digpet
         }
 
         /// <summary>
-        /// ウィンドウの状態IDを返却する
-        /// </summary>
-        /// <returns>0: 通常, 1: 最大化, 2: 最小化</returns>
-        private int GetWindowStateId()
-        {
-            int wstate = 0;
-
-            switch (WindowState)
-            {
-                case FormWindowState.Normal:
-                    wstate = 0;
-                    break;
-
-                case FormWindowState.Maximized:
-                    wstate = 1;
-                    break;
-
-                case FormWindowState.Minimized:
-                    wstate = 2;
-                    break;
-
-                default:
-                    wstate = 0;
-                    break;
-            }
-
-            return wstate;
-        }
-
-        /// <summary>
-        /// ウィンドウの状態を返却する
-        /// </summary>
-        /// <returns>通常、最大化、最小化</returns>
-        private FormWindowState GetWindowState()
-        {
-            FormWindowState loadState = FormWindowState.Normal;
-
-            switch (SettingManager.PublicSettings.WindowState)
-            {
-                case 0:
-                    loadState = FormWindowState.Normal;
-                    break;
-
-                case 1:
-                    loadState = FormWindowState.Maximized;
-                    break;
-
-
-                case 2:
-                    loadState = FormWindowState.Minimized;
-                    break;
-
-                default:
-                    loadState = FormWindowState.Normal;
-                    break;
-            }
-
-            return loadState;
-        }
-
-        /// <summary>
         /// コントロールの色を設定する
         /// </summary>
         /// <param name="color">色</param>
         private void SetControlColor(Color color)
         {
-            LogManager.LogOutput("コントロールの色を" + color.ToString() + "に設定しました");
+            LogModule.LogOutput("コントロールの色を" + color.ToString() + "に設定しました");
             BackColor = color;
         }
 
@@ -653,7 +589,7 @@ namespace digpet
                             break;
                     }
 
-                    TaskClassInterface sendTask = TaskRun1sTable[i];
+                    TaskClassAbstract sendTask = TaskRun1sTable[i];
 
                     TaskRun1sTable[i].ClassTask = Task.Run(() =>
                     {
@@ -663,7 +599,7 @@ namespace digpet
             }
             catch (Exception ex)
             {
-                ErrorLog.ErrorOutput("タスク実行エラー", ex.Message);
+                ErrorLogModule.ErrorOutput("タスク実行エラー", ex.Message);
             }
         }
 

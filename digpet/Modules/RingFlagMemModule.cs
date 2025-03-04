@@ -9,7 +9,7 @@ namespace digpet.Modules
     /// <summary>
     /// リングバッファのフラグ保持モジュール
     /// </summary>
-    internal class RingFlagMemClass
+    internal class RingFlagMemModule
     {
         //変数宣言
         private bool[] ringBuf = Array.Empty<bool>();
@@ -28,7 +28,7 @@ namespace digpet.Modules
         /// コンストラクタ
         /// </summary>
         /// <param name="size">リングバッファのサイズ</param>
-        public RingFlagMemClass(int size)
+        public RingFlagMemModule(int size)
         {
             ind = 0;
             ringBuf = new bool[size];

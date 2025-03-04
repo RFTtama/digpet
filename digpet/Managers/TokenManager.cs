@@ -180,7 +180,7 @@ namespace digpet.Managers
         {
             TokenExist();
             double appendToken = Math.Sqrt(minToken * GetCpuWeight(isCameraMode)) * 10.0 * TOKEN_CALC_WEIGHT;
-            LogManager.LogOutput("DailyTokenに" + appendToken.ToString() + "が足されました。");
+            LogModule.LogOutput("DailyTokenに" + appendToken.ToString() + "が足されました。");
             _dailyTokens += appendToken;
             WriteTokens();
         }
@@ -213,7 +213,7 @@ namespace digpet.Managers
                 }
                 else
                 {
-                    ErrorLog.ErrorOutput("トークン書き込みエラー", "指定された時間のデータが辞書に存在しません");
+                    ErrorLogModule.ErrorOutput("トークン書き込みエラー", "指定された時間のデータが辞書に存在しません");
                 }
             }
         }
@@ -279,7 +279,7 @@ namespace digpet.Managers
 
             if (ResetHour < 0)
             {
-                ErrorLog.ErrorOutput("トークンリセット時刻読み取りエラー", "トークンのリセット時刻が設定されていません");
+                ErrorLogModule.ErrorOutput("トークンリセット時刻読み取りエラー", "トークンのリセット時刻が設定されていません");
             }
             else
             {
@@ -459,15 +459,15 @@ namespace digpet.Managers
                     _totalTokens.Add(totalMem);
 
 #if DEBUG
-                    LogManager.LogOutput("emoMem: " + emoMem.ToString());
-                    LogManager.LogOutput("totalMem: " + totalMem.ToString());
+                    LogModule.LogOutput("emoMem: " + emoMem.ToString());
+                    LogModule.LogOutput("totalMem: " + totalMem.ToString());
 #endif
 
                 }
             }
             else
             {
-                ErrorLog.ErrorOutput("トークン計算エラー", "指定された日付が辞書に登録されていません");
+                ErrorLogModule.ErrorOutput("トークン計算エラー", "指定された日付が辞書に登録されていません");
             }
         }
     }

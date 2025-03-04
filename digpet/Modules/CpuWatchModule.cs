@@ -6,7 +6,7 @@ namespace digpet.Modules
     /// <summary>
     /// CPU使用率を取得するためのstaticクラス
     /// </summary>
-    internal class CpuWatcher
+    internal class CpuWatchModule
     {
         //クラス
         private CpuWatcherInterface? _interface;
@@ -14,7 +14,7 @@ namespace digpet.Modules
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public CpuWatcher()
+        public CpuWatchModule()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
@@ -27,7 +27,7 @@ namespace digpet.Modules
             else
             {
                 _interface = new OtherCpuWatcher();
-                ErrorLog.ErrorOutput("使用OS取得エラー", "サポートされていないOSでの起動です");
+                ErrorLogModule.ErrorOutput("使用OS取得エラー", "サポートされていないOSでの起動です");
             }
         }
 

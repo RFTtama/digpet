@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace digpet.Modules
 {
-    public static class TaskMessager
+    public static class TaskMessageModule
     {
         public static void OutputMessage(string message, string name)
         {

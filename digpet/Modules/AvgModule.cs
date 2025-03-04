@@ -3,7 +3,7 @@
     /// <summary>
     /// 平均値算出用モジュール
     /// </summary>
-    internal class AvgManager
+    internal class AvgModule
     {
         //変数関連の宣言
         private double _sum;                 //数値合計
@@ -12,7 +12,7 @@
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public AvgManager()
+        public AvgModule()
         {
             Clear();
         }

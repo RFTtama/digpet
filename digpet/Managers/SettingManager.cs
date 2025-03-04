@@ -76,12 +76,12 @@ namespace digpet.Managers
                 {
                     sw.Write(settingString);
                 }
-                LogManager.LogOutput("設定ファイルが正常に書き込まれました");
+                LogModule.LogOutput("設定ファイルが正常に書き込まれました");
             }
             catch (Exception ex)
             {
-                LogManager.LogOutput("設定ファイルの書き込み失敗");
-                ErrorLog.ErrorOutput("設定ファイル初期化エラー", ex.Message);
+                LogModule.LogOutput("設定ファイルの書き込み失敗");
+                ErrorLogModule.ErrorOutput("設定ファイル初期化エラー", ex.Message);
             }
         }
 
@@ -99,12 +99,12 @@ namespace digpet.Managers
                     settingString = sr.ReadToEnd();
                 }
                 PublicSettings = JsonSerializer.Deserialize<DigpetSettings>(settingString) ?? new DigpetSettings();
-                LogManager.LogOutput("設定ファイルが読み込まれました");
+                LogModule.LogOutput("設定ファイルが読み込まれました");
             }
             catch (Exception ex)
             {
-                LogManager.LogOutput("設定ファイルの読み込みに失敗しました");
-                ErrorLog.ErrorOutput("設定ファイル読み取りエラー", ex.Message);
+                LogModule.LogOutput("設定ファイルの読み込みに失敗しました");
+                ErrorLogModule.ErrorOutput("設定ファイル読み取りエラー", ex.Message);
             }
         }
 
