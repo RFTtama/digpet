@@ -131,7 +131,7 @@ namespace digpet
             while (true)
             {
                 string input = Microsoft.VisualBasic.Interaction.InputBox("トークンをリセットする時刻を0～23で設定してください",
-                    "リセット時刻設", "0");
+                    "リセット時刻設定", "0");
 
                 int hour = -1;
 
