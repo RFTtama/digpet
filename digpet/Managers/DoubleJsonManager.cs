@@ -59,18 +59,18 @@ namespace digpet.Managers
                 {
                     //#ifを切り替えると、暗号化ありか無しかがかわる
 #if true
-                    string planeText = Crypter.DecryptString(sr.ReadToEnd(), password);
+                    string planeText = CryptLib.DecryptString(sr.ReadToEnd(), password);
 #else
                     string planeText = sr.ReadToEnd();
 #endif
                     dict = JsonSerializer.Deserialize<Dictionary<string, double>>(planeText) ?? new Dictionary<string, double>();
-                    LogManager.LogOutput("DJファイルの読み取りに成功しました");
+                    LogLib.LogOutput("DJファイルの読み取りに成功しました");
                 }
             }
             catch (Exception ex)
             {
-                LogManager.LogOutput("DJファイルの読み取りに失敗しました");
-                ErrorLog.ErrorOutput("Jsonファイル読み取りエラー", ex.Message);
+                LogLib.LogOutput("DJファイルの読み取りに失敗しました");
+                ErrorLogLib.ErrorOutput("Jsonファイル読み取りエラー", ex.Message);
             }
         }
 
@@ -86,17 +86,17 @@ namespace digpet.Managers
                 {
                     string jsonText = JsonSerializer.Serialize(dict);
 #if true
-                    sw.Write(Crypter.EncryptString(jsonText, password));
+                    sw.Write(CryptLib.EncryptString(jsonText, password));
 #else
                     sw.Write(jsonText);
 #endif
-                    LogManager.LogOutput("DJファイルの書き込みに成功しました");
+                    LogLib.LogOutput("DJファイルの書き込みに成功しました");
                 }
             }
             catch (Exception ex)
             {
-                LogManager.LogOutput("DJファイルの書き込みに失敗しました");
-                ErrorLog.ErrorOutput("Jsonファイル書き込みエラー", ex.Message);
+                LogLib.LogOutput("DJファイルの書き込みに失敗しました");
+                ErrorLogLib.ErrorOutput("Jsonファイル書き込みエラー", ex.Message);
             }
         }
 
@@ -114,7 +114,7 @@ namespace digpet.Managers
                 {
                     string jsonText = JsonSerializer.Serialize(dict);
 #if true
-                    sw.Write(Crypter.EncryptString(jsonText, password));
+                    sw.Write(CryptLib.EncryptString(jsonText, password));
 #else
                     sw.Write(jsonText);
 #endif
@@ -122,7 +122,7 @@ namespace digpet.Managers
             }
             catch (Exception ex)
             {
-                ErrorLog.ErrorOutput("Jsonファイル初期化エラー", ex.Message);
+                ErrorLogLib.ErrorOutput("Jsonファイル初期化エラー", ex.Message);
             }
         }
     }

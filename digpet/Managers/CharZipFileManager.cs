@@ -260,7 +260,7 @@ namespace digpet.Managers
         {
             if (!File.Exists(path))
             {
-                ErrorLog.ErrorOutput("コンフィグファイル確認エラー", "キャラデータが見つかりません");
+                ErrorLogLib.ErrorOutput("コンフィグファイル確認エラー", "キャラデータが見つかりません");
                 return;
             }
 
@@ -274,7 +274,7 @@ namespace digpet.Managers
 
                     if (entry == null)
                     {
-                        ErrorLog.ErrorOutput("コンフィグファイル読み取りエラー", "キャラデータにコンフィグファイルが含まれていません");
+                        ErrorLogLib.ErrorOutput("コンフィグファイル読み取りエラー", "キャラデータにコンフィグファイルが含まれていません");
                         return;
                     }
 
@@ -286,7 +286,7 @@ namespace digpet.Managers
             }
             catch (Exception ex)
             {
-                ErrorLog.ErrorOutput("コンフィグファイル読み取りエラー", ex.Message);
+                ErrorLogLib.ErrorOutput("コンフィグファイル読み取りエラー", ex.Message);
             }
         }
 
@@ -308,13 +308,13 @@ namespace digpet.Managers
                 }
                 else
                 {
-                    ErrorLog.ErrorOutput("キャラファイルバージョンエラー", "キャラファイルのバージョンがサポートされている最大のバージョン("
+                    ErrorLogLib.ErrorOutput("キャラファイルバージョンエラー", "キャラファイルのバージョンがサポートされている最大のバージョン("
                         + SettingManager.PrivateSettings.CHAR_FORMAT_VERSION + ")より大きいです");
                 }
             }
             else
             {
-                ErrorLog.ErrorOutput("キャラファイルバージョンエラー", "バージョン情報が正常に設定されませんでした");
+                ErrorLogLib.ErrorOutput("キャラファイルバージョンエラー", "バージョン情報が正常に設定されませんでした");
             }
 
             return ret;
@@ -364,7 +364,7 @@ namespace digpet.Managers
             }
             catch (Exception ex)
             {
-                ErrorLog.ErrorOutput("イメージ読み取りエラー", ex.Message);
+                ErrorLogLib.ErrorOutput("イメージ読み取りエラー", ex.Message);
             }
         }
 
@@ -416,25 +416,25 @@ namespace digpet.Managers
                     Settings? settings_tmp = JsonSerializer.Deserialize<Settings>(jsonText);
                     if (settings_tmp == null)
                     {
-                        LogManager.LogOutput("キャラファイルのコンフィグデータ読み込みに失敗しました");
-                        ErrorLog.ErrorOutput("コンフィグ読み取りエラー", "コンフィグデータがNULLです");
+                        LogLib.LogOutput("キャラファイルのコンフィグデータ読み込みに失敗しました");
+                        ErrorLogLib.ErrorOutput("コンフィグ読み取りエラー", "コンフィグデータがNULLです");
                     }
                     else if (string.IsNullOrEmpty(settings_tmp.charSettings.name))
                     {
-                        LogManager.LogOutput("設定ファイルが正しく読み取られませんでした");
-                        ErrorLog.ErrorOutput("コンフィグ読み取りエラー", "キャラファイルのコンフィグデータが正しく設定されていない可能性があります");
+                        LogLib.LogOutput("設定ファイルが正しく読み取られませんでした");
+                        ErrorLogLib.ErrorOutput("コンフィグ読み取りエラー", "キャラファイルのコンフィグデータが正しく設定されていない可能性があります");
                     }
                     else
                     {
-                        LogManager.LogOutput("キャラファイルのコンフィグデータが正常に読み込まれました");
+                        LogLib.LogOutput("キャラファイルのコンフィグデータが正常に読み込まれました");
                         _settings = settings_tmp;
                         ret = 0;
                     }
                 }
                 catch (Exception ex)
                 {
-                    LogManager.LogOutput("キャラファイルのコンフィグデータ読み込みに失敗しました");
-                    ErrorLog.ErrorOutput("コンフィグ読み取りエラー", ex.Message);
+                    LogLib.LogOutput("キャラファイルのコンフィグデータ読み込みに失敗しました");
+                    ErrorLogLib.ErrorOutput("コンフィグ読み取りエラー", ex.Message);
                 }
 
                 return ret;

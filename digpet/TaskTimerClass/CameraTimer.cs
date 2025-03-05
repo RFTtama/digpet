@@ -1,5 +1,6 @@
-﻿using digpet.Interface;
-using digpet.Managers;
+﻿using digpet.Managers;
+using digpet.Managers.GenerakManager;
+using digpet.Models.AbstractModels;
 using digpet.Modules;
 using digpet.Properties;
 using OpenCvSharp;
@@ -14,7 +15,7 @@ namespace digpet.TimerClass
     /// <summary>
     /// カメラ用管理クラス
     /// </summary>
-    internal class CameraTimer : TaskClassInterface
+    internal class CameraTimer : TaskClassModel
     {
         //変数宣言
         private bool _cameraDisable = false;
@@ -105,7 +106,7 @@ namespace digpet.TimerClass
             }
             else
             {
-                LogManager.LogOutput("カスケードファイルの読み取りに失敗しました");
+                LogLib.LogOutput("カスケードファイルの読み取りに失敗しました");
                 DisposeCapture();
             }
         }
@@ -185,7 +186,7 @@ namespace digpet.TimerClass
             if (ringMem.GetTotalOfTrue() >= SettingManager.PublicSettings.CameraDisableThreshold)
             {
                 DisposeCapture();
-                LogManager.LogOutput("カメラタスクの実行に複数回失敗したため、機能を無効にしました");
+                LogLib.LogOutput("カメラタスクの実行に複数回失敗したため、機能を無効にしました");
                 return false;
             }
 
@@ -228,13 +229,13 @@ namespace digpet.TimerClass
             {
                 if(!capture.Read(flame))
                 {
-                    ErrorLog.ErrorOutput("写真撮影エラー", "写真の撮影に失敗しました");
+                    ErrorLogLib.ErrorOutput("写真撮影エラー", "写真の撮影に失敗しました");
                     return null;
                 }
 
                 if (flame.Empty())
                 {
-                    ErrorLog.ErrorOutput("写真撮影エラー", "写真が空です");
+                    ErrorLogLib.ErrorOutput("写真撮影エラー", "写真が空です");
                     return null;
                 }
 
@@ -275,7 +276,7 @@ namespace digpet.TimerClass
             //matがnullならfalseを返却
             if (mat == null)
             {
-                ErrorLog.ErrorOutput("顔検出エラー", "渡された画像がnullです");
+                ErrorLogLib.ErrorOutput("顔検出エラー", "渡された画像がnullです");
                 return -1;
             }
 
@@ -289,7 +290,7 @@ namespace digpet.TimerClass
 
                 if (faces == null)
                 {
-                    ErrorLog.ErrorOutput("顔検出エラー", "顔の検出が失敗しました");
+                    ErrorLogLib.ErrorOutput("顔検出エラー", "顔の検出が失敗しました");
                     return -1;
                 }
 
@@ -306,7 +307,7 @@ namespace digpet.TimerClass
 
             _avgCalcFlg = true;
             detectAvgManager.Clear();
-            LogManager.LogOutput("分毎トークンの算出完了");
+            LogLib.LogOutput("分毎トークンの算出完了");
         }
 
         /// <summary>

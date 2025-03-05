@@ -5,7 +5,7 @@ namespace digpet.Modules
     /// <summary>
     /// エラー出力クラス
     /// </summary>
-    static class ErrorLog
+    static class ErrorLogLib
     {
         /// <summary>
         /// エラーを出力する
@@ -21,11 +21,11 @@ namespace digpet.Modules
                 {
                     sw.WriteLine(DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss [") + name + "]" + msg + "\r\n");
                 }
-                if (show) TaskMessager.OutputMessage(msg, name, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (show) TaskMessageLib.OutputMessage(msg, name, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                TaskMessager.OutputMessage(ex.Message, "エラー出力エラー");
+                TaskMessageLib.OutputMessage(ex.Message, "エラー出力エラー");
             }
         }
 

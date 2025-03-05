@@ -1,6 +1,5 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using digpet.Modules;
 using System.Text.Json;
-using digpet.Modules;
 
 namespace digpet.Managers
 {
@@ -76,12 +75,12 @@ namespace digpet.Managers
                 {
                     sw.Write(settingString);
                 }
-                LogManager.LogOutput("設定ファイルが正常に書き込まれました");
+                LogLib.LogOutput("設定ファイルが正常に書き込まれました");
             }
             catch (Exception ex)
             {
-                LogManager.LogOutput("設定ファイルの書き込み失敗");
-                ErrorLog.ErrorOutput("設定ファイル初期化エラー", ex.Message);
+                LogLib.LogOutput("設定ファイルの書き込み失敗");
+                ErrorLogLib.ErrorOutput("設定ファイル初期化エラー", ex.Message);
             }
         }
 
@@ -99,12 +98,12 @@ namespace digpet.Managers
                     settingString = sr.ReadToEnd();
                 }
                 PublicSettings = JsonSerializer.Deserialize<DigpetSettings>(settingString) ?? new DigpetSettings();
-                LogManager.LogOutput("設定ファイルが読み込まれました");
+                LogLib.LogOutput("設定ファイルが読み込まれました");
             }
             catch (Exception ex)
             {
-                LogManager.LogOutput("設定ファイルの読み込みに失敗しました");
-                ErrorLog.ErrorOutput("設定ファイル読み取りエラー", ex.Message);
+                LogLib.LogOutput("設定ファイルの読み込みに失敗しました");
+                ErrorLogLib.ErrorOutput("設定ファイル読み取りエラー", ex.Message);
             }
         }
 

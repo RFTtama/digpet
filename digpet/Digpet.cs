@@ -1,5 +1,5 @@
-using digpet.Interface;
 using digpet.Managers;
+using digpet.Models.AbstractModels;
 using digpet.Modules;
 using digpet.TaskTimerClass;
 using digpet.TimerClass;
@@ -20,7 +20,7 @@ namespace digpet
         private const int FONT_MARGIN_SIZE = 5;
 
         //テーブル宣言
-        private TaskClassInterface[]? TaskRun1sTable;
+        private List<TaskClassModel> taskQueue = new List<TaskClassModel>();
 
         //タスククラス宣言
         private CpuAvgCalcTimer cpuAvgCalcTimer = new CpuAvgCalcTimer();
@@ -34,7 +34,7 @@ namespace digpet
         {
             InitializeComponent();
             Init();
-            LogManager.LogOutput("初期化が完了しました");
+            LogLib.LogOutput("初期化が完了しました");
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace digpet
             gotNormalImage = true;
 
             //1sタスク関数テーブルを設定する
-            TaskRun1sTable =
+            taskQueue =
                 [
                     gcTimer,
                     cpuAvgCalcTimer,
@@ -140,7 +140,7 @@ namespace digpet
                     if (hour >= 0 && hour < 24)
                     {
                         SettingManager.PublicSettings.ResetHour = hour;
-                        LogManager.LogOutput("リセット時刻を" + hour.ToString() + "に設定しました");
+                        LogLib.LogOutput("リセット時刻を" + hour.ToString() + "に設定しました");
                         return hour;
                     }
                 }
@@ -154,7 +154,7 @@ namespace digpet
         {
             if (SettingManager.PublicSettings.CharSettingPath == null)
             {
-                ErrorLog.ErrorOutput("キャラファイル読み取りエラー", "設定されているキャラファイルのパスがnullか空です");
+                ErrorLogLib.ErrorOutput("キャラファイル読み取りエラー", "設定されているキャラファイルのパスがnullか空です");
             }
             else if (SettingManager.PublicSettings.CharSettingPath == string.Empty)
             {
@@ -209,7 +209,7 @@ namespace digpet
             FlopsLabel.Text = "FLOPS: " + tokenManager.Flops.ToString();
             TotalTokenLabel.Text = "累計トークン: " + (tokenManager.TotalTokens).ToString("n2");
             IntimacyLabel.Text = charZipFileManager.GetIntimacyTag() + GetIntimacy(tokenManager.TotalTokens);
-            LogManager.LogOutput("表示されているトークン情報の更新完了");
+            LogLib.LogOutput("表示されているトークン情報の更新完了");
         }
 
         /// <summary>
@@ -224,7 +224,7 @@ namespace digpet
 
             if ((image == null) && (gotNormalImage == true))
             {
-                LogManager.LogOutput("画像が設定されませんでした");
+                LogLib.LogOutput("画像が設定されませんでした");
                 return;
             }
 
@@ -317,7 +317,7 @@ namespace digpet
         /// <param name="e"></param>
         private void ImportButton_Click(object sender, EventArgs e)
         {
-            LogManager.LogOutput("インポートボタンがクリックされました");
+            LogLib.LogOutput("インポートボタンがクリックされました");
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "ZIPファイル(*.zip)|*.zip;";
             ofd.Title = "インポートするキャラデータを選択してください";
@@ -328,7 +328,7 @@ namespace digpet
             }
             else
             {
-                LogManager.LogOutput("キャラデータのインポート失敗");
+                LogLib.LogOutput("キャラデータのインポート失敗");
                 MessageBox.Show("キャラデータのインポートに失敗しました", "インポートエラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -348,7 +348,7 @@ namespace digpet
             {
                 return;
             }
-            LogManager.LogOutput("クリアボタンがクリックされました");
+            LogLib.LogOutput("クリアボタンがクリックされました");
             ReWriteCharConfig(string.Empty);
             this.Close();
         }
@@ -362,7 +362,7 @@ namespace digpet
         {
             SaveNowWindowState();
             SettingManager.WriteSettingFile(SETTING_PATH);
-            LogManager.LogOutput("アプリの終了処理終了");
+            LogLib.LogOutput("アプリの終了処理終了");
         }
 
         /// <summary>
@@ -385,7 +385,7 @@ namespace digpet
             WindowState = GetWindowState();
             this.TopMost = SettingManager.PublicSettings.TopMost;
             SetControlFontSize();
-            LogManager.LogOutput("設定を復元しました");
+            LogLib.LogOutput("設定を復元しました");
         }
 
         /// <summary>
@@ -400,7 +400,7 @@ namespace digpet
                 SetSatsPanelControlSize(enlarge);
                 SetGeneralLabelControlSize(enlarge);
                 SetButtonControlSize(enlarge);
-                LogManager.LogOutput("フォントの大きさ再設定終了");
+                LogLib.LogOutput("フォントの大きさ再設定終了");
             }
         }
 
@@ -591,7 +591,7 @@ namespace digpet
         /// <param name="color">色</param>
         private void SetControlColor(Color color)
         {
-            LogManager.LogOutput("コントロールの色を" + color.ToString() + "に設定しました");
+            LogLib.LogOutput("コントロールの色を" + color.ToString() + "に設定しました");
             BackColor = color;
         }
 
@@ -634,28 +634,28 @@ namespace digpet
         {
             try
             {
-                if (TaskRun1sTable == null) return;
+                if (taskQueue == null) return;
 
                 General1sTimerFunc();
 
                 //タスクテーブルに設定されているタスククラスの関数を順番に実行する
-                for (int i = 0; i < TaskRun1sTable.Length; i++)
+                for (int i = 0; i < taskQueue.Count; i++)
                 {
-                    if (TaskRun1sTable[i] == null) continue;
+                    if (taskQueue[i] == null) continue;
 
-                    switch (TaskRun1sTable[i].ClassTask.Status)
+                    switch (taskQueue[i].ClassTask.Status)
                     {
                         case TaskStatus.Running:
-                            TaskRun1sTable[i].TaskCheckRet(TaskReturn.TASK_BLOCKED);
+                            taskQueue[i].TaskCheckRet(TaskReturn.TASK_BLOCKED);
                             continue;
 
                         default:
                             break;
                     }
 
-                    TaskClassInterface sendTask = TaskRun1sTable[i];
+                    TaskClassModel sendTask = taskQueue[i];
 
-                    TaskRun1sTable[i].ClassTask = Task.Run(() =>
+                    taskQueue[i].ClassTask = Task.Run(() =>
                     {
                         sendTask.TaskCheckRet(sendTask.TaskFunc());
                     });
@@ -663,9 +663,10 @@ namespace digpet
             }
             catch (Exception ex)
             {
-                ErrorLog.ErrorOutput("タスク実行エラー", ex.Message);
+                ErrorLogLib.ErrorOutput("タスク実行エラー", ex.Message);
             }
         }
+
 
         /// <summary>
         /// 全体の1s毎処理

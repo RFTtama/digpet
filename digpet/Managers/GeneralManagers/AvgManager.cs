@@ -1,4 +1,4 @@
-﻿namespace digpet.Modules
+﻿namespace digpet.Managers.GenerakManager
 {
     /// <summary>
     /// 平均値算出用モジュール
