@@ -1,9 +1,9 @@
-﻿namespace digpet.Interface
+﻿namespace digpet.Models.AbstractModels
 {
     /// <summary>
     /// タスク処理用基底クラス
     /// </summary>
-    public abstract class TaskClassInterface
+    public abstract class TaskClassModel
     {
         //タスク保持用変数
         public Task ClassTask = Task.Run(() => { });

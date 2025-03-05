@@ -2,7 +2,7 @@
 
 namespace digpet.Modules
 {
-    internal static class LogManager
+    internal static class LogLib
     {
         /// <summary>
         /// ログを出力する
@@ -19,7 +19,7 @@ namespace digpet.Modules
             }
             catch (Exception ex)
             {
-                ErrorLog.ErrorOutput("ログ書き込みエラー", ex.Message);
+                ErrorLogLib.ErrorOutput("ログ書き込みエラー", ex.Message);
             }
         }
     }

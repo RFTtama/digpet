@@ -3,7 +3,7 @@ using System.Text;
 
 namespace digpet.Modules
 {
-    internal static class Crypter
+    internal static class CryptLib
     {
         /// <summary>
         /// 文字列を暗号化する

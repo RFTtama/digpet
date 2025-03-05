@@ -1,11 +1,11 @@
-﻿using digpet.Interface;
+﻿using digpet.Models.AbstractModels;
 
 namespace digpet.TaskTimerClass
 {
     /// <summary>
     /// ガーベジコレクタ
     /// </summary>
-    internal class GCTimer : TaskClassInterface
+    internal class GCTimer : TaskClassModel
     {
 
         public override TaskReturn TaskFunc()
