@@ -1,5 +1,7 @@
 ﻿using digpet.Managers.GeneralManager;
 using digpet.Modules;
+using ScottPlot;
+using ScottPlot.Plottables;
 
 namespace digpet.Managers
 {
@@ -109,6 +111,28 @@ namespace digpet.Managers
             set
             {
                 _resetHour = value;
+            }
+        }
+
+        /// <summary>
+        /// 感情トークンの配列
+        /// </summary>
+        private double[] EmoTokenArray
+        {
+            get
+            {
+                return _emotionTokens.ToArray();
+            }
+        }
+
+        /// <summary>
+        /// 累計トークンの配列
+        /// </summary>
+        private double[] TotalTokenArray
+        {
+            get
+            {
+                return _totalTokens.ToArray();
             }
         }
 
@@ -351,6 +375,11 @@ namespace digpet.Managers
 
             _averageEmotionTokens = CalcAverageEmotionTokensV2();
             _feeling = CalcFeeling();
+
+            if (SettingManager.PublicSettings.SaveTokenPlot)
+            {
+                SaveTokenPlot("TokenPlot.png");
+            }
         }
 
         /// <summary>
@@ -470,6 +499,37 @@ namespace digpet.Managers
             {
                 ErrorLogLib.ErrorOutput("トークン計算エラー", "指定された日付が辞書に登録されていません");
             }
+        }
+
+        /// <summary>
+        /// トークンのプロットを保存する
+        /// </summary>
+        /// <param name="picName">保存する画像名</param>
+        /// <returns>true: 正常, false: 異常</returns>
+        private void SaveTokenPlot(string picName)
+        {
+            Plot plot = new Plot();
+            int[] x = new int[_emotionTokens.Count];
+
+            for (int i = 0; i < _emotionTokens.Count; i++)
+            {
+                x[i] = i;
+            }
+
+            Signal s1 = plot.Add.Signal(EmoTokenArray);
+            Signal s2 = plot.Add.Signal(TotalTokenArray);
+
+            s1.LegendText = "Emotion Tokens";
+            s2.LegendText = "Total Tokens";
+
+            plot.XLabel("Days");
+            plot.YLabel("Tokens Amount");
+
+            plot.Title("Token Amount Transition");
+
+            plot.GetImage(1024, 512).Save(picName);
+
+            LogLib.LogOutput("トークンプロットを保存しました");
         }
     }
 }

@@ -148,7 +148,6 @@ namespace digpet.TimerClass
         /// </summary>
         private void CalcProcess()
         {
-            Debug.Print(cameraCnt.ToString());
             if ((cameraCnt > 0) && ((cameraCnt % 60) == 0))
             {
                 //検出の平均を取得し、トークンを計算する
