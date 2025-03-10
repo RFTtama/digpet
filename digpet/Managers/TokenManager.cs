@@ -2,6 +2,7 @@
 using digpet.Modules;
 using ScottPlot;
 using ScottPlot.Plottables;
+using System.Diagnostics;
 
 namespace digpet.Managers
 {
@@ -509,12 +510,6 @@ namespace digpet.Managers
         private void SaveTokenPlot(string picName)
         {
             Plot plot = new Plot();
-            int[] x = new int[_emotionTokens.Count];
-
-            for (int i = 0; i < _emotionTokens.Count; i++)
-            {
-                x[i] = i;
-            }
 
             Signal s1 = plot.Add.Signal(EmoTokenArray);
             Signal s2 = plot.Add.Signal(TotalTokenArray);
