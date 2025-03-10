@@ -23,6 +23,7 @@ namespace digpet.Managers
             public const string LOG_PATH = "Log.txt";                                       //ログファイルのパス
             public const string TOKEN_PATH = "TOKENS.dig";                                  //トークンファイルのパス
             public const string CASCADE_PATH = "haarcascade_frontalface_default.xml";       //カスケードファイルのパス
+            public const string PLOT_PATH = "plot.png";                                     //プロット画像のパス
 
 #if DEBUG
             public const string DEBUG_APPENDANCE = "-preview";                                //デバッグ判別用
@@ -146,6 +147,9 @@ namespace digpet.Managers
             //10回中何回タスクの実行遅延したら機能を無効にするか
             public uint CameraDisableThreshold { get; set; }
 
+            //トークンプロットの保存
+            public bool SaveTokenPlot { get; set; }
+
             /// <summary>
             /// コンストラクタ
             /// 初期値に初期化する
@@ -163,6 +167,7 @@ namespace digpet.Managers
                 EnableCameraMode = false;
                 CameraId = 0;
                 CameraDisableThreshold = 1;
+                SaveTokenPlot = true;
             }
         }
     }
