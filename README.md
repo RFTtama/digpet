@@ -48,12 +48,10 @@
 > config.jsonのCameraDisableThresholdの数値を変更してください。
 
 ## Licenses
-> [!INFO]
 > This project uses OpenCV, which is licensed under the Apache License 2.0.<br>
 > The OpenCV package was built by schimatk.<br>
 > See [OpenCvSharp4](https://github.com/shimat/opencvsharp) and [OpenCV GitHub repository](https://github.com/opencv/opencv) for details.<br>
 
-> [!INFO]
 > This project uses the following libraries licensed under the MIT License:
 > 
 > - [scottPlot](https://github.com/ScottPlot/ScottPlot)
