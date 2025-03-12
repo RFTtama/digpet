@@ -32,7 +32,8 @@
 サンプルキャラファイル: [Moni V1.00.02.zip](https://github.com/user-attachments/files/18813168/Moni.V1.00.02.zip)
 
 ## Webカメラを使用した機能の使用方法
-1. 設定ファイル(config.json)内の、EnableCameraModeをオン(true)にします。
+1. アプリを起動中の場合は、アプリを終了します。
+2. 設定ファイル(config.json)内の、EnableCameraModeをオン(true)にします。
 
 
 ## Licenses
