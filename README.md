@@ -45,6 +45,7 @@
 
 > [!NOTE]
 > 数秒間カメラモードになり、すぐにCPUモードに変わってしまう場合は、
+> config.jsonのCameraDisableThresholdの数値を変更してください。
 
 ## Licenses
 This project uses OpenCV, which is licensed under the Apache License 2.0.<br>
