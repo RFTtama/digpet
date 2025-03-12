@@ -52,4 +52,9 @@ This project uses OpenCV, which is licensed under the Apache License 2.0.<br>
 The OpenCV package was built by schimatk.<br>
 See [OpenCvSharp4](https://github.com/shimat/opencvsharp) and [OpenCV GitHub repository](https://github.com/opencv/opencv) for details.<br>
 
-This project uses ScottPlot, which is licensed under the MIT.
+This project uses the following libraries licensed under the MIT License:
+
+- [scottPlot](https://github.com/ScottPlot/ScottPlot)
+
+The copyright of these libraries belongs to their respective authors.  
+For details about the MIT License of each library, please refer to the official repository or the provided license file.
