@@ -40,8 +40,11 @@
 6. アプリを起動します。
 
 > [!NOTE]
-> 検出が無しの場合は、有効なカメラが選択されていない可能性があります。
-> config.jsonからCameraIdの値を変更して、再度起動してください。
+> 機能を有効にしても、顔の検出が無しのままである場合は、有効なカメラが選択されていない可能性があります。
+> config.jsonのCameraIdの値を変更して、再度起動してください。
+
+> [!NOTE]
+> 数秒間カメラモードになり、すぐにCPUモードに変わってしまう場合は、
 
 ## Licenses
 This project uses OpenCV, which is licensed under the Apache License 2.0.<br>
