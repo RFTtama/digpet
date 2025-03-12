@@ -34,7 +34,14 @@
 ## Webカメラを使用した機能の使用方法
 1. アプリを終了します。(起動中の場合)
 2. digpet.exeの保存されているディレクトリから、config.jsonを探します。
+3. config.jsonをテキストエディタで開きます。
+4. EnableCameraModeを探します。
+5. EnableCameraModeの値を"false"から"true"に変更します。
+6. アプリを起動します。
 
+> [!NOTE]
+> 検出が無しの場合は、有効なカメラが選択されていない可能性があります。
+> config.jsonからCameraIdの値を変更して、再度起動してください。
 
 ## Licenses
 This project uses OpenCV, which is licensed under the Apache License 2.0.<br>
