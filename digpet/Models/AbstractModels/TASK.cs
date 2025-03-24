@@ -1,5 +1,7 @@
 ﻿namespace digpet.Models.AbstractModels
 {
+    //将来的にはTaskCancellerTokenで停止できるようにする
+
     /// <summary>
     /// タスク処理定義用abstract
     /// </summary>
@@ -32,11 +34,16 @@
             get { return _timeStamp; }
         }
 
-        //Mainの戻り値
+        /// <summary>
+        /// Mainでreturnしなければいけない列挙型
+        /// 正常終了はNormal
+        /// 異常終了はAbnormal
+        /// 異常終了の場合はTASK処理を終了する
+        /// </summary>
         protected enum TaskReturn
         {
             Normal,
-            End
+            Abnormal
         }
 
         /// <summary>
@@ -69,7 +76,7 @@
 
                 TaskReturn ret = Main();
 
-                if (ret == TaskReturn.End) break;
+                if (ret == TaskReturn.Abnormal) break;
 
                 _timeStamp = DateTime.Now;
             }

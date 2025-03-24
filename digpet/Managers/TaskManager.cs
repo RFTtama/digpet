@@ -14,5 +14,20 @@ namespace digpet.Managers
         {
             Tasks = new TASK[maxTaskNum];
         }
+
+        /// <summary>
+        /// 登録されているTASKを一斉に実行する
+        /// </summary>
+        public void TaskRun()
+        {
+            //複数回実行してもタスクが重複することはないが、注意すること
+            foreach (TASK task in Tasks)
+            {
+                Task.Run(async () =>
+                {
+                    await task.Program();
+                });
+            }
+        }
     }
 }
