@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace digpet.Managers
 {
-    internal class TokenManager
+    public class TokenManager
     {
         //クラス関連の宣言
         private DoubleJsonManager djm = new DoubleJsonManager(TOKEN_PASS);                  //(string, double)のJSONファイルの管理クラス

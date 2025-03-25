@@ -2,12 +2,7 @@
 using digpet.Managers.GenerakManager;
 using digpet.Models.AbstractModels;
 using digpet.Modules;
-using digpet.Properties;
 using OpenCvSharp;
-using OpenCvSharp.ML;
-using System.Diagnostics;
-using System.Net.Http.Headers;
-using System.Reflection;
 
 namespace digpet.TimerClass
 {
@@ -15,7 +10,7 @@ namespace digpet.TimerClass
     /// <summary>
     /// カメラ用管理クラス
     /// </summary>
-    internal class CameraTimer : TaskClassModel
+    public class CameraTimer : TaskClassModel
     {
         //変数宣言
         private bool _cameraDisable = false;
@@ -41,7 +36,7 @@ namespace digpet.TimerClass
             get { return _avgCalcFlg; }
         }
         public double DetectAvg
-        { 
+        {
             get { return _detectAvg; }
         }
         public bool CameraDisable
@@ -50,29 +45,34 @@ namespace digpet.TimerClass
         }
 
         /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        public CameraTimer()
+        {
+            Init();
+        }
+
+        /// <summary>
         /// カメラ関連の初期化
         /// </summary>
         public void Init()
         {
-            Task.Run(() =>
-            {
-                InitClassifier();
+            InitClassifier();
 
-                if (CheckCameraModeEnable())
-                {
-                    SetCaptureSettings();
-                    capture.Open(SettingManager.PublicSettings.CameraId);
-                    if (!capture.IsOpened())
-                    {
-                        DisposeCapture();
-                    }
-                }
-                else
+            if (CheckCameraModeEnable())
+            {
+                SetCaptureSettings();
+                capture.Open(SettingManager.PublicSettings.CameraId);
+                if (!capture.IsOpened())
                 {
                     DisposeCapture();
                 }
-                init = true;
-            });
+            }
+            else
+            {
+                DisposeCapture();
+            }
+            init = true;
         }
 
         /// <summary>
@@ -226,7 +226,7 @@ namespace digpet.TimerClass
         {
             using (Mat flame = new Mat())
             {
-                if(!capture.Read(flame))
+                if (!capture.Read(flame))
                 {
                     ErrorLogLib.ErrorOutput("写真撮影エラー", "写真の撮影に失敗しました");
                     return null;
