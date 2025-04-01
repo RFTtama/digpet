@@ -27,6 +27,7 @@ namespace digpet
 
             tokenManager = arg.tokenManager;
             charZipFileManager = arg.charZipFileManager;
+            arg.CpuUsageLabelUpdate = UpdateCpuLabel;
 
             Init();
             LogLib.LogOutput("‰Šú‰»‚ªŠ®—¹‚µ‚Ü‚µ‚½");
@@ -57,7 +58,8 @@ namespace digpet
         {
             if (InvokeRequired)
             {
-                Invoke(new Action<string>(UpdateCpuLabel), label);
+                Invoke(new Action(() => CpuUsageLabel.Text = label));
+                Invoke(new Action(UpdateDetailLabels));
             }
             else
             {

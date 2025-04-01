@@ -2,6 +2,7 @@
 using digpet.Modules;
 using digpet.TaskTimerClass;
 using digpet.TimerClass;
+using System.Xml.Xsl;
 
 namespace digpet.Managers
 {
@@ -156,7 +157,7 @@ namespace digpet.Managers
         /// <param name="label"></param>
         private void SetCpuUsageLabel(string label)
         {
-            CpuUsageLabelDel?.Invoke(label);
+            arg.CpuUsageLabelUpdate?.Invoke(label);
         }
     }
 
@@ -164,5 +165,8 @@ namespace digpet.Managers
     {
         public TokenManager tokenManager = new TokenManager();
         public CharZipFileManager charZipFileManager = new CharZipFileManager();
+        public SetCpuUsageLabel? CpuUsageLabelUpdate;
+
+        public delegate void SetCpuUsageLabel(string label);
     }
 }
