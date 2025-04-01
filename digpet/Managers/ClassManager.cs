@@ -148,7 +148,7 @@ namespace digpet.Managers
                 arg.tokenManager.AddTokens(cpuAvgCalcTimer.CpuAvg, false);
                 cpuAvgCalcTimer.ClearCpuAvg();
             }
-            SetCpuUsageLabel("CPU: " + cpuAvgCalcTimer.CpuAvg.ToString("n2") + "%");
+            SetCpuUsageLabel("CPU: " + cpuAvgCalcTimer.CpuUsage.ToString("n2") + "%");
         }
 
         /// <summary>
