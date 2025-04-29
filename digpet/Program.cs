@@ -1,3 +1,4 @@
+using digpet.Managers;
 using digpet.Modules;
 
 namespace digpet
@@ -40,7 +41,13 @@ namespace digpet
                 }
 
                 ApplicationConfiguration.Initialize();
-                Application.Run(new Digpet());
+
+                SettingManager.ReadSettingFile(SettingManager.PrivateSettings.SETTING_PATH);
+
+                ClassManager cm = new ClassManager();
+                Digpet digpet = new Digpet(cm.arg);
+
+                Application.Run(digpet);
             }
             catch (Exception ex)
             {

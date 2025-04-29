@@ -8,7 +8,7 @@ namespace digpet.TimerClass
     /// CPU使用率を管理するためのマネージャ
     /// </summary>
     /// 
-    internal class CpuAvgCalcTimer : TaskClassModel
+    public class CpuAvgCalcTimer : TaskClassModel
     {
         //変数宣言
         private uint cpuCnt = 0;

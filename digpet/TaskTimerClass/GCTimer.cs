@@ -5,7 +5,7 @@ namespace digpet.TaskTimerClass
     /// <summary>
     /// ガーベジコレクタ
     /// </summary>
-    internal class GCTimer : TaskClassModel
+    public class GCTimer : TaskClassModel
     {
 
         public override TaskReturn TaskFunc()

@@ -2,10 +2,11 @@
 using digpet.Modules;
 using ScottPlot;
 using ScottPlot.Plottables;
+using System.Diagnostics;
 
 namespace digpet.Managers
 {
-    internal class TokenManager
+    public class TokenManager
     {
         //クラス関連の宣言
         private DoubleJsonManager djm = new DoubleJsonManager(TOKEN_PASS);                  //(string, double)のJSONファイルの管理クラス
@@ -509,12 +510,6 @@ namespace digpet.Managers
         private void SaveTokenPlot(string picName)
         {
             Plot plot = new Plot();
-            int[] x = new int[_emotionTokens.Count];
-
-            for (int i = 0; i < _emotionTokens.Count; i++)
-            {
-                x[i] = i;
-            }
 
             Signal s1 = plot.Add.Signal(EmoTokenArray);
             Signal s2 = plot.Add.Signal(TotalTokenArray);

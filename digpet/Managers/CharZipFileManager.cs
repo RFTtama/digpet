@@ -6,7 +6,7 @@ using digpet.Modules;
 
 namespace digpet.Managers
 {
-    internal class CharZipFileManager
+    public class CharZipFileManager
     {
         //クラス宣言
         private CharSettingManager _charSettingManager = new CharSettingManager();          //キャラクターファイルの設定クラス

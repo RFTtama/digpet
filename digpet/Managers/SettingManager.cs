@@ -22,6 +22,7 @@ namespace digpet.Managers
             public const string ERRORLOG_PATH = "errorLog.txt";                             //エラーログのパス
             public const string LOG_PATH = "Log.txt";                                       //ログファイルのパス
             public const string TOKEN_PATH = "TOKENS.dig";                                  //トークンファイルのパス
+            public const string SETTING_PATH = "settings.json";                             //設定ファイルのパス
             public const string CASCADE_PATH = "haarcascade_frontalface_default.xml";       //カスケードファイルのパス
             public const string PLOT_PATH = "plot.png";                                     //プロット画像のパス
 
