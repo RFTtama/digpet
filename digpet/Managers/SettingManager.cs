@@ -25,9 +25,10 @@ namespace digpet.Managers
             public const string SETTING_PATH = "settings.json";                             //設定ファイルのパス
             public const string CASCADE_PATH = "haarcascade_frontalface_default.xml";       //カスケードファイルのパス
             public const string PLOT_PATH = "plot.png";                                     //プロット画像のパス
+            public const string LOG_DIRECTORY = "Logs";                                     //ログフォルダのディレクトリ
 
 #if DEBUG
-            public const string DEBUG_APPENDANCE = "-preview";                                //デバッグ判別用
+            public const string DEBUG_APPENDANCE = "-preview";                              //デバッグ判別用
 #else
         public const string DEBUG_APPENDANCE    = "";                                   //デバッグ判別用
 #endif
