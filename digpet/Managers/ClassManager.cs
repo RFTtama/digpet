@@ -87,6 +87,10 @@ namespace digpet.Managers
                     });
                 }
             }
+            catch (ObjectDisposedException)
+            {
+                //Digpet終了時のエラー回避用
+            }
             catch (Exception ex)
             {
                 ErrorLogLib.ErrorOutput("タスク実行エラー", ex.Message);

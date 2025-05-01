@@ -151,6 +151,9 @@ namespace digpet.Managers
             //トークンプロットの保存
             public bool SaveTokenPlot { get; set; }
 
+            //ガーベジコレクタを実行するマネージドメモリ使用量(bytes)
+            public long GcThreshold { get; set; }
+
             /// <summary>
             /// コンストラクタ
             /// 初期値に初期化する
@@ -169,6 +172,7 @@ namespace digpet.Managers
                 CameraId = 0;
                 CameraDisableThreshold = 1;
                 SaveTokenPlot = true;
+                GcThreshold = 20000000;
             }
         }
     }
