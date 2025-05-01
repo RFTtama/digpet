@@ -1,4 +1,5 @@
 ﻿using digpet.Managers;
+using System.Globalization;
 
 namespace digpet.Modules
 {
@@ -12,7 +13,19 @@ namespace digpet.Modules
         {
             try
             {
-                using (StreamWriter sw = new StreamWriter(SettingManager.PrivateSettings.LOG_PATH, true))
+                if (!Path.Exists(SettingManager.PrivateSettings.LOG_DIRECTORY))
+                {
+                    Directory.CreateDirectory(SettingManager.PrivateSettings.LOG_DIRECTORY);
+                }
+
+                string logPath = GetLogDirectroy();
+
+                if (!File.Exists(logPath))
+                {
+                    DeleteTooMuchLogs();
+                }
+
+                using (StreamWriter sw = new StreamWriter(logPath, true))
                 {
                     sw.WriteLine(DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss ") + msg + "\r\n");
                 }
@@ -20,6 +33,41 @@ namespace digpet.Modules
             catch (Exception ex)
             {
                 ErrorLogLib.ErrorOutput("ログ書き込みエラー", ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// ログの保存パスを返却する
+        /// </summary>
+        /// <returns>ログ保存先のパス</returns>
+        private static string GetLogDirectroy()
+        {
+            string path = string.Empty;
+            path += SettingManager.PrivateSettings.LOG_DIRECTORY + "/";
+            path += DateTime.Now.ToString("yyyyMMdd_");
+            path += SettingManager.PrivateSettings.LOG_PATH;
+
+            return path;
+        }
+
+        /// <summary>
+        /// 保存日数を超えたログを削除する
+        /// </summary>
+        private static void DeleteTooMuchLogs()
+        {
+            string[] files = Directory.GetFiles(SettingManager.PrivateSettings.LOG_DIRECTORY);
+
+            foreach (string file in files)
+            {
+                string[] clean = Path.GetFileName(file).Split('_');
+                DateTime fileDate;
+                if (DateTime.TryParseExact(clean[0], "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out fileDate))
+                {
+                    if ((DateTime.Now - fileDate).TotalDays >= SettingManager.PublicSettings.LogDeleteDays)
+                    {
+                        File.Delete(file);
+                    }
+                }
             }
         }
     }

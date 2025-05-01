@@ -25,9 +25,10 @@ namespace digpet.Managers
             public const string SETTING_PATH = "settings.json";                             //設定ファイルのパス
             public const string CASCADE_PATH = "haarcascade_frontalface_default.xml";       //カスケードファイルのパス
             public const string PLOT_PATH = "plot.png";                                     //プロット画像のパス
+            public const string LOG_DIRECTORY = "Logs";                                     //ログフォルダのディレクトリ
 
 #if DEBUG
-            public const string DEBUG_APPENDANCE = "-preview";                                //デバッグ判別用
+            public const string DEBUG_APPENDANCE = "-preview";                              //デバッグ判別用
 #else
         public const string DEBUG_APPENDANCE    = "";                                   //デバッグ判別用
 #endif
@@ -154,6 +155,9 @@ namespace digpet.Managers
             //ガーベジコレクタを実行するマネージドメモリ使用量(bytes)
             public long GcThreshold { get; set; }
 
+            //ログを削除する日数
+            public int LogDeleteDays { get; set; }
+
             /// <summary>
             /// コンストラクタ
             /// 初期値に初期化する
@@ -173,6 +177,7 @@ namespace digpet.Managers
                 CameraDisableThreshold = 1;
                 SaveTokenPlot = true;
                 GcThreshold = 20000000;
+                LogDeleteDays = 31;
             }
         }
     }
