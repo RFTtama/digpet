@@ -155,6 +155,9 @@ namespace digpet.Managers
             //ガーベジコレクタを実行するマネージドメモリ使用量(bytes)
             public long GcThreshold { get; set; }
 
+            //ログを削除する日数
+            public int LogDeleteDays { get; set; }
+
             /// <summary>
             /// コンストラクタ
             /// 初期値に初期化する
@@ -174,6 +177,7 @@ namespace digpet.Managers
                 CameraDisableThreshold = 1;
                 SaveTokenPlot = true;
                 GcThreshold = 20000000;
+                LogDeleteDays = 31;
             }
         }
     }

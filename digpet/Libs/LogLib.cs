@@ -1,4 +1,5 @@
 ﻿using digpet.Managers;
+using System.Globalization;
 
 namespace digpet.Modules
 {
@@ -17,7 +18,14 @@ namespace digpet.Modules
                     Directory.CreateDirectory(SettingManager.PrivateSettings.LOG_DIRECTORY);
                 }
 
-                using (StreamWriter sw = new StreamWriter(GetLogDirectroy(), true))
+                string logPath = GetLogDirectroy();
+
+                if (!File.Exists(logPath))
+                {
+                    DeleteTooMuchLogs();
+                }
+
+                using (StreamWriter sw = new StreamWriter(logPath, true))
                 {
                     sw.WriteLine(DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss ") + msg + "\r\n");
                 }
@@ -40,6 +48,27 @@ namespace digpet.Modules
             path += SettingManager.PrivateSettings.LOG_PATH;
 
             return path;
+        }
+
+        /// <summary>
+        /// 保存日数を超えたログを削除する
+        /// </summary>
+        private static void DeleteTooMuchLogs()
+        {
+            string[] files = Directory.GetFiles(SettingManager.PrivateSettings.LOG_DIRECTORY);
+
+            foreach (string file in files)
+            {
+                string[] clean = Path.GetFileName(file).Split('_');
+                DateTime fileDate;
+                if (DateTime.TryParseExact(clean[0], "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out fileDate))
+                {
+                    if ((DateTime.Now - fileDate).TotalDays >= SettingManager.PublicSettings.LogDeleteDays)
+                    {
+                        File.Delete(file);
+                    }
+                }
+            }
         }
     }
 }
