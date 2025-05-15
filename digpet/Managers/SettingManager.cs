@@ -15,8 +15,8 @@ namespace digpet.Managers
         //外部で変更可能でない設定
         public static class PrivateSettings
         {
-            public const string APPLICATION_VERSION = "1.02.00" + DEBUG_APPENDANCE;         //アプリバージョン
-            public const string CHAR_FORMAT_VERSION = "1.00.00";                            //キャラフォーマットのバージョン
+            public const string APPLICATION_VERSION = "2.00.00" + DEBUG_APPENDANCE;         //アプリバージョン
+            public const string CHAR_FORMAT_VERSION = "2.00.00";                            //キャラフォーマットのバージョン
 
             public const string CONFIG_FILE_PATH = "config.json";                           //コンフィグファイルのパス
             public const string ERRORLOG_PATH = "errorLog.txt";                             //エラーログのパス
