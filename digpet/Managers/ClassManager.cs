@@ -119,7 +119,7 @@ namespace digpet.Managers
         {
             if (cameraTimer.AvgCalcFlg)
             {
-                arg.tokenManager.AddTokens(cameraTimer.DetectAvg, true);
+                arg.tokenManager.AddTokens(cameraTimer.DetectAvg);
                 cameraTimer.ClearDetectAvg();
             }
 
@@ -149,7 +149,7 @@ namespace digpet.Managers
         {
             if (cpuAvgCalcTimer.AvgCalcFlg)
             {
-                arg.tokenManager.AddTokens(cpuAvgCalcTimer.CpuAvg, false);
+                arg.tokenManager.AddTokens(cpuAvgCalcTimer.CpuAvg);
                 cpuAvgCalcTimer.ClearCpuAvg();
             }
             SetCpuUsageLabel("CPU: " + cpuAvgCalcTimer.CpuUsage.ToString("n2") + "%");
