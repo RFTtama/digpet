@@ -21,7 +21,7 @@ namespace digpet.Managers
 
         // 変数関連
         private List<TaskClassModel> taskQueue = new List<TaskClassModel>();
-
+        private int backUpCnt;
 
         /// <summary>
         /// コンストラクタ
@@ -32,6 +32,7 @@ namespace digpet.Managers
             arg = new ClassManagerArg();
             cameraTimer.Init();
             timer = new System.Threading.Timer(TaskRunTimer1s, autoEvent, 0, 1000);
+            backUpCnt = 0;
         }
 
         /// <summary>
@@ -109,6 +110,14 @@ namespace digpet.Managers
             else
             {
                 CpuProcess();
+            }
+
+            backUpCnt++;
+
+            if (backUpCnt > SettingManager.PublicSettings.TokenBackupInterval)
+            {
+                arg.tokenManager.Write(SettingManager.PrivateSettings.TOKEN_CALC_PATH);
+                backUpCnt = 0;
             }
         }
 

@@ -165,7 +165,10 @@ namespace digpet.Managers
             Debug.Print("Token: " + Tokens.ToString());
 
             avgManager.Add(Tokens);
-            SaveTokenPlot(SettingManager.PrivateSettings.PLOT_PATH);
+            if (SettingManager.PublicSettings.SaveTokenPlot)
+            {
+                SaveTokenPlot(SettingManager.PrivateSettings.PLOT_PATH);
+            }
         }
 
         /// <summary>

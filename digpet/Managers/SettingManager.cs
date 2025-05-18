@@ -158,6 +158,9 @@ namespace digpet.Managers
             //Token圧縮配列から取り出す要素のインデックス
             public int TokenCompressArrayElementIndex { get; set; }
 
+            //Tokenをバックアップする間隔(s)
+            public int TokenBackupInterval { get; set; }
+
             /// <summary>
             /// コンストラクタ
             /// 初期値に初期化する
@@ -178,6 +181,7 @@ namespace digpet.Managers
                 GcThreshold = 20000000;
                 LogDeleteDays = 31;
                 TokenCompressArrayElementIndex = 10;
+                TokenBackupInterval = 10 * 60;
             }
         }
     }
