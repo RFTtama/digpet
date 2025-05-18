@@ -21,7 +21,7 @@ namespace digpet.Managers
 
         // 変数関連
         private List<TaskClassModel> taskQueue = new List<TaskClassModel>();
-
+        private int backUpCnt;
 
         /// <summary>
         /// コンストラクタ
@@ -32,6 +32,7 @@ namespace digpet.Managers
             arg = new ClassManagerArg();
             cameraTimer.Init();
             timer = new System.Threading.Timer(TaskRunTimer1s, autoEvent, 0, 1000);
+            backUpCnt = 0;
         }
 
         /// <summary>
@@ -110,6 +111,14 @@ namespace digpet.Managers
             {
                 CpuProcess();
             }
+
+            backUpCnt++;
+
+            if (backUpCnt > SettingManager.PublicSettings.TokenBackupInterval)
+            {
+                arg.tokenManager.Write(SettingManager.PrivateSettings.TOKEN_CALC_PATH);
+                backUpCnt = 0;
+            }
         }
 
         /// <summary>
@@ -119,7 +128,7 @@ namespace digpet.Managers
         {
             if (cameraTimer.AvgCalcFlg)
             {
-                arg.tokenManager.AddTokens(cameraTimer.DetectAvg, true);
+                arg.tokenManager.AddTokens(cameraTimer.DetectAvg);
                 cameraTimer.ClearDetectAvg();
             }
 
@@ -149,7 +158,7 @@ namespace digpet.Managers
         {
             if (cpuAvgCalcTimer.AvgCalcFlg)
             {
-                arg.tokenManager.AddTokens(cpuAvgCalcTimer.CpuAvg, false);
+                arg.tokenManager.AddTokens(cpuAvgCalcTimer.CpuAvg);
                 cpuAvgCalcTimer.ClearCpuAvg();
             }
             SetCpuUsageLabel("CPU: " + cpuAvgCalcTimer.CpuUsage.ToString("n2") + "%");

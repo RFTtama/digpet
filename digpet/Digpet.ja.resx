@@ -126,7 +126,7 @@
     <value>Yu Gothic UI, 14.25pt</value>
   </data>
   <data name="EmoStringLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+    <value>-1, -1</value>
   </data>
   <data name="EmoStringLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 25</value>
@@ -141,28 +141,13 @@
     <value>Yu Gothic UI, 14.25pt</value>
   </data>
   <data name="CpuUsageLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 50</value>
+    <value>0, 24</value>
   </data>
   <data name="CpuUsageLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>133, 25</value>
   </data>
   <data name="CpuUsageLabel.Text" xml:space="preserve">
     <value>CPU: 初期化中</value>
-  </data>
-  <data name="TotalTokenLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="TotalTokenLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Yu Gothic UI, 14.25pt</value>
-  </data>
-  <data name="TotalTokenLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 100</value>
-  </data>
-  <data name="TotalTokenLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 25</value>
-  </data>
-  <data name="TotalTokenLabel.Text" xml:space="preserve">
-    <value>取得中</value>
   </data>
   <data name="DailyTokenLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 25</value>
@@ -173,47 +158,11 @@
   <data name="DailyTokenLabel.Text" xml:space="preserve">
     <value>取得中</value>
   </data>
-  <data name="FeelingLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 125</value>
-  </data>
-  <data name="FeelingLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 25</value>
-  </data>
-  <data name="FeelingLabel.Text" xml:space="preserve">
-    <value>取得中</value>
-  </data>
-  <data name="AverageEmotionTokensLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 75</value>
-  </data>
-  <data name="AverageEmotionTokensLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 25</value>
-  </data>
-  <data name="AverageEmotionTokensLabel.Text" xml:space="preserve">
-    <value>取得中</value>
-  </data>
-  <data name="EmoTokenLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 50</value>
-  </data>
-  <data name="EmoTokenLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 25</value>
-  </data>
-  <data name="EmoTokenLabel.Text" xml:space="preserve">
-    <value>取得中</value>
-  </data>
   <data name="ToggleShowButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="ToggleShowButton.Text" xml:space="preserve">
     <value>詳細表示切替</value>
-  </data>
-  <data name="FlopsLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 150</value>
-  </data>
-  <data name="FlopsLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 25</value>
-  </data>
-  <data name="FlopsLabel.Text" xml:space="preserve">
-    <value>取得中</value>
   </data>
   <data name="StatsLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -226,7 +175,7 @@
     <value>GrowAndShrink</value>
   </data>
   <data name="StatsPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 177</value>
+    <value>74, 77</value>
   </data>
   <data name="ImportButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -245,24 +194,6 @@
   </data>
   <data name="ImportButton.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
-  </data>
-  <data name="IntimacyLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="IntimacyLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Yu Gothic UI, 14.25pt</value>
-  </data>
-  <data name="IntimacyLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="IntimacyLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 25</value>
-  </data>
-  <data name="IntimacyLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 25</value>
-  </data>
-  <data name="IntimacyLabel.Text" xml:space="preserve">
-    <value>取得中</value>
   </data>
   <data name="ClearButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -295,10 +226,10 @@
     <value>GrowAndShrink</value>
   </data>
   <data name="DefaultPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 379</value>
+    <value>3, 405</value>
   </data>
   <data name="DefaultPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>138, 77</value>
+    <value>138, 51</value>
   </data>
   <data name="CharPictureBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>None</value>
@@ -311,6 +242,21 @@
   </data>
   <data name="CharPictureBox.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
     <value>Zoom</value>
+  </data>
+  <data name="FeelingLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="FeelingLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 50</value>
+  </data>
+  <data name="FeelingLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>69, 25</value>
+  </data>
+  <data name="FeelingLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="FeelingLabel.Text" xml:space="preserve">
+    <value>取得中</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
