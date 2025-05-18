@@ -39,7 +39,7 @@ namespace digpet
             MouseWheel += new MouseEventHandler(MouseWheelEvent);
             gotNormalImage = true;
 
-            tokenManager.ReadTokens();
+            tokenManager.Read(SettingManager.PrivateSettings.TOKEN_CALC_PATH);
             ReadCharConfig();
             SetNowWindowState();
 
@@ -70,7 +70,8 @@ namespace digpet
         private void UpdateDetailLabels()
         {
             EmoStringLabel.Text = charZipFileManager.GetFeelingTag() + GetFeeling(tokenManager.Feeling);
-            DailyTokenLabel.Text = "現在のトークン: " + tokenManager.Tokens.ToString();
+            DailyTokenLabel.Text = "現在のToken: " + tokenManager.Tokens.ToString();
+            FeelingLabel.Text = "現在のFeeling: " + tokenManager.Feeling.ToString("N2");
         }
 
         /// <summary>
@@ -256,6 +257,7 @@ namespace digpet
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveNowWindowState();
+            tokenManager.Write(SettingManager.PrivateSettings.TOKEN_CALC_PATH);
             SettingManager.WriteSettingFile(SettingManager.PrivateSettings.SETTING_PATH);
             LogLib.LogOutput("アプリの終了処理終了");
         }
@@ -341,7 +343,8 @@ namespace digpet
             Control[] controls =
             {
                 CpuUsageLabel,
-                EmoStringLabel
+                EmoStringLabel,
+                FeelingLabel,
             };
 
             for (int panelInd = 0; panelInd < controls.Length; panelInd++)

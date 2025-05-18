@@ -21,7 +21,7 @@ namespace digpet.Managers
             public const string CONFIG_FILE_PATH = "config.json";                           //コンフィグファイルのパス
             public const string ERRORLOG_PATH = "errorLog.txt";                             //エラーログのパス
             public const string LOG_PATH = "Log.txt";                                       //ログファイルのパス
-            public const string TOKEN_PATH = "TOKENS.dig";                                  //トークンファイルのパス
+            public const string TOKEN_CALC_PATH = "TOKEN_BANK";                             //トークンファイルのパス
             public const string SETTING_PATH = "settings.json";                             //設定ファイルのパス
             public const string CASCADE_PATH = "haarcascade_frontalface_default.xml";       //カスケードファイルのパス
             public const string PLOT_PATH = "plot.png";                                     //プロット画像のパス
@@ -35,7 +35,7 @@ namespace digpet.Managers
         }
 
         //JSONの設定
-        private static readonly JsonSerializerOptions JSON_OPTIONS = new JsonSerializerOptions
+        public static readonly JsonSerializerOptions JSON_OPTIONS = new JsonSerializerOptions
         {
             WriteIndented = true
         };
@@ -155,6 +155,9 @@ namespace digpet.Managers
             //ログを削除する日数
             public int LogDeleteDays { get; set; }
 
+            //Token圧縮配列から取り出す要素のインデックス
+            public int TokenCompressArrayElementIndex { get; set; }
+
             /// <summary>
             /// コンストラクタ
             /// 初期値に初期化する
@@ -174,6 +177,7 @@ namespace digpet.Managers
                 SaveTokenPlot = true;
                 GcThreshold = 20000000;
                 LogDeleteDays = 31;
+                TokenCompressArrayElementIndex = 10;
             }
         }
     }

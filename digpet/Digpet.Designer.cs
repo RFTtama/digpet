@@ -41,6 +41,7 @@
             DefaultPanel = new Panel();
             CharPictureBox = new PictureBox();
             ImageChangeTimer = new System.Windows.Forms.Timer(components);
+            FeelingLabel = new Label();
             StatsPanel.SuspendLayout();
             DefaultPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)CharPictureBox).BeginInit();
@@ -86,6 +87,7 @@
             resources.ApplyResources(StatsPanel, "StatsPanel");
             StatsPanel.BackColor = Color.AliceBlue;
             StatsPanel.BorderStyle = BorderStyle.FixedSingle;
+            StatsPanel.Controls.Add(FeelingLabel);
             StatsPanel.Controls.Add(StatsLabel);
             StatsPanel.Controls.Add(DailyTokenLabel);
             StatsPanel.Name = "StatsPanel";
@@ -125,6 +127,13 @@
             ImageChangeTimer.Interval = 200;
             ImageChangeTimer.Tick += ImageChangeTimer_Tick;
             // 
+            // FeelingLabel
+            // 
+            resources.ApplyResources(FeelingLabel, "FeelingLabel");
+            FeelingLabel.BackColor = Color.Transparent;
+            FeelingLabel.ForeColor = Color.Orange;
+            FeelingLabel.Name = "FeelingLabel";
+            // 
             // Digpet
             // 
             resources.ApplyResources(this, "$this");
@@ -161,5 +170,6 @@
         private Panel DefaultPanel;
         private PictureBox CharPictureBox;
         private System.Windows.Forms.Timer ImageChangeTimer;
+        private Label FeelingLabel;
     }
 }
