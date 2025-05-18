@@ -1,4 +1,6 @@
 ﻿using digpet.Modules;
+using ScottPlot.Plottables;
+using ScottPlot;
 using System.Diagnostics;
 using System.Text.Json;
 
@@ -113,6 +115,35 @@ namespace digpet.Managers
         }
 
         /// <summary>
+        /// トークンのプロットを保存する
+        /// </summary>
+        /// <param name="picName">保存する画像名</param>
+        /// <returns>true: 正常, false: 異常</returns>
+        private void SaveTokenPlot(string picName)
+        {
+            Plot plot = new Plot();
+            int[] x = new int[avgManager.TokenCompressArray.Length];
+
+            for (int i = 0; i < avgManager.TokenCompressArray.Length; i++)
+            {
+                x[i] = i;
+            }
+
+            Signal s1 = plot.Add.Signal(avgManager.TokenCompressArray);
+
+            s1.LegendText = "Token Compress Array";
+
+            plot.XLabel("Days");
+            plot.YLabel("Tokens Amount");
+
+            plot.Title("Token Compress Array Token Amount Transition");
+
+            plot.GetImage(1024, 512).Save(picName);
+
+            LogLib.LogOutput("トークンプロットを保存しました");
+        }
+
+        /// <summary>
         /// コンストラクタ
         /// FLOPSの計算も行う
         /// </summary>
@@ -134,6 +165,7 @@ namespace digpet.Managers
             Debug.Print("Token: " + Tokens.ToString());
 
             avgManager.Add(Tokens);
+            SaveTokenPlot(SettingManager.PrivateSettings.PLOT_PATH);
         }
 
         /// <summary>
