@@ -206,7 +206,7 @@ namespace digpet.Managers
             {
                 for (int i = 0; i < TOKEN_COMPRESS_ARRAY_LENGTH - 1; i++)
                 {
-                    TokenCompressArray[i] = TokenCompressArray[i] + TokenCompressArray[i + 1];
+                    TokenCompressArray[i] = (TokenCompressArray[i] + TokenCompressArray[i + 1]) / 2;
                 }
             }
 
