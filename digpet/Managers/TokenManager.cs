@@ -230,6 +230,15 @@ namespace digpet.Managers
             /// <returns></returns>
             public long GetThreshold(int ind)
             {
+                int index = ind;
+                if (index < 0)
+                {
+                    index = 0;
+                }
+                if (index >= TOKEN_COMPRESS_ARRAY_LENGTH)
+                {
+                    index = TOKEN_COMPRESS_ARRAY_LENGTH - 1;
+                }
                 long threshold = ((TokenMax + TokenCompressArray[((TOKEN_COMPRESS_ARRAY_LENGTH - 1) - ind)]) / 2);
                 return threshold;
             }
