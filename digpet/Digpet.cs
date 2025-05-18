@@ -1,8 +1,5 @@
 using digpet.Managers;
-using digpet.Models.AbstractModels;
 using digpet.Modules;
-using digpet.TaskTimerClass;
-using digpet.TimerClass;
 
 namespace digpet
 {
@@ -42,8 +39,7 @@ namespace digpet
             MouseWheel += new MouseEventHandler(MouseWheelEvent);
             gotNormalImage = true;
 
-            CheckResetTime();
-            tokenManager.ReadTokens();
+            tokenManager.Read(SettingManager.PrivateSettings.TOKEN_CALC_PATH);
             ReadCharConfig();
             SetNowWindowState();
 
@@ -74,14 +70,8 @@ namespace digpet
         private void UpdateDetailLabels()
         {
             EmoStringLabel.Text = charZipFileManager.GetFeelingTag() + GetFeeling(tokenManager.Feeling);
-            DailyTokenLabel.Text = "今日の獲得トークン: " + tokenManager.DailyTokens.ToString("n2");
-            EmoTokenLabel.Text = "今日の感情トークン: " + tokenManager.EmotionTokens.ToString("n2");
-            AverageEmotionTokensLabel.Text = "平均感情トークン: " + tokenManager.AverageEmotionTokens.ToString("n2");
-            FeelingLabel.Text = "今日の感情: " + tokenManager.Feeling.ToString("n2");
-            FlopsLabel.Text = "FLOPS: " + tokenManager.Flops.ToString();
-            TotalTokenLabel.Text = "累計トークン: " + (tokenManager.TotalTokens).ToString("n2");
-            IntimacyLabel.Text = charZipFileManager.GetIntimacyTag() + GetIntimacy(tokenManager.TotalTokens);
-            LogLib.LogOutput("表示されているトークン情報の更新完了");
+            DailyTokenLabel.Text = "現在のToken: " + tokenManager.Tokens.ToString();
+            FeelingLabel.Text = "現在のFeeling: " + tokenManager.Feeling.ToString("N2");
         }
 
         /// <summary>
@@ -114,47 +104,6 @@ namespace digpet
             SettingManager.WriteSettingFile(SettingManager.PrivateSettings.SETTING_PATH);
 
             UpdateImageSize();
-        }
-
-        /// <summary>
-        /// トークンをリセットする時刻が設定されているか確認する
-        /// </summary>
-        private void CheckResetTime()
-        {
-            int resetHour = SettingManager.PublicSettings.ResetHour;
-
-            if (resetHour < 0)
-            {
-                resetHour = SetResetTime();
-                SettingManager.WriteSettingFile(SettingManager.PrivateSettings.SETTING_PATH);
-            }
-
-            tokenManager.ResetHour = resetHour;
-        }
-
-        /// <summary>
-        /// リセット時刻を新しく設定する
-        /// </summary>
-        /// <returns>リセット時刻</returns>
-        private int SetResetTime()
-        {
-            while (true)
-            {
-                string input = Microsoft.VisualBasic.Interaction.InputBox("トークンをリセットする時刻を0～23で設定してください",
-                    "リセット時刻設定", "0");
-
-                int hour = -1;
-
-                if (int.TryParse(input, out hour) == true)
-                {
-                    if (hour >= 0 && hour < 24)
-                    {
-                        SettingManager.PublicSettings.ResetHour = hour;
-                        LogLib.LogOutput("リセット時刻を" + hour.ToString() + "に設定しました");
-                        return hour;
-                    }
-                }
-            }
         }
 
         /// <summary>
@@ -193,27 +142,13 @@ namespace digpet
         }
 
         /// <summary>
-        /// 現在の親密度を文字に変換する
-        /// </summary>
-        /// <param name="intimacy">親密度</param>
-        /// <returns></returns>
-        private string GetIntimacy(double intimacy)
-        {
-            double inti = intimacy;
-            if (inti < 0.0) inti = 0.0;
-
-            return charZipFileManager.GetIntimacyString(inti);
-        }
-
-        /// <summary>
         /// 現在の状態に応じて画像を切り替える
         /// </summary>
         private void ChangeImage()
         {
-            string intimacy = GetIntimacy(tokenManager.TotalTokens);
             string feeling = GetFeeling(tokenManager.Feeling);
 
-            Image? image = charZipFileManager.GetCharImage(intimacy, feeling);
+            Image? image = charZipFileManager.GetCharImage(feeling);
 
             if ((image == null) && (gotNormalImage == true))
             {
@@ -322,6 +257,7 @@ namespace digpet
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveNowWindowState();
+            tokenManager.Write(SettingManager.PrivateSettings.TOKEN_CALC_PATH);
             SettingManager.WriteSettingFile(SettingManager.PrivateSettings.SETTING_PATH);
             LogLib.LogOutput("アプリの終了処理終了");
         }
@@ -375,11 +311,6 @@ namespace digpet
                 {
                     StatsLabel,
                     DailyTokenLabel,
-                    EmoTokenLabel,
-                    AverageEmotionTokensLabel,
-                    TotalTokenLabel,
-                    FeelingLabel,
-                    FlopsLabel
                 };
 
             for (int panelInd = 0; panelInd < controls.Length; panelInd++)
@@ -412,8 +343,8 @@ namespace digpet
             Control[] controls =
             {
                 CpuUsageLabel,
-                IntimacyLabel,
-                EmoStringLabel
+                EmoStringLabel,
+                FeelingLabel,
             };
 
             for (int panelInd = 0; panelInd < controls.Length; panelInd++)
