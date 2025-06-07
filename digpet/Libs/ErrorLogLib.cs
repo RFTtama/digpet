@@ -1,4 +1,5 @@
 ﻿using digpet.Managers;
+using System.Xml.Linq;
 
 namespace digpet.Modules
 {
@@ -7,6 +8,8 @@ namespace digpet.Modules
     /// </summary>
     static class ErrorLogLib
     {
+        private static string _logDump = string.Empty;
+
         /// <summary>
         /// エラーを出力する
         /// </summary>
@@ -15,18 +18,8 @@ namespace digpet.Modules
         /// <param name="show">表示するか</param>
         public static void ErrorOutput(string name, string msg, bool show)
         {
-            try
-            {
-                using (StreamWriter sw = new StreamWriter(SettingManager.PrivateSettings.ERRORLOG_PATH, true))
-                {
-                    sw.WriteLine(DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss [") + name + "]" + msg + "\r\n");
-                }
-                if (show) TaskMessageLib.OutputMessage(msg, name, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                TaskMessageLib.OutputMessage(ex.Message, "エラー出力エラー");
-            }
+            _logDump += DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss [") + name + "]" + msg + "\r\n\n";
+            if (show) TaskMessageLib.OutputMessage(msg, name, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         /// <summary>
@@ -37,6 +30,28 @@ namespace digpet.Modules
         public static void ErrorOutput(string name, string msg)
         {
             ErrorOutput(name, msg, true);
+        }
+
+        /// <summary>
+        /// エラーログをファイルに書き出す
+        /// </summary>
+        public static void Export()
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(_logDump))
+                {
+                    using (StreamWriter sw = new StreamWriter(SettingManager.PrivateSettings.ERRORLOG_PATH, true))
+                    {
+                        sw.Write(_logDump);
+                    }
+                    _logDump = string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+                TaskMessageLib.OutputMessage(ex.Message, "エラー出力エラー");
+            }
         }
     }
 }
