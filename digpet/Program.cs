@@ -48,6 +48,8 @@ namespace digpet
                 Digpet digpet = new Digpet(cm.arg);
 
                 Application.Run(digpet);
+
+                cm.Terminator();
             }
             catch (Exception ex)
             {

@@ -38,8 +38,11 @@ namespace digpet.Managers
         /// <summary>
         /// デストラクタ
         /// </summary>
-        ~ClassManager()
+        public void Terminator()
         {
+            ErrorLogLib.Export();
+            LogLib.Export();
+
             timer.Dispose();
         }
 
@@ -119,6 +122,9 @@ namespace digpet.Managers
                 arg.tokenManager.Write(SettingManager.PrivateSettings.TOKEN_CALC_PATH);
                 backUpCnt = 0;
             }
+
+            ErrorLogLib.Export();
+            LogLib.Export();
         }
 
         /// <summary>

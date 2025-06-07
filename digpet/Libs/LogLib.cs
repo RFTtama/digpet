@@ -5,35 +5,15 @@ namespace digpet.Modules
 {
     internal static class LogLib
     {
+        private static string _logDump = string.Empty;
+
         /// <summary>
         /// ログを出力する
         /// </summary>
         /// <param name="msg">メッセージ</param>
         public static void LogOutput(string msg)
         {
-            try
-            {
-                if (!Path.Exists(SettingManager.PrivateSettings.LOG_DIRECTORY))
-                {
-                    Directory.CreateDirectory(SettingManager.PrivateSettings.LOG_DIRECTORY);
-                }
-
-                string logPath = GetLogDirectroy();
-
-                if (!File.Exists(logPath))
-                {
-                    DeleteTooMuchLogs();
-                }
-
-                using (StreamWriter sw = new StreamWriter(logPath, true))
-                {
-                    sw.WriteLine(DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss ") + msg + "\r\n");
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorLogLib.ErrorOutput("ログ書き込みエラー", ex.Message);
-            }
+            _logDump += DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss ") + msg + "\r\n\n";
         }
 
         /// <summary>
@@ -68,6 +48,37 @@ namespace digpet.Modules
                         File.Delete(file);
                     }
                 }
+            }
+        }
+
+        public static void Export()
+        {
+            try
+            {
+                if (!Path.Exists(SettingManager.PrivateSettings.LOG_DIRECTORY))
+                {
+                    Directory.CreateDirectory(SettingManager.PrivateSettings.LOG_DIRECTORY);
+                }
+
+                string logPath = GetLogDirectroy();
+
+                if (!File.Exists(logPath))
+                {
+                    DeleteTooMuchLogs();
+                }
+
+                if (!string.IsNullOrEmpty(_logDump))
+                {
+                    using (StreamWriter sw = new StreamWriter(logPath, true))
+                    {
+                        sw.Write(_logDump);
+                    }
+                    _logDump = string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLogLib.ErrorOutput("ログ書き込みエラー", ex.Message);
             }
         }
     }
