@@ -36,9 +36,13 @@ namespace digpet.Managers
                 long avg = avgManager.GetThreshold(SettingManager.PublicSettings.TokenCompressArrayElementIndex);
                 if (avg <= 0) avg = 1;
                 long diff = Tokens - avg;
+#if false
                 Debug.Print("Diff: " + diff.ToString());
+#endif
                 double ret = (double)diff / avg;
+#if false
                 Debug.Print("Ret: " + ret.ToString());
+#endif
                 return ret;
             }
         }
@@ -162,7 +166,9 @@ namespace digpet.Managers
             long appendToken = (long)(minToken);
             LogLib.LogOutput("DailyTokenに" + appendToken.ToString() + "が足されました。");
             _tokens = (long)(Tokens * HANDOVER_PERCENT) + appendToken;
+#if false
             Debug.Print("Token: " + Tokens.ToString());
+#endif
 
             avgManager.Add(Tokens);
             if (SettingManager.PublicSettings.SaveTokenPlot)
@@ -230,6 +236,15 @@ namespace digpet.Managers
             /// <returns></returns>
             public long GetThreshold(int ind)
             {
+                int index = ind;
+                if (index < 0)
+                {
+                    index = 0;
+                }
+                if (index >= TOKEN_COMPRESS_ARRAY_LENGTH)
+                {
+                    index = TOKEN_COMPRESS_ARRAY_LENGTH - 1;
+                }
                 long threshold = ((TokenMax + TokenCompressArray[((TOKEN_COMPRESS_ARRAY_LENGTH - 1) - ind)]) / 2);
                 return threshold;
             }

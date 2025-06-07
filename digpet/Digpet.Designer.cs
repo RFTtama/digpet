@@ -36,12 +36,12 @@
             ToggleShowButton = new Button();
             StatsLabel = new Label();
             StatsPanel = new Panel();
+            FeelingLabel = new Label();
             ImportButton = new Button();
             ClearButton = new Button();
             DefaultPanel = new Panel();
             CharPictureBox = new PictureBox();
             ImageChangeTimer = new System.Windows.Forms.Timer(components);
-            FeelingLabel = new Label();
             StatsPanel.SuspendLayout();
             DefaultPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)CharPictureBox).BeginInit();
@@ -92,6 +92,13 @@
             StatsPanel.Controls.Add(DailyTokenLabel);
             StatsPanel.Name = "StatsPanel";
             // 
+            // FeelingLabel
+            // 
+            resources.ApplyResources(FeelingLabel, "FeelingLabel");
+            FeelingLabel.BackColor = Color.Transparent;
+            FeelingLabel.ForeColor = Color.Orange;
+            FeelingLabel.Name = "FeelingLabel";
+            // 
             // ImportButton
             // 
             resources.ApplyResources(ImportButton, "ImportButton");
@@ -124,15 +131,7 @@
             // 
             // ImageChangeTimer
             // 
-            ImageChangeTimer.Interval = 200;
             ImageChangeTimer.Tick += ImageChangeTimer_Tick;
-            // 
-            // FeelingLabel
-            // 
-            resources.ApplyResources(FeelingLabel, "FeelingLabel");
-            FeelingLabel.BackColor = Color.Transparent;
-            FeelingLabel.ForeColor = Color.Orange;
-            FeelingLabel.Name = "FeelingLabel";
             // 
             // Digpet
             // 
