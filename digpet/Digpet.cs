@@ -1,5 +1,6 @@
 using digpet.Managers;
 using digpet.Modules;
+using System.Diagnostics;
 
 namespace digpet
 {
@@ -11,6 +12,9 @@ namespace digpet
 
         //変数関連の宣言
         private bool gotNormalImage;                                    //正常に画像を切り替えることができたか
+        private int imageChangeTimeCnter = 0;                           //画像切替用のタイマ
+        private int nonActiveModeTimeCnter = 0;                         //非アクティブモード用タイマ
+        private Point cursorPosBef;
 
         //定数関連の宣言
         private const int FONT_MARGIN_SIZE = 5;
@@ -122,7 +126,6 @@ namespace digpet
             else
             {
                 charZipFileManager.ReadCharSettings(SettingManager.PublicSettings.CharSettingPath);
-                ImageChangeTimer.Interval = charZipFileManager.GetPictureTurnOverPeriod();
                 SetControlColor(charZipFileManager.GetControlColor());
             }
         }
@@ -139,34 +142,6 @@ namespace digpet
             if (feel < -1.0) feel = -1.0;
 
             return charZipFileManager.GetFeelingString(feel);
-        }
-
-        /// <summary>
-        /// 現在の状態に応じて画像を切り替える
-        /// </summary>
-        private void ChangeImage()
-        {
-            string feeling = GetFeeling(tokenManager.Feeling);
-
-            Image? image = charZipFileManager.GetCharImage(feeling);
-
-            if ((image == null) && (gotNormalImage == true))
-            {
-                LogLib.LogOutput("画像が設定されませんでした");
-                return;
-            }
-
-            //nullの場合は正常な画像ではないので、フラグをオフに
-            if (image == null)
-            {
-                gotNormalImage = false;
-            }
-            else
-            {
-                gotNormalImage = true;
-            }
-
-            CharPictureBox.Image = image;
         }
 
         /// <summary>
@@ -494,7 +469,76 @@ namespace digpet
         /// <param name="e"></param>
         private void ImageChangeTimer_Tick(object sender, EventArgs e)
         {
-            ChangeImage();
+            if (charZipFileManager.GetPictureTurnOverPeriod() <= (imageChangeTimeCnter * 100))
+            {
+                ChangeImage();
+                imageChangeTimeCnter = 0;
+            }
+
+            imageChangeTimeCnter++;
+
+            if (SettingManager.PublicSettings.EnableNonActiveMode)
+            {
+                NonActiveMode();
+            }
+        }
+
+        /// <summary>
+        /// 現在の状態に応じて画像を切り替える
+        /// </summary>
+        private void ChangeImage()
+        {
+            string feeling = GetFeeling(tokenManager.Feeling);
+
+            Image? image = charZipFileManager.GetCharImage(feeling);
+
+            if ((image == null) && (gotNormalImage == true))
+            {
+                LogLib.LogOutput("画像が設定されませんでした");
+                return;
+            }
+
+            //nullの場合は正常な画像ではないので、フラグをオフに
+            if (image == null)
+            {
+                gotNormalImage = false;
+            }
+            else
+            {
+                gotNormalImage = true;
+            }
+
+            CharPictureBox.Image = image;
+        }
+
+        /// <summary>
+        /// 非アクティブモード用処理
+        /// </summary>
+        private void NonActiveMode()
+        {
+            if ((nonActiveModeTimeCnter * 100) >= SettingManager.PublicSettings.NonActiveModeStartTime)
+            {
+                Cursor.Hide();
+                FormBorderStyle = FormBorderStyle.None;
+            }
+            else
+            {
+                Cursor.Show();
+                FormBorderStyle = FormBorderStyle.Sizable;
+            }
+
+            if (cursorPosBef == Cursor.Position)
+            {
+                if (nonActiveModeTimeCnter != int.MaxValue)
+                {
+                    nonActiveModeTimeCnter++;
+                }
+            }
+            else
+            {
+                nonActiveModeTimeCnter = 0;
+            }
+            cursorPosBef = Cursor.Position;
         }
 
         /// <summary>

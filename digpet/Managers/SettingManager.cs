@@ -161,6 +161,12 @@ namespace digpet.Managers
             //Tokenをバックアップする間隔(s)
             public int TokenBackupInterval { get; set; }
 
+            //非アクティブモード有効無効
+            public bool EnableNonActiveMode { get; set; }
+
+            //非アクティブモードの開始時間(ms)
+            public int NonActiveModeStartTime { get; set; }
+
             /// <summary>
             /// コンストラクタ
             /// 初期値に初期化する
@@ -182,6 +188,7 @@ namespace digpet.Managers
                 LogDeleteDays = 31;
                 TokenCompressArrayElementIndex = 60;
                 TokenBackupInterval = 10 * 60;
+                EnableNonActiveMode = false;
             }
         }
     }
