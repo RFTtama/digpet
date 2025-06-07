@@ -1,12 +1,8 @@
-﻿using digpet.Interface;
-using digpet.Managers;
+﻿using digpet.Managers;
+using digpet.Managers.GenerakManager;
+using digpet.Models.AbstractModels;
 using digpet.Modules;
-using digpet.Properties;
 using OpenCvSharp;
-using OpenCvSharp.ML;
-using System.Diagnostics;
-using System.Net.Http.Headers;
-using System.Reflection;
 
 namespace digpet.TimerClass
 {
@@ -14,7 +10,7 @@ namespace digpet.TimerClass
     /// <summary>
     /// カメラ用管理クラス
     /// </summary>
-    internal class CameraTimer : TaskClassInterface
+    public class CameraTimer : TaskClassModel
     {
         //変数宣言
         private bool _cameraDisable = false;
@@ -40,7 +36,7 @@ namespace digpet.TimerClass
             get { return _avgCalcFlg; }
         }
         public double DetectAvg
-        { 
+        {
             get { return _detectAvg; }
         }
         public bool CameraDisable
@@ -49,28 +45,54 @@ namespace digpet.TimerClass
         }
 
         /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        public CameraTimer()
+        {
+            Init();
+        }
+
+        /// <summary>
         /// カメラ関連の初期化
         /// </summary>
         public void Init()
         {
-            Task.Run(() =>
-            {
-                InitClassifier();
+            InitClassifier();
 
-                if (CheckCameraModeEnable())
+            if (CheckCameraModeEnable())
+            {
+                SetCaptureSettings();
+                capture.Open(SettingManager.PublicSettings.CameraId);
+                if (!capture.IsOpened())
                 {
-                    capture.Open(SettingManager.PublicSettings.CameraId);
-                    if (!capture.IsOpened())
-                    {
-                        _cameraDisable = true;
-                    }
+                    DisposeCapture();
                 }
-                else
-                {
-                    _cameraDisable = true;
-                }
-                init = true;
-            });
+            }
+            else
+            {
+                DisposeCapture();
+            }
+            init = true;
+        }
+
+        /// <summary>
+        /// キャプチャの設定を行う
+        /// </summary>
+        private void SetCaptureSettings()
+        {
+            capture.AutoFocus = true;
+        }
+
+        /// <summary>
+        /// キャプチャを破棄する
+        /// </summary>
+        private void DisposeCapture()
+        {
+            if (!capture.IsDisposed)
+            {
+                capture.Dispose();
+                _cameraDisable = true;
+            }
         }
 
         /// <summary>
@@ -84,8 +106,8 @@ namespace digpet.TimerClass
             }
             else
             {
-                LogManager.LogOutput("カスケードファイルの読み取りに失敗しました");
-                _cameraDisable = true;
+                LogLib.LogOutput("カスケードファイルの読み取りに失敗しました");
+                DisposeCapture();
             }
         }
 
@@ -95,7 +117,7 @@ namespace digpet.TimerClass
         ~CameraTimer()
         {
             classifier.Dispose();
-            capture.Dispose();
+            DisposeCapture();
         }
 
         /// <summary>
@@ -126,7 +148,6 @@ namespace digpet.TimerClass
         /// </summary>
         private void CalcProcess()
         {
-            Debug.Print(cameraCnt.ToString());
             if ((cameraCnt > 0) && ((cameraCnt % 60) == 0))
             {
                 //検出の平均を取得し、トークンを計算する
@@ -163,8 +184,8 @@ namespace digpet.TimerClass
 
             if (ringMem.GetTotalOfTrue() >= SettingManager.PublicSettings.CameraDisableThreshold)
             {
-                _cameraDisable = true;
-                LogManager.LogOutput("カメラタスクの実行に複数回失敗したため、機能を無効にしました");
+                DisposeCapture();
+                LogLib.LogOutput("カメラタスクの実行に複数回失敗したため、機能を無効にしました");
                 return false;
             }
 
@@ -205,19 +226,15 @@ namespace digpet.TimerClass
         {
             using (Mat flame = new Mat())
             {
-                try
+                if (!capture.Read(flame))
                 {
-                    capture.Read(flame);
-                }
-                catch (Exception ex)
-                {
-                    ErrorLog.ErrorOutput("写真撮影エラー", ex.Message);
+                    ErrorLogLib.ErrorOutput("写真撮影エラー", "写真の撮影に失敗しました");
                     return null;
                 }
 
                 if (flame.Empty())
                 {
-                    ErrorLog.ErrorOutput("写真撮影エラー", "写真が空です");
+                    ErrorLogLib.ErrorOutput("写真撮影エラー", "写真が空です");
                     return null;
                 }
 
@@ -258,7 +275,7 @@ namespace digpet.TimerClass
             //matがnullならfalseを返却
             if (mat == null)
             {
-                ErrorLog.ErrorOutput("顔検出エラー", "渡された画像がnullです");
+                ErrorLogLib.ErrorOutput("顔検出エラー", "渡された画像がnullです");
                 return -1;
             }
 
@@ -272,7 +289,7 @@ namespace digpet.TimerClass
 
                 if (faces == null)
                 {
-                    ErrorLog.ErrorOutput("顔検出エラー", "顔の検出が失敗しました");
+                    ErrorLogLib.ErrorOutput("顔検出エラー", "顔の検出が失敗しました");
                     return -1;
                 }
 
@@ -289,7 +306,7 @@ namespace digpet.TimerClass
 
             _avgCalcFlg = true;
             detectAvgManager.Clear();
-            LogManager.LogOutput("分毎トークンの算出完了");
+            LogLib.LogOutput("分毎トークンの算出完了");
         }
 
         /// <summary>

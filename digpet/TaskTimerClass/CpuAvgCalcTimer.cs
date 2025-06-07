@@ -1,4 +1,5 @@
-﻿using digpet.Interface;
+﻿using digpet.Managers.GenerakManager;
+using digpet.Models.AbstractModels;
 using digpet.Modules;
 
 namespace digpet.TimerClass
@@ -7,7 +8,7 @@ namespace digpet.TimerClass
     /// CPU使用率を管理するためのマネージャ
     /// </summary>
     /// 
-    internal class CpuAvgCalcTimer : TaskClassInterface
+    public class CpuAvgCalcTimer : TaskClassModel
     {
         //変数宣言
         private uint cpuCnt = 0;
@@ -89,7 +90,7 @@ namespace digpet.TimerClass
 
             _avgCalcFlg = true;
             cpuAvgManager.Clear();
-            LogManager.LogOutput("分毎トークンの算出完了");
+            LogLib.LogOutput("分毎トークンの算出完了");
         }
     }
 }

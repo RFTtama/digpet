@@ -6,7 +6,7 @@ using digpet.Modules;
 
 namespace digpet.Managers
 {
-    internal class CharZipFileManager
+    public class CharZipFileManager
     {
         //クラス宣言
         private CharSettingManager _charSettingManager = new CharSettingManager();          //キャラクターファイルの設定クラス
@@ -53,68 +53,10 @@ namespace digpet.Managers
             return ret;
         }
 
-        public Image? GetCharImage(string intimacy, string feeling)
+        public Image? GetCharImage(string feeling)
         {
-            CharSettingManager.Settings.CharSettings.Intimacy? target = null;
-
-            //ワイルドカード<ALL>を走査する
-            target = SearchWildcardIntimacy();
-
-            //ワイルドカードなし
-            if (target == null)
-            {
-                target = SearchIntimacy(intimacy);
-            }
-
-            //対象intimacyなし
-            if (target == null)
-            {
-                return null;
-            }
-
-            string imageName = GetImageNameFromFeeling(target, feeling);
+            string imageName = GetImageNameFromFeeling(feeling);
             return GetImageFromImageName(imageName);
-        }
-
-        /// <summary>
-        /// ワイルドカードのintimacyを走査する
-        /// </summary>
-        /// <returns>intimacy なかった場合はnull</returns>
-        private CharSettingManager.Settings.CharSettings.Intimacy? SearchWildcardIntimacy()
-        {
-            CharSettingManager.Settings.CharSettings.Intimacy? ret = null;
-
-            foreach (CharSettingManager.Settings.CharSettings.Intimacy _intimacy in _charSettingManager.CharSettings.charSettings.intimacies)
-            {
-                if (_intimacy.name == "<ALL>")
-                {
-                    ret = _intimacy;
-                    break;
-                }
-            }
-
-            return ret;
-        }
-
-        /// <summary>
-        /// 引数と同名のintimacyを返却する
-        /// </summary>
-        /// <param name="intimacyString">検索するintimacy</param>
-        /// <returns>あった場合同名のintimacy なかった場合null</returns>
-        private CharSettingManager.Settings.CharSettings.Intimacy? SearchIntimacy(string intimacyString)
-        {
-            CharSettingManager.Settings.CharSettings.Intimacy? ret = null;
-
-            foreach (CharSettingManager.Settings.CharSettings.Intimacy _intimacy in _charSettingManager.CharSettings.charSettings.intimacies)
-            {
-                if (_intimacy.name == intimacyString)
-                {
-                    ret = _intimacy;
-                    break;
-                }
-            }
-
-            return ret;
         }
 
         /// <summary>
@@ -124,19 +66,24 @@ namespace digpet.Managers
         /// <param name="target">ターゲットのintimacy</param>
         /// <param name="feelingString">feelingのstring</param>
         /// <returns>画像名</returns>
-        private string GetImageNameFromFeeling(CharSettingManager.Settings.CharSettings.Intimacy target, string feelingString)
+        private string GetImageNameFromFeeling(string feelingString)
         {
             string ret = string.Empty;
             int tranSum = 0;
             Dictionary<string, int> transDict = new Dictionary<string, int>();
 
-            foreach (CharSettingManager.Settings.CharSettings.Intimacy.Feeling feeling in target.feelings)
+            foreach (CharSettingManager.Settings.CharSettings.Feeling feeling in _charSettingManager.CharSettings.charSettings.feelings)
             {
                 if (feeling.name == feelingString && !transDict.ContainsKey(feelingString))
                 {
                     transDict.Add(feeling.filePath, feeling.transition);
                     tranSum += feeling.transition;
                 }
+            }
+
+            if (tranSum <= 0)
+            {
+                return ret;
             }
 
             Random random = new Random();
@@ -153,24 +100,6 @@ namespace digpet.Managers
                     ret = key;
                     break;
                 }
-            }
-
-            return ret;
-        }
-
-        /// <summary>
-        /// Intimacyのタグを取得する
-        /// </summary>
-        /// <returns>Intimacyのタグ(string)</returns>
-        public string GetIntimacyTag()
-        {
-            string? ret = string.Empty;
-
-            ret = _charSettingManager.CharSettings.charSettings.intimacyTag;
-
-            if (string.IsNullOrWhiteSpace(ret))
-            {
-                ret = string.Empty;
             }
 
             return ret;
@@ -230,16 +159,6 @@ namespace digpet.Managers
         }
 
         /// <summary>
-        /// 親密度のテキストを取得する
-        /// </summary>
-        /// <param name="intimacy">親密度</param>
-        /// <returns></returns>
-        public string GetIntimacyString(double intimacy)
-        {
-            return _charSettingManager.CharSettings.intimacySetting.GetIntimacygString(intimacy);
-        }
-
-        /// <summary>
         /// コントロールの色を取得する
         /// </summary>
         /// <returns></returns>
@@ -260,7 +179,7 @@ namespace digpet.Managers
         {
             if (!File.Exists(path))
             {
-                ErrorLog.ErrorOutput("コンフィグファイル確認エラー", "キャラデータが見つかりません");
+                ErrorLogLib.ErrorOutput("コンフィグファイル確認エラー", "キャラデータが見つかりません");
                 return;
             }
 
@@ -274,7 +193,7 @@ namespace digpet.Managers
 
                     if (entry == null)
                     {
-                        ErrorLog.ErrorOutput("コンフィグファイル読み取りエラー", "キャラデータにコンフィグファイルが含まれていません");
+                        ErrorLogLib.ErrorOutput("コンフィグファイル読み取りエラー", "キャラデータにコンフィグファイルが含まれていません");
                         return;
                     }
 
@@ -282,11 +201,15 @@ namespace digpet.Managers
                     {
                         SetImageList(zip);
                     }
+                    else
+                    {
+                        ErrorLogLib.ErrorOutput("コンフィグファイル読み取りエラー", "キャラデータのバージョンがサポートされていません");
+                    }
                 }
             }
             catch (Exception ex)
             {
-                ErrorLog.ErrorOutput("コンフィグファイル読み取りエラー", ex.Message);
+                ErrorLogLib.ErrorOutput("コンフィグファイル読み取りエラー", ex.Message);
             }
         }
 
@@ -302,19 +225,18 @@ namespace digpet.Managers
 
             if (charVersion.major != -1 && availableVersion.major != -1)
             {
-                if (charVersion.Compare(availableVersion) <= 0)
+                if (charVersion.Compare(availableVersion) >= 0)
                 {
                     ret = true;
                 }
                 else
                 {
-                    ErrorLog.ErrorOutput("キャラファイルバージョンエラー", "キャラファイルのバージョンがサポートされている最大のバージョン("
-                        + SettingManager.PrivateSettings.CHAR_FORMAT_VERSION + ")より大きいです");
+                    ret = false;
                 }
             }
             else
             {
-                ErrorLog.ErrorOutput("キャラファイルバージョンエラー", "バージョン情報が正常に設定されませんでした");
+                ErrorLogLib.ErrorOutput("キャラファイルバージョンエラー", "バージョン情報が正常に設定されませんでした");
             }
 
             return ret;
@@ -364,7 +286,7 @@ namespace digpet.Managers
             }
             catch (Exception ex)
             {
-                ErrorLog.ErrorOutput("イメージ読み取りエラー", ex.Message);
+                ErrorLogLib.ErrorOutput("イメージ読み取りエラー", ex.Message);
             }
         }
 
@@ -416,25 +338,25 @@ namespace digpet.Managers
                     Settings? settings_tmp = JsonSerializer.Deserialize<Settings>(jsonText);
                     if (settings_tmp == null)
                     {
-                        LogManager.LogOutput("キャラファイルのコンフィグデータ読み込みに失敗しました");
-                        ErrorLog.ErrorOutput("コンフィグ読み取りエラー", "コンフィグデータがNULLです");
+                        LogLib.LogOutput("キャラファイルのコンフィグデータ読み込みに失敗しました");
+                        ErrorLogLib.ErrorOutput("コンフィグ読み取りエラー", "コンフィグデータがNULLです");
                     }
                     else if (string.IsNullOrEmpty(settings_tmp.charSettings.name))
                     {
-                        LogManager.LogOutput("設定ファイルが正しく読み取られませんでした");
-                        ErrorLog.ErrorOutput("コンフィグ読み取りエラー", "キャラファイルのコンフィグデータが正しく設定されていない可能性があります");
+                        LogLib.LogOutput("設定ファイルが正しく読み取られませんでした");
+                        ErrorLogLib.ErrorOutput("コンフィグ読み取りエラー", "キャラファイルのコンフィグデータが正しく設定されていない可能性があります");
                     }
                     else
                     {
-                        LogManager.LogOutput("キャラファイルのコンフィグデータが正常に読み込まれました");
+                        LogLib.LogOutput("キャラファイルのコンフィグデータが正常に読み込まれました");
                         _settings = settings_tmp;
                         ret = 0;
                     }
                 }
                 catch (Exception ex)
                 {
-                    LogManager.LogOutput("キャラファイルのコンフィグデータ読み込みに失敗しました");
-                    ErrorLog.ErrorOutput("コンフィグ読み取りエラー", ex.Message);
+                    LogLib.LogOutput("キャラファイルのコンフィグデータ読み込みに失敗しました");
+                    ErrorLogLib.ErrorOutput("コンフィグ読み取りエラー", ex.Message);
                 }
 
                 return ret;
@@ -453,7 +375,6 @@ namespace digpet.Managers
 
                 //クラス宣言
                 public FeelingManager feelingSetting { get; set; }
-                public IntimacyManager intimacySetting { get; set; }
                 public CharSettings charSettings { get; set; }
 
                 /// <summary>
@@ -462,7 +383,6 @@ namespace digpet.Managers
                 public Settings()
                 {
                     feelingSetting = new FeelingManager();
-                    intimacySetting = new IntimacyManager();
                     charSettings = new CharSettings();
                     version = string.Empty;
                     backgroundColor = new DigColor(SystemColors.Control);
@@ -666,9 +586,26 @@ namespace digpet.Managers
                 public class CharSettings
                 {
                     public string name { get; set; }
-                    public string intimacyTag { get; set; }
                     public string feelingTag { get; set; }
-                    public Intimacy[] intimacies { get; set; }
+
+                    public Feeling[] feelings { get; set; }
+
+                    public class Feeling
+                    {
+                        public string name { get; set; }
+                        public string filePath { get; set; }
+                        public int transition { get; set; }
+
+                        /// <summary>
+                        /// コンストラクタ
+                        /// </summary>
+                        public Feeling()
+                        {
+                            name = string.Empty;
+                            filePath = string.Empty;
+                            transition = 0;
+                        }
+                    }
 
                     /// <summary>
                     /// コンストラクタ
@@ -676,49 +613,8 @@ namespace digpet.Managers
                     public CharSettings()
                     {
                         name = string.Empty;
-                        intimacyTag = string.Empty;
                         feelingTag = string.Empty;
-#if false
-                    intimacies = [new Intimacy()
-                    {
-                        name = string.Empty,
-                        feelings = [new Intimacy.Feeling() { name = string.Empty, filePath = string.Empty, transition = -1 }]
-                    }];
-#else
-                        intimacies = Array.Empty<Intimacy>();
-#endif
-                    }
-
-                    public class Intimacy
-                    {
-                        public string name { get; set; }
-                        public Feeling[] feelings { get; set; }
-
-                        /// <summary>
-                        /// コンストラクタ
-                        /// </summary>
-                        public Intimacy()
-                        {
-                            name = string.Empty;
-                            feelings = Array.Empty<Feeling>();
-                        }
-
-                        public class Feeling
-                        {
-                            public string name { get; set; }
-                            public string filePath { get; set; }
-                            public int transition { get; set; }
-
-                            /// <summary>
-                            /// コンストラクタ
-                            /// </summary>
-                            public Feeling()
-                            {
-                                name = string.Empty;
-                                filePath = string.Empty;
-                                transition = 0;
-                            }
-                        }
+                        feelings = new Feeling[0];
                     }
                 }
             }

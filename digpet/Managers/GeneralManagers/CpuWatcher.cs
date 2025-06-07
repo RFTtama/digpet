@@ -1,7 +1,8 @@
-﻿using System.Diagnostics;
+﻿using digpet.Modules;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace digpet.Modules
+namespace digpet.Managers.GenerakManager
 {
     /// <summary>
     /// CPU使用率を取得するためのstaticクラス
@@ -27,7 +28,7 @@ namespace digpet.Modules
             else
             {
                 _interface = new OtherCpuWatcher();
-                ErrorLog.ErrorOutput("使用OS取得エラー", "サポートされていないOSでの起動です");
+                ErrorLogLib.ErrorOutput("使用OS取得エラー", "サポートされていないOSでの起動です");
             }
         }
 

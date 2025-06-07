@@ -1,6 +1,5 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using digpet.Modules;
 using System.Text.Json;
-using digpet.Modules;
 
 namespace digpet.Managers
 {
@@ -16,24 +15,27 @@ namespace digpet.Managers
         //外部で変更可能でない設定
         public static class PrivateSettings
         {
-            public const string APPLICATION_VERSION = "1.01.03" + DEBUG_APPENDANCE;         //アプリバージョン
-            public const string CHAR_FORMAT_VERSION = "1.00.00";                            //キャラフォーマットのバージョン
+            public const string APPLICATION_VERSION = "2.00.00" + DEBUG_APPENDANCE;         //アプリバージョン
+            public const string CHAR_FORMAT_VERSION = "2.00.00";                            //キャラフォーマットのバージョン
 
             public const string CONFIG_FILE_PATH = "config.json";                           //コンフィグファイルのパス
             public const string ERRORLOG_PATH = "errorLog.txt";                             //エラーログのパス
             public const string LOG_PATH = "Log.txt";                                       //ログファイルのパス
-            public const string TOKEN_PATH = "TOKENS.dig";                                  //トークンファイルのパス
+            public const string TOKEN_CALC_PATH = "TOKEN_BANK";                             //トークンファイルのパス
+            public const string SETTING_PATH = "settings.json";                             //設定ファイルのパス
             public const string CASCADE_PATH = "haarcascade_frontalface_default.xml";       //カスケードファイルのパス
+            public const string PLOT_PATH = "plot.png";                                     //プロット画像のパス
+            public const string LOG_DIRECTORY = "Logs";                                     //ログフォルダのディレクトリ
 
 #if DEBUG
-            public const string DEBUG_APPENDANCE = "-preview";                                //デバッグ判別用
+            public const string DEBUG_APPENDANCE = "-preview";                              //デバッグ判別用
 #else
         public const string DEBUG_APPENDANCE    = "";                                   //デバッグ判別用
 #endif
         }
 
         //JSONの設定
-        private static readonly JsonSerializerOptions JSON_OPTIONS = new JsonSerializerOptions
+        public static readonly JsonSerializerOptions JSON_OPTIONS = new JsonSerializerOptions
         {
             WriteIndented = true
         };
@@ -76,12 +78,12 @@ namespace digpet.Managers
                 {
                     sw.Write(settingString);
                 }
-                LogManager.LogOutput("設定ファイルが正常に書き込まれました");
+                LogLib.LogOutput("設定ファイルが正常に書き込まれました");
             }
             catch (Exception ex)
             {
-                LogManager.LogOutput("設定ファイルの書き込み失敗");
-                ErrorLog.ErrorOutput("設定ファイル初期化エラー", ex.Message);
+                LogLib.LogOutput("設定ファイルの書き込み失敗");
+                ErrorLogLib.ErrorOutput("設定ファイル初期化エラー", ex.Message);
             }
         }
 
@@ -99,12 +101,12 @@ namespace digpet.Managers
                     settingString = sr.ReadToEnd();
                 }
                 PublicSettings = JsonSerializer.Deserialize<DigpetSettings>(settingString) ?? new DigpetSettings();
-                LogManager.LogOutput("設定ファイルが読み込まれました");
+                LogLib.LogOutput("設定ファイルが読み込まれました");
             }
             catch (Exception ex)
             {
-                LogManager.LogOutput("設定ファイルの読み込みに失敗しました");
-                ErrorLog.ErrorOutput("設定ファイル読み取りエラー", ex.Message);
+                LogLib.LogOutput("設定ファイルの読み込みに失敗しました");
+                ErrorLogLib.ErrorOutput("設定ファイル読み取りエラー", ex.Message);
             }
         }
 
@@ -116,9 +118,6 @@ namespace digpet.Managers
         {
             //キャラ設定ファイルのパス
             public string CharSettingPath { get; set; }
-
-            //リセット時間
-            public int ResetHour { get; set; }
 
             //ウィンドウの状態 0: 通常, 1: 最大化, 2: 最小化
             public int WindowState { get; set; }
@@ -147,6 +146,27 @@ namespace digpet.Managers
             //10回中何回タスクの実行遅延したら機能を無効にするか
             public uint CameraDisableThreshold { get; set; }
 
+            //トークンプロットの保存
+            public bool SaveTokenPlot { get; set; }
+
+            //ガーベジコレクタを実行するマネージドメモリ使用量(bytes)
+            public long GcThreshold { get; set; }
+
+            //ログを削除する日数
+            public int LogDeleteDays { get; set; }
+
+            //Token圧縮配列から取り出す要素のインデックス
+            public int TokenCompressArrayElementIndex { get; set; }
+
+            //Tokenをバックアップする間隔(s)
+            public int TokenBackupInterval { get; set; }
+
+            //非アクティブモード有効無効
+            public bool EnableNonActiveMode { get; set; }
+
+            //非アクティブモードの開始時間(ms)
+            public int NonActiveModeStartTime { get; set; }
+
             /// <summary>
             /// コンストラクタ
             /// 初期値に初期化する
@@ -154,7 +174,6 @@ namespace digpet.Managers
             public DigpetSettings()
             {
                 CharSettingPath = string.Empty;
-                ResetHour = -1;
                 WindowState = 0;
                 TopMost = false;
                 WindowSize = new Size(500, 500);
@@ -164,6 +183,12 @@ namespace digpet.Managers
                 EnableCameraMode = false;
                 CameraId = 0;
                 CameraDisableThreshold = 1;
+                SaveTokenPlot = true;
+                GcThreshold = 20000000;
+                LogDeleteDays = 31;
+                TokenCompressArrayElementIndex = 60;
+                TokenBackupInterval = 10 * 60;
+                EnableNonActiveMode = false;
             }
         }
     }
