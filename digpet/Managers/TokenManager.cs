@@ -16,12 +16,12 @@ namespace digpet.Managers
         private const string AVG_MANAGER_ID = "ID_COMPRESS";                                //token平均値管理用クラスのID
 
         //変数関連の宣言
-        private long _tokens;                                                               //token
+        private double _tokens;                                                             //token
 
         /// <summary>
         /// 獲得しているtokenの合計
         /// </summary>
-        public long Tokens
+        public double Tokens
         {
             get { return _tokens; }
         }
@@ -33,9 +33,9 @@ namespace digpet.Managers
         {
             get
             {
-                long avg = avgManager.GetThreshold(SettingManager.PublicSettings.TokenCompressArrayElementIndex);
+                double avg = avgManager.GetThreshold(SettingManager.PublicSettings.TokenCompressArrayElementIndex);
                 if (avg <= 0) avg = 1;
-                long diff = Tokens - avg;
+                double diff = Tokens - avg;
 #if false
                 Debug.Print("Diff: " + diff.ToString());
 #endif
@@ -183,9 +183,9 @@ namespace digpet.Managers
         private interface TokenAvgManagerInterface
         {
             public string Id { get; }
-            public long GetThreshold(int ind);
-            public void Add(long token);
-            public long GetTokens();
+            public double GetThreshold(int ind);
+            public void Add(double token);
+            public double GetTokens();
         }
 
         /// <summary>
@@ -198,16 +198,16 @@ namespace digpet.Managers
 
             private const int TOKEN_COMPRESS_ARRAY_LENGTH = 10000;      //token圧縮配列のサイズ
 
-            public long TokenMax { get; set; }                          //tokenの最大値
+            public double TokenMax { get; set; }                        //tokenの最大値
 
-            public long[] TokenCompressArray { get; set; }             //token圧縮配列
+            public double[] TokenCompressArray { get; set; }            //token圧縮配列
 
 
             public CompressTokenAvgManager(string id)
             {
                 Id = id;
                 TokenMax = 0;
-                TokenCompressArray = new long[TOKEN_COMPRESS_ARRAY_LENGTH];
+                TokenCompressArray = new double[TOKEN_COMPRESS_ARRAY_LENGTH];
                 for (int i = 0; i < TOKEN_COMPRESS_ARRAY_LENGTH; i++)
                 {
                     TokenCompressArray[i] = 0;
@@ -218,7 +218,7 @@ namespace digpet.Managers
             /// 平均値を計算する
             /// </summary>
             /// <param name="token">token値</param>
-            public void Add(long token)
+            public void Add(double token)
             {
                 if (token > TokenMax)
                 {
@@ -234,7 +234,7 @@ namespace digpet.Managers
             /// 0～9999まである 各要素はind(min)経過時に影響を受け始める
             /// </summary>
             /// <returns></returns>
-            public long GetThreshold(int ind)
+            public double GetThreshold(int ind)
             {
                 int index = ind;
                 if (index < 0)
@@ -245,7 +245,7 @@ namespace digpet.Managers
                 {
                     index = TOKEN_COMPRESS_ARRAY_LENGTH - 1;
                 }
-                long threshold = ((TokenMax + TokenCompressArray[((TOKEN_COMPRESS_ARRAY_LENGTH - 1) - ind)]) / 2);
+                double threshold = ((TokenMax + TokenCompressArray[((TOKEN_COMPRESS_ARRAY_LENGTH - 1) - ind)]) / 2.0);
                 return threshold;
             }
 
@@ -264,7 +264,7 @@ namespace digpet.Managers
             /// 現在のtoken値を返却する
             /// </summary>
             /// <returns>現在のtoken値</returns>
-            public long GetTokens()
+            public double GetTokens()
             {
                 return TokenCompressArray[(TOKEN_COMPRESS_ARRAY_LENGTH - 1)];
             }
