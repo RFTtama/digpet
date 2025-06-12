@@ -117,458 +117,770 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="&gt;&gt;ClearButton.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;DefaultPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="TotalTokenLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 402</value>
+  </data>
+  <data name="&gt;&gt;ALabel.Name" xml:space="preserve">
+    <value>ALabel</value>
+  </data>
+  <data name="&gt;&gt;ABack.Name" xml:space="preserve">
+    <value>ABack</value>
+  </data>
+  <data name="&gt;&gt;StatsLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;BadFeeling.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="EmoTokenLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="GoodFeeling.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="SBar.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="SBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>40, 55</value>
+  </data>
+  <data name="&gt;&gt;DailyTokenLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;helpProvider.Name" xml:space="preserve">
+    <value>helpProvider</value>
+  </data>
+  <data name="&gt;&gt;SLabel.Name" xml:space="preserve">
+    <value>SLabel</value>
+  </data>
+  <data name="CpuUsageLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="FeelingLabel.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
+  <data name="AverageEmotionTokensLabel.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="TestLabel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 25</value>
+  </data>
+  <data name="KibunLabel.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
     <value>AssociateIndex</value>
   </data>
-  <data name="&gt;&gt;EmoTokenLabel.Name" xml:space="preserve">
-    <value>EmoTokenLabel</value>
+  <data name="TestLabel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
-  <data name="AverageEmotionTokensLabel.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
-    <value>AssociateIndex</value>
+  <data name="&gt;&gt;FlopsLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
-  <data name="&gt;&gt;TestLabel1.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="&gt;&gt;GoodFeeling.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="CpuUsageLabel.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
+  <data name="CharPictureBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="HBack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>40, 30</value>
+  </data>
+  <data name="TotalTokenLabel.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
     <value>AssociateIndex</value>
   </data>
   <data name="StatsPanel.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="FlopsLabel.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="&gt;&gt;HBack.Name" xml:space="preserve">
+    <value>HBack</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="FeelingLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>41, 25</value>
-  </data>
-  <data name="&gt;&gt;トークンのプロットを書き出すToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="StatsLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 0</value>
-  </data>
-  <data name="&gt;&gt;EmoTokenLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="IntimacyLabel.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
-    <value>AssociateIndex</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="TestLabel2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="TestLabel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 377</value>
-  </data>
-  <data name="&gt;&gt;CpuUsageLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="AverageEmotionTokensLabel.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="&gt;&gt;menuStrip1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuStrip1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="IntimacyLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="FeelingLabel.Text" xml:space="preserve">
-    <value>なし</value>
-  </data>
-  <data name="TestLabel1.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;TestLabel2.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="TestLabel2.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="トークンのプロットを書き出すToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 22</value>
-  </data>
-  <data name="&gt;&gt;DefaultPanel.Name" xml:space="preserve">
-    <value>DefaultPanel</value>
-  </data>
-  <data name="ImportButton.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="StatsPanel.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="EmoTokenLabel.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
-    <value>AssociateIndex</value>
-  </data>
-  <data name="DailyTokenLabel.Text" xml:space="preserve">
-    <value>なし</value>
-  </data>
-  <data name="&gt;&gt;TotalTokenLabel.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="CharPictureBox.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="IntimacyLabel.HelpString" xml:space="preserve">
-    <value>今の感情です。</value>
-  </data>
-  <data name="&gt;&gt;ClearButton.Name" xml:space="preserve">
-    <value>ClearButton</value>
-  </data>
-  <data name="&gt;&gt;TestLabel2.Name" xml:space="preserve">
-    <value>TestLabel2</value>
-  </data>
-  <data name="AverageEmotionTokensLabel.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="&gt;&gt;ClearButton.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="TestLabel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>107, 25</value>
-  </data>
-  <data name="&gt;&gt;DefaultPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;StatsPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;CharPictureBox.Type" xml:space="preserve">
+  <data name="&gt;&gt;HBar.Type" xml:space="preserve">
     <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="AverageEmotionTokensLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>41, 25</value>
+  <data name="&gt;&gt;ImageChangeTimer.Name" xml:space="preserve">
+    <value>ImageChangeTimer</value>
   </data>
-  <data name="&gt;&gt;ImageChangeTimer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Timer, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="StatsPanel.ShowHelp" type="System.Boolean, mscorlib">
+  <data name="FeelingLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="menuStrip1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="ToggleShowButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>91, 27</value>
-  </data>
-  <data name="ImportButton.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;CpuUsageTimer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Timer, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="DefaultPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="CpuUsageLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 427</value>
-  </data>
-  <data name="EmoTokenLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Yu Gothic UI, 14.25pt</value>
-  </data>
-  <data name="AverageEmotionTokensLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Yu Gothic UI, 14.25pt</value>
-  </data>
-  <data name="TestLabel1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>484, 461</value>
-  </data>
-  <data name="TestLabel2.Text" xml:space="preserve">
-    <value>累計トークン:</value>
-  </data>
-  <data name="DailyTokenLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>41, 25</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStrip1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DailyTokenLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ClearButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="EmoTokenLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 50</value>
-  </data>
-  <data name="TotalTokenLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="FeelingLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Yu Gothic UI, 14.25pt</value>
-  </data>
-  <data name="FlopsLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="CharPictureBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="&gt;&gt;ToggleShowButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CharPictureBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;StatsPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="EmoStringLabel.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
-    <value>AssociateIndex</value>
-  </data>
-  <data name="KibunLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;DailyTokenLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;EmoStringLabel.Name" xml:space="preserve">
-    <value>EmoStringLabel</value>
-  </data>
-  <data name="DailyTokenLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="AverageEmotionTokensLabel.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="IntimacyLabel.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;DailyTokenLabel.Parent" xml:space="preserve">
-    <value>StatsPanel</value>
-  </data>
-  <data name="EmoTokenLabel.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="FlopsLabel.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
-    <value>AssociateIndex</value>
-  </data>
-  <data name="IntimacyLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 402</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>7, 15</value>
-  </data>
-  <data name="TestLabel1.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="DailyTokenLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Yu Gothic UI, 14.25pt</value>
-  </data>
-  <data name="&gt;&gt;FlopsLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="StatsLabel.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
-    <value>AssociateIndex</value>
-  </data>
-  <data name="DailyTokenLabel.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="menuStrip1.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="StatsLabel.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="$this.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;FlopsLabel.Parent" xml:space="preserve">
-    <value>StatsPanel</value>
-  </data>
-  <data name="FeelingLabel.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="TotalTokenLabel.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="StatsLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 25</value>
-  </data>
-  <data name="StatsPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="FeelingLabel.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="ToggleShowButton.Text" xml:space="preserve">
-    <value>統計表示切替</value>
-  </data>
-  <data name="&gt;&gt;KibunLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="CpuUsageLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="EmoStringLabel.HelpString" xml:space="preserve">
-    <value>今の感情です。</value>
-  </data>
-  <data name="DailyTokenLabel.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="&gt;&gt;StatsPanel.Name" xml:space="preserve">
-    <value>StatsPanel</value>
-  </data>
-  <data name="$this.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
-    <value>AssociateIndex</value>
-  </data>
-  <data name="StatsLabel.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="KibunLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="AverageEmotionTokensLabel.Text" xml:space="preserve">
-    <value>なし</value>
   </data>
   <data name="&gt;&gt;ToggleShowButton.Name" xml:space="preserve">
     <value>ToggleShowButton</value>
   </data>
-  <data name="EmoTokenLabel.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;EmoStringLabel.Parent" xml:space="preserve">
-    <value>DefaultPanel</value>
-  </data>
-  <data name="StatsLabel.Text" xml:space="preserve">
-    <value>統計</value>
-  </data>
-  <data name="&gt;&gt;StatsLabel.Name" xml:space="preserve">
-    <value>StatsLabel</value>
-  </data>
-  <data name="KibunLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 402</value>
-  </data>
-  <data name="TotalTokenLabel.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
-    <value>AssociateIndex</value>
-  </data>
-  <data name="&gt;&gt;KibunLabel.Type" xml:space="preserve">
+  <data name="&gt;&gt;TestLabel2.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;CpuUsageLabel.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;ImportButton.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;GoodFeeling.Name" xml:space="preserve">
+    <value>GoodFeeling</value>
+  </data>
+  <data name="&gt;&gt;IntimacyLabel.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="&gt;&gt;TestLabel1.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="StatsPanel.ShowHelp" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="FlopsLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>41, 25</value>
+  </data>
+  <data name="&gt;&gt;FLabel.Name" xml:space="preserve">
+    <value>FLabel</value>
+  </data>
+  <data name="JBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>40, 5</value>
+  </data>
+  <data name="FLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="ClearButton.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="StatsLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
   </data>
   <data name="TestLabel2.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 14.25pt</value>
   </data>
-  <data name="&gt;&gt;EmoStringLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="SBack.TabIndex" type="System.Int32, mscorlib">
+    <value>24</value>
   </data>
-  <data name="&gt;&gt;AverageEmotionTokensLabel.Parent" xml:space="preserve">
+  <data name="&gt;&gt;TestLabel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ABack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>40, 80</value>
+  </data>
+  <data name="FeelingLabel.ShowHelp" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;CpuUsageLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;ImportButton.Name" xml:space="preserve">
+    <value>ImportButton</value>
+  </data>
+  <data name="DefaultPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="&gt;&gt;ClearButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ToggleShowButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="JLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="&gt;&gt;JBack.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="EmoTokenLabel.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
+    <value>AssociateIndex</value>
+  </data>
+  <data name="KibunLabel.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="&gt;&gt;SBack.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;JBack.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;HBar.Parent" xml:space="preserve">
     <value>StatsPanel</value>
   </data>
   <data name="&gt;&gt;TaskRunTimer1s.Name" xml:space="preserve">
     <value>TaskRunTimer1s</value>
   </data>
-  <data name="&gt;&gt;KibunLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="StatsPanel.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
-    <value>AssociateIndex</value>
-  </data>
-  <data name="KibunLabel.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="&gt;&gt;EmoTokenLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="ImportButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>381, 400</value>
-  </data>
-  <data name="&gt;&gt;ClearButton.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="DailyTokenLabel.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="FlopsLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Yu Gothic UI, 14.25pt</value>
-  </data>
-  <data name="TotalTokenLabel.HelpString" xml:space="preserve">
-    <value>これまでに獲得した感情トークンの合計値です。</value>
-  </data>
-  <data name="&gt;&gt;AverageEmotionTokensLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;IntimacyLabel.Parent" xml:space="preserve">
-    <value>DefaultPanel</value>
-  </data>
-  <data name="ToggleShowButton.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
-    <value>AssociateIndex</value>
-  </data>
-  <data name="&gt;&gt;ImportButton.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="TestLabel2.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
-    <value>AssociateIndex</value>
-  </data>
-  <data name="ToggleShowButton.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="ImportButton.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
-    <value>AssociateIndex</value>
-  </data>
-  <data name="CpuUsageLabel.HelpString" xml:space="preserve">
-    <value>CPU使用率です。\nCPUによっては値が100%を超えることがあります。</value>
-  </data>
-  <data name="&gt;&gt;TotalTokenLabel.Name" xml:space="preserve">
-    <value>TotalTokenLabel</value>
-  </data>
-  <data name="&gt;&gt;ToggleShowButton.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="TestLabel2.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="StatsLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Yu Gothic UI, 14.25pt</value>
-  </data>
-  <data name="TotalTokenLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 402</value>
-  </data>
-  <data name="&gt;&gt;ImportButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuStrip1.Name" xml:space="preserve">
-    <value>menuStrip1</value>
-  </data>
-  <data name="&gt;&gt;CharPictureBox.Name" xml:space="preserve">
-    <value>CharPictureBox</value>
-  </data>
-  <data name="&gt;&gt;StatsLabel.Parent" xml:space="preserve">
+  <data name="&gt;&gt;JBar.Parent" xml:space="preserve">
     <value>StatsPanel</value>
   </data>
-  <data name="TestLabel1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;SBack.Name" xml:space="preserve">
+    <value>SBack</value>
   </data>
-  <data name="DailyTokenLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 25</value>
-  </data>
-  <data name="EmoStringLabel.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="FlopsLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 125</value>
-  </data>
-  <data name="KibunLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;AverageEmotionTokensLabel.ZOrder" xml:space="preserve">
-    <value>6</value>
+  <data name="EmoStringLabel.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
+    <value>AssociateIndex</value>
   </data>
   <data name="TestLabel1.Font" type="System.Drawing.Font, System.Drawing">
     <value>Yu Gothic UI, 14.25pt</value>
   </data>
+  <data name="SBack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>40, 55</value>
+  </data>
+  <data name="EmoStringLabel.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="DailyTokenLabel.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="&gt;&gt;EmoStringLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="EmoTokenLabel.ShowHelp" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;FeelingBack.Name" xml:space="preserve">
+    <value>FeelingBack</value>
+  </data>
+  <data name="DefaultPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 380</value>
+  </data>
+  <data name="EmoTokenLabel.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="SLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 50</value>
+  </data>
+  <data name="FeelingLabel.Text" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="TestLabel2.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="&gt;&gt;AverageEmotionTokensLabel.Name" xml:space="preserve">
+    <value>AverageEmotionTokensLabel</value>
+  </data>
+  <data name="&gt;&gt;TestLabel2.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="KibunLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="&gt;&gt;StatsLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;StatsLabel.Name" xml:space="preserve">
+    <value>StatsLabel</value>
+  </data>
+  <data name="&gt;&gt;ToggleShowButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FlopsLabel.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="CharPictureBox.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="ALabel.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;StatsLabel.Parent" xml:space="preserve">
+    <value>StatsPanel</value>
+  </data>
+  <data name="SLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;HBack.Parent" xml:space="preserve">
+    <value>StatsPanel</value>
+  </data>
+  <data name="TestLabel1.Text" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="&gt;&gt;DefaultPanel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="GoodFeeling.Location" type="System.Drawing.Point, System.Drawing">
+    <value>40, 105</value>
+  </data>
+  <data name="TestLabel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 427</value>
+  </data>
+  <data name="DailyTokenLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="StatsPanel.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;ImportButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="StatsPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="&gt;&gt;HBack.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;KibunLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="StatsLabel.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="TestLabel2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="&gt;&gt;FlopsLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="AverageEmotionTokensLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="FeelingLabel.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="&gt;&gt;DailyTokenLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="StatsLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Yu Gothic UI, 14.25pt</value>
+  </data>
+  <data name="EmoTokenLabel.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="ToggleShowButton.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
+    <value>AssociateIndex</value>
+  </data>
+  <data name="&gt;&gt;JBack.Parent" xml:space="preserve">
+    <value>StatsPanel</value>
+  </data>
+  <data name="&gt;&gt;AverageEmotionTokensLabel.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;FlopsLabel.Parent" xml:space="preserve">
+    <value>StatsPanel</value>
+  </data>
+  <data name="FeelingLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>41, 25</value>
+  </data>
+  <data name="ImportButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>381, 400</value>
+  </data>
+  <data name="&gt;&gt;ALabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;EmoTokenLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="StatsPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="IntimacyLabel.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="AverageEmotionTokensLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 75</value>
+  </data>
+  <data name="KibunLabel.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="AverageEmotionTokensLabel.Text" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="FlopsLabel.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="$this.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="&gt;&gt;IntimacyLabel.Parent" xml:space="preserve">
+    <value>DefaultPanel</value>
+  </data>
+  <data name="&gt;&gt;JLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DailyTokenLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="FLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="ClearButton.ShowHelp" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="TotalTokenLabel.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="StatsPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>255, 161</value>
+  </data>
+  <data name="TestLabel1.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="TestLabel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>41, 25</value>
+  </data>
+  <data name="&gt;&gt;CharPictureBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ImportButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;FeelingBack.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="EmoStringLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 377</value>
+  </data>
+  <data name="TestLabel2.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="BadFeeling.Location" type="System.Drawing.Point, System.Drawing">
+    <value>40, 105</value>
+  </data>
+  <data name="KibunLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;StatsPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="StatsLabel.Text" xml:space="preserve">
+    <value>統計</value>
+  </data>
+  <data name="TotalTokenLabel.HelpString" xml:space="preserve">
+    <value>これまでに獲得した感情トークンの合計値です。</value>
+  </data>
+  <data name="&gt;&gt;BadFeeling.Parent" xml:space="preserve">
+    <value>StatsPanel</value>
+  </data>
+  <data name="&gt;&gt;FeelingLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CpuUsageTimer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FlopsLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;menuStrip1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;TotalTokenLabel.Name" xml:space="preserve">
+    <value>TotalTokenLabel</value>
+  </data>
+  <data name="JBack.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="HLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="CpuUsageLabel.HelpString" xml:space="preserve">
+    <value>CPU使用率です。\nCPUによっては値が100%を超えることがあります。</value>
+  </data>
+  <data name="ToggleShowButton.ShowHelp" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;SLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;EmoStringLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="トークンのプロットを書き出すToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 22</value>
+  </data>
+  <data name="&gt;&gt;HBar.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;FeelingLabel.Parent" xml:space="preserve">
+    <value>StatsPanel</value>
+  </data>
+  <data name="&gt;&gt;ClearButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="TestLabel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 377</value>
+  </data>
+  <data name="StatsLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 25</value>
+  </data>
+  <data name="TestLabel2.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="EmoTokenLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 50</value>
+  </data>
+  <data name="&gt;&gt;ToggleShowButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="AverageEmotionTokensLabel.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
+    <value>AssociateIndex</value>
+  </data>
+  <data name="&gt;&gt;CharPictureBox.Name" xml:space="preserve">
+    <value>CharPictureBox</value>
+  </data>
+  <data name="&gt;&gt;helpProvider.Type" xml:space="preserve">
+    <value>System.Windows.Forms.HelpProvider, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CpuUsageLabel.Name" xml:space="preserve">
+    <value>CpuUsageLabel</value>
+  </data>
+  <data name="&gt;&gt;DefaultPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HLabel.Parent" xml:space="preserve">
+    <value>StatsPanel</value>
+  </data>
+  <data name="&gt;&gt;HBack.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="TestLabel1.ShowHelp" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;FLabel.Parent" xml:space="preserve">
+    <value>StatsPanel</value>
+  </data>
+  <data name="&gt;&gt;EmoTokenLabel.Parent" xml:space="preserve">
+    <value>StatsPanel</value>
+  </data>
+  <data name="StatsLabel.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
+    <value>AssociateIndex</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="TestLabel2.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
+    <value>AssociateIndex</value>
+  </data>
+  <data name="KibunLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 402</value>
+  </data>
   <data name="EmoStringLabel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="EmoStringLabel.ShowHelp" type="System.Boolean, mscorlib">
+  <data name="&gt;&gt;menuStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ToggleShowButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>91, 27</value>
+  </data>
+  <data name="&gt;&gt;EmoStringLabel.Name" xml:space="preserve">
+    <value>EmoStringLabel</value>
+  </data>
+  <data name="ToggleShowButton.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;ABar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;KibunLabel.Name" xml:space="preserve">
+    <value>KibunLabel</value>
+  </data>
+  <data name="ImportButton.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="DailyTokenLabel.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="&gt;&gt;EmoTokenLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="ToggleShowButton.Text" xml:space="preserve">
+    <value>統計表示切替</value>
+  </data>
+  <data name="&gt;&gt;ClearButton.Name" xml:space="preserve">
+    <value>ClearButton</value>
+  </data>
+  <data name="&gt;&gt;menuStrip1.Name" xml:space="preserve">
+    <value>menuStrip1</value>
+  </data>
+  <data name="&gt;&gt;ABar.Parent" xml:space="preserve">
+    <value>StatsPanel</value>
+  </data>
+  <data name="ABack.TabIndex" type="System.Int32, mscorlib">
+    <value>23</value>
+  </data>
+  <data name="&gt;&gt;BadFeeling.Name" xml:space="preserve">
+    <value>BadFeeling</value>
+  </data>
+  <data name="&gt;&gt;CpuUsageLabel.Parent" xml:space="preserve">
+    <value>DefaultPanel</value>
+  </data>
+  <data name="FlopsLabel.Text" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="HBack.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="&gt;&gt;JBar.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;FeelingBack.Parent" xml:space="preserve">
+    <value>StatsPanel</value>
+  </data>
+  <data name="&gt;&gt;DefaultPanel.Name" xml:space="preserve">
+    <value>DefaultPanel</value>
+  </data>
+  <data name="DailyTokenLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 25</value>
+  </data>
+  <data name="FlopsLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="FlopsLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 125</value>
+  </data>
+  <data name="EmoStringLabel.HelpString" xml:space="preserve">
+    <value>今の感情です。</value>
+  </data>
+  <data name="&gt;&gt;SBack.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ImportButton.ShowHelp" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="JLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;TestLabel2.Name" xml:space="preserve">
+    <value>TestLabel2</value>
+  </data>
+  <data name="&gt;&gt;ToggleShowButton.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="ImportButton.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
+    <value>AssociateIndex</value>
+  </data>
+  <data name="ClearButton.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;TaskRunTimer1s.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="TotalTokenLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;ABack.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="FlopsLabel.ShowHelp" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;EmoStringLabel.Parent" xml:space="preserve">
+    <value>DefaultPanel</value>
+  </data>
+  <data name="EmoTokenLabel.Text" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="&gt;&gt;EmoTokenLabel.Name" xml:space="preserve">
+    <value>EmoTokenLabel</value>
+  </data>
+  <data name="HBar.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;TestLabel2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="ABar.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="TestLabel2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="TestLabel1.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
+    <value>AssociateIndex</value>
+  </data>
+  <data name="&gt;&gt;DailyTokenLabel.Parent" xml:space="preserve">
+    <value>StatsPanel</value>
+  </data>
+  <data name="&gt;&gt;TestLabel1.Name" xml:space="preserve">
+    <value>TestLabel1</value>
+  </data>
+  <data name="TestLabel1.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="KibunLabel.Text" xml:space="preserve">
+    <value>CPU:</value>
+  </data>
+  <data name="ToggleShowButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>381, 429</value>
+  </data>
+  <data name="&gt;&gt;ABar.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="EmoTokenLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="ClearButton.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
+    <value>AssociateIndex</value>
+  </data>
+  <data name="DailyTokenLabel.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
+    <value>AssociateIndex</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>484, 461</value>
+  </data>
+  <data name="BadFeeling.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="IntimacyLabel.ShowHelp" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="DailyTokenLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>41, 25</value>
+  </data>
+  <data name="&gt;&gt;SLabel.Parent" xml:space="preserve">
+    <value>StatsPanel</value>
+  </data>
+  <data name="IntimacyLabel.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
+    <value>AssociateIndex</value>
+  </data>
+  <data name="&gt;&gt;FeelingLabel.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;FeelingBack.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="$this.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
+    <value>AssociateIndex</value>
+  </data>
+  <data name="CpuUsageLabel.ShowHelp" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;JLabel.Parent" xml:space="preserve">
+    <value>StatsPanel</value>
+  </data>
+  <data name="AverageEmotionTokensLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="FeelingLabel.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="IntimacyLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 402</value>
+  </data>
+  <data name="TestLabel1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;BadFeeling.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStrip1.Name" xml:space="preserve">
+    <value>contextMenuStrip1</value>
+  </data>
+  <data name="&gt;&gt;トークンのプロットを書き出すToolStripMenuItem.Name" xml:space="preserve">
+    <value>トークンのプロットを書き出すToolStripMenuItem</value>
+  </data>
+  <data name="FeelingLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Yu Gothic UI, 14.25pt</value>
+  </data>
+  <data name="&gt;&gt;TestLabel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="FeelingBack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>40, 105</value>
+  </data>
+  <data name="ClearButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>381, 400</value>
+  </data>
+  <data name="KibunLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;ABack.Parent" xml:space="preserve">
+    <value>StatsPanel</value>
+  </data>
+  <data name="&gt;&gt;DailyTokenLabel.Name" xml:space="preserve">
+    <value>DailyTokenLabel</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -5081,340 +5393,316 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
 </value>
   </data>
-  <data name="&gt;&gt;EmoTokenLabel.Parent" xml:space="preserve">
-    <value>StatsPanel</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>digpet</value>
-  </data>
-  <data name="AverageEmotionTokensLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="DailyTokenLabel.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
-    <value>AssociateIndex</value>
-  </data>
-  <data name="StatsLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="TestLabel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 427</value>
-  </data>
-  <data name="&gt;&gt;EmoStringLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="FlopsLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>41, 25</value>
-  </data>
-  <data name="ImportButton.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="ClearButton.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="&gt;&gt;TestLabel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TotalTokenLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;helpProvider.Type" xml:space="preserve">
-    <value>System.Windows.Forms.HelpProvider, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="FeelingLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 100</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="TestLabel1.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
-    <value>AssociateIndex</value>
-  </data>
-  <data name="&gt;&gt;TestLabel1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="KibunLabel.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
-    <value>AssociateIndex</value>
-  </data>
-  <data name="TestLabel2.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="ClearButton.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
-    <value>AssociateIndex</value>
-  </data>
-  <data name="TestLabel2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="ClearButton.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="EmoTokenLabel.Text" xml:space="preserve">
-    <value>なし</value>
-  </data>
-  <data name="AverageEmotionTokensLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 75</value>
-  </data>
-  <data name="TestLabel1.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="$this.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="CpuUsageLabel.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="ToggleShowButton.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="FeelingLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="TotalTokenLabel.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="&gt;&gt;FeelingLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;KibunLabel.Name" xml:space="preserve">
-    <value>KibunLabel</value>
-  </data>
-  <data name="EmoTokenLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;TestLabel2.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;TotalTokenLabel.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="&gt;&gt;ImageChangeTimer.Name" xml:space="preserve">
-    <value>ImageChangeTimer</value>
+  <data name="&gt;&gt;KibunLabel.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="DefaultPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 380</value>
-  </data>
-  <data name="StatsPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>255, 161</value>
-  </data>
-  <data name="ImportButton.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="FlopsLabel.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>Digpet</value>
-  </data>
-  <data name="TestLabel1.Text" xml:space="preserve">
-    <value>なし</value>
-  </data>
-  <data name="ClearButton.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStrip1.Name" xml:space="preserve">
-    <value>contextMenuStrip1</value>
-  </data>
-  <data name="&gt;&gt;IntimacyLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="KibunLabel.Text" xml:space="preserve">
-    <value>CPU:</value>
-  </data>
-  <data name="&gt;&gt;FeelingLabel.Parent" xml:space="preserve">
-    <value>StatsPanel</value>
-  </data>
-  <data name="ClearButton.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="FeelingLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;ToggleShowButton.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="$this.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="ClearButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>381, 400</value>
-  </data>
-  <data name="TestLabel2.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="ToggleShowButton.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="AverageEmotionTokensLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="FeelingLabel.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="KibunLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 25</value>
-  </data>
-  <data name="&gt;&gt;FlopsLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="StatsLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;menuStrip1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="KibunLabel.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="&gt;&gt;DailyTokenLabel.Name" xml:space="preserve">
-    <value>DailyTokenLabel</value>
-  </data>
-  <data name="&gt;&gt;TaskRunTimer1s.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Timer, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DefaultPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="FlopsLabel.Text" xml:space="preserve">
-    <value>なし</value>
-  </data>
-  <data name="&gt;&gt;AverageEmotionTokensLabel.Name" xml:space="preserve">
-    <value>AverageEmotionTokensLabel</value>
-  </data>
-  <data name="KibunLabel.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="CpuUsageLabel.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="EmoTokenLabel.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="&gt;&gt;IntimacyLabel.Type" xml:space="preserve">
+  <data name="&gt;&gt;AverageEmotionTokensLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;DefaultPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="AverageEmotionTokensLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Yu Gothic UI, 14.25pt</value>
+  </data>
+  <data name="&gt;&gt;JBar.Name" xml:space="preserve">
+    <value>JBar</value>
   </data>
   <data name="EmoTokenLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 25</value>
   </data>
-  <data name="TestLabel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>41, 25</value>
+  <data name="StatsPanel.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
-  <data name="ToggleShowButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>381, 429</value>
+  <data name="&gt;&gt;AverageEmotionTokensLabel.Parent" xml:space="preserve">
+    <value>StatsPanel</value>
   </data>
-  <data name="&gt;&gt;StatsLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>Digpet</value>
   </data>
-  <data name="EmoTokenLabel.AutoSize" type="System.Boolean, mscorlib">
+  <data name="&gt;&gt;StatsPanel.Name" xml:space="preserve">
+    <value>StatsPanel</value>
+  </data>
+  <data name="&gt;&gt;SBar.Name" xml:space="preserve">
+    <value>SBar</value>
+  </data>
+  <data name="StatsPanel.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
+    <value>AssociateIndex</value>
+  </data>
+  <data name="$this.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="HBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>40, 30</value>
+  </data>
+  <data name="FeelingBack.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="&gt;&gt;ALabel.Parent" xml:space="preserve">
+    <value>StatsPanel</value>
+  </data>
+  <data name="&gt;&gt;JLabel.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;HLabel.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="KibunLabel.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="FlopsLabel.ShowHelp" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="ABar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>40, 80</value>
+  </data>
+  <data name="KibunLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 25</value>
+  </data>
+  <data name="&gt;&gt;FLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;FeelingLabel.Name" xml:space="preserve">
     <value>FeelingLabel</value>
   </data>
-  <data name="&gt;&gt;ImportButton.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="CpuUsageLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 427</value>
   </data>
-  <data name="StatsPanel.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="AverageEmotionTokensLabel.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
-  <data name="DailyTokenLabel.AutoSize" type="System.Boolean, mscorlib">
+  <data name="FlopsLabel.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
+    <value>AssociateIndex</value>
+  </data>
+  <data name="&gt;&gt;ImageChangeTimer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="JBack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>40, 5</value>
+  </data>
+  <data name="&gt;&gt;JLabel.Name" xml:space="preserve">
+    <value>JLabel</value>
+  </data>
+  <data name="TotalTokenLabel.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;StatsPanel.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;SBar.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
-  <data name="&gt;&gt;CharPictureBox.ZOrder" xml:space="preserve">
-    <value>5</value>
+  <data name="&gt;&gt;CpuUsageLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="FlopsLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;ABack.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="ToggleShowButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
+  <data name="CpuUsageLabel.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="FeelingLabel.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
+    <value>AssociateIndex</value>
+  </data>
+  <data name="menuStrip1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="HLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 25</value>
+  </data>
+  <data name="ClearButton.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="&gt;&gt;ALabel.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>digpet</value>
+  </data>
+  <data name="EmoTokenLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Yu Gothic UI, 14.25pt</value>
   </data>
   <data name="&gt;&gt;TotalTokenLabel.Parent" xml:space="preserve">
     <value>StatsPanel</value>
   </data>
-  <data name="&gt;&gt;FeelingLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;helpProvider.Name" xml:space="preserve">
-    <value>helpProvider</value>
-  </data>
-  <data name="&gt;&gt;TestLabel1.Name" xml:space="preserve">
-    <value>TestLabel1</value>
-  </data>
-  <data name="&gt;&gt;ImportButton.Name" xml:space="preserve">
-    <value>ImportButton</value>
-  </data>
-  <data name="&gt;&gt;トークンのプロットを書き出すToolStripMenuItem.Name" xml:space="preserve">
-    <value>トークンのプロットを書き出すToolStripMenuItem</value>
-  </data>
-  <data name="KibunLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Yu Gothic UI, 14.25pt</value>
-  </data>
-  <data name="&gt;&gt;CpuUsageLabel.Parent" xml:space="preserve">
-    <value>DefaultPanel</value>
-  </data>
-  <data name="EmoStringLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 377</value>
-  </data>
-  <data name="IntimacyLabel.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="&gt;&gt;IntimacyLabel.Name" xml:space="preserve">
-    <value>IntimacyLabel</value>
-  </data>
-  <data name="TestLabel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="ToggleShowButton.ShowHelp" type="System.Boolean, mscorlib">
+  <data name="AverageEmotionTokensLabel.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="StatsLabel.ShowHelp" type="System.Boolean, mscorlib">
+  <data name="TestLabel2.ShowHelp" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="&gt;&gt;FlopsLabel.Name" xml:space="preserve">
-    <value>FlopsLabel</value>
-  </data>
-  <data name="&gt;&gt;StatsLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;CpuUsageTimer.Name" xml:space="preserve">
     <value>CpuUsageTimer</value>
   </data>
-  <data name="&gt;&gt;TestLabel2.Type" xml:space="preserve">
+  <data name="AverageEmotionTokensLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>41, 25</value>
+  </data>
+  <data name="&gt;&gt;JBack.Name" xml:space="preserve">
+    <value>JBack</value>
+  </data>
+  <data name="&gt;&gt;StatsPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ImportButton.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="&gt;&gt;トークンのプロットを書き出すToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="StatsLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="TestLabel2.Text" xml:space="preserve">
+    <value>累計トークン:</value>
+  </data>
+  <data name="DailyTokenLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Yu Gothic UI, 14.25pt</value>
+  </data>
+  <data name="&gt;&gt;IntimacyLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;CpuUsageLabel.Name" xml:space="preserve">
-    <value>CpuUsageLabel</value>
+  <data name="KibunLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Yu Gothic UI, 14.25pt</value>
   </data>
-  <data name="StatsPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
+  <data name="&gt;&gt;HLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FlopsLabel.Name" xml:space="preserve">
+    <value>FlopsLabel</value>
+  </data>
+  <data name="DailyTokenLabel.Text" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="StatsLabel.ShowHelp" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="FeelingLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;JBar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TotalTokenLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="EmoStringLabel.ShowHelp" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;HLabel.Name" xml:space="preserve">
+    <value>HLabel</value>
+  </data>
+  <data name="StatsLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 0</value>
+  </data>
+  <data name="FeelingLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 100</value>
+  </data>
+  <data name="StatsLabel.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="&gt;&gt;SBack.Parent" xml:space="preserve">
+    <value>StatsPanel</value>
+  </data>
+  <data name="&gt;&gt;GoodFeeling.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="JBar.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="IntimacyLabel.HelpString" xml:space="preserve">
+    <value>今の感情です。</value>
+  </data>
+  <data name="&gt;&gt;CharPictureBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;KibunLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="menuStrip1.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="&gt;&gt;GoodFeeling.Parent" xml:space="preserve">
+    <value>StatsPanel</value>
+  </data>
+  <data name="DailyTokenLabel.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="$this.ShowHelp" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;IntimacyLabel.Name" xml:space="preserve">
+    <value>IntimacyLabel</value>
+  </data>
+  <data name="FlopsLabel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Yu Gothic UI, 14.25pt</value>
+  </data>
+  <data name="TestLabel1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>7, 15</value>
+  </data>
+  <data name="&gt;&gt;HBar.Name" xml:space="preserve">
+    <value>HBar</value>
+  </data>
+  <data name="&gt;&gt;StatsPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;SBar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SLabel.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;FLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;SBar.Parent" xml:space="preserve">
+    <value>StatsPanel</value>
+  </data>
+  <data name="CpuUsageLabel.HelpNavigator" type="System.Windows.Forms.HelpNavigator, System.Windows.Forms">
+    <value>AssociateIndex</value>
+  </data>
+  <data name="ToggleShowButton.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="&gt;&gt;ABar.Name" xml:space="preserve">
+    <value>ABar</value>
+  </data>
+  <data name="ALabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 75</value>
+  </data>
+  <data name="ImportButton.HelpKeyword" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="&gt;&gt;menuStrip1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;CharPictureBox.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="ToggleShowButton.HelpString" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="IntimacyLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
   </data>
   <metadata name="TaskRunTimer1s.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>308, 17</value>
   </metadata>
-  <metadata name="helpProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>153, 17</value>
-  </metadata>
   <metadata name="CpuUsageTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
-  </metadata>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
-    <value>ja</value>
-  </metadata>
-  <metadata name="ImageChangeTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>153, 17</value>
   </metadata>
   <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>600, 17</value>
   </metadata>
+  <metadata name="ImageChangeTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>153, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>445, 17</value>
+  </metadata>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
+    <value>ja</value>
+  </metadata>
+  <metadata name="helpProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>153, 17</value>
   </metadata>
 </root>

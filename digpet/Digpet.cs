@@ -75,8 +75,20 @@ namespace digpet
         private void UpdateDetailLabels()
         {
             EmoStringLabel.Text = charZipFileManager.GetFeelingTag() + GetFeeling(tokenManager.Feeling);
-            DailyTokenLabel.Text = "Œ»Ý‚ÌToken: " + tokenManager.Tokens.ToString();
-            FeelingLabel.Text = "Œ»Ý‚ÌFeeling: " + tokenManager.Feeling.ToString("N2");
+            JBar.Width = (int)(100.0 * tokenManager.JoyFeeling);
+            HBar.Width = (int)(100.0 * tokenManager.HappyFeeling);
+            SBar.Width = (int)(100.0 * tokenManager.SadFeeling);
+            ABar.Width = (int)(100.0 * tokenManager.AngryFeeling);
+            if (tokenManager.Feeling >= 0)
+            {
+                GoodFeeling.BackColor = Color.Lime;
+                GoodFeeling.Width = (int)(100.0 * (tokenManager.Feeling / 2.0));
+            }
+            else
+            {
+                GoodFeeling.BackColor = Color.Aqua;
+                GoodFeeling.Width = (int)(100.0 * ((-1.0 * tokenManager.Feeling) / 2.0));
+            }
         }
 
         /// <summary>
@@ -139,8 +151,8 @@ namespace digpet
         private string GetFeeling(double feeling)
         {
             double feel = feeling;
-            if (feel > 1.0) feel = 1.0;
-            if (feel < -1.0) feel = -1.0;
+            if (feel > 2.0) feel = 2.0;
+            if (feel < -2.0) feel = -2.0;
 
             return charZipFileManager.GetFeelingString(feel);
         }
@@ -285,9 +297,30 @@ namespace digpet
         {
             Control[] controls =
                 {
-                    StatsLabel,
-                    DailyTokenLabel,
+                    JLabel,
+                    HLabel,
+                    SLabel,
+                    ALabel,
+                    FeelingLabel,
                 };
+
+            Control[] bars =
+            {
+                JBar,
+                HBar,
+                SBar,
+                ABar,
+                GoodFeeling,
+            };
+
+            Control[] backs =
+            {
+                JBack,
+                HBack,
+                SBack,
+                ABack,
+                FeelingBack,
+            };
 
             for (int panelInd = 0; panelInd < controls.Length; panelInd++)
             {
@@ -307,6 +340,18 @@ namespace digpet
                     nowCont.Top = 0;
                     nowCont.Left = 0;
                 }
+
+                if ((panelInd < bars.Length) && (panelInd < backs.Length))
+                { 
+                    Control bar = bars[panelInd];
+                    Control back = backs[panelInd];
+
+                    bar.Left = nowCont.Right;
+                    back.Left = nowCont.Right;
+
+                    bar.Top = bar.Top + ((nowCont.Top + (nowCont.Height / 2)) - (bar.Top + (bar.Height / 2)));
+                    back.Top = bar.Top + ((nowCont.Top + (nowCont.Height / 2)) - (bar.Top + (bar.Height / 2)));
+                }
             }
         }
 
@@ -320,7 +365,6 @@ namespace digpet
             {
                 CpuUsageLabel,
                 EmoStringLabel,
-                FeelingLabel,
             };
 
             for (int panelInd = 0; panelInd < controls.Length; panelInd++)
