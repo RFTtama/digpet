@@ -519,21 +519,11 @@ namespace digpet
         {
             if ((nonActiveModeTimeCnter * 100) >= SettingManager.PublicSettings.NonActiveModeStartTime)
             {
-                if (cursorVisible)
-                {
-                    Cursor.Hide();
-                    FormBorderStyle = FormBorderStyle.None;
-                    cursorVisible = false;
-                }
+                ShowHeader();
             }
             else
             {
-                if (!cursorVisible)
-                {
-                    Cursor.Show();
-                    FormBorderStyle = FormBorderStyle.Sizable;
-                    cursorVisible = true;
-                }
+                HideHeader();
             }
 
             if (cursorPosBef == Cursor.Position)
@@ -548,6 +538,32 @@ namespace digpet
                 nonActiveModeTimeCnter = 0;
             }
             cursorPosBef = Cursor.Position;
+        }
+
+        /// <summary>
+        /// アプリのヘッダ情報を表示する
+        /// </summary>
+        private void ShowHeader()
+        {
+            if (cursorVisible)
+            {
+                Cursor.Hide();
+                FormBorderStyle = FormBorderStyle.None;
+                cursorVisible = false;
+            }
+        }
+
+        /// <summary>
+        /// アプリのヘッダ情報を隠す
+        /// </summary>
+        private void HideHeader()
+        {
+            if (!cursorVisible)
+            {
+                Cursor.Show();
+                FormBorderStyle = FormBorderStyle.Sizable;
+                cursorVisible = true;
+            }
         }
 
         /// <summary>
