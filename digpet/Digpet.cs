@@ -15,6 +15,7 @@ namespace digpet
         private int imageChangeTimeCnter = 0;                           //画像切替用のタイマ
         private int nonActiveModeTimeCnter = 0;                         //非アクティブモード用タイマ
         private Point cursorPosBef;
+        private bool cursorVisible = true;
 
         //定数関連の宣言
         private const int FONT_MARGIN_SIZE = 5;
@@ -518,13 +519,21 @@ namespace digpet
         {
             if ((nonActiveModeTimeCnter * 100) >= SettingManager.PublicSettings.NonActiveModeStartTime)
             {
-                Cursor.Hide();
-                FormBorderStyle = FormBorderStyle.None;
+                if (cursorVisible)
+                {
+                    Cursor.Hide();
+                    FormBorderStyle = FormBorderStyle.None;
+                    cursorVisible = false;
+                }
             }
             else
             {
-                Cursor.Show();
-                FormBorderStyle = FormBorderStyle.Sizable;
+                if (!cursorVisible)
+                {
+                    Cursor.Show();
+                    FormBorderStyle = FormBorderStyle.Sizable;
+                    cursorVisible = true;
+                }
             }
 
             if (cursorPosBef == Cursor.Position)
