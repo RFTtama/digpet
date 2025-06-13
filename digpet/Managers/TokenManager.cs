@@ -46,7 +46,7 @@ namespace digpet.Managers
         {
             get
             {
-                return avgManager.HappyToken;
+                return avgManager.HappyFeeling;
             }
         }
 
@@ -54,7 +54,7 @@ namespace digpet.Managers
         {
             get
             {
-                return avgManager.SadToken;
+                return avgManager.SadFeeling;
             }
         }
 
@@ -62,7 +62,7 @@ namespace digpet.Managers
         {
             get
             {
-                return avgManager.AngryToken;
+                return avgManager.AngryFeeling;
             }
         }
 
@@ -237,6 +237,7 @@ namespace digpet.Managers
             private const double SAD_TOKEN_MAX = 10000;                 //哀tokenの最大値
             private const double ANGRY_TOKEN_MAX = 500;                 //怒tokenの最大値
             private const double HAPPY_TOKEN_MAX = 120;                 //喜tokenの最大値
+            private const double MAX_TOKEN_DEC_MAGN = 0.99999;
 
             public double TokenMax { get; set; }                        //tokenの最大値
 
@@ -301,6 +302,17 @@ namespace digpet.Managers
                 }
             }
 
+            /// <summary>
+            /// 喜の感情
+            /// </summary>
+            public double HappyFeeling
+            {
+                get
+                {
+                    return (HappyToken / HAPPY_TOKEN_MAX);
+                }
+            }
+
 
             public CompressTokenAvgManager(string id)
             {
@@ -323,6 +335,8 @@ namespace digpet.Managers
             /// <param name="token">token値</param>
             public void Add(double token)
             {
+                TokenMax = TokenMax * MAX_TOKEN_DEC_MAGN;
+
                 if (token > TokenMax)
                 {
                     TokenMax = token;
@@ -361,7 +375,15 @@ namespace digpet.Managers
                 }
                 else if (AngryToken <= 0.0)
                 {
-                    SadTokenBoost++;
+                    if (SadToken > 0.0)
+                    {
+                        SadTokenBoost++;
+                    }
+                    else
+                    {
+                        SadTokenBoost = 0;
+                    }
+
                     SadToken = SadToken - (100.0 * SadTokenBoost);
 
                     if (SadToken < 0.0)
