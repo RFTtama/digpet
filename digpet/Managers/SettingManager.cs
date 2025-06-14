@@ -167,6 +167,9 @@ namespace digpet.Managers
             //非アクティブモードの開始時間(ms)
             public int NonActiveModeStartTime { get; set; }
 
+            //カメラ検出平滑化モードの有効無効
+            public bool EnableCameraDetectSmoothingMode { get; set; }
+
             /// <summary>
             /// コンストラクタ
             /// 初期値に初期化する
@@ -186,9 +189,10 @@ namespace digpet.Managers
                 SaveTokenPlot = true;
                 GcThreshold = 20000000;
                 LogDeleteDays = 31;
-                TokenCompressArrayElementIndex = 60;
+                TokenCompressArrayElementIndex = 120;
                 TokenBackupInterval = 10 * 60;
                 EnableNonActiveMode = false;
+                EnableCameraDetectSmoothingMode = false;
             }
         }
     }
