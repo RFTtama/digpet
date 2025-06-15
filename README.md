@@ -24,7 +24,8 @@
 2. "インポート"ボタンが表示されるまで"詳細表示切替"ボタンをクリックします。
 3. ファイル選択ダイアログが表示されるので、対象のzipファイルを選択します。
 
-サンプルキャラファイル: [Moni_v2.00.00.zip](https://github.com/user-attachments/files/20272453/Moni_v2.00.00.zip)
+サンプルキャラファイル: [Moni_v2.01.00_light.zip](https://github.com/user-attachments/files/20743950/Moni_v2.01.00_light.zip)
+
 
 
 ## Webカメラを使用した機能の使用方法
