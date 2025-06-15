@@ -192,7 +192,7 @@ namespace digpet.Managers
                 TokenCompressArrayElementIndex = 120;
                 TokenBackupInterval = 10 * 60;
                 EnableNonActiveMode = false;
-                EnableCameraDetectSmoothingMode = false;
+                EnableCameraDetectSmoothingMode = true;
             }
         }
     }

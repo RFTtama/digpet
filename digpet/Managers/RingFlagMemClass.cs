@@ -49,6 +49,22 @@ namespace digpet.Managers
         }
 
         /// <summary>
+        /// リングバッファにブール値を記録する
+        /// </summary>
+        /// <param name="flag">0: falseを記録, !=0: trueを記録</param>
+        public void Add(int flag)
+        {
+            if (flag == 0)
+            {
+                Add(false);
+            }
+            else
+            {
+                Add(true);
+            }
+        }
+
+        /// <summary>
         /// trueの合計数を算出する
         /// </summary>
         /// <returns>リングバッファに格納されているtrue要素の数</returns>

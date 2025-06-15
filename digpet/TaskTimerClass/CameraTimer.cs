@@ -12,6 +12,9 @@ namespace digpet.TimerClass
     /// </summary>
     public class CameraTimer : TaskClassModel
     {
+        //定数宣言
+        private const int SmoothCount = 5;
+
         //変数宣言
         private bool _cameraDisable = false;
         private int _faceDetected = -1;
@@ -19,12 +22,14 @@ namespace digpet.TimerClass
         private double _detectAvg = 0.0;
         private bool _avgCalcFlg = false;
         private bool init = false;
+        private bool isDetectBySmooth = false;
 
         //クラス宣言
         private readonly RingFlagMemClass ringMem = new RingFlagMemClass(10);
         private CascadeClassifier classifier = new CascadeClassifier();
         private AvgManager detectAvgManager = new AvgManager();
         private VideoCapture capture = new VideoCapture();
+        private RingFlagMemClass smoothMem = new RingFlagMemClass(SmoothCount);
 
         //ゲッターなど
         public int FaceDetected
@@ -136,6 +141,11 @@ namespace digpet.TimerClass
 
             _faceDetected = TakePhotoAndDetectFace();
 
+            if (SettingManager.PublicSettings.EnableCameraDetectSmoothingMode)
+            {
+                _faceDetected = DetectSmoothing(_faceDetected);
+            }
+
             if (FaceDetected < 0) return TaskReturn.TASK_FAILURE;
 
             CalcProcess();
@@ -219,6 +229,39 @@ namespace digpet.TimerClass
         }
 
         /// <summary>
+        /// 検出の平滑化処理
+        /// </summary>
+        /// <param name="detect">平滑化前の検出結果</param>
+        /// <returns>平滑化後の検出結果</returns>
+        private int DetectSmoothing(int detect)
+        {
+            if (detect < 0) return detect;
+
+            smoothMem.Add(detect);
+
+            if (isDetectBySmooth)
+            {
+                if (smoothMem.GetTotalOfTrue() == 0)
+                {
+                    isDetectBySmooth = false;
+                    return 0;
+                }
+                if (detect == 0)
+                {
+                    return 1;
+                }
+                return detect;
+            }
+
+            if (smoothMem.GetTotalOfTrue() >= SmoothCount)
+            {
+                isDetectBySmooth = true;
+                return detect;
+            }
+            return 0;
+        }
+
+        /// <summary>
         /// カメラから画像を取得し、返却する
         /// </summary>
         /// <returns>画像配列(Mat)</returns>
@@ -269,7 +312,7 @@ namespace digpet.TimerClass
         /// 画像から顔を検出する
         /// </summary>
         /// <param name="mat"></param>
-        /// <returns></returns>
+        /// <returns>異常: -1, 0<: 顔の検出数</returns>
         private int DetectFace(Mat mat)
         {
             //matがnullならfalseを返却
