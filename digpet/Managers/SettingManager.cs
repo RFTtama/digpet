@@ -15,8 +15,8 @@ namespace digpet.Managers
         //外部で変更可能でない設定
         public static class PrivateSettings
         {
-            public const string APPLICATION_VERSION = "2.00.01" + DEBUG_APPENDANCE;         //アプリバージョン
-            public const string CHAR_FORMAT_VERSION = "2.00.00";                            //キャラフォーマットのバージョン
+            public const string APPLICATION_VERSION = "2.01.00" + DEBUG_APPENDANCE;         //アプリバージョン
+            public const string CHAR_FORMAT_VERSION = "2.01.00";                            //キャラフォーマットのバージョン
 
             public const string CONFIG_FILE_PATH = "config.json";                           //コンフィグファイルのパス
             public const string ERRORLOG_PATH = "errorLog.txt";                             //エラーログのパス
@@ -167,6 +167,9 @@ namespace digpet.Managers
             //非アクティブモードの開始時間(ms)
             public int NonActiveModeStartTime { get; set; }
 
+            //カメラ検出平滑化モードの有効無効
+            public bool EnableCameraDetectSmoothingMode { get; set; }
+
             /// <summary>
             /// コンストラクタ
             /// 初期値に初期化する
@@ -186,9 +189,10 @@ namespace digpet.Managers
                 SaveTokenPlot = true;
                 GcThreshold = 20000000;
                 LogDeleteDays = 31;
-                TokenCompressArrayElementIndex = 60;
+                TokenCompressArrayElementIndex = 120;
                 TokenBackupInterval = 10 * 60;
                 EnableNonActiveMode = false;
+                EnableCameraDetectSmoothingMode = true;
             }
         }
     }
