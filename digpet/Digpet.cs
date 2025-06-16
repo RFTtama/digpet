@@ -47,8 +47,18 @@ namespace digpet
             tokenManager.Read(SettingManager.PrivateSettings.TOKEN_CALC_PATH);
             ReadCharConfig();
             SetNowWindowState();
+            ChangeControlVisible();
 
             ImageChangeTimer.Enabled = true;
+        }
+
+        private void ChangeControlVisible()
+        {
+            ImportButton.Visible = true;
+            ClearButton.Visible = true;
+            ToggleShowButton.Visible = true;
+            DefaultPanel.Visible = true;
+            StatsPanel.Visible = true;
         }
 
         /// <summary>
