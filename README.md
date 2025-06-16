@@ -48,9 +48,9 @@
 > config.jsonのCameraDisableThresholdの数値を変更してください。
 
 ## アプリ設定一覧
-1. CharSettingPath
+1. *CharSettingPath*<br>
 キャラファイルのパスが設定されます。
-絶対参照/相対参照に関わらず機能します。
+設定するパスは絶対参照/相対参照問いません。
 
 ## Licenses
 > This project uses OpenCV, which is licensed under the Apache License 2.0.<br>
