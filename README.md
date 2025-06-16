@@ -48,7 +48,7 @@
 > config.jsonのCameraDisableThresholdの数値を変更してください。
 
 ## アプリ設定一覧
-1. *CharSettingPath*<br>
+1. **CharSettingPath**<br>
 キャラファイルのパスが設定されます。
 設定するパスは絶対参照/相対参照問いません。
 
