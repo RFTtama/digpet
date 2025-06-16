@@ -102,7 +102,14 @@
 15. **(int)TokenBackupInterval**<br>
 トークンファイルを保存する時間間隔を秒単で設定します。
 
+16. **(bool)EnableNonActiveMode**<br>
+非アクティブ(アプリの操作を一定時間行わない)時に、UIを非表示にする機能の有効無効を切り替えます。
 
+17. **(int)NonActiveModeStartTime**<br>
+非アクティブモードを開始するための時間を秒単位で設定します。
+
+18. **(bool)EnableCameraDetectSmoothingMode**<br>
+カメラモード起動時に検出結果の平滑化を行う機能の有効無効を切り替えます。
 
 ## Licenses
 > This project uses OpenCV, which is licensed under the Apache License 2.0.<br>
