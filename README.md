@@ -48,9 +48,38 @@
 > config.jsonのCameraDisableThresholdの数値を変更してください。
 
 ## アプリ設定一覧
-1. **CharSettingPath**<br>
-キャラファイルのパスが設定されます。
+1. **(string)CharSettingPath**<br>
+キャラファイルのパスが設定されます。<br>
 設定するパスは絶対参照/相対参照問いません。
+
+2. **(int)WindowState**<br>
+起動時のウィンドウ状態です。<br>
+0: 通常<br>
+1: 最大化<br>
+2: 最小化
+
+3. **(bool)TopMost**<br>
+ウィンドウのTopMostを切り替えます。
+
+4. **(Size)WindowSize**<br>
+起動時のウィンドウサイズを設定します。
+
+5. **(Point)WindowLocation**<br>
+起動時のウィンドウ位置を設定します。
+
+6. **(int)FontEnlargeSize**<br>
+0以上の値を設定することで、<br>
+そのポイント分UIのサイズを拡大します。
+
+7. **(Size)ImageSize**<br>
+キャラクター画像のサイズです。<br>
+特別な理由がない限り変更しないでください。
+
+8. **(bool)EnableCameraMode**<br>
+カメラモードの有効無効を切り替えます。
+
+9. **(int)CameraId**<br>
+画像を取得するカメラのIDです。
 
 ## Licenses
 > This project uses OpenCV, which is licensed under the Apache License 2.0.<br>
