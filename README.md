@@ -47,6 +47,11 @@
 > 数秒間カメラモードになり、すぐにCPUモードに変わってしまう場合は、
 > config.jsonのCameraDisableThresholdの数値を変更してください。
 
+## アプリ設定一覧
+1. CharSettingPath
+キャラファイルのパスが設定されます。
+絶対参照/相対参照に関わらず機能します。
+
 ## Licenses
 > This project uses OpenCV, which is licensed under the Apache License 2.0.<br>
 > The OpenCV package was built by schimatk.<br>
