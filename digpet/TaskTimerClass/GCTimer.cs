@@ -17,7 +17,7 @@ namespace digpet.TaskTimerClass
             if (memory >= SettingManager.PublicSettings.GcThreshold)
             {
                 GC.Collect();
-                LogLib.LogOutput("ガーベジコレクタを手動実行しました Mem:" + memory.ToString());
+                LogTimer.SaveLog("memory", memory.ToString());
             }
 
             return TaskReturn.TASK_SUCCESS;
