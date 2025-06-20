@@ -3,6 +3,7 @@ using ScottPlot.Plottables;
 using ScottPlot;
 using System.Diagnostics;
 using System.Text.Json;
+using digpet.TaskTimerClass;
 
 namespace digpet.Managers
 {
@@ -88,11 +89,9 @@ namespace digpet.Managers
                 {
                     sw.Write(json);
                 }
-                LogLib.LogOutput("token計算用ファイルが正常に書き込まれました");
             }
             catch (Exception ex)
             {
-                LogLib.LogOutput("token計算用ファイルの書き込み失敗");
                 ErrorLogLib.ErrorOutput("token計算用ファイル初期化エラー", ex.Message);
             }
         }
@@ -128,11 +127,9 @@ namespace digpet.Managers
                 }
                 avgManager = JsonSerializer.Deserialize<CompressTokenAvgManager>(json) ?? new CompressTokenAvgManager(AVG_MANAGER_ID);
                 CheckTokenCompressArray();
-                LogLib.LogOutput("token計算用ファイルが読み込まれました");
             }
             catch (Exception ex)
             {
-                LogLib.LogOutput("token計算用ファイルの読み込みに失敗しました");
                 ErrorLogLib.ErrorOutput("token計算用ファイル読み取りエラー", ex.Message);
             }
         }
@@ -181,8 +178,6 @@ namespace digpet.Managers
             plot.Title("Token Compress Array Token Amount Transition");
 
             plot.GetImage(1024, 512).Save(picName);
-
-            LogLib.LogOutput("トークンプロットを保存しました");
         }
 
         /// <summary>
@@ -200,7 +195,7 @@ namespace digpet.Managers
         /// <param name="minToken">時間毎のトークン(未計算)</param>
         public void AddTokens(double minToken)
         {
-            LogLib.LogOutput("DailyTokenに" + minToken.ToString() + "が足されました。");
+            LogTimer.SaveLog("minToken", minToken.ToString());
 
             double token = (Tokens * HANDOVER_PERCENT) + minToken;
 #if false

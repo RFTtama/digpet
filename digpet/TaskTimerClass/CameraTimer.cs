@@ -111,7 +111,6 @@ namespace digpet.TimerClass
             }
             else
             {
-                LogLib.LogOutput("カスケードファイルの読み取りに失敗しました");
                 DisposeCapture();
             }
         }
@@ -195,7 +194,6 @@ namespace digpet.TimerClass
             if (ringMem.GetTotalOfTrue() >= SettingManager.PublicSettings.CameraDisableThreshold)
             {
                 DisposeCapture();
-                LogLib.LogOutput("カメラタスクの実行に複数回失敗したため、機能を無効にしました");
                 return false;
             }
 
@@ -349,7 +347,6 @@ namespace digpet.TimerClass
 
             _avgCalcFlg = true;
             detectAvgManager.Clear();
-            LogLib.LogOutput("分毎トークンの算出完了");
         }
 
         /// <summary>

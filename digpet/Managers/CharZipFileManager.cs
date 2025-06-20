@@ -338,24 +338,20 @@ namespace digpet.Managers
                     Settings? settings_tmp = JsonSerializer.Deserialize<Settings>(jsonText);
                     if (settings_tmp == null)
                     {
-                        LogLib.LogOutput("キャラファイルのコンフィグデータ読み込みに失敗しました");
                         ErrorLogLib.ErrorOutput("コンフィグ読み取りエラー", "コンフィグデータがNULLです");
                     }
                     else if (string.IsNullOrEmpty(settings_tmp.charSettings.name))
                     {
-                        LogLib.LogOutput("設定ファイルが正しく読み取られませんでした");
                         ErrorLogLib.ErrorOutput("コンフィグ読み取りエラー", "キャラファイルのコンフィグデータが正しく設定されていない可能性があります");
                     }
                     else
                     {
-                        LogLib.LogOutput("キャラファイルのコンフィグデータが正常に読み込まれました");
                         _settings = settings_tmp;
                         ret = 0;
                     }
                 }
                 catch (Exception ex)
                 {
-                    LogLib.LogOutput("キャラファイルのコンフィグデータ読み込みに失敗しました");
                     ErrorLogLib.ErrorOutput("コンフィグ読み取りエラー", ex.Message);
                 }
 
