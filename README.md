@@ -95,20 +95,16 @@
 13. **(int)LogDeleteDays**<br>
 ログファイルを残しておく日数です。
 
-14. **(int)TokenCompressArrayElementIndex**<br>
-トークンの計算時に使用される配列のインデックスです。<br>
-基本的にはこの数値を上げるほど、プラスの感情を維持しやすくなります。
-
-15. **(int)TokenBackupInterval**<br>
+14. **(int)TokenBackupInterval**<br>
 トークンファイルを保存する時間間隔を秒単で設定します。
 
-16. **(bool)EnableNonActiveMode**<br>
+15. **(bool)EnableNonActiveMode**<br>
 非アクティブ(アプリの操作を一定時間行わない)時に、UIを非表示にする機能の有効無効を切り替えます。
 
-17. **(int)NonActiveModeStartTime**<br>
+16. **(int)NonActiveModeStartTime**<br>
 非アクティブモードを開始するための時間を秒単位で設定します。
 
-18. **(bool)EnableCameraDetectSmoothingMode**<br>
+17. **(bool)EnableCameraDetectSmoothingMode**<br>
 カメラモード起動時に検出結果の平滑化を行う機能の有効無効を切り替えます。
 
 ## Licenses
