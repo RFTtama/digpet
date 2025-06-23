@@ -67,8 +67,15 @@ namespace digpet.Managers
             try
             {
                 if (taskQueue == null) return;
-
                 General1sTimerFunc();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogLib.ErrorOutput("共通定期関数実行エラー", ex.Message);
+            }
+
+            try 
+            {
 
                 //タスクテーブルに設定されているタスククラスの関数を順番に実行する
                 for (int i = 0; i < taskQueue.Count; i++)

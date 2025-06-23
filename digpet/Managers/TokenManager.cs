@@ -385,10 +385,7 @@ namespace digpet.Managers
                 CalcHappyToken(token);
 
                 SecondDimIndex++;
-                if (SecondDimIndex > SECOND_DIMENTION_SIZE)
-                {
-                    SecondDimIndex = 0;
-                }
+                SecondDimIndex = SecondDimIndex % SECOND_DIMENTION_SIZE;
             }
 
             /// <summary>
@@ -538,7 +535,7 @@ namespace digpet.Managers
                     return;
                 }
 
-                if ((SecondDimIndex < 0) || (SecondDimIndex > SECOND_DIMENTION_SIZE))
+                if ((SecondDimIndex < 0) || (SecondDimIndex >= SECOND_DIMENTION_SIZE))
                 {
                     return;
                 }
