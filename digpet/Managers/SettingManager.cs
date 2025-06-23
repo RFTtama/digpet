@@ -15,7 +15,7 @@ namespace digpet.Managers
         //外部で変更可能でない設定
         public static class PrivateSettings
         {
-            public const string APPLICATION_VERSION = "2.01.00" + DEBUG_APPENDANCE;         //アプリバージョン
+            public const string APPLICATION_VERSION = "2.02.00" + DEBUG_APPENDANCE;         //アプリバージョン
             public const string CHAR_FORMAT_VERSION = "2.01.00";                            //キャラフォーマットのバージョン
 
             public const string CONFIG_FILE_PATH = "config.json";                           //コンフィグファイルのパス
@@ -151,9 +151,6 @@ namespace digpet.Managers
             //ログを削除する日数
             public int LogDeleteDays { get; set; }
 
-            //Token圧縮配列から取り出す要素のインデックス
-            public int TokenCompressArrayElementIndex { get; set; }
-
             //Tokenをバックアップする間隔(s)
             public int TokenBackupInterval { get; set; }
 
@@ -185,7 +182,6 @@ namespace digpet.Managers
                 SaveTokenPlot = true;
                 GcThreshold = 20000000;
                 LogDeleteDays = 31;
-                TokenCompressArrayElementIndex = 120;
                 TokenBackupInterval = 10 * 60;
                 EnableNonActiveMode = false;
                 EnableCameraDetectSmoothingMode = true;
