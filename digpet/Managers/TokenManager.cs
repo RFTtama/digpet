@@ -240,8 +240,8 @@ namespace digpet.Managers
         {
             public string Id { get; set; }
 
-            public const int TOKEN_COMPRESS_ARRAY_LENGTH = 10080;       //token圧縮配列のサイズ
-            public const int SECOND_DIMENTION_SIZE = 10;               //2次元目のサイズ
+            public const int TOKEN_COMPRESS_ARRAY_LENGTH = 10;          //token圧縮配列のサイズ
+            public const int SECOND_DIMENTION_SIZE = 10080;             //2次元目のサイズ
             private const double SAD_MAGN = 100.0;                      //哀token計算用の閾値
             private const double SAD_TOKEN_MAX = 10000;                 //哀tokenの最大値
             private const double ANGRY_TOKEN_MAX = 500;                 //怒tokenの最大値
@@ -252,11 +252,12 @@ namespace digpet.Managers
 
             public double[] TokenCompressArray { get; set; }            //token圧縮配列
 
-            public double[][] CascadeArray { get; set; }                 //カスケード配列
+            public double[][] CascadeArray { get; set; }                //カスケード配列
 
             public int SadTokenBoost { get; set; }
 
-            public double SadToken { get; set; }                       //哀token
+            public double JoyToken { get; set; }                        //楽token
+            public double SadToken { get; set; }                        //哀token
             public double HappyToken { get; set; }                      //喜token
             public double AngryToken { get; set; }                      //怒token
 
@@ -394,6 +395,7 @@ namespace digpet.Managers
             /// <param name="token"></param>
             private void CalcJoyToken(double token)
             {
+                JoyToken = token;
                 AddToSecondDim(TOKEN_COMPRESS_ARRAY_LENGTH - 1, token);
                 TokenCompressArray[TOKEN_COMPRESS_ARRAY_LENGTH - 1] = CalcSecondDimAvg(TOKEN_COMPRESS_ARRAY_LENGTH - 1);
             }
@@ -571,7 +573,7 @@ namespace digpet.Managers
             /// <returns>現在のtoken値</returns>
             public double GetTokens()
             {
-                return TokenCompressArray[(TOKEN_COMPRESS_ARRAY_LENGTH - 1)];
+                return JoyToken;
             }
         }
     }
