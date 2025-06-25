@@ -246,6 +246,7 @@ namespace digpet.Managers
             private const double SAD_TOKEN_MAX = 10000;                 //哀tokenの最大値
             private const double ANGRY_TOKEN_MAX = 500;                 //怒tokenの最大値
             private const double HAPPY_TOKEN_MAX = 120;                 //喜tokenの最大値
+            private const double HAPPY_TOKEN_MAGN = 0.95;
             private const double MAX_TOKEN_DEC_MAGN = 0.99999;
 
             public double TokenMax { get; set; }                        //tokenの最大値
@@ -465,7 +466,7 @@ namespace digpet.Managers
             /// <param name="token"></param>
             private void CalcHappyToken(double token)
             {
-                if (JoyFeeling >= 1.0)
+                if (JoyFeeling >= HAPPY_TOKEN_MAGN)
                 {
                     HappyToken += 1.0;
                     if (HappyToken > HAPPY_TOKEN_MAX)
