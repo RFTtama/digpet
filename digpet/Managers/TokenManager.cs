@@ -30,7 +30,7 @@ namespace digpet.Managers
         {
             get
             {
-                return ((avgManager.JoyFeeling + avgManager.HappyToken) - (avgManager.SadFeeling + avgManager.AngryFeeling));
+                return ((avgManager.JoyFeeling + avgManager.HappyFeeling) / 2.0) - ((avgManager.SadFeeling + avgManager.AngryFeeling) / 2.0);
             }
         }
 
@@ -240,8 +240,8 @@ namespace digpet.Managers
         {
             public string Id { get; set; }
 
-            public const int TOKEN_COMPRESS_ARRAY_LENGTH = 10;          //token圧縮配列のサイズ
-            public const int SECOND_DIMENTION_SIZE = 10080;             //2次元目のサイズ
+            public const int TOKEN_COMPRESS_ARRAY_LENGTH = 1;           //token圧縮配列のサイズ
+            public const int SECOND_DIMENTION_SIZE = 10000;             //2次元目のサイズ
             private const double SAD_MAGN = 100.0;                      //哀token計算用の閾値
             private const double SAD_TOKEN_MAX = 10000;                 //哀tokenの最大値
             private const double ANGRY_TOKEN_MAX = 500;                 //怒tokenの最大値
@@ -267,7 +267,7 @@ namespace digpet.Managers
             {
                 get
                 {
-                    return GetTokens() <= (TokenCompressArray[0] + SAD_MAGN);
+                    return (GetTokens() <= (CalcSecondDimAvg(0) + SAD_MAGN));
                 }
             }
 
@@ -286,7 +286,8 @@ namespace digpet.Managers
                 Debug.Print("Diff: " + diff.ToString());
 #endif
                     double ret = (double)diff / avg;
-                    if (ret < 0) ret = 0;
+                    if (ret < 0.0) ret = 0.0;
+                    if (ret > 1.0) ret = 1.0;
 #if false
                 Debug.Print("Ret: " + ret.ToString());
 #endif
@@ -489,27 +490,7 @@ namespace digpet.Managers
             /// <returns></returns>
             private double GetThreshold()
             {
-                int ind;
-                double bef = 0.0;
-
-                for (ind = 0; ind < TOKEN_COMPRESS_ARRAY_LENGTH; ind++)
-                {
-                    if (bef <= TokenCompressArray[ind])
-                    {
-                        bef = TokenCompressArray[ind];
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-
-                if (ind >= TOKEN_COMPRESS_ARRAY_LENGTH)
-                {
-                    ind = TOKEN_COMPRESS_ARRAY_LENGTH - 1;
-                }
-
-                double threshold = ((TokenMax + TokenCompressArray[ind]) / 2.0);
+                double threshold = ((TokenMax + TokenCompressArray[TOKEN_COMPRESS_ARRAY_LENGTH - 1]) / 2.0);
                 return threshold;
             }
 
