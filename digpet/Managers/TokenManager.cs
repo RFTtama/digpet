@@ -12,7 +12,7 @@ namespace digpet.Managers
         private CompressTokenAvgManager avgManager;                                         //token平均値管理用クラス
 
         //固定値関連の宣言
-        private const string AVG_MANAGER_ID = "ID_DCAbMA";                                  //token平均値管理用クラスのID
+        private const string AVG_MANAGER_ID = "ID_MA";                                      //token平均値管理用クラスのID
         private const double HANDOVER_PERCENT = 0.99;
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace digpet.Managers
         {
             get
             {
-                return ((avgManager.JoyFeeling + avgManager.HappyToken) - (avgManager.SadFeeling + avgManager.AngryFeeling));
+                return ((avgManager.JoyFeeling + avgManager.HappyFeeling) / 2.0) - ((avgManager.SadFeeling + avgManager.AngryFeeling) / 2.0);
             }
         }
 
@@ -240,23 +240,25 @@ namespace digpet.Managers
         {
             public string Id { get; set; }
 
-            public const int TOKEN_COMPRESS_ARRAY_LENGTH = 10080;       //token圧縮配列のサイズ
-            public const int SECOND_DIMENTION_SIZE = 10;               //2次元目のサイズ
+            public const int TOKEN_COMPRESS_ARRAY_LENGTH = 1;           //token圧縮配列のサイズ
+            public const int SECOND_DIMENTION_SIZE = 10000;             //2次元目のサイズ
             private const double SAD_MAGN = 100.0;                      //哀token計算用の閾値
             private const double SAD_TOKEN_MAX = 10000;                 //哀tokenの最大値
             private const double ANGRY_TOKEN_MAX = 500;                 //怒tokenの最大値
             private const double HAPPY_TOKEN_MAX = 120;                 //喜tokenの最大値
+            private const double HAPPY_TOKEN_MAGN = 0.95;
             private const double MAX_TOKEN_DEC_MAGN = 0.99999;
 
             public double TokenMax { get; set; }                        //tokenの最大値
 
             public double[] TokenCompressArray { get; set; }            //token圧縮配列
 
-            public double[][] CascadeArray { get; set; }                 //カスケード配列
+            public double[][] CascadeArray { get; set; }                //カスケード配列
 
             public int SadTokenBoost { get; set; }
 
-            public double SadToken { get; set; }                       //哀token
+            public double JoyToken { get; set; }                        //楽token
+            public double SadToken { get; set; }                        //哀token
             public double HappyToken { get; set; }                      //喜token
             public double AngryToken { get; set; }                      //怒token
 
@@ -266,7 +268,7 @@ namespace digpet.Managers
             {
                 get
                 {
-                    return GetTokens() <= (TokenCompressArray[0] + SAD_MAGN);
+                    return (GetTokens() <= (CalcSecondDimAvg(0) + SAD_MAGN));
                 }
             }
 
@@ -285,7 +287,8 @@ namespace digpet.Managers
                 Debug.Print("Diff: " + diff.ToString());
 #endif
                     double ret = (double)diff / avg;
-                    if (ret < 0) ret = 0;
+                    if (ret < 0.0) ret = 0.0;
+                    if (ret > 1.0) ret = 1.0;
 #if false
                 Debug.Print("Ret: " + ret.ToString());
 #endif
@@ -394,6 +397,7 @@ namespace digpet.Managers
             /// <param name="token"></param>
             private void CalcJoyToken(double token)
             {
+                JoyToken = token;
                 AddToSecondDim(TOKEN_COMPRESS_ARRAY_LENGTH - 1, token);
                 TokenCompressArray[TOKEN_COMPRESS_ARRAY_LENGTH - 1] = CalcSecondDimAvg(TOKEN_COMPRESS_ARRAY_LENGTH - 1);
             }
@@ -462,7 +466,7 @@ namespace digpet.Managers
             /// <param name="token"></param>
             private void CalcHappyToken(double token)
             {
-                if (JoyFeeling >= 1.0)
+                if (JoyFeeling >= HAPPY_TOKEN_MAGN)
                 {
                     HappyToken += 1.0;
                     if (HappyToken > HAPPY_TOKEN_MAX)
@@ -487,27 +491,7 @@ namespace digpet.Managers
             /// <returns></returns>
             private double GetThreshold()
             {
-                int ind;
-                double bef = 0.0;
-
-                for (ind = 0; ind < TOKEN_COMPRESS_ARRAY_LENGTH; ind++)
-                {
-                    if (bef <= TokenCompressArray[ind])
-                    {
-                        bef = TokenCompressArray[ind];
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-
-                if (ind >= TOKEN_COMPRESS_ARRAY_LENGTH)
-                {
-                    ind = TOKEN_COMPRESS_ARRAY_LENGTH - 1;
-                }
-
-                double threshold = ((TokenMax + TokenCompressArray[ind]) / 2.0);
+                double threshold = ((TokenMax + TokenCompressArray[TOKEN_COMPRESS_ARRAY_LENGTH - 1]) / 2.0);
                 return threshold;
             }
 
@@ -571,7 +555,7 @@ namespace digpet.Managers
             /// <returns>現在のtoken値</returns>
             public double GetTokens()
             {
-                return TokenCompressArray[(TOKEN_COMPRESS_ARRAY_LENGTH - 1)];
+                return JoyToken;
             }
         }
     }
