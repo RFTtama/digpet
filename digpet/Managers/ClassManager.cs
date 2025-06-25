@@ -69,6 +69,10 @@ namespace digpet.Managers
                 if (taskQueue == null) return;
                 General1sTimerFunc();
             }
+            catch (ObjectDisposedException)
+            {
+                //Digpet終了時のエラー回避用
+            }
             catch (Exception ex)
             {
                 ErrorLogLib.ErrorOutput("共通定期関数実行エラー", ex.Message);
