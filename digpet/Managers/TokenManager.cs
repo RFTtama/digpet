@@ -12,7 +12,7 @@ namespace digpet.Managers
         private CompressTokenAvgManager avgManager;                                         //token平均値管理用クラス
 
         //固定値関連の宣言
-        private const string AVG_MANAGER_ID = "ID_DCAbMA";                                  //token平均値管理用クラスのID
+        private const string AVG_MANAGER_ID = "ID_MA";                                      //token平均値管理用クラスのID
         private const double HANDOVER_PERCENT = 0.99;
 
         /// <summary>
