@@ -177,8 +177,6 @@ namespace digpet
             if ((StatsPanel.Visible == true) && (DefaultPanel.Visible == true))
             {
                 StatsPanel.Visible = !StatsPanel.Visible;
-                ClearButton.Visible = !ClearButton.Visible;
-                ImportButton.Visible = !ImportButton.Visible;
             }
             else if ((StatsPanel.Visible == false) && (DefaultPanel.Visible == true))
             {
@@ -187,8 +185,6 @@ namespace digpet
             else
             {
                 StatsPanel.Visible = !StatsPanel.Visible;
-                ClearButton.Visible = !ClearButton.Visible;
-                ImportButton.Visible = !ImportButton.Visible;
                 DefaultPanel.Visible = !DefaultPanel.Visible;
             }
         }
@@ -597,6 +593,9 @@ namespace digpet
                 Cursor.Hide();
                 FormBorderStyle = FormBorderStyle.None;
                 cursorVisible = false;
+                ClearButton.Visible = false;
+                ImportButton.Visible = false;
+                ToggleShowButton.Visible = false;
             }
         }
 
@@ -610,6 +609,9 @@ namespace digpet
                 Cursor.Show();
                 FormBorderStyle = FormBorderStyle.Sizable;
                 cursorVisible = true;
+                ClearButton.Visible = true;
+                ImportButton.Visible = true;
+                ToggleShowButton.Visible = true;
             }
         }
 
