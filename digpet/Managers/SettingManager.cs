@@ -504,7 +504,7 @@ namespace digpet.Managers
                 LogSettings.LogDeleteDays = 31;
                 TokenSettings.TokenBackupInterval = 10 * 60;
                 AplSettings.EnableNonActiveMode = false;
-                AplSettings.NonActiveModeStartTime = 10;
+                AplSettings.NonActiveModeStartTime = 1000;
                 CameraSettings.EnableCameraDetectSmoothingMode = true;
             }
         }
