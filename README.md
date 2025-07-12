@@ -48,64 +48,81 @@
 > config.jsonのCameraDisableThresholdの数値を変更してください。
 
 ## アプリ設定一覧
+
+### CharFileSettings
 1. **(string)CharSettingPath**<br>
 キャラファイルのパスが設定されます。<br>
 設定するパスは絶対参照/相対参照問いません。
 
-2. **(int)WindowState**<br>
+### WindowSettings
+1.  **(int)WindowState**<br>
 起動時のウィンドウ状態です。<br>
 0: 通常<br>
 1: 最大化<br>
 2: 最小化
 
-3. **(bool)TopMost**<br>
+2. **(bool)TopMost**<br>
 ウィンドウのTopMostを切り替えます。
 
-4. **(Size)WindowSize**<br>
+3. **(Size)WindowSize**<br>
 起動時のウィンドウサイズを設定します。
 
-5. **(Point)WindowLocation**<br>
+4. **(Point)WindowLocation**<br>
 起動時のウィンドウ位置を設定します。
 
-6. **(int)FontEnlargeSize**<br>
+### AplSettings
+
+1. **(int)FontEnlargeSize**<br>
 0以上の値を設定することで、<br>
 そのポイント分UIのサイズを拡大します。
 
-7. **(Size)ImageSize**<br>
+2. **(Size)ImageSize**<br>
 キャラクター画像のサイズです。<br>
 特別な理由がない限り変更しないでください。
 
-8. **(bool)EnableCameraMode**<br>
+3. **(long)GcThreshold**<br>
+マネージドメモリがこの数値(bytes)を超えた際に、ガーベジコレクタを実行します。<br>
+
+4. **(bool)EnableNonActiveMode**<br>
+非アクティブ(アプリの操作を一定時間行わない)時に、UIを非表示にする機能の有効無効を切り替えます。
+
+5. **(int)NonActiveModeStartTime**<br>
+非アクティブモードを開始するための時間を秒単位で設定します。
+
+6. **(bool)EnablNeglectMode**<br>
+放置モードの有効無効を設定します。
+
+7. **(int)NeglectActiveTime**<br>
+放置モードアクティブまでの時間を秒単位で設定します。
+
+### CameraSettings
+
+1. **(bool)EnableCameraMode**<br>
 カメラモードの有効無効を切り替えます。
 
-9. **(int)CameraId**<br>
+2. **(int)CameraId**<br>
 画像を取得するカメラのIDです。
 
-10. **(uint)CameraDisableThreshold**<br>
+3. **(uint)CameraDisableThreshold**<br>
 カメラ起動失敗時にCPUモードへ切り替えるための閾値です。<br>
 1-10の値を設定し、値が大きくするほどカメラの起動失敗に対し寛容になります。<br>
 10より大きい値を設定するとCPUモードに切り替わらなくなります。
 
-11. **(bool)SaveTokenPlot**<br>
+4. **(bool)EnableCameraDetectSmoothingMode**<br>
+カメラモード起動時に検出結果の平滑化を行う機能の有効無効を切り替えます。
+
+### TokenSettings
+
+1. **(bool)SaveTokenPlot**<br>
 トークンプロット保存の有効無効を切り替えます。
 
-12. **(long)GcThreshold**<br>
-マネージドメモリがこの数値(bytes)を超えた際に、ガーベジコレクタを実行します。<br>
-
-13. **(int)LogDeleteDays**<br>
-ログファイルを残しておく日数です。
-
-14. **(int)TokenBackupInterval**<br>
+2. **(int)TokenBackupInterval**<br>
 トークンファイルを保存する時間間隔を秒単で設定します。
 
-15. **(bool)EnableNonActiveMode**<br>
-非アクティブ(アプリの操作を一定時間行わない)時に、UIを非表示にする機能の有効無効を切り替えます。
+### LogSettings
 
-16. **(int)NonActiveModeStartTime**<br>
-非アクティブモードを開始するための時間を秒単位で設定します。
-
-17. **(bool)EnableCameraDetectSmoothingMode**<br>
-カメラモード起動時に検出結果の平滑化を行う機能の有効無効を切り替えます。
+1. **(int)LogDeleteDays**<br>
+ログファイルを残しておく日数です。
 
 ## Licenses
 > This project uses OpenCV, which is licensed under the Apache License 2.0.<br>
