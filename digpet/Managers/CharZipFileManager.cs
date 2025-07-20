@@ -1,8 +1,9 @@
-﻿using System.Collections.Immutable;
+﻿using digpet.Modules;
+using digpet.TimerClass;
+using System.Collections.Immutable;
 using System.IO.Compression;
 using System.Text;
 using System.Text.Json;
-using digpet.Modules;
 
 namespace digpet.Managers
 {
@@ -55,8 +56,24 @@ namespace digpet.Managers
 
         public Image? GetCharImage(string feeling)
         {
-            string imageName = GetImageNameFromFeeling(feeling);
+            string imageName = string.Empty;
+            if (CheckNeglectEnable())
+            {
+                imageName = _charSettingManager.CharSettings.charSettings.leavingImgPath;
+            }
+
+            if (string.IsNullOrEmpty(imageName))
+            {
+                imageName = GetImageNameFromFeeling(feeling);
+            }
             return GetImageFromImageName(imageName);
+        }
+
+        private bool CheckNeglectEnable()
+        {
+            if (!SettingManager.PublicSettings.EnablNeglectMode) return false;
+            if (!CameraTimer.IsNeglect) return false;
+            return true;
         }
 
         /// <summary>
@@ -225,7 +242,8 @@ namespace digpet.Managers
 
             if (charVersion.major != -1 && availableVersion.major != -1)
             {
-                if (charVersion.Compare(availableVersion) >= 0)
+                if ((VersionManager.Compare(charVersion, availableVersion) >= 100)
+                    || (VersionManager.Compare(charVersion, availableVersion) <= -100))
                 {
                     ret = true;
                 }
@@ -583,7 +601,7 @@ namespace digpet.Managers
                 {
                     public string name { get; set; }
                     public string feelingTag { get; set; }
-
+                    public string leavingImgPath { get; set; }
                     public Feeling[] feelings { get; set; }
 
                     public class Feeling
@@ -611,6 +629,7 @@ namespace digpet.Managers
                         name = string.Empty;
                         feelingTag = string.Empty;
                         feelings = new Feeling[0];
+                        leavingImgPath = string.Empty;
                     }
                 }
             }
