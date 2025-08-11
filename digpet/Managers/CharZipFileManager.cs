@@ -242,8 +242,9 @@ namespace digpet.Managers
 
             if (charVersion.major != -1 && availableVersion.major != -1)
             {
-                if ((VersionManager.Compare(charVersion, availableVersion) >= 100)
-                    || (VersionManager.Compare(charVersion, availableVersion) <= -100))
+                int cp = VersionManager.Compare(charVersion, availableVersion);
+                if ((cp < 100)
+                    && (-100 < cp))
                 {
                     ret = true;
                 }

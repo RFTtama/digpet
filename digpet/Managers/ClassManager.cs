@@ -119,7 +119,7 @@ namespace digpet.Managers
         /// </summary>
         private void General1sTimerFunc()
         {
-            if (!cameraTimer.CameraDisable)
+            if (!CameraTimer.CameraDisable)
             {
                 CameraProcess();
             }
