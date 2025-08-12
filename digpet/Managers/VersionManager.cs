@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using digpet.Modules;
+﻿using digpet.Modules;
 
 namespace digpet.Managers
 {
@@ -143,24 +138,14 @@ namespace digpet.Managers
         /// </summary>
         /// <param name="compareVersion">比較先のバージョン</param>
         /// <returns>1: 元の方が大きい, 0: 同じ: -1: 対象の方が大きい</returns>
-        public int Compare(VersionManager compareVersion)
+        public static int Compare(VersionManager versionLeft, VersionManager versionRight)
         {
-            int ret = 0;
-            for (int i = 0; i < versionArray.Length; i++)
-            {
-                if (versionArray[i] > compareVersion.versionArray[i])
-                {
-                    ret = 1;
-                    break;
-                }
-                else if (versionArray[i] < compareVersion.versionArray[i])
-                {
-                    ret = -1;
-                    break;
-                }
-            }
+            int verL, verR;
 
-            return ret;
+            verL = (versionLeft.GetVersionByIndex(2) * 1) + (versionLeft.GetVersionByIndex(1) * 10) + (versionLeft.GetVersionByIndex(0) * 100);
+            verR = (versionRight.GetVersionByIndex(2) * 1) + (versionRight.GetVersionByIndex(1) * 10) + (versionRight.GetVersionByIndex(0) * 100);
+
+            return (verL - verR);
         }
     }
 }
