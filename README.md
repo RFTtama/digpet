@@ -24,7 +24,7 @@
 2. "インポート"ボタンが表示されるまで"詳細表示切替"ボタンをクリックします。
 3. ファイル選択ダイアログが表示されるので、対象のzipファイルを選択します。
 
-サンプルキャラファイル: 
+サンプルキャラファイル:<br>
 [Moni_v2.02.00.zip](https://github.com/user-attachments/files/21782677/Moni_v2.02.00.zip)←アプリバージョン 2.02.XX 推奨<br>
 [Moni_v2.01.00_light.zip](https://github.com/user-attachments/files/20743950/Moni_v2.01.00_light.zip)←アプリバージョン 2.01.XX 推奨<br>
 [Moni_v2.00.00.zip](https://github.com/user-attachments/files/21782759/Moni_v2.00.00.zip)←アプリバージョン 2.00.XX 推奨<br>
