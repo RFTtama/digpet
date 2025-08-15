@@ -92,12 +92,12 @@ namespace digpet
             if (tokenManager.Feeling >= 0)
             {
                 GoodFeeling.BackColor = Color.Lime;
-                GoodFeeling.Width = (int)(100.0 * (tokenManager.Feeling / 2.0));
+                GoodFeeling.Width = (int)(100.0 * (tokenManager.Feeling));
             }
             else
             {
                 GoodFeeling.BackColor = Color.Aqua;
-                GoodFeeling.Width = (int)(100.0 * ((-1.0 * tokenManager.Feeling) / 2.0));
+                GoodFeeling.Width = (int)(100.0 * ((-1.0 * tokenManager.Feeling)));
             }
         }
 
