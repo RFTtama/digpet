@@ -25,12 +25,12 @@
 3. ファイル選択ダイアログが表示されるので、対象のzipファイルを選択します。
 
 サンプルキャラファイル: 
-[Moni_v2.02.00.zip](https://github.com/user-attachments/files/21782677/Moni_v2.02.00.zip)←アプリバージョン 2.02.XX 推奨
-[Moni_v2.01.00_light.zip](https://github.com/user-attachments/files/20743950/Moni_v2.01.00_light.zip)←アプリバージョン 2.01.XX 推奨
-[Moni_v2.00.00.zip](https://github.com/user-attachments/files/21782759/Moni_v2.00.00.zip)←アプリバージョン 2.00.XX 推奨
-[Moni_v1.00.02.zip](https://github.com/user-attachments/files/21782760/Moni_v1.00.02.zip)←アプリバージョン 1.XX.XX 推奨
-[Moni_v1.00.01.zip](https://github.com/user-attachments/files/21782761/Moni_v1.00.01.zip)
-[Moni_v1.00.00.zip](https://github.com/user-attachments/files/21782762/Moni_v1.00.00.zip)
+[Moni_v2.02.00.zip](https://github.com/user-attachments/files/21782677/Moni_v2.02.00.zip)←アプリバージョン 2.02.XX 推奨<br>
+[Moni_v2.01.00_light.zip](https://github.com/user-attachments/files/20743950/Moni_v2.01.00_light.zip)←アプリバージョン 2.01.XX 推奨<br>
+[Moni_v2.00.00.zip](https://github.com/user-attachments/files/21782759/Moni_v2.00.00.zip)←アプリバージョン 2.00.XX 推奨<br>
+[Moni_v1.00.02.zip](https://github.com/user-attachments/files/21782760/Moni_v1.00.02.zip)←アプリバージョン 1.XX.XX 推奨<br>
+[Moni_v1.00.01.zip](https://github.com/user-attachments/files/21782761/Moni_v1.00.01.zip)<br>
+[Moni_v1.00.00.zip](https://github.com/user-attachments/files/21782762/Moni_v1.00.00.zip)<br>
 
 ## Webカメラを使用した機能の使用方法
 通常、Digpetが実行されているコンピュータのCPU使用率を使用して、感情の計算を行います。<br>
