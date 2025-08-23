@@ -18,6 +18,7 @@ namespace digpet.Managers
         private CpuAvgCalcTimer cpuAvgCalcTimer = new CpuAvgCalcTimer();
         private CameraTimer cameraTimer = new CameraTimer();
         private GCTimer gcTimer = new GCTimer();
+        private LogTimer logTimer = new LogTimer();
 
         // 変数関連
         private List<TaskClassModel> taskQueue = new List<TaskClassModel>();
@@ -41,7 +42,7 @@ namespace digpet.Managers
         public void Terminator()
         {
             ErrorLogLib.Export();
-            LogLib.Export();
+            logTimer.Export();
 
             timer.Dispose();
         }
@@ -57,6 +58,7 @@ namespace digpet.Managers
                     gcTimer,
                     cpuAvgCalcTimer,
                     cameraTimer,
+                    logTimer,
                 ];
         }
 
@@ -65,8 +67,19 @@ namespace digpet.Managers
             try
             {
                 if (taskQueue == null) return;
-
                 General1sTimerFunc();
+            }
+            catch (ObjectDisposedException)
+            {
+                //Digpet終了時のエラー回避用
+            }
+            catch (Exception ex)
+            {
+                ErrorLogLib.ErrorOutput("共通定期関数実行エラー", ex.Message);
+            }
+
+            try 
+            {
 
                 //タスクテーブルに設定されているタスククラスの関数を順番に実行する
                 for (int i = 0; i < taskQueue.Count; i++)
@@ -106,7 +119,7 @@ namespace digpet.Managers
         /// </summary>
         private void General1sTimerFunc()
         {
-            if (!cameraTimer.CameraDisable)
+            if (!CameraTimer.CameraDisable)
             {
                 CameraProcess();
             }
@@ -124,7 +137,6 @@ namespace digpet.Managers
             }
 
             ErrorLogLib.Export();
-            LogLib.Export();
         }
 
         /// <summary>
@@ -144,14 +156,17 @@ namespace digpet.Managers
             if (detectNum < 0)
             {
                 txt = "検出: エラー";
+                LogTimer.SaveLog("detect", "error");
             }
             else if (detectNum == 0)
             {
                 txt = "検出: なし";
+                LogTimer.SaveLog("detect", "false");
             }
             else
             {
                 txt = "検出: あり";
+                LogTimer.SaveLog("detect", "true");
             }
 
             SetCpuUsageLabel(txt);
@@ -168,6 +183,7 @@ namespace digpet.Managers
                 cpuAvgCalcTimer.ClearCpuAvg();
             }
             SetCpuUsageLabel("CPU: " + cpuAvgCalcTimer.CpuUsage.ToString("n2") + "%");
+            LogTimer.SaveLog("cpuUsage", cpuAvgCalcTimer.CpuUsage.ToString("n2"));
         }
 
         /// <summary>

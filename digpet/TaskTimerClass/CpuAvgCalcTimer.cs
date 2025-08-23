@@ -90,7 +90,6 @@ namespace digpet.TimerClass
 
             _avgCalcFlg = true;
             cpuAvgManager.Clear();
-            LogLib.LogOutput("分毎トークンの算出完了");
         }
     }
 }

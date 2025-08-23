@@ -1,5 +1,6 @@
 using digpet.Managers;
 using digpet.Modules;
+using digpet.TaskTimerClass;
 using System.Diagnostics;
 
 namespace digpet
@@ -32,7 +33,6 @@ namespace digpet
             arg.CpuUsageLabelUpdate = UpdateCpuLabel;
 
             Init();
-            LogLib.LogOutput("初期化が完了しました");
         }
 
         /// <summary>
@@ -47,8 +47,18 @@ namespace digpet
             tokenManager.Read(SettingManager.PrivateSettings.TOKEN_CALC_PATH);
             ReadCharConfig();
             SetNowWindowState();
+            ChangeControlVisible();
 
             ImageChangeTimer.Enabled = true;
+        }
+
+        private void ChangeControlVisible()
+        {
+            ImportButton.Visible = true;
+            ClearButton.Visible = true;
+            ToggleShowButton.Visible = true;
+            DefaultPanel.Visible = true;
+            StatsPanel.Visible = true;
         }
 
         /// <summary>
@@ -82,12 +92,12 @@ namespace digpet
             if (tokenManager.Feeling >= 0)
             {
                 GoodFeeling.BackColor = Color.Lime;
-                GoodFeeling.Width = (int)(100.0 * (tokenManager.Feeling / 2.0));
+                GoodFeeling.Width = (int)(100.0 * (tokenManager.Feeling));
             }
             else
             {
                 GoodFeeling.BackColor = Color.Aqua;
-                GoodFeeling.Width = (int)(100.0 * ((-1.0 * tokenManager.Feeling) / 2.0));
+                GoodFeeling.Width = (int)(100.0 * ((-1.0 * tokenManager.Feeling)));
             }
         }
 
@@ -167,8 +177,6 @@ namespace digpet
             if ((StatsPanel.Visible == true) && (DefaultPanel.Visible == true))
             {
                 StatsPanel.Visible = !StatsPanel.Visible;
-                ClearButton.Visible = !ClearButton.Visible;
-                ImportButton.Visible = !ImportButton.Visible;
             }
             else if ((StatsPanel.Visible == false) && (DefaultPanel.Visible == true))
             {
@@ -177,8 +185,6 @@ namespace digpet
             else
             {
                 StatsPanel.Visible = !StatsPanel.Visible;
-                ClearButton.Visible = !ClearButton.Visible;
-                ImportButton.Visible = !ImportButton.Visible;
                 DefaultPanel.Visible = !DefaultPanel.Visible;
             }
         }
@@ -201,7 +207,6 @@ namespace digpet
         /// <param name="e"></param>
         private void ImportButton_Click(object sender, EventArgs e)
         {
-            LogLib.LogOutput("インポートボタンがクリックされました");
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "ZIPファイル(*.zip)|*.zip;";
             ofd.Title = "インポートするキャラデータを選択してください";
@@ -212,8 +217,7 @@ namespace digpet
             }
             else
             {
-                LogLib.LogOutput("キャラデータのインポート失敗");
-                MessageBox.Show("キャラデータのインポートに失敗しました", "インポートエラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorLogLib.ErrorOutput("インポートエラー", "キャラデータのインポートに失敗しました");
             }
         }
 
@@ -232,7 +236,6 @@ namespace digpet
             {
                 return;
             }
-            LogLib.LogOutput("クリアボタンがクリックされました");
             ReWriteCharConfig(string.Empty);
             this.Close();
         }
@@ -247,7 +250,6 @@ namespace digpet
             SaveNowWindowState();
             tokenManager.Write(SettingManager.PrivateSettings.TOKEN_CALC_PATH);
             SettingManager.WriteSettingFile(SettingManager.PrivateSettings.SETTING_PATH);
-            LogLib.LogOutput("アプリの終了処理終了");
         }
 
         /// <summary>
@@ -270,7 +272,6 @@ namespace digpet
             WindowState = GetWindowState();
             this.TopMost = SettingManager.PublicSettings.TopMost;
             SetControlFontSize();
-            LogLib.LogOutput("設定を復元しました");
         }
 
         /// <summary>
@@ -285,7 +286,6 @@ namespace digpet
                 SetSatsPanelControlSize(enlarge);
                 SetGeneralLabelControlSize(enlarge);
                 SetButtonControlSize(enlarge);
-                LogLib.LogOutput("フォントの大きさ再設定終了");
             }
         }
 
@@ -503,7 +503,7 @@ namespace digpet
         /// <param name="color">色</param>
         private void SetControlColor(Color color)
         {
-            LogLib.LogOutput("コントロールの色を" + color.ToString() + "に設定しました");
+            LogTimer.SaveLog("ControlColor", color.ToString());
             BackColor = color;
         }
 
@@ -539,7 +539,6 @@ namespace digpet
 
             if ((image == null) && (gotNormalImage == true))
             {
-                LogLib.LogOutput("画像が設定されませんでした");
                 return;
             }
 
@@ -594,6 +593,9 @@ namespace digpet
                 Cursor.Hide();
                 FormBorderStyle = FormBorderStyle.None;
                 cursorVisible = false;
+                ClearButton.Visible = false;
+                ImportButton.Visible = false;
+                ToggleShowButton.Visible = false;
             }
         }
 
@@ -607,6 +609,9 @@ namespace digpet
                 Cursor.Show();
                 FormBorderStyle = FormBorderStyle.Sizable;
                 cursorVisible = true;
+                ClearButton.Visible = true;
+                ImportButton.Visible = true;
+                ToggleShowButton.Visible = true;
             }
         }
 

@@ -16,7 +16,7 @@ namespace digpet.TimerClass
         private const int SmoothCount = 5;
 
         //変数宣言
-        private bool _cameraDisable = false;
+        private static bool _cameraDisable = false;
         private int _faceDetected = -1;
         private int cameraCnt = 0;
         private double _detectAvg = 0.0;
@@ -25,11 +25,12 @@ namespace digpet.TimerClass
         private bool isDetectBySmooth = false;
 
         //クラス宣言
-        private readonly RingFlagMemClass ringMem = new RingFlagMemClass(10);
+        private static readonly RingFlagMemClass ringMem = new RingFlagMemClass(10);
         private CascadeClassifier classifier = new CascadeClassifier();
         private AvgManager detectAvgManager = new AvgManager();
-        private VideoCapture capture = new VideoCapture();
+        private static VideoCapture capture = new VideoCapture();
         private RingFlagMemClass smoothMem = new RingFlagMemClass(SmoothCount);
+        private static RingFlagMemClass neglectMem = new RingFlagMemClass(0);
 
         //ゲッターなど
         public int FaceDetected
@@ -44,9 +45,13 @@ namespace digpet.TimerClass
         {
             get { return _detectAvg; }
         }
-        public bool CameraDisable
+        public static bool CameraDisable
         {
             get { return _cameraDisable; }
+        }
+        public static bool IsNeglect
+        {
+            get { return ((neglectMem.GetTotalOfTrue() == 0) && (CheckCameraModeEnable())); }
         }
 
         /// <summary>
@@ -77,6 +82,9 @@ namespace digpet.TimerClass
             {
                 DisposeCapture();
             }
+
+            neglectMem = new RingFlagMemClass(SettingManager.PublicSettings.NeglectActiveTime);
+
             init = true;
         }
 
@@ -91,7 +99,7 @@ namespace digpet.TimerClass
         /// <summary>
         /// キャプチャを破棄する
         /// </summary>
-        private void DisposeCapture()
+        private static void DisposeCapture()
         {
             if (!capture.IsDisposed)
             {
@@ -111,7 +119,6 @@ namespace digpet.TimerClass
             }
             else
             {
-                LogLib.LogOutput("カスケードファイルの読み取りに失敗しました");
                 DisposeCapture();
             }
         }
@@ -143,8 +150,9 @@ namespace digpet.TimerClass
 
             if (SettingManager.PublicSettings.EnableCameraDetectSmoothingMode)
             {
-                _faceDetected = DetectSmoothing(_faceDetected);
+                _faceDetected = DetectSmoothing(FaceDetected);
             }
+            CalcNeglect(FaceDetected);
 
             if (FaceDetected < 0) return TaskReturn.TASK_FAILURE;
 
@@ -180,7 +188,7 @@ namespace digpet.TimerClass
         /// カメラモードが有効か調べる
         /// </summary>
         /// <returns>true: 有効, false: 無効</returns>
-        private bool CheckCameraModeEnable()
+        private static bool CheckCameraModeEnable()
         {
             if (!SettingManager.PublicSettings.EnableCameraMode)
             {
@@ -195,7 +203,6 @@ namespace digpet.TimerClass
             if (ringMem.GetTotalOfTrue() >= SettingManager.PublicSettings.CameraDisableThreshold)
             {
                 DisposeCapture();
-                LogLib.LogOutput("カメラタスクの実行に複数回失敗したため、機能を無効にしました");
                 return false;
             }
 
@@ -259,6 +266,22 @@ namespace digpet.TimerClass
                 return detect;
             }
             return 0;
+        }
+
+        /// <summary>
+        /// 放置されているかの算出
+        /// </summary>
+        /// <param name="detect"></param>
+        private void CalcNeglect(int detect)
+        {
+            if (detect > 0)
+            {
+                neglectMem.Add(true);
+            }
+            else
+            {
+                neglectMem.Add(false);
+            }
         }
 
         /// <summary>
@@ -349,7 +372,6 @@ namespace digpet.TimerClass
 
             _avgCalcFlg = true;
             detectAvgManager.Clear();
-            LogLib.LogOutput("分毎トークンの算出完了");
         }
 
         /// <summary>

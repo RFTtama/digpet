@@ -1,8 +1,9 @@
-﻿using System.Collections.Immutable;
+﻿using digpet.Modules;
+using digpet.TimerClass;
+using System.Collections.Immutable;
 using System.IO.Compression;
 using System.Text;
 using System.Text.Json;
-using digpet.Modules;
 
 namespace digpet.Managers
 {
@@ -55,8 +56,24 @@ namespace digpet.Managers
 
         public Image? GetCharImage(string feeling)
         {
-            string imageName = GetImageNameFromFeeling(feeling);
+            string imageName = string.Empty;
+            if (CheckNeglectEnable())
+            {
+                imageName = _charSettingManager.CharSettings.charSettings.leavingImgPath;
+            }
+
+            if (string.IsNullOrEmpty(imageName))
+            {
+                imageName = GetImageNameFromFeeling(feeling);
+            }
             return GetImageFromImageName(imageName);
+        }
+
+        private bool CheckNeglectEnable()
+        {
+            if (!SettingManager.PublicSettings.EnablNeglectMode) return false;
+            if (!CameraTimer.IsNeglect) return false;
+            return true;
         }
 
         /// <summary>
@@ -225,7 +242,9 @@ namespace digpet.Managers
 
             if (charVersion.major != -1 && availableVersion.major != -1)
             {
-                if (charVersion.Compare(availableVersion) >= 0)
+                int cp = VersionManager.Compare(charVersion, availableVersion);
+                if ((cp < 100)
+                    && (-100 < cp))
                 {
                     ret = true;
                 }
@@ -338,24 +357,20 @@ namespace digpet.Managers
                     Settings? settings_tmp = JsonSerializer.Deserialize<Settings>(jsonText);
                     if (settings_tmp == null)
                     {
-                        LogLib.LogOutput("キャラファイルのコンフィグデータ読み込みに失敗しました");
                         ErrorLogLib.ErrorOutput("コンフィグ読み取りエラー", "コンフィグデータがNULLです");
                     }
                     else if (string.IsNullOrEmpty(settings_tmp.charSettings.name))
                     {
-                        LogLib.LogOutput("設定ファイルが正しく読み取られませんでした");
                         ErrorLogLib.ErrorOutput("コンフィグ読み取りエラー", "キャラファイルのコンフィグデータが正しく設定されていない可能性があります");
                     }
                     else
                     {
-                        LogLib.LogOutput("キャラファイルのコンフィグデータが正常に読み込まれました");
                         _settings = settings_tmp;
                         ret = 0;
                     }
                 }
                 catch (Exception ex)
                 {
-                    LogLib.LogOutput("キャラファイルのコンフィグデータ読み込みに失敗しました");
                     ErrorLogLib.ErrorOutput("コンフィグ読み取りエラー", ex.Message);
                 }
 
@@ -587,7 +602,7 @@ namespace digpet.Managers
                 {
                     public string name { get; set; }
                     public string feelingTag { get; set; }
-
+                    public string leavingImgPath { get; set; }
                     public Feeling[] feelings { get; set; }
 
                     public class Feeling
@@ -615,6 +630,7 @@ namespace digpet.Managers
                         name = string.Empty;
                         feelingTag = string.Empty;
                         feelings = new Feeling[0];
+                        leavingImgPath = string.Empty;
                     }
                 }
             }

@@ -24,9 +24,14 @@
 2. "インポート"ボタンが表示されるまで"詳細表示切替"ボタンをクリックします。
 3. ファイル選択ダイアログが表示されるので、対象のzipファイルを選択します。
 
-サンプルキャラファイル: [Moni_v2.01.00_light.zip](https://github.com/user-attachments/files/20743950/Moni_v2.01.00_light.zip)
-
-
+サンプルキャラファイル:<br>
+[Moni_v2.02.01.zip](https://github.com/user-attachments/files/21806516/Moni_v2.02.01.zip)←アプリバージョン 2.02.XX 推奨<br>
+[Moni_v2.02.00.zip](https://github.com/user-attachments/files/21782677/Moni_v2.02.00.zip)<br>
+[Moni_v2.01.00_light.zip](https://github.com/user-attachments/files/20743950/Moni_v2.01.00_light.zip)←アプリバージョン 2.01.XX 推奨<br>
+[Moni_v2.00.00.zip](https://github.com/user-attachments/files/21782759/Moni_v2.00.00.zip)←アプリバージョン 2.00.XX 推奨<br>
+[Moni_v1.00.02.zip](https://github.com/user-attachments/files/21782760/Moni_v1.00.02.zip)←アプリバージョン 1.XX.XX 推奨<br>
+[Moni_v1.00.01.zip](https://github.com/user-attachments/files/21782761/Moni_v1.00.01.zip)<br>
+[Moni_v1.00.00.zip](https://github.com/user-attachments/files/21782762/Moni_v1.00.00.zip)<br>
 
 ## Webカメラを使用した機能の使用方法
 通常、Digpetが実行されているコンピュータのCPU使用率を使用して、感情の計算を行います。<br>
@@ -46,6 +51,83 @@
 > [!NOTE]
 > 数秒間カメラモードになり、すぐにCPUモードに変わってしまう場合は、
 > config.jsonのCameraDisableThresholdの数値を変更してください。
+
+## アプリ設定一覧
+
+### CharFileSettings
+1. **(string)CharSettingPath**<br>
+キャラファイルのパスが設定されます。<br>
+設定するパスは絶対参照/相対参照問いません。
+
+### WindowSettings
+1.  **(int)WindowState**<br>
+起動時のウィンドウ状態です。<br>
+0: 通常<br>
+1: 最大化<br>
+2: 最小化
+
+2. **(bool)TopMost**<br>
+ウィンドウのTopMostを切り替えます。
+
+3. **(Size)WindowSize**<br>
+起動時のウィンドウサイズを設定します。
+
+4. **(Point)WindowLocation**<br>
+起動時のウィンドウ位置を設定します。
+
+### AplSettings
+
+1. **(int)FontEnlargeSize**<br>
+0以上の値を設定することで、<br>
+そのポイント分UIのサイズを拡大します。
+
+2. **(Size)ImageSize**<br>
+キャラクター画像のサイズです。<br>
+特別な理由がない限り変更しないでください。
+
+3. **(long)GcThreshold**<br>
+マネージドメモリがこの数値(bytes)を超えた際に、ガーベジコレクタを実行します。<br>
+
+4. **(bool)EnableNonActiveMode**<br>
+非アクティブ(アプリの操作を一定時間行わない)時に、UIを非表示にする機能の有効無効を切り替えます。
+
+5. **(int)NonActiveModeStartTime**<br>
+非アクティブモードを開始するための時間を秒単位で設定します。
+
+6. **(bool)EnablNeglectMode**<br>
+放置モードの有効無効を設定します。
+
+7. **(int)NeglectActiveTime**<br>
+放置モードアクティブまでの時間を秒単位で設定します。
+
+### CameraSettings
+
+1. **(bool)EnableCameraMode**<br>
+カメラモードの有効無効を切り替えます。
+
+2. **(int)CameraId**<br>
+画像を取得するカメラのIDです。
+
+3. **(uint)CameraDisableThreshold**<br>
+カメラ起動失敗時にCPUモードへ切り替えるための閾値です。<br>
+1-10の値を設定し、値が大きくするほどカメラの起動失敗に対し寛容になります。<br>
+10より大きい値を設定するとCPUモードに切り替わらなくなります。
+
+4. **(bool)EnableCameraDetectSmoothingMode**<br>
+カメラモード起動時に検出結果の平滑化を行う機能の有効無効を切り替えます。
+
+### TokenSettings
+
+1. **(bool)SaveTokenPlot**<br>
+トークンプロット保存の有効無効を切り替えます。
+
+2. **(int)TokenBackupInterval**<br>
+トークンファイルを保存する時間間隔を秒単で設定します。
+
+### LogSettings
+
+1. **(int)LogDeleteDays**<br>
+ログファイルを残しておく日数です。
 
 ## Licenses
 > This project uses OpenCV, which is licensed under the Apache License 2.0.<br>
