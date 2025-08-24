@@ -383,7 +383,7 @@ namespace digpet.TimerClass
 
             for (int i = 0; i < outValues.Length; i += 16)
             {
-                if (outValues[i + 4] > 0.8f)
+                if (outValues[i + 4] >= SettingManager.PublicSettings.DetectThreshold)
                 {
                     detNum++;
                 }
