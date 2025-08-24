@@ -2,7 +2,11 @@
 using digpet.Managers.GenerakManager;
 using digpet.Models.AbstractModels;
 using digpet.Modules;
+using Microsoft.ML.OnnxRuntime;
+using Microsoft.ML.OnnxRuntime.Tensors;
 using OpenCvSharp;
+using System.Diagnostics;
+using System.Net.Http.Headers;
 
 namespace digpet.TimerClass
 {
@@ -14,6 +18,8 @@ namespace digpet.TimerClass
     {
         //定数宣言
         private const int SmoothCount = 5;
+        private const int ImageSizeX = 640;
+        private const int ImageSizeY = 640;
 
         //変数宣言
         private static bool _cameraDisable = false;
@@ -26,11 +32,11 @@ namespace digpet.TimerClass
 
         //クラス宣言
         private static readonly RingFlagMemClass ringMem = new RingFlagMemClass(10);
-        private CascadeClassifier classifier = new CascadeClassifier();
         private AvgManager detectAvgManager = new AvgManager();
         private static VideoCapture capture = new VideoCapture();
         private RingFlagMemClass smoothMem = new RingFlagMemClass(SmoothCount);
         private static RingFlagMemClass neglectMem = new RingFlagMemClass(0);
+        private static InferenceSession? session;
 
         //ゲッターなど
         public int FaceDetected
@@ -67,8 +73,6 @@ namespace digpet.TimerClass
         /// </summary>
         public void Init()
         {
-            InitClassifier();
-
             if (CheckCameraModeEnable())
             {
                 SetCaptureSettings();
@@ -84,6 +88,15 @@ namespace digpet.TimerClass
             }
 
             neglectMem = new RingFlagMemClass(SettingManager.PublicSettings.NeglectActiveTime);
+            try
+            {
+                session = new InferenceSession("yolov5n-0.5.onnx");
+            }
+            catch (Exception ex)
+            {
+                ErrorLogLib.ErrorOutput("CameraTimer初期化エラー", ex.Message);
+                DisposeCapture();
+            }
 
             init = true;
         }
@@ -104,22 +117,8 @@ namespace digpet.TimerClass
             if (!capture.IsDisposed)
             {
                 capture.Dispose();
+                session?.Dispose();
                 _cameraDisable = true;
-            }
-        }
-
-        /// <summary>
-        /// クラス分類器を初期化
-        /// </summary>
-        private void InitClassifier()
-        {
-            if (File.Exists(SettingManager.PrivateSettings.CASCADE_PATH))
-            {
-                classifier.Load(SettingManager.PrivateSettings.CASCADE_PATH);
-            }
-            else
-            {
-                DisposeCapture();
             }
         }
 
@@ -128,7 +127,6 @@ namespace digpet.TimerClass
         /// </summary>
         ~CameraTimer()
         {
-            classifier.Dispose();
             DisposeCapture();
         }
 
@@ -338,29 +336,62 @@ namespace digpet.TimerClass
         /// <returns>異常: -1, 0<: 顔の検出数</returns>
         private int DetectFace(Mat mat)
         {
+            using Mat det = mat.Clone();
+
             //matがnullならfalseを返却
-            if (mat == null)
+            if (det == null)
             {
                 ErrorLogLib.ErrorOutput("顔検出エラー", "渡された画像がnullです");
                 return -1;
             }
 
-            using (Mat gray = new Mat())
+            Cv2.CvtColor(src: det, dst: det, code: ColorConversionCodes.BGR2RGB);
+            Cv2.Resize(det, det, new OpenCvSharp.Size(ImageSizeX, ImageSizeY));
+
+            float[] imageData = new float[3 * ImageSizeX * ImageSizeY];
+            for (int y = 0; y < ImageSizeY; y++)
             {
-                Cv2.CvtColor(src: mat, dst: gray, code: ColorConversionCodes.BGR2GRAY);
-                Cv2.EqualizeHist(gray, gray);
-
-                //画像のサイズを統一する必要があるかも
-                Rect[] faces = classifier.DetectMultiScale(image: gray, scaleFactor: 1.1, minNeighbors: 10, minSize: new OpenCvSharp.Size());
-
-                if (faces == null)
+                for (int x = 0; x < ImageSizeX; x++)
                 {
-                    ErrorLogLib.ErrorOutput("顔検出エラー", "顔の検出が失敗しました");
-                    return -1;
+                    Vec3b pixel = det.At<Vec3b>(y, x);
+                    int offset = y * 640 + x;
+                    imageData[0 * ImageSizeX * ImageSizeY + offset] = pixel.Item0 / 255.0f; // R
+                    imageData[1 * ImageSizeX * ImageSizeY + offset] = pixel.Item1 / 255.0f; // G
+                    imageData[2 * ImageSizeX * ImageSizeY + offset] = pixel.Item2 / 255.0f;
                 }
-
-                return faces.Length;
             }
+
+            var inputData = new DenseTensor<float>(imageData, new[] { 1, 3, ImageSizeX, ImageSizeY });
+
+            var inputs = new List<NamedOnnxValue>
+            {
+                NamedOnnxValue.CreateFromTensor("input", inputData)
+            };
+
+            if (session == null)
+            {
+                ErrorLogLib.ErrorOutput("顔検出エラー", "モデルが読み込まれていません");
+                return -1;
+            }
+
+            using var results = session.Run(inputs);
+            var output = results.First(x => x.Name == "output").AsTensor<float>();
+
+            float[] outValues = output.ToArray();
+
+            int detNum = 0;
+
+            for (int i = 0; i < outValues.Length; i += 16)
+            {
+                if (outValues[i + 4] > 0.8f)
+                {
+                    detNum++;
+                }
+            }
+
+            Debug.Print($"{detNum.ToString()}\n");
+
+            return detNum;
         }
 
         /// <summary>
