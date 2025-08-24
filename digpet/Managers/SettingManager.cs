@@ -1,6 +1,5 @@
 ﻿using digpet.Modules;
 using System.Text.Json;
-using static digpet.Managers.SettingManager.DigpetSettingsNew;
 
 namespace digpet.Managers
 {
@@ -103,7 +102,7 @@ namespace digpet.Managers
                 {
                     settingString = sr.ReadToEnd();
                 }
-                
+
                 DigpetSettingsNew? tmp = JsonSerializer.Deserialize<DigpetSettingsNew>(settingString);
 
                 if (tmp != null)
@@ -366,7 +365,7 @@ namespace digpet.Managers
                 {
                     return PublicSettingsNew.AplSettings.EnablNeglectMode;
                 }
-                set 
+                set
                 {
                     PublicSettingsNew.AplSettings.EnablNeglectMode = value;
                 }
@@ -419,7 +418,7 @@ namespace digpet.Managers
             {
                 public string SettingsVersion { get; set; }
 
-                public _SettingsHeader() 
+                public _SettingsHeader()
                 {
                     SettingsVersion = "0.0.0";
                 }

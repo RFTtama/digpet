@@ -355,8 +355,8 @@ namespace digpet.TimerClass
                 {
                     Vec3b pixel = det.At<Vec3b>(y, x);
                     int offset = y * 640 + x;
-                    imageData[0 * ImageSizeX * ImageSizeY + offset] = pixel.Item0 / 255.0f; // R
-                    imageData[1 * ImageSizeX * ImageSizeY + offset] = pixel.Item1 / 255.0f; // G
+                    imageData[0 * ImageSizeX * ImageSizeY + offset] = pixel.Item0 / 255.0f;
+                    imageData[1 * ImageSizeX * ImageSizeY + offset] = pixel.Item1 / 255.0f;
                     imageData[2 * ImageSizeX * ImageSizeY + offset] = pixel.Item2 / 255.0f;
                 }
             }
@@ -381,6 +381,7 @@ namespace digpet.TimerClass
 
             int detNum = 0;
 
+            //出力結果の選定
             for (int i = 0; i < outValues.Length; i += 16)
             {
                 if (outValues[i + 4] >= SettingManager.PublicSettings.DetectThreshold)
