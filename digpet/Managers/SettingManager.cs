@@ -385,7 +385,7 @@ namespace digpet.Managers
             }
 
             //検出結果の閾値
-            public float DetectThreshold
+            public int DetectThreshold
             {
                 get
                 {
@@ -501,7 +501,7 @@ namespace digpet.Managers
                 public bool EnableCameraDetectSmoothingMode { get; set; }
 
                 //検出結果の閾値
-                public float DetectThreshold { get; set; }
+                public int DetectThreshold { get; set; }
             }
 
             /// <summary>
@@ -555,7 +555,7 @@ namespace digpet.Managers
                 CameraSettings.EnableCameraDetectSmoothingMode = true;
                 AplSettings.EnablNeglectMode = false;
                 AplSettings.NeglectActiveTime = 600;
-                CameraSettings.DetectThreshold = 0.8f;
+                CameraSettings.DetectThreshold = 80;
             }
         }
     }
