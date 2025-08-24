@@ -1,0 +1,25 @@
+GNU AFFERO GENERAL PUBLIC LICENSE  
+Version 3, 19 November 2007
+
+Copyright (C) [Cauliflow-RFTtama] [2025]
+
+This project includes source code from YOLOv5, which is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0).  
+As of version [Your Version], components derived from YOLOv5 are incorporated into this repository.  
+Therefore, this project is distributed under the terms of the AGPL-3.0 license.
+
+You may copy, modify, and distribute this software under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This software is distributed in the hope that it will be useful,  
+but WITHOUT ANY WARRANTY; without even the implied warranty of  
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the  
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License  
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+---
+
+Third-party components:
+
+- YOLOv5 by Ultralytics (https://github.com/ultralytics/yolov5)  
+  Licensed under AGPL-3.0

@@ -1,6 +1,5 @@
 ﻿using digpet.Modules;
 using System.Text.Json;
-using static digpet.Managers.SettingManager.DigpetSettingsNew;
 
 namespace digpet.Managers
 {
@@ -103,7 +102,7 @@ namespace digpet.Managers
                 {
                     settingString = sr.ReadToEnd();
                 }
-                
+
                 DigpetSettingsNew? tmp = JsonSerializer.Deserialize<DigpetSettingsNew>(settingString);
 
                 if (tmp != null)
@@ -366,7 +365,7 @@ namespace digpet.Managers
                 {
                     return PublicSettingsNew.AplSettings.EnablNeglectMode;
                 }
-                set 
+                set
                 {
                     PublicSettingsNew.AplSettings.EnablNeglectMode = value;
                 }
@@ -382,6 +381,19 @@ namespace digpet.Managers
                 set
                 {
                     PublicSettingsNew.AplSettings.NeglectActiveTime = value;
+                }
+            }
+
+            //検出結果の閾値
+            public float DetectThreshold
+            {
+                get
+                {
+                    return PublicSettingsNew.CameraSettings.DetectThreshold;
+                }
+                set
+                {
+                    PublicSettingsNew.CameraSettings.DetectThreshold = value;
                 }
             }
         }
@@ -406,7 +418,7 @@ namespace digpet.Managers
             {
                 public string SettingsVersion { get; set; }
 
-                public _SettingsHeader() 
+                public _SettingsHeader()
                 {
                     SettingsVersion = "0.0.0";
                 }
@@ -487,6 +499,9 @@ namespace digpet.Managers
 
                 //カメラ検出平滑化モードの有効無効
                 public bool EnableCameraDetectSmoothingMode { get; set; }
+
+                //検出結果の閾値
+                public float DetectThreshold { get; set; }
             }
 
             /// <summary>
@@ -540,6 +555,7 @@ namespace digpet.Managers
                 CameraSettings.EnableCameraDetectSmoothingMode = true;
                 AplSettings.EnablNeglectMode = false;
                 AplSettings.NeglectActiveTime = 600;
+                CameraSettings.DetectThreshold = 0.8f;
             }
         }
     }
