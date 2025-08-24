@@ -116,7 +116,7 @@
 4. **(bool)EnableCameraDetectSmoothingMode**<br>
 カメラモード起動時に検出結果の平滑化を行う機能の有効無効を切り替えます。
 
-5. **(float)DetectThreshold**<br>
+5. **(int)DetectThreshold**<br>
 顔検出結果の選定に使用する閾値です。(0～100)<br>
 大きい値にするほど厳格になります。
 
