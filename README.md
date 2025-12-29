@@ -116,6 +116,10 @@
 4. **(bool)EnableCameraDetectSmoothingMode**<br>
 カメラモード起動時に検出結果の平滑化を行う機能の有効無効を切り替えます。
 
+5. **(int)DetectThreshold**<br>
+顔検出結果の選定に使用する閾値です。(0～100)<br>
+大きい値にするほど厳格になります。
+
 ### TokenSettings
 
 1. **(bool)SaveTokenPlot**<br>
@@ -130,6 +134,8 @@
 ログファイルを残しておく日数です。
 
 ## Licenses
+> As of version [Ver.2.03.00], this project incorporates components from YOLOv5, which is distributed under the GNU General Public License v3.0 (GPL-3.0).
+
 > This project uses OpenCV, which is licensed under the Apache License 2.0.<br>
 > The OpenCV package was built by schimatk.<br>
 > See [OpenCvSharp4](https://github.com/shimat/opencvsharp) and [OpenCV GitHub repository](https://github.com/opencv/opencv) for details.<br>

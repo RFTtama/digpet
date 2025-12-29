@@ -1,6 +1,5 @@
 ﻿using digpet.Modules;
 using System.Text.Json;
-using static digpet.Managers.SettingManager.DigpetSettingsNew;
 
 namespace digpet.Managers
 {
@@ -17,7 +16,7 @@ namespace digpet.Managers
         //外部で変更可能でない設定
         public static class PrivateSettings
         {
-            public const string APPLICATION_VERSION = "2.02.00" + DEBUG_APPENDANCE;         //アプリバージョン
+            public const string APPLICATION_VERSION = "2.03.00" + DEBUG_APPENDANCE;         //アプリバージョン
             public const string CHAR_FORMAT_VERSION = "2.02.00";                            //キャラフォーマットのバージョン
 
             public const string CONFIG_FILE_PATH = "config.json";                           //コンフィグファイルのパス
@@ -103,7 +102,7 @@ namespace digpet.Managers
                 {
                     settingString = sr.ReadToEnd();
                 }
-                
+
                 DigpetSettingsNew? tmp = JsonSerializer.Deserialize<DigpetSettingsNew>(settingString);
 
                 if (tmp != null)
@@ -366,7 +365,7 @@ namespace digpet.Managers
                 {
                     return PublicSettingsNew.AplSettings.EnablNeglectMode;
                 }
-                set 
+                set
                 {
                     PublicSettingsNew.AplSettings.EnablNeglectMode = value;
                 }
@@ -382,6 +381,19 @@ namespace digpet.Managers
                 set
                 {
                     PublicSettingsNew.AplSettings.NeglectActiveTime = value;
+                }
+            }
+
+            //検出結果の閾値
+            public int DetectThreshold
+            {
+                get
+                {
+                    return PublicSettingsNew.CameraSettings.DetectThreshold;
+                }
+                set
+                {
+                    PublicSettingsNew.CameraSettings.DetectThreshold = value;
                 }
             }
         }
@@ -406,7 +418,7 @@ namespace digpet.Managers
             {
                 public string SettingsVersion { get; set; }
 
-                public _SettingsHeader() 
+                public _SettingsHeader()
                 {
                     SettingsVersion = "0.0.0";
                 }
@@ -487,6 +499,9 @@ namespace digpet.Managers
 
                 //カメラ検出平滑化モードの有効無効
                 public bool EnableCameraDetectSmoothingMode { get; set; }
+
+                //検出結果の閾値
+                public int DetectThreshold { get; set; }
             }
 
             /// <summary>
@@ -540,6 +555,7 @@ namespace digpet.Managers
                 CameraSettings.EnableCameraDetectSmoothingMode = true;
                 AplSettings.EnablNeglectMode = false;
                 AplSettings.NeglectActiveTime = 600;
+                CameraSettings.DetectThreshold = 80;
             }
         }
     }
