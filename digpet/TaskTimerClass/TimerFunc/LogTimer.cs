@@ -43,18 +43,22 @@ namespace digpet.TaskTimerClass.TimerFunc
         {
             string value = "→\"" + logValue + "\"";
 
-            try
+            lock (logDict)
             {
-                logDict.Add(logKey, value);
-            }
-            catch (ArgumentException)
-            {
-                logDict[logKey] += value;
-            }
-            catch (Exception ex)
-            {
-                ErrorLogLib.ErrorOutput("ログ保存エラー", ex.Message);
-                return false;
+                try
+                {
+                    logDict.Add(logKey, value);
+                }
+                catch (ArgumentException)
+                {
+                    logDict[logKey] += value;
+                }
+                catch (Exception ex)
+                {
+                    ErrorLogLib er = ErrorLogLib.Instance;
+                    er.ErrorOutput("ログ保存エラー", ex.Message);
+                    return false;
+                }
             }
 
             return true;
@@ -152,7 +156,8 @@ namespace digpet.TaskTimerClass.TimerFunc
             }
             catch (Exception ex)
             {
-                ErrorLogLib.ErrorOutput("ログ書き込みエラー", ex.Message);
+                ErrorLogLib er = ErrorLogLib.Instance;
+                er.ErrorOutput("ログ書き込みエラー", ex.Message);
             }
         }
 

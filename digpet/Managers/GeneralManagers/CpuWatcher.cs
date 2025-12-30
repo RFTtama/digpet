@@ -28,7 +28,8 @@ namespace digpet.Managers.GenerakManager
             else
             {
                 _interface = new OtherCpuWatcher();
-                ErrorLogLib.ErrorOutput("使用OS取得エラー", "サポートされていないOSでの起動です");
+                ErrorLogLib er = ErrorLogLib.Instance;
+                er.ErrorOutput("使用OS取得エラー", "サポートされていないOSでの起動です");
             }
         }
 

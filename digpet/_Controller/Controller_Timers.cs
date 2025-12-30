@@ -45,11 +45,13 @@ namespace digpet._Controller
 
             if (backUpCnt > SettingManager.PublicSettings.TokenBackupInterval)
             {
-                arg.tokenManager.Write(SettingManager.PrivateSettings.TOKEN_CALC_PATH);
+                TokenManager tm = TokenManager.Instance;
+                tm.Write(SettingManager.PrivateSettings.TOKEN_CALC_PATH);
                 backUpCnt = 0;
             }
 
-            ErrorLogLib.Export();
+            ErrorLogLib er = ErrorLogLib.Instance;
+            er.Export();
         }
 
         /// <summary>
@@ -60,7 +62,8 @@ namespace digpet._Controller
             if (null == cameraTimer) return;
             if (cameraTimer.AvgCalcFlg)
             {
-                arg.tokenManager.AddTokens(cameraTimer.DetectAvg);
+                TokenManager tm = TokenManager.Instance;
+                tm.AddTokens(cameraTimer.DetectAvg);
                 cameraTimer.ClearDetectAvg();
             }
 
@@ -94,7 +97,8 @@ namespace digpet._Controller
             if (null == cpuAvgCalcTimer) return;
             if (cpuAvgCalcTimer.AvgCalcFlg)
             {
-                arg.tokenManager.AddTokens(cpuAvgCalcTimer.CpuAvg);
+                TokenManager tm = TokenManager.Instance;
+                tm.AddTokens(cpuAvgCalcTimer.CpuAvg);
                 cpuAvgCalcTimer.ClearCpuAvg();
             }
             SetCpuUsageLabel("CPU: " + cpuAvgCalcTimer.CpuUsage.ToString("n2") + "%");

@@ -34,10 +34,10 @@ namespace digpet
             InitializeComponent();
         }
 
-        public void InitRequest(ClassManagerArg arg)
+        public void InitRequest()
         {
-            tokenManager = arg.tokenManager;
-            charZipFileManager = arg.charZipFileManager;
+            tokenManager = TokenManager.Instance;
+            charZipFileManager = CharZipFileManager.Instance;
 
             Init();
         }
@@ -149,7 +149,8 @@ namespace digpet
         {
             if (SettingManager.PublicSettings.CharSettingPath == null)
             {
-                ErrorLogLib.ErrorOutput("キャラファイル読み取りエラー", "設定されているキャラファイルのパスがnullか空です");
+                ErrorLogLib er = ErrorLogLib.Instance;
+                er.ErrorOutput("キャラファイル読み取りエラー", "設定されているキャラファイルのパスがnullか空です");
             }
             else if (SettingManager.PublicSettings.CharSettingPath == string.Empty)
             {
@@ -228,7 +229,8 @@ namespace digpet
             }
             else
             {
-                ErrorLogLib.ErrorOutput("インポートエラー", "キャラデータのインポートに失敗しました");
+                ErrorLogLib er = ErrorLogLib.Instance;
+                er.ErrorOutput("インポートエラー", "キャラデータのインポートに失敗しました");
             }
         }
 

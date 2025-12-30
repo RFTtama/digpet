@@ -56,7 +56,8 @@ namespace digpet
             }
             catch (Exception ex)
             {
-                ErrorLogLib.ErrorOutput("未定義のエラー", ex.Message);
+                ErrorLogLib er = ErrorLogLib.Instance;
+                er.ErrorOutput("未定義のエラー", ex.Message);
 
                 if (hasHandle)                                                  //Mutexの解放
                 {

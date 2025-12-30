@@ -111,7 +111,8 @@ namespace digpet.TaskTimerClass.TimerFunc
             }
             catch (Exception ex)
             {
-                ErrorLogLib.ErrorOutput("CameraTimer初期化エラー", ex.Message);
+                ErrorLogLib er = ErrorLogLib.Instance;
+                er.ErrorOutput("CameraTimer初期化エラー", ex.Message);
                 DisposeCapture();
             }
         }
@@ -308,15 +309,16 @@ namespace digpet.TaskTimerClass.TimerFunc
         {
             using (Mat flame = new Mat())
             {
+                ErrorLogLib er = ErrorLogLib.Instance;
                 if (!capture.Read(flame))
                 {
-                    ErrorLogLib.ErrorOutput("写真撮影エラー", "写真の撮影に失敗しました");
+                    er.ErrorOutput("写真撮影エラー", "写真の撮影に失敗しました");
                     return null;
                 }
 
                 if (flame.Empty())
                 {
-                    ErrorLogLib.ErrorOutput("写真撮影エラー", "写真が空です");
+                    er.ErrorOutput("写真撮影エラー", "写真が空です");
                     return null;
                 }
 
@@ -336,7 +338,8 @@ namespace digpet.TaskTimerClass.TimerFunc
             //matがnullならfalseを返却
             if (det == null)
             {
-                ErrorLogLib.ErrorOutput("顔検出エラー", "渡された画像がnullです");
+                ErrorLogLib er = ErrorLogLib.Instance;
+                er.ErrorOutput("顔検出エラー", "渡された画像がnullです");
                 return -1;
             }
 
@@ -365,7 +368,8 @@ namespace digpet.TaskTimerClass.TimerFunc
 
             if (session == null)
             {
-                ErrorLogLib.ErrorOutput("顔検出エラー", "モデルが読み込まれていません");
+                ErrorLogLib er = ErrorLogLib.Instance;
+                er.ErrorOutput("顔検出エラー", "モデルが読み込まれていません");
                 return -1;
             }
 

@@ -8,7 +8,7 @@ namespace digpet._Controller
         public void Init(IDigpet view)
         {
             _view = view;
-            _view.InitRequest(arg);
+            _view.InitRequest();
         }
 
         /// <summary>
@@ -16,7 +16,8 @@ namespace digpet._Controller
         /// </summary>
         public void Terminator()
         {
-            ErrorLogLib.Export();
+            ErrorLogLib er = ErrorLogLib.Instance;
+            er.Export();
             logTimer?.Export();
             cameraTimer?.Dispose();
 

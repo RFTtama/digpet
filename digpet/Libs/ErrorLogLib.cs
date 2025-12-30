@@ -6,9 +6,14 @@ namespace digpet.Modules
     /// <summary>
     /// エラー出力クラス
     /// </summary>
-    static class ErrorLogLib
+    public class ErrorLogLib
     {
-        private static string _logDump = string.Empty;
+        private static Lazy<ErrorLogLib> _lazy = new(() => new ErrorLogLib(), isThreadSafe: true);
+        public static ErrorLogLib Instance => _lazy.Value;
+
+        private string _logDump = string.Empty;
+
+        private ErrorLogLib() { }
 
         /// <summary>
         /// エラーを出力する
@@ -16,7 +21,7 @@ namespace digpet.Modules
         /// <param name="name">エラー名</param>
         /// <param name="msg">エラーメッセージ</param>
         /// <param name="show">表示するか</param>
-        public static void ErrorOutput(string name, string msg, bool show)
+        public void ErrorOutput(string name, string msg, bool show)
         {
             _logDump += DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss [") + name + "]" + msg + "\r\n\n";
             if (show) TaskMessageLib.OutputMessage(msg, name, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -27,7 +32,7 @@ namespace digpet.Modules
         /// </summary>
         /// <param name="name">エラー名</param>
         /// <param name="msg">エラーメッセージ</param>
-        public static void ErrorOutput(string name, string msg)
+        public void ErrorOutput(string name, string msg)
         {
             ErrorOutput(name, msg, true);
         }
@@ -35,7 +40,7 @@ namespace digpet.Modules
         /// <summary>
         /// エラーログをファイルに書き出す
         /// </summary>
-        public static void Export()
+        public void Export()
         {
             try
             {
