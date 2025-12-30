@@ -1,43 +1,36 @@
 ﻿using digpet.Managers;
-using digpet.Models.AbstractModels;
 using digpet.Modules;
 using System.Globalization;
 
 namespace digpet.TaskTimerClass
 {
-    public class LogTimer : TaskClassModel
+    public class LogTimer
     {
+        private static Lazy<LogTimer> _lazy = new(() => new LogTimer(), isThreadSafe: true);
+        public static LogTimer Instance => _lazy.Value;
+
         // 変数宣言
-        private static string _logDump = string.Empty;
-        private static int step = 0;
+        private string _logDump;
 
         // 辞書系
-        private static Dictionary<string, string> logDict = new Dictionary<string, string>();
+        private Dictionary<string, string> logDict;
 
-        // 関数テーブル
-        private Action[] stepFuncTable =
+        private System.Threading.Timer? _timer;
+
+        private LogTimer()
         {
-            Step01,
-        };
+            _logDump = string.Empty;
+            logDict = new Dictionary<string, string>();
+            _timer = new System.Threading.Timer(TaskFunc, null, 0, 1000);
+        }
 
         /// <summary>
         /// 周期関数
         /// </summary>
         /// <returns></returns>
-        public override TaskReturn TaskFunc()
+        private void TaskFunc(object? obj)
         {
-            if ((step >= 0) && (step < stepFuncTable.Length))
-            {
-                stepFuncTable[step]();
-                return TaskReturn.TASK_SUCCESS;
-            }
-
-            return TaskReturn.TASK_FAILURE;
-        }
-
-        public override void TaskCheckRet(TaskReturn ret)
-        {
-
+            Step01();
         }
 
         /// <summary>
@@ -46,22 +39,26 @@ namespace digpet.TaskTimerClass
         /// <param name="logKey">キー</param>
         /// <param name="logValue">バリュー</param>
         /// <returns></returns>
-        public static bool SaveLog(string logKey, string logValue)
+        public bool SaveLog(string logKey, string logValue)
         {
             string value = "→\"" + logValue + "\"";
 
-            try
+            lock (logDict)
             {
-                logDict.Add(logKey, value);
-            }
-            catch (ArgumentException)
-            {
-                logDict[logKey] += value;
-            }
-            catch (Exception ex)
-            {
-                ErrorLogLib.ErrorOutput("ログ保存エラー", ex.Message);
-                return false;
+                try
+                {
+                    logDict.Add(logKey, value);
+                }
+                catch (ArgumentException)
+                {
+                    logDict[logKey] += value;
+                }
+                catch (Exception ex)
+                {
+                    ErrorLogLib er = ErrorLogLib.Instance;
+                    er.ErrorOutput("ログ保存エラー", ex.Message);
+                    return false;
+                }
             }
 
             return true;
@@ -70,7 +67,7 @@ namespace digpet.TaskTimerClass
         /// <summary>
         /// ログの保存
         /// </summary>
-        private static void Step01()
+        private void Step01()
         {
             if (logDict.Count > 0)
             {
@@ -98,7 +95,7 @@ namespace digpet.TaskTimerClass
         /// ログの保存パスを返却する
         /// </summary>
         /// <returns>ログ保存先のパス</returns>
-        private static string GetLogDirectroy()
+        private string GetLogDirectroy()
         {
             string path = string.Empty;
             path += SettingManager.PrivateSettings.LOG_DIRECTORY + "/";
@@ -111,7 +108,7 @@ namespace digpet.TaskTimerClass
         /// <summary>
         /// 保存日数を超えたログを削除する
         /// </summary>
-        private static void DeleteTooMuchLogs()
+        private void DeleteTooMuchLogs()
         {
             string[] files = Directory.GetFiles(SettingManager.PrivateSettings.LOG_DIRECTORY);
 
@@ -132,7 +129,7 @@ namespace digpet.TaskTimerClass
         /// <summary>
         /// 書き出し
         /// </summary>
-        private static void ExportInClass()
+        private void ExportInClass()
         {
             try
             {
@@ -159,7 +156,8 @@ namespace digpet.TaskTimerClass
             }
             catch (Exception ex)
             {
-                ErrorLogLib.ErrorOutput("ログ書き込みエラー", ex.Message);
+                ErrorLogLib er = ErrorLogLib.Instance;
+                er.ErrorOutput("ログ書き込みエラー", ex.Message);
             }
         }
 

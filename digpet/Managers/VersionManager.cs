@@ -94,7 +94,8 @@ namespace digpet.Managers
 
             if (parts.Length != versionArray.Length)
             {
-                ErrorLogLib.ErrorOutput("バージョン情報変換エラー", "バージョン情報の入力フォーマットが正しくありません");
+                ErrorLogLib er = ErrorLogLib.Instance;
+                er.ErrorOutput("バージョン情報変換エラー", "バージョン情報の入力フォーマットが正しくありません");
                 return;
             }
             for (int i = 0; i < versionArray.Length; i++)

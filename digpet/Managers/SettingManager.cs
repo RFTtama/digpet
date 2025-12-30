@@ -16,7 +16,7 @@ namespace digpet.Managers
         //外部で変更可能でない設定
         public static class PrivateSettings
         {
-            public const string APPLICATION_VERSION = "2.03.00" + DEBUG_APPENDANCE;         //アプリバージョン
+            public const string APPLICATION_VERSION = "3.00.00" + DEBUG_APPENDANCE;         //アプリバージョン
             public const string CHAR_FORMAT_VERSION = "2.02.00";                            //キャラフォーマットのバージョン
 
             public const string CONFIG_FILE_PATH = "config.json";                           //コンフィグファイルのパス
@@ -24,7 +24,7 @@ namespace digpet.Managers
             public const string LOG_PATH = "Log.txt";                                       //ログファイルのパス
             public const string TOKEN_CALC_PATH = "TOKEN_BANK";                             //トークンファイルのパス
             public const string SETTING_PATH = "settings.json";                             //設定ファイルのパス
-            public const string CASCADE_PATH = "haarcascade_frontalface_default.xml";       //カスケードファイルのパス
+            //public const string CASCADE_PATH = "haarcascade_frontalface_default.xml";       //カスケードファイルのパス
             public const string PLOT_PATH = "plot.png";                                     //プロット画像のパス
             public const string LOG_DIRECTORY = "Logs";                                     //ログフォルダのディレクトリ
             public const string SETTINGS_HEADER_VER = "1.0.0";                              //設定ファイルのヘッダ情報
@@ -84,7 +84,8 @@ namespace digpet.Managers
             }
             catch (Exception ex)
             {
-                ErrorLogLib.ErrorOutput("設定ファイル初期化エラー", ex.Message);
+                ErrorLogLib er = ErrorLogLib.Instance;
+                er.ErrorOutput("設定ファイル初期化エラー", ex.Message);
             }
         }
 
@@ -127,7 +128,8 @@ namespace digpet.Managers
             }
             catch (Exception ex)
             {
-                ErrorLogLib.ErrorOutput("設定ファイル読み取りエラー", ex.Message);
+                ErrorLogLib er = ErrorLogLib.Instance;
+                er.ErrorOutput("設定ファイル読み取りエラー", ex.Message);
             }
         }
 
@@ -280,18 +282,6 @@ namespace digpet.Managers
                 }
             }
 
-            //ガーベジコレクタを実行するマネージドメモリ使用量(bytes)
-            public long GcThreshold
-            {
-                get
-                {
-                    return PublicSettingsNew.AplSettings.GcThreshold;
-                }
-                set
-                {
-                    PublicSettingsNew.AplSettings.GcThreshold = value;
-                }
-            }
 
             //ログを削除する日数
             public int LogDeleteDays
@@ -467,9 +457,6 @@ namespace digpet.Managers
                 //キャラ画像サイズ
                 public Size ImageSize { get; set; }
 
-                //ガーベジコレクタを実行するマネージドメモリ使用量(bytes)
-                public long GcThreshold { get; set; }
-
                 //非アクティブモード有効無効
                 public bool EnableNonActiveMode { get; set; }
 
@@ -547,7 +534,6 @@ namespace digpet.Managers
                 CameraSettings.CameraId = 0;
                 CameraSettings.CameraDisableThreshold = 1;
                 TokenSettings.SaveTokenPlot = true;
-                AplSettings.GcThreshold = 20000000;
                 LogSettings.LogDeleteDays = 31;
                 TokenSettings.TokenBackupInterval = 10 * 60;
                 AplSettings.EnableNonActiveMode = false;

@@ -1,20 +1,23 @@
 ﻿using digpet.Managers.GenerakManager;
-using digpet.Models.AbstractModels;
-using digpet.Modules;
 
-namespace digpet.TimerClass
+namespace digpet.TaskTimerClass
 {
     /// <summary>
     /// CPU使用率を管理するためのマネージャ
     /// </summary>
     /// 
-    public class CpuAvgCalcTimer : TaskClassModel
+    public class CpuAvgCalcTimer
     {
+        private static Lazy<CpuAvgCalcTimer> _lazy = new(() => new CpuAvgCalcTimer(), isThreadSafe: true);
+        public static CpuAvgCalcTimer Instance => _lazy.Value;
+
+        private System.Threading.Timer _timer;
+
         //変数宣言
-        private uint cpuCnt = 0;
-        private double _cpuAvg = 0.0;
-        private bool _avgCalcFlg = false;
-        private double _cpuUsage = 0.0;
+        private uint cpuCnt;
+        private double _cpuAvg;
+        private bool _avgCalcFlg;
+        private double _cpuUsage;
 
         //クラス宣言
         private AvgManager cpuAvgManager = new AvgManager();
@@ -34,11 +37,20 @@ namespace digpet.TimerClass
             get { return _cpuUsage; }
         }
 
+        private CpuAvgCalcTimer()
+        {
+            cpuCnt = 0;
+            _cpuAvg = 0.0;
+            _avgCalcFlg = false;
+            _cpuUsage = 0.0;
+            _timer = new(TaskFunc, null, 0, 1000);
+        }
+
         /// <summary>
         /// タスク処理
         /// </summary>
         /// <returns>ステータス</returns>
-        public override TaskReturn TaskFunc()
+        private void TaskFunc(object? obj)
         {
             _cpuUsage = (double)cpuWatcher.GetCpuUsage();
 
@@ -54,7 +66,6 @@ namespace digpet.TimerClass
             cpuAvgManager.Sum(CpuUsage);
 
             cpuCnt++;
-            return TaskReturn.TASK_SUCCESS;
         }
 
         /// <summary>
@@ -66,19 +77,6 @@ namespace digpet.TimerClass
             _cpuAvg = 0.0;
             _avgCalcFlg = false;
             _cpuUsage = 0.0;
-        }
-
-        /// <summary>
-        /// 戻り値処理
-        /// </summary>
-        /// <param name="ret">戻り値</param>
-        public override void TaskCheckRet(TaskReturn ret)
-        {
-            switch (ret)
-            {
-                default:
-                    break;
-            }
         }
 
         /// <summary>

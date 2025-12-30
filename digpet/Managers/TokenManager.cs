@@ -8,6 +8,9 @@ namespace digpet.Managers
 {
     public class TokenManager
     {
+        private static Lazy<TokenManager> _lazy = new(() => new TokenManager(), isThreadSafe: true);
+        public static TokenManager Instance => _lazy.Value;
+
         //クラス宣言
         private CompressTokenAvgManager avgManager;                                         //token平均値管理用クラス
 
@@ -91,7 +94,8 @@ namespace digpet.Managers
             }
             catch (Exception ex)
             {
-                ErrorLogLib.ErrorOutput("token計算用ファイル初期化エラー", ex.Message);
+                ErrorLogLib er = ErrorLogLib.Instance;
+                er.ErrorOutput("token計算用ファイル初期化エラー", ex.Message);
             }
         }
 
@@ -130,7 +134,8 @@ namespace digpet.Managers
             }
             catch (Exception ex)
             {
-                ErrorLogLib.ErrorOutput("token計算用ファイル読み取りエラー", ex.Message);
+                ErrorLogLib er = ErrorLogLib.Instance;
+                er.ErrorOutput("token計算用ファイル読み取りエラー", ex.Message);
             }
         }
 
@@ -208,7 +213,8 @@ namespace digpet.Managers
         /// <param name="minToken">時間毎のトークン(未計算)</param>
         public void AddTokens(double minToken)
         {
-            LogTimer.SaveLog("minToken", minToken.ToString());
+            LogTimer log = LogTimer.Instance;
+            log.SaveLog("minToken", minToken.ToString());
 
             double token = (Tokens * HANDOVER_PERCENT) + minToken;
 #if false

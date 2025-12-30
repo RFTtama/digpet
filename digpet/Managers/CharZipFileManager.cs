@@ -1,5 +1,5 @@
 ﻿using digpet.Modules;
-using digpet.TimerClass;
+using digpet.TaskTimerClass;
 using System.Collections.Immutable;
 using System.IO.Compression;
 using System.Text;
@@ -9,6 +9,9 @@ namespace digpet.Managers
 {
     public class CharZipFileManager
     {
+        private static Lazy<CharZipFileManager> _lazy = new(() => new CharZipFileManager(), isThreadSafe: true);
+        public static CharZipFileManager Instance => _lazy.Value;
+
         //クラス宣言
         private CharSettingManager _charSettingManager = new CharSettingManager();          //キャラクターファイルの設定クラス
 
@@ -72,7 +75,8 @@ namespace digpet.Managers
         private bool CheckNeglectEnable()
         {
             if (!SettingManager.PublicSettings.EnablNeglectMode) return false;
-            if (!CameraTimer.IsNeglect) return false;
+            CameraTimer ct = CameraTimer.Instance;
+            if (!ct.IsNeglect) return false;
             return true;
         }
 
@@ -194,9 +198,10 @@ namespace digpet.Managers
         /// <param name="path">Zipファイルパス</param>
         public void ReadCharSettings(string path)
         {
+            ErrorLogLib er = ErrorLogLib.Instance;
             if (!File.Exists(path))
             {
-                ErrorLogLib.ErrorOutput("コンフィグファイル確認エラー", "キャラデータが見つかりません");
+                er.ErrorOutput("コンフィグファイル確認エラー", "キャラデータが見つかりません");
                 return;
             }
 
@@ -210,7 +215,7 @@ namespace digpet.Managers
 
                     if (entry == null)
                     {
-                        ErrorLogLib.ErrorOutput("コンフィグファイル読み取りエラー", "キャラデータにコンフィグファイルが含まれていません");
+                        er.ErrorOutput("コンフィグファイル読み取りエラー", "キャラデータにコンフィグファイルが含まれていません");
                         return;
                     }
 
@@ -220,13 +225,13 @@ namespace digpet.Managers
                     }
                     else
                     {
-                        ErrorLogLib.ErrorOutput("コンフィグファイル読み取りエラー", "キャラデータのバージョンがサポートされていません");
+                        er.ErrorOutput("コンフィグファイル読み取りエラー", "キャラデータのバージョンがサポートされていません");
                     }
                 }
             }
             catch (Exception ex)
             {
-                ErrorLogLib.ErrorOutput("コンフィグファイル読み取りエラー", ex.Message);
+                er.ErrorOutput("コンフィグファイル読み取りエラー", ex.Message);
             }
         }
 
@@ -255,7 +260,8 @@ namespace digpet.Managers
             }
             else
             {
-                ErrorLogLib.ErrorOutput("キャラファイルバージョンエラー", "バージョン情報が正常に設定されませんでした");
+                ErrorLogLib er = ErrorLogLib.Instance;
+                er.ErrorOutput("キャラファイルバージョンエラー", "バージョン情報が正常に設定されませんでした");
             }
 
             return ret;
@@ -305,7 +311,8 @@ namespace digpet.Managers
             }
             catch (Exception ex)
             {
-                ErrorLogLib.ErrorOutput("イメージ読み取りエラー", ex.Message);
+                ErrorLogLib er = ErrorLogLib.Instance;
+                er.ErrorOutput("イメージ読み取りエラー", ex.Message);
             }
         }
 
@@ -345,6 +352,7 @@ namespace digpet.Managers
             /// <returns></returns>
             public int ReadEntry(ZipArchiveEntry entry)
             {
+                ErrorLogLib er = ErrorLogLib.Instance;
                 int ret = -1;
                 string jsonText = string.Empty;
 
@@ -357,11 +365,11 @@ namespace digpet.Managers
                     Settings? settings_tmp = JsonSerializer.Deserialize<Settings>(jsonText);
                     if (settings_tmp == null)
                     {
-                        ErrorLogLib.ErrorOutput("コンフィグ読み取りエラー", "コンフィグデータがNULLです");
+                        er.ErrorOutput("コンフィグ読み取りエラー", "コンフィグデータがNULLです");
                     }
                     else if (string.IsNullOrEmpty(settings_tmp.charSettings.name))
                     {
-                        ErrorLogLib.ErrorOutput("コンフィグ読み取りエラー", "キャラファイルのコンフィグデータが正しく設定されていない可能性があります");
+                        er.ErrorOutput("コンフィグ読み取りエラー", "キャラファイルのコンフィグデータが正しく設定されていない可能性があります");
                     }
                     else
                     {
@@ -371,7 +379,7 @@ namespace digpet.Managers
                 }
                 catch (Exception ex)
                 {
-                    ErrorLogLib.ErrorOutput("コンフィグ読み取りエラー", ex.Message);
+                    er.ErrorOutput("コンフィグ読み取りエラー", ex.Message);
                 }
 
                 return ret;

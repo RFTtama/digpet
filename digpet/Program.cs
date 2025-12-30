@@ -1,3 +1,4 @@
+using digpet._Controller;
 using digpet.Managers;
 using digpet.Modules;
 
@@ -44,16 +45,19 @@ namespace digpet
 
                 SettingManager.ReadSettingFile(SettingManager.PrivateSettings.SETTING_PATH);
 
-                ClassManager cm = new ClassManager();
-                Digpet digpet = new Digpet(cm.arg);
+                Digpet digpet = Digpet.Instance;
+                IController _controller = Controller.Instance;
+                _controller.Init(digpet);
 
                 Application.Run(digpet);
 
-                cm.Terminator();
+                _controller.Terminator();
+                digpet.Dispose();
             }
             catch (Exception ex)
             {
-                ErrorLogLib.ErrorOutput("未定義のエラー", ex.Message);
+                ErrorLogLib er = ErrorLogLib.Instance;
+                er.ErrorOutput("未定義のエラー", ex.Message);
 
                 if (hasHandle)                                                  //Mutexの解放
                 {
