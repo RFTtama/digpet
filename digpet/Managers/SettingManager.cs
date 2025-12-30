@@ -280,18 +280,6 @@ namespace digpet.Managers
                 }
             }
 
-            //ガーベジコレクタを実行するマネージドメモリ使用量(bytes)
-            public long GcThreshold
-            {
-                get
-                {
-                    return PublicSettingsNew.AplSettings.GcThreshold;
-                }
-                set
-                {
-                    PublicSettingsNew.AplSettings.GcThreshold = value;
-                }
-            }
 
             //ログを削除する日数
             public int LogDeleteDays
@@ -467,9 +455,6 @@ namespace digpet.Managers
                 //キャラ画像サイズ
                 public Size ImageSize { get; set; }
 
-                //ガーベジコレクタを実行するマネージドメモリ使用量(bytes)
-                public long GcThreshold { get; set; }
-
                 //非アクティブモード有効無効
                 public bool EnableNonActiveMode { get; set; }
 
@@ -547,7 +532,6 @@ namespace digpet.Managers
                 CameraSettings.CameraId = 0;
                 CameraSettings.CameraDisableThreshold = 1;
                 TokenSettings.SaveTokenPlot = true;
-                AplSettings.GcThreshold = 20000000;
                 LogSettings.LogDeleteDays = 31;
                 TokenSettings.TokenBackupInterval = 10 * 60;
                 AplSettings.EnableNonActiveMode = false;
