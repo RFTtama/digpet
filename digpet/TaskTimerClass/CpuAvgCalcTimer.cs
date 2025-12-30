@@ -1,6 +1,6 @@
 ﻿using digpet.Managers.GenerakManager;
 
-namespace digpet.TaskTimerClass.TimerFunc
+namespace digpet.TaskTimerClass
 {
     /// <summary>
     /// CPU使用率を管理するためのマネージャ
