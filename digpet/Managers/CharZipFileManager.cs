@@ -1,5 +1,5 @@
 ﻿using digpet.Modules;
-using digpet.TimerClass;
+using digpet.TaskTimerClass.TimerFunc;
 using System.Collections.Immutable;
 using System.IO.Compression;
 using System.Text;
@@ -72,7 +72,8 @@ namespace digpet.Managers
         private bool CheckNeglectEnable()
         {
             if (!SettingManager.PublicSettings.EnablNeglectMode) return false;
-            if (!CameraTimer.IsNeglect) return false;
+            CameraTimer ct = CameraTimer.Instance;
+            if (!ct.IsNeglect) return false;
             return true;
         }
 

@@ -1,15 +1,17 @@
+using digpet._Controller;
+using digpet._View;
 using digpet.Managers;
 using digpet.Modules;
-using digpet.TaskTimerClass;
+using digpet.TaskTimerClass.TimerFunc;
 using System.Diagnostics;
 
 namespace digpet
 {
-    public partial class Digpet : Form
+    public partial class Digpet : Form, IDigpet
     {
         //クラス関連の宣言
-        private TokenManager tokenManager;
-        private CharZipFileManager charZipFileManager;
+        private TokenManager? tokenManager;
+        private CharZipFileManager? charZipFileManager;
 
         //変数関連の宣言
         private bool gotNormalImage;                                    //正常に画像を切り替えることができたか
@@ -21,16 +23,21 @@ namespace digpet
         //定数関連の宣言
         private const int FONT_MARGIN_SIZE = 5;
 
+        private static Lazy<Digpet> _lazy = new(() => new Digpet(), isThreadSafe: true);
+        public static Digpet Instance => _lazy.Value;
+
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public Digpet(ClassManagerArg arg)
+        private Digpet()
         {
             InitializeComponent();
+        }
 
+        public void InitRequest(ClassManagerArg arg)
+        {
             tokenManager = arg.tokenManager;
             charZipFileManager = arg.charZipFileManager;
-            arg.CpuUsageLabelUpdate = UpdateCpuLabel;
 
             Init();
         }
@@ -44,7 +51,7 @@ namespace digpet
             MouseWheel += new MouseEventHandler(MouseWheelEvent);
             gotNormalImage = true;
 
-            tokenManager.Read(SettingManager.PrivateSettings.TOKEN_CALC_PATH);
+            tokenManager?.Read(SettingManager.PrivateSettings.TOKEN_CALC_PATH);
             ReadCharConfig();
             SetNowWindowState();
             ChangeControlVisible();
@@ -84,6 +91,8 @@ namespace digpet
         /// </summary>
         private void UpdateDetailLabels()
         {
+            if (null == tokenManager) return;
+            if (null == charZipFileManager) return;
             EmoStringLabel.Text = charZipFileManager.GetFeelingTag() + GetFeeling(tokenManager.Feeling);
             JBar.Width = (int)(100.0 * tokenManager.JoyFeeling);
             HBar.Width = (int)(100.0 * tokenManager.HappyFeeling);
@@ -148,6 +157,7 @@ namespace digpet
             }
             else
             {
+                if (null == charZipFileManager) return;
                 charZipFileManager.ReadCharSettings(SettingManager.PublicSettings.CharSettingPath);
                 SetControlColor(charZipFileManager.GetControlColor());
             }
@@ -160,6 +170,7 @@ namespace digpet
         /// <returns></returns>
         private string GetFeeling(double feeling)
         {
+            if (null == charZipFileManager) return string.Empty;
             double feel = feeling;
             if (feel > 2.0) feel = 2.0;
             if (feel < -2.0) feel = -2.0;
@@ -248,7 +259,7 @@ namespace digpet
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveNowWindowState();
-            tokenManager.Write(SettingManager.PrivateSettings.TOKEN_CALC_PATH);
+            tokenManager?.Write(SettingManager.PrivateSettings.TOKEN_CALC_PATH);
             SettingManager.WriteSettingFile(SettingManager.PrivateSettings.SETTING_PATH);
         }
 
@@ -503,7 +514,8 @@ namespace digpet
         /// <param name="color">色</param>
         private void SetControlColor(Color color)
         {
-            LogTimer.SaveLog("ControlColor", color.ToString());
+            LogTimer log = LogTimer.Instance;
+            log.SaveLog("ControlColor", color.ToString());
             BackColor = color;
         }
 
@@ -514,6 +526,7 @@ namespace digpet
         /// <param name="e"></param>
         private void ImageChangeTimer_Tick(object sender, EventArgs e)
         {
+            if (null == charZipFileManager) return;
             if (charZipFileManager.GetPictureTurnOverPeriod() <= (imageChangeTimeCnter * 100))
             {
                 ChangeImage();
@@ -533,6 +546,8 @@ namespace digpet
         /// </summary>
         private void ChangeImage()
         {
+            if (null == tokenManager) return;
+            if (null == charZipFileManager) return;
             string feeling = GetFeeling(tokenManager.Feeling);
 
             Image? image = charZipFileManager.GetCharImage(feeling);

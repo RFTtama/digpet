@@ -1,5 +1,5 @@
 ﻿using digpet.Modules;
-using digpet.TaskTimerClass;
+using digpet.TaskTimerClass.TimerFunc;
 using ScottPlot;
 using ScottPlot.Plottables;
 using System.Text.Json;
@@ -208,7 +208,8 @@ namespace digpet.Managers
         /// <param name="minToken">時間毎のトークン(未計算)</param>
         public void AddTokens(double minToken)
         {
-            LogTimer.SaveLog("minToken", minToken.ToString());
+            LogTimer log = LogTimer.Instance;
+            log.SaveLog("minToken", minToken.ToString());
 
             double token = (Tokens * HANDOVER_PERCENT) + minToken;
 #if false

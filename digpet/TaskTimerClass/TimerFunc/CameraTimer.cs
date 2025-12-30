@@ -1,42 +1,43 @@
 ﻿using digpet.Managers;
 using digpet.Managers.GenerakManager;
-using digpet.Models.AbstractModels;
 using digpet.Modules;
 using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
 using OpenCvSharp;
 using System.Diagnostics;
-using System.Net.Http.Headers;
 
-namespace digpet.TimerClass
+namespace digpet.TaskTimerClass.TimerFunc
 {
 
     /// <summary>
     /// カメラ用管理クラス
     /// </summary>
-    public class CameraTimer : TaskClassModel
+    public class CameraTimer: IDisposable
     {
+        private static Lazy<CameraTimer> _lazy = new(() => new CameraTimer(), isThreadSafe: true);
+        public static CameraTimer Instance => _lazy.Value;
+        private System.Threading.Timer? _timer;
+
         //定数宣言
         private const int SmoothCount = 5;
         private const int ImageSizeX = 640;
         private const int ImageSizeY = 640;
 
         //変数宣言
-        private static bool _cameraDisable = false;
-        private int _faceDetected = -1;
-        private int cameraCnt = 0;
-        private double _detectAvg = 0.0;
-        private bool _avgCalcFlg = false;
-        private bool init = false;
-        private bool isDetectBySmooth = false;
+        private static bool _cameraDisable;
+        private int _faceDetected;
+        private int cameraCnt;
+        private double _detectAvg;
+        private bool _avgCalcFlg;
+        private bool isDetectBySmooth;
 
         //クラス宣言
-        private static readonly RingFlagMemClass ringMem = new RingFlagMemClass(10);
-        private AvgManager detectAvgManager = new AvgManager();
-        private static VideoCapture capture = new VideoCapture();
-        private RingFlagMemClass smoothMem = new RingFlagMemClass(SmoothCount);
-        private static RingFlagMemClass neglectMem = new RingFlagMemClass(0);
-        private static InferenceSession? session;
+        private RingFlagMemClass ringMem;
+        private AvgManager detectAvgManager;
+        private VideoCapture capture;
+        private RingFlagMemClass smoothMem;
+        private RingFlagMemClass neglectMem;
+        private InferenceSession? session;
 
         //ゲッターなど
         public int FaceDetected
@@ -55,7 +56,7 @@ namespace digpet.TimerClass
         {
             get { return _cameraDisable; }
         }
-        public static bool IsNeglect
+        public bool IsNeglect
         {
             get { return ((neglectMem.GetTotalOfTrue() == 0) && (CheckCameraModeEnable())); }
         }
@@ -63,9 +64,25 @@ namespace digpet.TimerClass
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public CameraTimer()
+        private CameraTimer()
         {
+            //変数宣言
+            _cameraDisable = false;
+            _faceDetected = -1;
+            cameraCnt = 0;
+            _detectAvg = 0.0;
+            _avgCalcFlg = false;
+            isDetectBySmooth = false;
+
+            //クラス宣言
+            ringMem = new RingFlagMemClass(10);
+            detectAvgManager = new AvgManager();
+            capture = new VideoCapture();
+            smoothMem = new RingFlagMemClass(SmoothCount);
+            neglectMem = new RingFlagMemClass(0);
+
             Init();
+            _timer = new(TaskFunc, null, 0, 1000);
         }
 
         /// <summary>
@@ -97,8 +114,6 @@ namespace digpet.TimerClass
                 ErrorLogLib.ErrorOutput("CameraTimer初期化エラー", ex.Message);
                 DisposeCapture();
             }
-
-            init = true;
         }
 
         /// <summary>
@@ -112,7 +127,7 @@ namespace digpet.TimerClass
         /// <summary>
         /// キャプチャを破棄する
         /// </summary>
-        private static void DisposeCapture()
+        private void DisposeCapture()
         {
             if (!capture.IsDisposed)
             {
@@ -125,7 +140,7 @@ namespace digpet.TimerClass
         /// <summary>
         /// デストラクタ
         /// </summary>
-        ~CameraTimer()
+        public void Dispose()
         {
             DisposeCapture();
         }
@@ -134,14 +149,13 @@ namespace digpet.TimerClass
         /// 1s毎に実行される関数
         /// </summary>
         /// <returns></returns>
-        public override TaskReturn TaskFunc()
+        private void TaskFunc(object? obj)
         {
-            if (!init) return TaskReturn.TASK_SUCCESS;
-
             if (!CheckCameraModeEnable())
             {
                 _faceDetected = -1;
-                return TaskReturn.TASK_SUCCESS;
+                ringMem.Add(false);
+                return;
             }
 
             _faceDetected = TakePhotoAndDetectFace();
@@ -152,11 +166,15 @@ namespace digpet.TimerClass
             }
             CalcNeglect(FaceDetected);
 
-            if (FaceDetected < 0) return TaskReturn.TASK_FAILURE;
+            if (FaceDetected < 0)
+            {
+                ringMem.Add(true);
+                return;
+            }
 
             CalcProcess();
 
-            return TaskReturn.TASK_SUCCESS;
+            ringMem.Add(false);
         }
 
         /// <summary>
@@ -186,7 +204,7 @@ namespace digpet.TimerClass
         /// カメラモードが有効か調べる
         /// </summary>
         /// <returns>true: 有効, false: 無効</returns>
-        private static bool CheckCameraModeEnable()
+        private bool CheckCameraModeEnable()
         {
             if (!SettingManager.PublicSettings.EnableCameraMode)
             {
@@ -303,29 +321,6 @@ namespace digpet.TimerClass
                 }
 
                 return flame.Clone();
-            }
-        }
-
-        /// <summary>
-        /// 戻り値確認
-        /// </summary>
-        /// <param name="ret"></param>
-        public override void TaskCheckRet(TaskReturn ret)
-        {
-            switch (ret)
-            {
-                case TaskReturn.TASK_SUCCESS:
-                    ringMem.Add(false);
-                    break;
-
-                case TaskReturn.TASK_BLOCKED:
-                case TaskReturn.TASK_FAILURE:
-                    ringMem.Add(true);
-                    break;
-
-                default:
-                    ringMem.Add(true);
-                    break;
             }
         }
 
