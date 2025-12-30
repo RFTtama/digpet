@@ -1,5 +1,5 @@
 ﻿using digpet.Modules;
-using digpet.TaskTimerClass.TimerFunc;
+using digpet.TaskTimerClass;
 using System.Collections.Immutable;
 using System.IO.Compression;
 using System.Text;

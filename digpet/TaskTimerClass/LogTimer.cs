@@ -2,7 +2,7 @@
 using digpet.Modules;
 using System.Globalization;
 
-namespace digpet.TaskTimerClass.TimerFunc
+namespace digpet.TaskTimerClass
 {
     public class LogTimer
     {

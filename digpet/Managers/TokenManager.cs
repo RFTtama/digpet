@@ -1,5 +1,5 @@
 ﻿using digpet.Modules;
-using digpet.TaskTimerClass.TimerFunc;
+using digpet.TaskTimerClass;
 using ScottPlot;
 using ScottPlot.Plottables;
 using System.Text.Json;

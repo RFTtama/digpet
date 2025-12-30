@@ -1,6 +1,6 @@
 ﻿using digpet.Managers;
 using digpet.Modules;
-using digpet.TaskTimerClass.TimerFunc;
+using digpet.TaskTimerClass;
 
 namespace digpet._Controller
 {

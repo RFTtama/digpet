@@ -6,7 +6,7 @@ using Microsoft.ML.OnnxRuntime.Tensors;
 using OpenCvSharp;
 using System.Diagnostics;
 
-namespace digpet.TaskTimerClass.TimerFunc
+namespace digpet.TaskTimerClass
 {
 
     /// <summary>
